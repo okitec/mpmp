@@ -1,16 +1,22 @@
 Sitzung 1
-=====================
-Datum: 21.04.16
+=========
+
+Datum: 21.04.2016
+
 Anwesend: Simon, Leander, Klaus, Matthias, oki, Daniel, Oskar
+
 Abwesend: -
+
 Protokollant: Klaus
 
 TAGESORDNUNGSPUNKTE
 -------------------
+
  - Projekt festlegen
 
 Ergebnisse
 ----------
+
  - Netzwerkbasiertes Monopoly mit optionaler Chatmöglichkeit
  - Teamspeak 3 als Austauschplattform außerhalb der Schule
  - Farben der Karten:
@@ -21,18 +27,24 @@ Ergebnisse
  - Entwicklungsumgebung: Eclipse
  
 Sitzung 2
-========
-Datum: 25.04.16
+=========
+
+Datum: 25.04.2016
+
 Anwesend: Simon, Leander, Klaus, Matthias, Oskar, Oki, Daniel
+
 Abwesend: -
+
 Protokollant: Klaus
 
 TAGESORDNUNGSPUNKTE
 -------------------
+
  - E-Mails austauschen
  
 Ergebnisse
 ----------
+
  - Teamspeak-Server wird von Matthias bereitgestellt
  - Mailadressen wurden gesammelt
  - Simon findet mich cool
@@ -41,52 +53,51 @@ Ergebnisse
  - Vorbereitung der ersten User-Stories
    * Easter-Egg: Comic Sans MS für jedem Straßennamen verwenden
    * Umsetzung mit dem Model-View-Controller-Modell
-   * 
-   
 
 Sitzung 3
-========
-Datum: 
+=========
+
+Datum: 28.04.2016
+
 Anwesend: Simon, Leander, Klaus, Matthias, Oskar, Oki, Daniel
+
 Abwesend: -
+
 Protokollant: Klaus
 
 TAGESORDNUNGSPUNKTE
 -------------------
+
  - [ ] Mockup der GUI
  - [ ] Lasten/Pflichtenheft machen // Spezifikationen festlegen
 	* [ ] Feld
-	* [ ] 
- 
+
 Ergebnisse
 ----------
+
  - xxx
    * xxx
  - Die Regeln sind die von Monopoly Deutschland
  - Währung: REICHSmark
  - Name: MPMP
 
-   
-   
-   
-   
-
-   
-   
-   
-   
 Sitzung X
-========
-Datum: 
+=========
+
+Datum:
+
 Anwesend: Simon, Leander, Klaus, Matthias, Oskar, Oki, Daniel
+
 Abwesend: -
+
 Protokollant: Klaus
 
 TAGESORDNUNGSPUNKTE
 -------------------
+
  - 
  
 Ergebnisse
 ----------
  - xxx
-   • xxx
+   * xxx
