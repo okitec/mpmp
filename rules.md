@@ -1,13 +1,13 @@
 Regeln von MPMP (Unvollständig)
-========
+===============
 
 Rdm Thoughts
 ------------
 - Auktionen durchführen
 - Inflation als Feature??
 
-Bankhalter (wird vom Server übernommen)
----------------------------------------
+Bank (wird vom Server übernommen)
+---------------------------------
 - Spielgeld verwalten
 - Besitzrechtkarten verwalten
 - Apartments und Hotels verwalten
@@ -19,13 +19,12 @@ Spielablauf
 
 Grundstücke kaufen
 ------------------
-- Grundstücke kann man nur kaufen, wenn sichseine Spielfigur auf dem Grundstücksfeld befindet und er genug Geld hat
-Autkionen
+- Ein Spieler kann nur dann ein Grundstück kaufen, wenn sich seine Spielfigur auf dem Grundstücksfeld befindet und er genug Geld hat.
 
 Miete zahlen
 -------------
-- Wenn ein Spieler auf ein Grundstücksfeld eines anderen Spielers kommt, so muss er die Miete zahlen
-- Die Miete ist auf der Besitzrechtkarte verankert
+- Wenn ein Spieler auf ein Grundstücksfeld eines anderen Spielers kommt, so muss er die Miete zahlen.
+- Die Miete ist auf der Besitzrechtkarte verankert und hängt von der Straße, sowie von der Anzahl der Häuser bzw. Hotels auf der Straße ab.
 
 Versorgungswerke
 ----------------
