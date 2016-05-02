@@ -68,15 +68,13 @@ Protokollant: Klaus
 TAGESORDNUNGSPUNKTE
 -------------------
 
- - [ ] Mockup der GUI
+ - [x] Mockup der GUI
  - [ ] Lasten/Pflichtenheft machen // Spezifikationen festlegen
 	* [ ] Feld
 
 Ergebnisse
 ----------
 
- - xxx
-   * xxx
  - Die Regeln sind die von Monopoly Deutschland
  - Währung: REICHSmark
  - Name: MPMP
@@ -95,7 +93,7 @@ Protokollant: Klaus
 TAGESORDNUNGSPUNKTE
 -------------------
 
- - 
+ - [X] Regeln bestimmen
  
 Ergebnisse
 ----------
