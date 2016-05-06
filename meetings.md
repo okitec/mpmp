@@ -90,7 +90,7 @@ Protokollant: Leander Dreier
 
 Ergebnisse
 ----------
-Vervollständigung des Regelwerks. 2b62664c85d41ed31cb3ccd4fd7cf7d9539c3ec6
+Vervollständigung des Regelwerks.
 
 Sitzung X
 =========
