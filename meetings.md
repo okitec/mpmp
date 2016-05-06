@@ -78,6 +78,19 @@ Ergebnisse
  - Die Regeln sind die von Monopoly Deutschland
  - Währung: REICHSmark
  - Name: MPMP
+ 
+Sitzung 4
+=========
+
+Datum: 06.05.2016
+
+Anwesend: Oskar Loeprecht, Leander Dreier
+
+Protokollant: Leander Dreier
+
+Ergebnisse
+----------
+Vervollständigung des Regelwerks. 2b62664c85d41ed31cb3ccd4fd7cf7d9539c3ec6
 
 Sitzung X
 =========
