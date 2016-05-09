@@ -33,8 +33,6 @@ Datum: 25.04.2016
 
 Anwesend: Simon, Leander, Klaus, Matthias, Oskar, Oki, Daniel
 
-Abwesend: -
-
 Protokollant: Klaus
 
 TAGESORDNUNGSPUNKTE
@@ -60,8 +58,6 @@ Sitzung 3
 Datum: 28.04.2016
 
 Anwesend: Simon, Leander, Klaus, Matthias, Oskar, Oki, Daniel
-
-Abwesend: -
 
 Protokollant: Klaus
 
@@ -98,8 +94,6 @@ Sitzung X
 Datum:
 
 Anwesend: Simon, Leander, Klaus, Matthias, Oskar, Oki, Daniel
-
-Abwesend: -
 
 Protokollant: Klaus
 
