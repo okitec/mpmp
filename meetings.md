@@ -88,6 +88,26 @@ Ergebnisse
 ----------
 Vervollständigung des Regelwerks.
 
+Sitzung 5
+=========
+
+Datum: 09.05.2016
+
+Anwesend: Matthias, Oskar, Oki, Daniel
+
+Protokollant: oki
+
+TAGESORDNUNGSPUNKTE
+-------------------
+
+ - [X] Eclipse zeigen, vllt. erster Programmentwurf
+ 
+Ergebnisse
+----------
+
+ - Eclipse muss erst installiert werden.
+ - Ein paar Mouse-Events wurden ausprobiert in einem kleinen Zähler-Programm.
+
 Sitzung X
 =========
 
