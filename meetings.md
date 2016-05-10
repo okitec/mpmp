@@ -93,7 +93,7 @@ Sitzung 5
 
 Datum: 09.05.2016
 
-Anwesend: Matthias, Oskar, Oki, Daniel
+Anwesend: Matthias, Oskar, oki, Daniel
 
 Protokollant: oki
 
@@ -113,7 +113,7 @@ Sitzung X
 
 Datum:
 
-Anwesend: Simon, Leander, Klaus, Matthias, Oskar, Oki, Daniel
+Anwesend: Simon, Leander, Klaus, Matthias, Oskar, oki, Daniel
 
 Protokollant: Klaus
 
