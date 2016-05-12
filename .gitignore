@@ -1,4 +1,6 @@
+# Build relics
 *.class
+mpmp/bin
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -12,3 +14,6 @@
 hs_err_pid*
 
 secrets.md
+
+# Eclipse stuff
+.metadata
