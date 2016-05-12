@@ -108,21 +108,17 @@ Ergebnisse
  - Eclipse muss erst installiert werden.
  - Ein paar Mouse-Events wurden ausprobiert in einem kleinen Zähler-Programm.
 
-Sitzung X
+Sitzung 6
 =========
 
-Datum:
+Datum: 12.05.16
 
-Anwesend: Simon, Leander, Klaus, Matthias, Oskar, oki, Daniel
+Anwesend: Leander, Klaus, Matthias, oki, Daniel
 
 Protokollant: Klaus
 
 TAGESORDNUNGSPUNKTE
 -------------------
 
- - [X] Regeln bestimmen
- 
-Ergebnisse
-----------
- - xxx
-   * xxx
+ - [ ] Erster Code-Mockup
+ - [ ] Grafiken weiter..
