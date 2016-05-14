@@ -46,7 +46,7 @@ public class Mainframe extends JFrame {
 			public void keyPressed(KeyEvent arg0) {
 				Document doc = chatBox.getDocument();
 				try {
-					if (arg0.getKeyCode() == arg0.VK_ENTER) {
+					if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
 						// XXX add scrolling to the chat box
 						String line = chatField.getText();
 						if(line.length() == 0)
