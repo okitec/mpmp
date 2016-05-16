@@ -5,8 +5,6 @@ Protokollversion: 0
 
 Verwendung von HTTP: n
 
-Verwendung von Java: n
-
 Port: 1918
 
 
@@ -15,34 +13,35 @@ Paketeübersicht
 
 ### Client -> Server
 
-	- Tauschen
-	- Straße kaufen
-	- Haus kaufen
-	- Aufgeben
-	- Runde beenden
-	- Karte einsetzen (Gefängnisfrei-Karte)
-	- Chateingabe senden
-	- Disconnect
+ - Tauschen
+ - Straße kaufen
+ - Haus kaufen
+ - Aufgeben
+ - Runde beenden
+ - Karte einsetzen (Gefängnisfrei-Karte)
+ - Chateingabe senden
+ - Disconnect
 
 	
 ### Server -> Client
 
-	- Gesamtchat senden
-	- Fehlermeldungen bei unerlaubter Handlung
-	- Disconnect (mit Grund (z.B. Kick))
-	- Quittiermeldungen (s. oben)
-	- Ereignis- & Gemeinschaftskarten
-	- Update des Spiels
-		* Bewegung einer Spielfigur
-		* "Wieder am Zug"
-	- Geld bekommen
-		* Mieten
-		* Karten (s. oben)
-		* Gehalt (Überqueren des Startes)
+ - Gesamtchat senden
+ - Fehlermeldungen bei unerlaubter Handlung
+ - Disconnect (mit Grund (z.B. Kick))
+ - Quittiermeldungen (s. oben)
+ - Ereignis- & Gemeinschaftskarten
+ - Update des Spiels
+    * Bewegung einer Spielfigur
+    * "Wieder am Zug"
+ - Geld bekommen
+    * Mieten
+    * Karten (s. oben)
+    * Gehalt (Überqueren des Startes)
 
 
 Chat
 ----
+
 Beispiel:
 
 	C: chat Des is hier doch alles Schiebung!
