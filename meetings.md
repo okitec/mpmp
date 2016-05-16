@@ -122,3 +122,18 @@ TAGESORDNUNGSPUNKTE
 
  - [ ] Erster Code-Mockup
  - [ ] Grafiken weiter..
+ 
+Sitzung 7
+=========
+
+Datum: 16.05.16
+
+Anwesend: Leander, oki
+
+Protokollant: Leander
+
+Ergebnisse
+----------
+
+ - Protokolldesign grob fertig
+ - Servergerüst erstellt
