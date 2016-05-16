@@ -51,7 +51,7 @@ Bahnhöfe
 
 Apartments und Hotels bauen
 ----------------
-- Wenn ein Spieler alle Häuser einer Farbgruppe besitzt, kann er dort Häuser bauen.
+- Wenn ein Spieler alle Grundstücke einer Farbgruppe besitzt, kann er dort Häuser bauen.
 - Die Häuser müssen gleichmäßig auf die Farbgruppe verteilt werden, es darf also in einer Straße erst das zweite Haus gebaut werden, wenn in allen Straßen der Gruppe je ein Haus steht.
 - Die Kaufpreise für die Häuser und die Mieten für die Grundstücke mit den unterschiedlichen Häuserzahlen können Sie der Straßenkarte entnehmen.
 - In jeder Straße dürfen nur 4 *grüne* Häuser stehen. Das fünfte Gebäude wird dann ein *rotes* Hotel: Es kostet die vier Häuser plus den Preis für ein fünftes Haus.
