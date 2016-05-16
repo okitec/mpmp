@@ -10,7 +10,7 @@ import view.View;
  * @author leander.dreier
  *
  */
-public class Main {
+public class Controller {
 
 	/**
 	 * @param args
@@ -19,5 +19,4 @@ public class Main {
 		Model m = new Model();
 		View v = new View(m);
 	}
-
 }
