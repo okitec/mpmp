@@ -1,11 +1,11 @@
 /**
- * 
+ * Model part of the MVC model; actually just a proxy to the server,
+ * which has the real model.
  */
 package model;
 
 /**
- * @author leander.dreier
- *
+ * @author Leander, oki
  */
 public class Model {
 

@@ -1,5 +1,5 @@
 /**
- * 
+ * Controller part of the MVC model
  */
 package controller;
 
@@ -7,8 +7,10 @@ import model.Model;
 import view.View;
 
 /**
- * @author leander.dreier
+ * Controller class of the MVC model; currently not used correctly.
+ * The main method is also located here.
  *
+ * @author Leander, oki
  */
 public class Controller {
 

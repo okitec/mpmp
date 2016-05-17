@@ -1,11 +1,12 @@
 /**
- * 
+ * mpmp server; see proto.md for the protocol
  */
 package main;
 
 /**
- * @author Leander
+ * Main class of the server
  *
+ * @author Leander, oki
  */
 public class Main {
 
@@ -13,8 +14,7 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		System.out.println("Hello, world!");
+		System.exit(0);
 	}
-
 }

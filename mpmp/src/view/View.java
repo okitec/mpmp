@@ -1,5 +1,5 @@
 /**
- * 
+ * View part of the MVC model
  */
 package view;
 
@@ -8,8 +8,10 @@ import java.awt.EventQueue;
 import model.Model;
 
 /**
- * @author leander.dreier
+ * Main View class; it instantiates the needed frames and passes the requests to them
+ * instead of handling them itself.
  *
+ * @author Leander, oki
  */
 public class View {
 	private Model m;
