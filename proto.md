@@ -3,15 +3,17 @@ Protokoll
 
 Protokollversion: 0
 
-Verwendung von HTTP: n
+Das Protokoll ist ein simples textbasiertes Protokoll mit Ähnlichkeit zu POP3.
+Beide Seiten, Client und Server, senden unaufgefordert Pakete aus, die das
+Gegenüber jeweils quittiert.
 
-Port: 1918
+Der momentan verwendete Port ist 1918.
+
+Paketübersicht
+--------------
 
 
-Paketeübersicht
----------------
-
-### Client -> Server
+### Client → Server
 
  - Tauschen
  - Straße kaufen
@@ -23,13 +25,13 @@ Paketeübersicht
  - Disconnect
 
 	
-### Server -> Client
+### Server → Client
 
  - Gesamtchat senden
  - Fehlermeldungen bei unerlaubter Handlung
  - Disconnect (mit Grund (z.B. Kick))
  - Quittiermeldungen (s. oben)
- - Ereignis- & Gemeinschaftskarten
+ - Ereignis- und Gemeinschaftskarten
  - Update des Spiels
     * Bewegung einer Spielfigur
     * "Wieder am Zug"
@@ -46,7 +48,7 @@ Beispiel:
 
 	C: chat Des is hier doch alles Schiebung!
 	S: +JAWOHL
-	S: chat-update 3 messages
+	S: chat-update 4 messages (one per line)
 	S: (Oskar) foo
 	S: (Simon) bar
 	S: (Dani) Oki is doof
