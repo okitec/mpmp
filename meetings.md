@@ -1,139 +1,80 @@
-Sitzung 1
-=========
+Protokoll der Arbeiten
+======================
 
-Datum: 21.04.2016
 
-Anwesend: Simon, Leander, Klaus, Matthias, oki, Daniel, Oskar
+Der Protokollant ist in der Anwesenheitsliste *hervorgehoben*.
 
-Abwesend: -
 
-Protokollant: Klaus
+Sitzung am 21.04.2016
+---------------------
 
-TAGESORDNUNGSPUNKTE
--------------------
-
- - Projekt festlegen
-
-Ergebnisse
-----------
+Anwesend: Simon, Leander, *Klaus*, Matthias, oki, Daniel, Oskar
 
  - Netzwerkbasiertes Monopoly mit optionaler Chatmöglichkeit
  - Teamspeak 3 als Austauschplattform außerhalb der Schule
- - Farben der Karten:
-	Rot=Funktion/Userstory
-	Grün=Design/Userstory
-	Blau=Funktion/Task
-	Gelb=Design/Task
- - Entwicklungsumgebung: Eclipse
+ - Bedeutung der Project Board-Karten:
+
+   Farbe | Typ       | Bedeutung
+   --------------------------
+   Rot   | Userstory | Funktion
+   Grün  | Userstory | Design
+   Blau  | Task      | Funktion
+   Gelb  | Task      | Design
+
+ - Entwicklungsumgebung: Eclipse :/
  
-Sitzung 2
-=========
+Sitzung am 25.04.2016
+---------------------
 
-Datum: 25.04.2016
+Anwesend: Simon, Leander, *Klaus*, Matthias, Oskar, oki, Daniel
 
-Anwesend: Simon, Leander, Klaus, Matthias, Oskar, Oki, Daniel
-
-Protokollant: Klaus
-
-TAGESORDNUNGSPUNKTE
--------------------
-
- - E-Mails austauschen
- 
-Ergebnisse
-----------
-
+ - E-Mails ausgetauscht
  - Teamspeak-Server wird von Matthias bereitgestellt
- - Mailadressen wurden gesammelt
- - Simon findet mich cool
- - Das Token ist ineffizient
- - WhatsApp-Gruppe für alle außer Oki
+ - Das Token ist ineffizient und wird nicht mehr verwendet
+ - WhatsApp-Gruppe für alle außer oki
  - Vorbereitung der ersten User-Stories
    * Easter-Egg: Comic Sans MS für jedem Straßennamen verwenden
-   * Umsetzung mit dem Model-View-Controller-Modell
+   * Umsetzung mit MVC
 
-Sitzung 3
-=========
+Sitzung am 28.04.2016
+---------------------
 
-Datum: 28.04.2016
+Anwesend: Simon, Leander, *Klaus*, Matthias, Oskar, oki, Daniel
 
-Anwesend: Simon, Leander, Klaus, Matthias, Oskar, Oki, Daniel
-
-Protokollant: Klaus
-
-TAGESORDNUNGSPUNKTE
--------------------
-
- - [x] Mockup der GUI
- - [ ] Lasten/Pflichtenheft machen // Spezifikationen festlegen
-	* [ ] Feld
-
-Ergebnisse
-----------
-
- - Die Regeln sind die von Monopoly Deutschland
+ - Wir übernehmen die Regeln von Monopoly Deutschland.
  - Währung: REICHSmark
  - Name: MPMP
- 
-Sitzung 4
-=========
+ - Layout wird von Klaus in Gimp erstellt.
 
-Datum: 06.05.2016
+Außerschulisches Arbeiten am 06.05.2016
+---------------------------------------
 
-Anwesend: Oskar Loeprecht, Leander Dreier
+Anwesend: Oskar, *Leander*
 
-Protokollant: Leander Dreier
+ - Vervollständigung des Regelwerks in der Datei rules.md.
 
-Ergebnisse
-----------
-Vervollständigung des Regelwerks.
+Sitzung am 09.05.2016
+---------------------
 
-Sitzung 5
-=========
+Anwesend: Matthias, Oskar, *oki*, Daniel
 
-Datum: 09.05.2016
-
-Anwesend: Matthias, Oskar, oki, Daniel
-
-Protokollant: oki
-
-TAGESORDNUNGSPUNKTE
--------------------
-
- - [X] Eclipse zeigen, vllt. erster Programmentwurf
- 
-Ergebnisse
-----------
-
- - Eclipse muss erst installiert werden.
+ - Eclipse muss erst installiert und demonstriert werden.
  - Ein paar Mouse-Events wurden ausprobiert in einem kleinen Zähler-Programm.
+ - Eclipse ist dem Protokollant nach die falsche Wahl.
 
-Sitzung 6
-=========
+Sitzung am 12.05.2016
+---------------------
 
-Datum: 12.05.16
+Anwesend: Leander, *Klaus*, Matthias, oki, Daniel
 
-Anwesend: Leander, Klaus, Matthias, oki, Daniel
-
-Protokollant: Klaus
-
-TAGESORDNUNGSPUNKTE
--------------------
-
- - [ ] Erster Code-Mockup
- - [ ] Grafiken weiter..
+ - Leander und oki erstellen das Eclipse-Projekt und machen eine Chatbox.
+ - Klaus und Matthias kreieren SVG-Grafiken.
+ - Dani recherchiert zuerst Straßennamen und hilft dann beim Coding.
  
-Sitzung 7
-=========
+Außerschulisches Arbeiten am 16.05.2016
+---------------------------------------
 
-Datum: 16.05.16
+Anwesend: *Leander*, oki
 
-Anwesend: Leander, oki
-
-Protokollant: Leander
-
-Ergebnisse
-----------
-
- - Protokolldesign grob fertig
+ - Protokolldesign grob fertig (→ [proto.md](proto.md))
  - Servergerüst erstellt
