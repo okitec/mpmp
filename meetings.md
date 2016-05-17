@@ -15,7 +15,7 @@ Anwesend: Simon, Leander, *Klaus*, Matthias, oki, Daniel, Oskar
  - Bedeutung der Project Board-Karten:
 
    Farbe | Typ       | Bedeutung
-   --------------------------
+   ------|-----------|-------
    Rot   | Userstory | Funktion
    Grün  | Userstory | Design
    Blau  | Task      | Funktion
