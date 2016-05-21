@@ -11,30 +11,31 @@ verändern kann, wurden angegeben.
 
 <svg xmlns="http://www.w3.org/2000/svg" width="304" height="506">
 	
-	<title>Ereignisfeld</title>
-
+	<title>FreiParkenfeld</title>
+	
 	 <!--
 		Fixer Teil (plz. don't edit dis)
 		 (Fast) originale Monopoly-Schriftfarbe: #231f20
 		 Aktuelle Hintergrundfarbe: #f7f7cf (bewusst nicht weiß)
-	 -->
+		 
+		 Farben der Felder:
+		 Gefängnis-Orange	#ca4a24
+		 Polizist-Blau		#428db7
+		 Los-Pfeil			#ed1c24
+		 Frei-Parken-Rot	#ee2d2b
+		 Outlines/Sonstiges	#231f20
 
+	 -->
+	 
 	<rect id = "Feld Rahmen"
-		x="0" y="0" width="304" height="506"
-		rx="0" ry="0" fill="#231f20" stroke=""
+		x="0" y="0" width="506" height="506" fill="#231f20"
 	/>
 	<rect id = "Feld"
-		x="2" y="2" width="300" height="502"
-		rx="0" ry="0" fill="#f7f7cf" stroke=""
+		x="2" y="2" width="502" height="502" fill="#f7f7cf"
 	/>
-	
-	<!--
-		TODO: Fragezeichen einfügen
-	-->
-	
-	<text id = "Grundstücksname"
-		x="150" y="150" font-family="Arial" font-size="30px" style="stroke: #000000" text-anchor="middle">
-		Gemeinschaftsfeld
-	</text>
+	<rect id = "Farbe Rahmen"
+		x="120" y="2" width="384" height="384" fill="#000000"
+	/>
+
 </svg>
 

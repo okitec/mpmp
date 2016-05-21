@@ -9,11 +9,11 @@ ohne, dass sie unscharf wird. Die Elemente sind relativ selbsterklärend, Sachen
 verändern kann, wurden angegeben.
 -->
 
-<svg xmlns="http://www.w3.org/2000/svg"
-     width="304" height="506"
-     viewBox="0 0 314 516">
+<svg xmlns="http://www.w3.org/2000/svg" width="304" height="506">
+	
+	<title>Bahnhofsfeld</title>
 
-<rect id = "Feld Rahmen"
+	<rect id = "Feld Rahmen"
 		x="0" y="0" width="304" height="506"
 		rx="0" ry="0" fill="#231f20" stroke=""
 	/>
