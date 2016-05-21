@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg" width="304" height="506">
+	
+	<title>Taxes</title>
+
+	<rect id = "field_rahmen"
+		x="0" y="0" width="304" height="506" fill="#231f20"
+	/>
+	
+	<rect id = "field"
+		x="2" y="2" width="300" height="502" fill="#f7f7cf"
+	/>
+</svg>
+
