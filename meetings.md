@@ -78,3 +78,10 @@ Anwesend: *Leander*, oki
 
  - Protokolldesign grob fertig (→ [proto.md](proto.md))
  - Servergerüst erstellt
+ 
+Außerschulisches Arbeiten am 21.05.2016
+---------------------------------------
+
+Anwesend: *Leander*, oki
+
+ - Server, der beliebig viele Verbindungen aufnehmen kann und allen Clients dieselbe Nachricht schickt.
