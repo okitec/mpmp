@@ -22,13 +22,13 @@
 	/>
 
 	<text id = "oneliner"
-		x="150" y="195" font-family="Monopoly" font-size="30px" fill="##231f20"
+		x="150" y="195" font-family="Monopoly" font-size="30px" fill="#231f20"
 		style="stroke: #000000" text-anchor="middle">
 		Weimarer Strasse
 	</text>
 	
 	<text id = "twoliner"
-		font-family="Monopoly" font-size="30px" fill="##231f20"
+		font-family="Monopoly" font-size="30px" fill="#231f20"
 		style="stroke: #000000" text-anchor="middle">
 		<tspan x="150" y="182">
 			Weimarer
