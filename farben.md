@@ -33,37 +33,45 @@ Die benötigten Dateien liegen (wahrscheinlich illegal) in [graphics/fonts/](gra
 ### Hier mal ein paar Beispiele:
 
 `fill="..."` beschreibt die Farbe. Hier kann man Farben (weiter unten im Text) einfügen
-	<rect id = "Farbe"
-		x="2" y="2" width="300" height="93" fill="#d01f26"
-	/>
+```SVG
+<rect id = "Farbe"
+	x="2" y="2" width="300" height="93" fill="#d01f26"
+/>
+```
 
 *Weimarer Strasse* wird nun als einzeiliger Straßenname angezeigt.
 Bei kurzen Namen reicht das völlig aus.
-	<text id = "Einzeilig"
-		x="150" y="195" font-family="Monopoly" font-size="30px" fill="##231f20"
-		style="stroke: #000000" text-anchor="middle">
-		Weimarer Strasse
-	</text>
+```SVG
+<text id = "Einzeilig"
+	x="150" y="195" font-family="Monopoly" font-size="30px" fill="##231f20"
+	style="stroke: #000000" text-anchor="middle">
+	Weimarer Strasse
+</text>
+```
 
 *Weimarer Straße* wird nun als zweizeiliger Straßenname angezeigt.
 Hilfreich bei längeren Namen.
-	<text id = "Zweizeilig"
-		font-family="Monopoly" font-size="30px" fill="##231f20"
-		style="stroke: #000000" text-anchor="middle">
-		<tspan x="150" y="182">
-			Weimarer
-		</tspan>
-		<tspan x="150" y="212">
-			Stra&#223;e
-		</tspan>
-	</text>
+```SVG
+<text id = "Zweizeilig"
+	font-family="Monopoly" font-size="30px" fill="##231f20"
+	style="stroke: #000000" text-anchor="middle">
+	<tspan x="150" y="182">
+		Weimarer
+	</tspan>
+	<tspan x="150" y="212">
+		Stra&#223;e
+	</tspan>
+</text>
+```
 
 Das Grundstück kostet hier *7200 RM*. Der Preis wird immer folgendermaßen angegeben:
 `RM X`, wobei `X` der Preis ist.
-	<text id = "Preis"
-		x="150" y="480" font-family="Monopoly" font-size="33px" text-anchor="middle">
-		RM 7200
-	</text>
+```SVG
+<text id = "Preis"
+	x="150" y="480" font-family="Monopoly" font-size="33px" text-anchor="middle">
+	RM 7200
+</text>
+```
 
 Verwendete Farben und hilfreiche HTML-Codes
 -------------------------------------------
