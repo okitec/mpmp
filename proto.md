@@ -9,6 +9,9 @@ Gegenüber jeweils quittiert.
 
 Der momentan verwendete Port ist 1918.
 
+Serveradresse: `leander3.ddns.net` (betrieben von @leletec)
+Server läuft nicht immer, sondern auf Wunsch.
+
 Paketübersicht
 --------------
 
