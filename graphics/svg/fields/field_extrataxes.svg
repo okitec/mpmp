@@ -3,14 +3,24 @@
 
 <svg xmlns="http://www.w3.org/2000/svg" width="304" height="506">
 	
-	<title>Taxes</title>
+	<title>Extra Taxes</title>
 
-	<rect id = "field_rahmen"
+	<rect id = "field_border"
 		x="0" y="0" width="304" height="506" fill="#231f20"
 	/>
 	
 	<rect id = "field"
 		x="2" y="2" width="300" height="502" fill="#f7f7cf"
 	/>
+	
+	<text id = "tag"
+		x="150" y="75" font-family="Monopoly" font-size="30px" style="stroke: #000000" text-anchor="middle">
+		Zusatzsteuern
+	</text>
+	
+	<text id = "price"
+		x="150" y="480" font-family="Monopoly" font-size="33px" text-anchor="middle">
+		RM 2000
+	</text>
 </svg>
 

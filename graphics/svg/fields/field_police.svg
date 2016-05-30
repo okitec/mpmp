@@ -399,16 +399,18 @@
              248.00,353.00 264.00,352.00 264.00,352.00
              264.00,352.00 268.33,324.00 268.33,324.00 Z" />
 
-	<text id = "toplabel"
-		x="379" y="126" font-family="Monopoly" font-size="45px" stroke="#000000" text-anchor="middle"
-		transform = "rotate(45 379 126)">
-		Gehen Sie
-	</text>
+	<g font-family="Monopoly" font-size="45px" stroke="#000000" text-anchor="middle">
+		<text id = "toplabel"
+			x="379" y="126"
+			transform = "rotate(45 379 126)">
+			Gehen Sie
+		</text>
 	
-	<text id = "bottomlabel"
-		x="126" y="379" font-family="Monopoly" font-size="45px" stroke="#000000" text-anchor="middle"
-		transform = "rotate(45 126 379)">
-		in das Gefaengnis
-	</text>
+		<text id = "bottomlabel"
+			x="126" y="379"  
+			transform = "rotate(45 126 379)">
+			in das Gefaengnis
+		</text>
+	</g>
 </svg>
 
