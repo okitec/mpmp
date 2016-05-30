@@ -34,7 +34,7 @@ public class Main {
 						try {
 							BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 							PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
-							out.println("Hallo Welt!");
+							handle(in, out);
 						}
 						catch (IOException e) {
 							// TODO Auto-generated catch block
@@ -48,5 +48,17 @@ public class Main {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+	}
+
+	/**
+	 * Handles the connection to a client, reading and writing commands and replies.
+	 */
+	private static void handle(BufferedReader in, PrintWriter out) throws IOException {
+		Cmd cmd;
+		String s, cs;
+
+		s = in.readLine();
+		cs = s.substring(0, s.indexOf(' '));
+		cmd = Cmd.search(cs);
 	}
 }
