@@ -21,6 +21,7 @@ public class Chat implements cmds.CmdFunc {
 		}
 
 		chat = line.substring(argpos);
+		c.sendOK();
 		Chatbuf.send(c, chat);
 	}
 }
