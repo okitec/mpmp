@@ -35,7 +35,7 @@ public class Client {
 			cmd = line.substring(0, delim);
 			c = Cmd.search(cmd);
 			if(c == null) {
-				out.println("-NEIN");
+				sendErr("");
 				continue;
 			}
 
@@ -45,6 +45,15 @@ public class Client {
 
 	public void send(String line) {
 		out.println(line);
+	}
+
+	public void sendOK() {
+		out.println("+JAWOHL");
+	}
+
+	public void sendErr(String s) {
+		// XXX change spec and allow for a reason string
+		out.println("-NEIN");
 	}
 
 	public String name() {
