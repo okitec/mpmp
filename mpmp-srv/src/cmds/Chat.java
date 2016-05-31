@@ -1,14 +1,14 @@
 package cmds;
 
-import java.io.BufferedReader;
-import java.io.PrintWriter;
+import main.Client;
+import model.Chatbuf;
 
-import main.CmdFunc;
-
-public class Chat implements CmdFunc {
-
+/**
+ * chat C->S packet
+ */
+public class Chat implements cmds.CmdFunc {
 	@Override
-	public void exec(String line, BufferedReader in, PrintWriter out) {
+	public void exec(String line, Client c) {
 		int argpos;
 		String chat;
 
@@ -21,6 +21,6 @@ public class Chat implements CmdFunc {
 		}
 
 		chat = line.substring(argpos);
-		out.println("(froop) " + chat);
+		Chatbuf.send(c, chat);
 	}
 }

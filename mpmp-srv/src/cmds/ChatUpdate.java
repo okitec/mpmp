@@ -1,16 +1,15 @@
 package cmds;
 
-import java.io.BufferedReader;
-import java.io.PrintWriter;
+import main.Client;
 
-import main.CmdFunc;
 
-public class ChatUpdate implements CmdFunc{
-
+/**
+ * chat-update S->C packet
+ */
+public class ChatUpdate implements CmdFunc {
 	@Override
-	public void exec(String line, BufferedReader in, PrintWriter out) {
-		out.println("Hello, chat-update!");
+	public void exec(String line, Client c) {
+		c.send("Hello, chat-update!");
 		// XXX continue
 	}
-
 }

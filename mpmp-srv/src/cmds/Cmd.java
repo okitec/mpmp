@@ -1,7 +1,6 @@
-package main;
+package cmds;
 
-import java.io.BufferedReader;
-import java.io.PrintWriter;
+import main.Client;
 
 public enum Cmd {
 	Chat("chat", new cmds.Chat()),
@@ -22,7 +21,7 @@ public enum Cmd {
 		return null;
 	}
 
-	public void exec(String line, BufferedReader in, PrintWriter out) {
-		fn.exec(line, in, out);
+	public void exec(String line, Client c) {
+		fn.exec(line, c);
 	}
 }
