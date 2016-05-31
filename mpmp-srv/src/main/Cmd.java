@@ -4,13 +4,14 @@ import java.io.BufferedReader;
 import java.io.PrintWriter;
 
 public enum Cmd {
-	Chat("chat");
-
+	Chat("chat", new cmds.Chat()),
+	ChatUpdate("chat-update", new cmds.ChatUpdate());
 	private String s;
 	private CmdFunc fn;
 
-	private Cmd(String s) {
+	private Cmd(String s, CmdFunc fn) {
 		this.s = s;
+		this.fn  = fn;
 	}
 
 	public static Cmd search(String s) {
@@ -21,7 +22,7 @@ public enum Cmd {
 		return null;
 	}
 
-	public void exec(BufferedReader in, PrintWriter out) {
-		fn.exec(in, out);
+	public void exec(String line, BufferedReader in, PrintWriter out) {
+		fn.exec(line, in, out);
 	}
 }

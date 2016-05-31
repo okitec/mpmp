@@ -36,7 +36,7 @@ public class Main {
 							PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
 							handle(in, out);
 						}
-						catch (IOException e) {
+						catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
@@ -53,12 +53,25 @@ public class Main {
 	/**
 	 * Handles the connection to a client, reading and writing commands and replies.
 	 */
-	private static void handle(BufferedReader in, PrintWriter out) throws IOException {
-		Cmd cmd;
-		String s, cs;
+	private static void handle(BufferedReader in, PrintWriter out) throws Exception {
+		String line, cmd;
+		Cmd c;
+		int delim;
 
-		s = in.readLine();
-		cs = s.substring(0, s.indexOf(' '));
-		cmd = Cmd.search(cs);
+		for(;;) {
+			line = in.readLine();
+			delim = line.indexOf(' ');
+			if(delim < 0)
+				delim = line.length();
+
+			cmd = line.substring(0, delim);
+			c = Cmd.search(cmd);
+			if(c == null) {
+				out.println("-NEIN");
+				continue;
+			}
+
+			c.exec(line, in, out);
+		}
 	}
 }
