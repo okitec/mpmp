@@ -18,7 +18,7 @@ import java.util.HashSet;
  * @author Leander, oki
  */
 public class Main {
-	public static HashSet<Client> clients; // XXX write fancy getter if Hanauska wants it
+	private static HashSet<Client> clients;
 
 	/**
 	 * @param args
@@ -55,5 +55,9 @@ public class Main {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+	}
+	
+	public static HashSet<Client> getClients(){
+		return clients;
 	}
 }

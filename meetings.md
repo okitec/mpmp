@@ -90,6 +90,8 @@ Hardcore-Arbeitsphase vom 30.05.-01.06.
 ---------------------------------------
 
  - Protokoll teilweise fertig
- - Server implementiert deses teilweise; das Hinzufügen von Befehlen ist sehr einfach
+ - Server implementiert dieses teilweise; das Hinzufügen von Befehlen ist sehr einfach
  - Client und Server sharen den Protokollcode
  - einige weitere Grafiken fertig, der Client kann jedoch noch nichts
+ - Funktion 'subscribe' hinzugefügt
+ - Funktion 'listp' hinzugefügt

@@ -19,6 +19,8 @@ public class Client {
 		this.in = in;
 		this.out = out;
 		this.name = null;
+		this.mode = Mode.PreSubscribe;
+		send("Hello!\nPlease subscribe.");
 	}
 
 	/**
@@ -38,7 +40,7 @@ public class Client {
 			cmd = line.substring(0, delim);
 			c = Cmd.search(cmd);
 			if(c == null) {
-				sendErr("");
+				sendErr("-Command does not exist!");
 				continue;
 			}
 
@@ -55,8 +57,10 @@ public class Client {
 	}
 
 	public void sendErr(String s) {
-		// XXX change spec and allow for a reason string
 		out.println("-NEIN");
+		if (!s.equals(""))
+			out.println(s);
+
 	}
 
 	public void subscribe(Mode mode, String name) {
@@ -64,7 +68,11 @@ public class Client {
 		this.name = name;
 	}
 
-	public String name() {
+	public String getName() {
 		return name;
+	}
+	
+	public Mode getMode() {
+		return mode;
 	}
 }

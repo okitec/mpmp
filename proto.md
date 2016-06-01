@@ -61,6 +61,7 @@ Chat
 		S: <Nachricht 1>
 		S: <...>
 		C: +JAWOHL
+		
 ##### Beschreibung
 
 Mit `chat` wird eine Chatnachricht an den Server gesendet, der sie speichert, den Sendernahmen anfügt
@@ -68,6 +69,9 @@ und an alle Clients mithilfe von `chat-update` sendet, inklusive dem originalen 
 sind dann gehalten, ihre Chatbox zu aktualisieren. Eine Chatnachricht hat per Konvention folgendes Aussehen:
 
 		(oki) Das ist eine Chatnachricht.
+		
+		Falls der sendende Client noch nicht subscribed hat:
+		(???) Das ist eine Chatnachricht.
 
 Disconnect (Trennen der Verbindung)
 -----------------------------------
@@ -96,7 +100,14 @@ Beitreten
 		C: <Öffnen der Verbindung>
 		S: <Willkommensbotschaft>
 		C: subscribe [spectator|player] <Name>
+		
+		Falls der Name schon vergeben ist:
+		S: -NEIN
+		S: -This name is already taken!
+		
+		Ansonsten:
 		S: +JAWOHL
+		S: +Subscribed new [spectator|player] under the name <Name> @all
 
 ##### Beschreibung
 
@@ -111,6 +122,28 @@ Modus       | Bedeutung
 
 Wenn der Admin des Spiels nicht einverstanden ist, sendet der Server
 anstatt eines `+JAWOHL` ein `-NEIN`.
+Bei Erfolg wird die Beitritts-Nachricht an alle Clients geschickt (s. Kennzeichnung).
+
+Resubscribe
+-----------
+
+##### Synopsis
+		
+		C: subscribe [spectator|player] <neuer Name>
+		
+		Falls der Name schon vergeben ist:
+		S: -NEIN
+		S: -This name is already taken!
+		
+		Ansonsten:
+		S: +JAWOHL
+		S: <alterStatus [Player|Spectator]> <alter Name> resubscribed as <neuer Status [player|spectator]> under the name <neuer Name> @all
+		
+##### Beschreibung
+
+Um seinen Namen und/oder seinen Modus zu ändern, sendet ein bereits subscribter Client ebenfalls `subscribe`
+mit Angabe des neues Spielmodus und Namen (s. oben).
+Die positive Antwort darauf wird ebenfalls an alle Clients geschickt.
 
 Aufgeben
 --------
@@ -124,6 +157,20 @@ Aufgeben
 
 Ein Spieler kann mit `ragequit` aufgeben. Er empfängt jedoch weiterhin Updates über das
 Spiel und ist somit ein Zuschauer.
+
+Vorhandene Spieler anzeigen
+---------------------------
+
+##### Synopsis
+		
+		C: listp
+		S: +JAWOHL
+		S: <Modus Spieler 1> <Name Spieler 1>
+		S: <Modus Spieler 2> <Name Spieler 2>
+		
+##### Beschreibung
+
+Ein Spieler kann sich mit dem Befehl `listp` Modus [spectator|player] und Name aller aktuell vorhandenen Spieler anzeigen lassen.
 
 Spielbeginn
 -----------
