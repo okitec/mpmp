@@ -11,11 +11,14 @@ public class Client {
 	private BufferedReader in;
 	private PrintWriter out;
 	private String name;
+	// XXX why is "private enum Mode {...} mode;" not allowed in Java? Because enums are objects. Uh.
+	public enum Mode {PreSubscribe, Spectator, Player}
+	private Mode mode;
 
 	public Client(BufferedReader in, PrintWriter out) {
 		this.in = in;
 		this.out = out;
-		this.name = "froop";
+		this.name = null;
 	}
 
 	/**
@@ -54,6 +57,11 @@ public class Client {
 	public void sendErr(String s) {
 		// XXX change spec and allow for a reason string
 		out.println("-NEIN");
+	}
+
+	public void subscribe(Mode mode, String name) {
+		this.mode = mode;
+		this.name = name;
 	}
 
 	public String name() {
