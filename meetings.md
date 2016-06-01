@@ -85,3 +85,11 @@ Außerschulisches Arbeiten am 21.05.2016
 Anwesend: *Leander*, oki
 
  - Server, der beliebig viele Verbindungen aufnehmen kann und allen Clients dieselbe Nachricht schickt.
+
+Hardcore-Arbeitsphase vom 30.05.-01.06.
+---------------------------------------
+
+ - Protokoll teilweise fertig
+ - Server implementiert deses teilweise; das Hinzufügen von Befehlen ist sehr einfach
+ - Client und Server sharen den Protokollcode
+ - einige weitere Grafiken fertig, der Client kann jedoch noch nichts
