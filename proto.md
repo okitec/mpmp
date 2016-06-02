@@ -69,9 +69,6 @@ und an alle Clients mithilfe von `chat-update` sendet, inklusive dem originalen 
 sind dann gehalten, ihre Chatbox zu aktualisieren. Eine Chatnachricht hat per Konvention folgendes Aussehen:
 
 		(oki) Das ist eine Chatnachricht.
-		
-		Falls der sendende Client noch nicht subscribed hat:
-		(???) Das ist eine Chatnachricht.
 
 Disconnect (Trennen der Verbindung)
 -----------------------------------
@@ -157,20 +154,6 @@ Aufgeben
 
 Ein Spieler kann mit `ragequit` aufgeben. Er empfängt jedoch weiterhin Updates über das
 Spiel und ist somit ein Zuschauer.
-
-Vorhandene Spieler anzeigen
----------------------------
-
-##### Synopsis
-		
-		C: listp
-		S: +JAWOHL
-		S: <Modus Spieler 1> <Name Spieler 1>
-		S: <Modus Spieler 2> <Name Spieler 2>
-		
-##### Beschreibung
-
-Ein Spieler kann sich mit dem Befehl `listp` Modus [spectator|player] und Name aller aktuell vorhandenen Spieler anzeigen lassen.
 
 Spielbeginn
 -----------
