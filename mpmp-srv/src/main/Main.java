@@ -9,6 +9,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
+import java.util.HashSet;
 
 /**
  * Main class of the server
@@ -16,12 +18,15 @@ import java.net.Socket;
  * @author Leander, oki
  */
 public class Main {
+	private static HashSet<Client> clients;
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		ServerSocket listener = null;
+		clients = new HashSet<Client>();
+
 		try {
 			listener = new ServerSocket(1918);
 
@@ -34,11 +39,13 @@ public class Main {
 						try {
 							BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 							PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
-							out.println("Hallo Welt!");
-						}
-						catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							Client c = new Client(in, out);
+							clients.add(c);
+							c.handle();
+						} catch (SocketException se) {
+							System.out.println("Client " + sock + " disconnected");
+						} catch (IOException ioe) {
+							;
 						}
 					}
 				}).start();
@@ -48,5 +55,9 @@ public class Main {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+	}
+	
+	public static HashSet<Client> getClients(){
+		return clients;
 	}
 }
