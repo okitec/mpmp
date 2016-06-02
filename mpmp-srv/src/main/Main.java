@@ -35,15 +35,19 @@ public class Main {
 				new Thread(new Runnable() {
 					@Override
 					public void run() {
+						Client c = null;
+
 						System.out.println("Client connected through " + sock);
 						try {
 							BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 							PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
-							Client c = new Client(in, out);
+							c = new Client(in, out);
 							clients.add(c);
 							c.handle();
 						} catch (SocketException se) {
 							System.out.println("Client " + sock + " disconnected");
+							if(c != null)
+								clients.remove(c);
 						} catch (IOException ioe) {
 							;
 						}
