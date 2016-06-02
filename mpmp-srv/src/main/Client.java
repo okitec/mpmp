@@ -25,7 +25,7 @@ public class Client {
 		this.out = out;
 		this.name = null;
 		this.mode = Mode.PreSubscribe;
-		send("Willkommen Genosse! Subscriben Sie!");
+		send("Willkommen, Genosse! Subscriben Sie!");
 	}
 
 	/**
