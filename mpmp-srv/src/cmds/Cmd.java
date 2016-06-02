@@ -5,8 +5,8 @@ import main.Client;
 public enum Cmd {
 	Chat("chat", new cmds.Chat()),
 	ChatUpdate("chat-update", new cmds.ChatUpdate()),
-	Subscribe("subscribe", new cmds.Subscribe()),
-	ListPlayers("listp", new cmds.ListPlayers());
+	Subscribe("subscribe", new cmds.Subscribe());
+
 	private String s;
 	private CmdFunc fn;
 
