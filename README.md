@@ -4,7 +4,8 @@ mpmp - Multiplayer Monopoly
 *A version of Monopoly, situated in the Weimar republic. This is a German school project.*
 
 As of now, the first prototype is not really interesting, it's essentially the server implementing
-a subset of the protocol. The client can't do anything interesting.
+a subset of the protocol. The client can't do anything. There are lots of SVG graphics and a PNG of
+the game board in the subdirectories of `graphics/`.
 
 Installation
 ------------
