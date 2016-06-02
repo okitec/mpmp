@@ -2,7 +2,6 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="650" height="980">
-	<param name="param1" />
 	
 	<title>Card: Hypothec</title>
 
@@ -11,140 +10,52 @@
 		rx="65" ry="65" fill="#f7f7cf"
 	/>
 	
-	<rect id = "card_border"
-		x="40" y="40" width="570" height="900"
-		fill="#da2313" stroke="#d45e50" stroke-width="4"
-	/>
-
 	<text id = "label"
-		x="325" y="110" font-family="Arial" font-size="30px" fill="#231f20"
-		style="stroke: #231f20" text-anchor="middle">
-		Besitzrechtskarte
+		x="325" y="190" font-family="Arial" font-size="45px" fill="#da2313"
+		style="stroke: #da2313" text-anchor="middle">
+		Hypothekenbrief
 	</text>
+
+	<line x1="50" y1="420" x2="600" y2="420" stroke="#da2313" stroke-width="4" />
 	
-	<text id = "label"
-		x="325" y="190" font-family="Arial" font-size="45px" fill="#231f20"
-		style="stroke: #231f20" text-anchor="middle">
-		Weimarer Strasse
-	</text>
-
 	<text id = "text"
-		font-family="Arial" font-size="30px" fill="#231f20"
-		style="stroke: #231f20">
-		<tspan x="50" y="300">
-			Grundstueckswert
-		</tspan>
-		<tspan x="50" y="350">
-			Miete Grundstueck allein
-		</tspan>
-		<tspan x="50" y="390">
-			Miete mit 1 Haus
-		</tspan>
+		x="325" y="500" font-family="Arial" font-size="35px" fill="#da2313"
+		style="stroke: #da2313" text-anchor="middle">
+			Weimarer Strasse
+	</text>
+	
+	<line x1="50" y1="550" x2="600" y2="550" stroke="#da2313" stroke-width="4" />
 
-		<tspan x="50" y="430">
-			<tspan fill="none" style="stroke: none">xxxx</tspan>&#171; <tspan fill="none" style="stroke: none">xxx</tspan>2 Haeusern
-		</tspan>
-		<tspan x="50" y="470">
-			<tspan fill="none" style="stroke: none">xxxx</tspan>&#171; <tspan fill="none" style="stroke: none">xxx</tspan>3 Haeusern
-		</tspan>
-		<tspan x="50" y="510">
-			<tspan fill="none" style="stroke: none">xxxx</tspan>&#171; <tspan fill="none" style="stroke: none">xxx</tspan>4 Haeusern
-		</tspan>
-		<tspan x="50" y="550">
-			<tspan fill="none" style="stroke: none">xxxx</tspan>&#171; <tspan fill="none" style="stroke: none">xxx</tspan>1 Hotel
-		</tspan>
-	</text>
-	
-	<text id = "price"
-		font-family="Arial" font-size="30px" fill="#231f20"
-		style="stroke: #231f20" text-anchor="end">
-		<tspan x="600" y="300">
-			RM 3600
-		</tspan>
-		<tspan x="600" y="350">
-			520
-		</tspan>
-		<tspan x="600" y="390">
-			600
-		</tspan>
-		<tspan x="600" y="430">
-			750
-		</tspan>
-		<tspan x="600" y="470">
-			830
-		</tspan>
-		<tspan x="600" y="510">
-			930
-		</tspan>
-		<tspan x="600" y="550">
-			1200
-		</tspan>
-		<tspan x="0" y="0" font-size="0px">
-			Needed for proper formatation. Don't ask why.
-		</tspan>
-	</text>
-	
-	<line x1="50" y1="570" x2="600" y2="570" stroke="#231f20" stroke-width="4" />
 
 	<text id = "text2"
 		font-family="Arial" font-size="29px"
-		fill="#231f20" style="stroke: #231f20">
-		
-		<tspan x="50" y="605" textLength="550">
-			Wenn ein Spieler alle Grundstuecke einer
+		fill="#da2313" style="stroke: #da2313" >
+		<tspan x="100" y="635" text-anchor="start">
+			Belastet mit
 		</tspan>
-		<tspan x="50" y="645" textLength="550">
-			Farbengruppe besitzt, so ist die Miete auf
+		<tspan x="550" y="635" text-anchor="end">
+			RM 3500
 		</tspan>
-		<tspan x="50" y="685" textLength="550">
-			den ungebauten Grundstuecken dieser
-		</tspan>
-		<tspan x="50" y="725" textLength="450">
-			Farbengruppe doppelt so hoch.
+		<tspan x="500" y="635" text-anchor="end">
 		</tspan>
 	</text>
 	
-	<line x1="50" y1="740" x2="600" y2="740" stroke="#231f20" stroke-width="4" />
-	
-	<text id = "text3"
-		font-family="Arial" font-size="30px" fill="#231f20"
-		style="stroke: #231f20" font-weight="bold">
-		<tspan x="80" y="780">
-			1 Haus kostet
+	<text id = "text2"
+		font-family="Arial" font-size="29px" text-anchor="middle"
+		fill="#da2313" style="stroke: #da2313" >
+		<tspan x="325" y="720" textLength="450">
+			Die Karte muss auf diese
 		</tspan>
-		<tspan x="80" y="820">
-			1 Hotel 
+		<tspan x="325" y="760" textLength="450">
+			Seite umgedreht werden,
 		</tspan>
+		<tspan x="325" y="800" textLength="450">
+			wenn das Besitztum belastet
+		</tspan>
+		<tspan x="325" y="840">
+			ist.
+		</tspan>
+	</text>
 
-	</text>
-	
-	<text id = "price"
-		font-family="Arial" font-size="30px" fill="#231f20"
-		style="stroke: #231f20" text-anchor="end" font-weight="bold" >
-		
-		<tspan x="570" y="780">
-			RM 3000
-		</tspan>
-		<tspan x="570" y="820">
-		&#171;<tspan fill="none" style="stroke: none">x</tspan>4 Haeuser u. RM 3000
-		</tspan>
-		<tspan x="0" y="0" font-size="0px">
-			Needed for proper formatation. Don't ask why.
-		</tspan>
-		
-	</text>
-	
-	
-	<text id = "text4"
-		font-family="Arial" font-size="30px" fill="#231f20"
-		style="stroke: #231f20" text-anchor="middle">
-		<tspan x="325" y="875">
-			Der Hypothekenwert des Grundstueckes
-		</tspan>
-		<tspan x="325" y="915">
-			betraegt RM 1800
-		</tspan>
-
-	</text>
 </svg>
 
