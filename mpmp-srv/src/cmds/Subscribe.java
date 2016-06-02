@@ -5,7 +5,6 @@ import java.util.Arrays;
 import main.Client;
 import main.Client.Mode;
 import main.Main;
-import model.Msgbuf;
 
 public class Subscribe implements CmdFunc {
 	private static final String SubscribeSyntax = "Syntax: subscribe [spectator|player] <Name>";
@@ -53,11 +52,11 @@ public class Subscribe implements CmdFunc {
 		switch (args[1]) {
 		case "player":
 			c.subscribe(Mode.Player, name);
-			Msgbuf.send(msg + "player under the name " + name);
+			Client.broadcast(msg + "player under the name " + name);
 			break;
 		case "spectator":
 			c.subscribe(Mode.Spectator, name);
-			Msgbuf.send(msg + "spectator under the name " + name);
+			Client.broadcast(msg + "spectator under the name " + name);
 			break;
 		default:
 			c.sendErr(SubscribeSyntax);

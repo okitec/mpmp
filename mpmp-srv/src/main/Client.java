@@ -84,6 +84,7 @@ public class Client {
 	 * Send a client list to all clients.
 	 */
 	public static void listCLients() {
+		// XXX use sendToAll
 		for (Client c : Main.getClients()) {
 			for (Client player : Main.getClients()) {
 				String name = player.getName();
@@ -91,5 +92,13 @@ public class Client {
 				c.send(mode + " " + name);
 			}
 		}
+	}
+	
+	/**
+	 * Send a string to all clients.
+	 */
+	public static void broadcast(String s) {
+		for (Client c : main.Main.getClients())
+			c.send(s);
 	}
 }

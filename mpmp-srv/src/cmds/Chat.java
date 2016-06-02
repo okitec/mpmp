@@ -1,7 +1,6 @@
 package cmds;
 
 import main.Client;
-import model.Chatbuf;
 
 /**
  * chat C->S packet
@@ -12,16 +11,18 @@ public class Chat implements cmds.CmdFunc {
 		int argpos;
 		String chat;
 
+		if (c.getName() == null)
+			return;
+
 		argpos = line.indexOf(' ');
 		if(argpos < 0) {
 			argpos = line.length();
 		} else {
-			while(Character.isWhitespace(line.codePointAt(argpos)))
+			while(argpos < line.length() && Character.isWhitespace(line.codePointAt(argpos)))
 				argpos++;
 		}
 
 		chat = line.substring(argpos);
-		c.sendOK();
-		Chatbuf.send(c, chat);
+		Client.broadcast("chat-update 1\n" + "(" + c.getName() + ") " + chat);
 	}
 }
