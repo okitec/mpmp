@@ -8,29 +8,33 @@ import main.Main;
 import model.Msgbuf;
 
 public class Subscribe implements CmdFunc {
+	private static final String SubscribeSyntax = "Syntax: subscribe [spectator|player] <Name>";
+	
 	@Override
 	public void exec(String line, Client c) {
 		String[] args;
+		String name = null;
+		String msg;
 
 		args = line.split(" ");
 		if (args.length < 3) {
-			c.sendErr("-Syntax: subscribe [spectator|player] <Name>");
+			c.sendErr(SubscribeSyntax);
 			return;
 		}
-		String name = null;
+
 		for (String s : Arrays.copyOfRange(args, 2, args.length)) {
 			if (name == null)
 				name = s;
 			else
 				name = name + " " + s;
 		}
+
 		for (Client cl : Main.getClients())
 			if (name.equals(cl.getName()) && cl != c) {
-				c.sendErr("-This name is already taken!");
+				c.sendErr("Name already taken!");
 				return;
 			}
 
-		String msg;
 		switch (c.getMode()) {
 		case PreSubscribe:
 			msg = "Subscribed new ";
@@ -42,23 +46,21 @@ public class Subscribe implements CmdFunc {
 			msg = "Spectator " + c.getName() + " resubscribed as ";
 			break;
 		default:
-			c.sendErr("");
+			c.sendErr("Internal bug - invalid game mode");
 			return;
 		}
 
 		switch (args[1]) {
 		case "player":
 			c.subscribe(Mode.Player, name);
-			c.sendOK();
 			Msgbuf.send(msg + "player under the name " + name);
 			break;
 		case "spectator":
 			c.subscribe(Mode.Spectator, name);
-			c.sendOK();
 			Msgbuf.send(msg + "spectator under the name " + name);
 			break;
 		default:
-			c.sendErr("-Syntax: subscribe [spectator|player] <Name>");
+			c.sendErr(SubscribeSyntax);
 		}
 	}
 }
