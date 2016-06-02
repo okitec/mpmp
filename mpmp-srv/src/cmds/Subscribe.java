@@ -49,6 +49,7 @@ public class Subscribe implements CmdFunc {
 			return;
 		}
 
+		// XXX just send player list, according to spec
 		switch (args[1]) {
 		case "player":
 			c.subscribe(Mode.Player, name);

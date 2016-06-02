@@ -11,8 +11,10 @@ public class Chat implements cmds.CmdFunc {
 		int argpos;
 		String chat;
 
-		if (c.getName() == null)
+		if (c.getName() == null) {
+			c.sendErr("You are not subscribed!");
 			return;
+		}
 
 		argpos = line.indexOf(' ');
 		if(argpos < 0) {
