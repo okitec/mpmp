@@ -7,6 +7,12 @@ import java.net.SocketException;
 
 import cmds.Cmd;
 
+/**
+ * Class Client implements the connection to a Client and has static methods for
+ * sending packets to all clients. No gameplay state is saved here, only a name for
+ * chatting.
+ * @author Leander, oki
+ */
 public class Client {
 	private BufferedReader in;
 	private PrintWriter out;
@@ -83,8 +89,8 @@ public class Client {
 	/**
 	 * Send a client list to all clients.
 	 */
-	public static void listCLients() {
-		// XXX use sendToAll
+	public static void listClients() {
+		// XXX use broadcast
 		for (Client c : Main.getClients()) {
 			for (Client player : Main.getClients()) {
 				String name = player.getName();

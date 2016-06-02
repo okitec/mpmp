@@ -6,6 +6,10 @@ import main.Client;
 import main.Client.Mode;
 import main.Main;
 
+/**
+ * subscribe C->s packet
+ * @author Leander
+ */
 public class Subscribe implements CmdFunc {
 	private static final String SubscribeSyntax = "Syntax: subscribe [spectator|player] <Name>";
 	
@@ -49,7 +53,7 @@ public class Subscribe implements CmdFunc {
 			return;
 		}
 
-		// XXX just send player list, according to spec
+		// XXX just send player list, according to spec  -oki
 		switch (args[1]) {
 		case "player":
 			c.subscribe(Mode.Player, name);

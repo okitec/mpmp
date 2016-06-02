@@ -20,9 +20,6 @@ import java.util.HashSet;
 public class Main {
 	private static HashSet<Client> clients;
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		ServerSocket listener = null;
 		clients = new HashSet<Client>();
@@ -30,6 +27,7 @@ public class Main {
 		try {
 			listener = new ServerSocket(1918);
 
+			// XXX total exception madness - WHY, JAVA, WHY?
 			for (;;) {
 				final Socket sock = listener.accept();
 				new Thread(new Runnable() {
@@ -55,13 +53,14 @@ public class Main {
 				}).start();
 			}
 		}
-		catch (IOException e1) {
+		catch (IOException ioe) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			ioe.printStackTrace();
 		}
 	}
-	
-	public static HashSet<Client> getClients(){
+
+	// XXX this seems out of place and should be in the Client class -oki
+	public static HashSet<Client> getClients() {
 		return clients;
 	}
 }

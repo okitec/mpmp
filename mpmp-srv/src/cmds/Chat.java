@@ -4,6 +4,7 @@ import main.Client;
 
 /**
  * chat C->S packet
+ * @author oki, Leander
  */
 public class Chat implements cmds.CmdFunc {
 	@Override
