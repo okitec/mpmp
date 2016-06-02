@@ -11,8 +11,13 @@ public class Client {
 	private BufferedReader in;
 	private PrintWriter out;
 	private String name;
-	// XXX why is "private enum Mode {...} mode;" not allowed in Java? Because enums are objects. Uh.
-	public enum Mode {PreSubscribe, Spectator, Player}
+
+	// XXX why is "private enum Mode {...} mode;" not allowed in Java? Because
+	// enums are objects. Uh.
+	public enum Mode {
+		PreSubscribe, Spectator, Player
+	}
+
 	private Mode mode;
 
 	public Client(BufferedReader in, PrintWriter out) {
@@ -20,27 +25,28 @@ public class Client {
 		this.out = out;
 		this.name = null;
 		this.mode = Mode.PreSubscribe;
-		send("Hello!\nPlease subscribe.");
+		send("Willkommen Genosse! Subscriben Sie!");
 	}
 
 	/**
-	 * Handles the connection to a client, reading and writing commands and replies.
+	 * Handles the connection to a client, reading and writing commands and
+	 * replies.
 	 */
 	public void handle() throws SocketException, IOException {
 		String line, cmd;
 		Cmd c;
 		int delim;
 
-		for(;;) {
+		for (;;) {
 			line = in.readLine();
 			delim = line.indexOf(' ');
-			if(delim < 0)
+			if (delim < 0)
 				delim = line.length();
 
 			cmd = line.substring(0, delim);
 			c = Cmd.search(cmd);
-			if(c == null) {
-				sendErr("-Command does not exist!");
+			if (c == null) {
+				sendErr("Command does not exist!");
 				continue;
 			}
 
@@ -57,22 +63,33 @@ public class Client {
 	}
 
 	public void sendErr(String s) {
-		out.println("-NEIN");
-		if (!s.equals(""))
-			out.println(s);
-
+		out.println("-NEIN " + s);
 	}
 
 	public void subscribe(Mode mode, String name) {
 		this.mode = mode;
 		this.name = name;
+		this.sendOK();
 	}
 
 	public String getName() {
 		return name;
 	}
-	
+
 	public Mode getMode() {
 		return mode;
+	}
+
+	/**
+	 * Send a client list to all clients.
+	 */
+	public static void listCLients() {
+		for (Client c : Main.getClients()) {
+			for (Client player : Main.getClients()) {
+				String name = player.getName();
+				String mode = player.getMode().toString();
+				c.send(mode + " " + name);
+			}
+		}
 	}
 }
