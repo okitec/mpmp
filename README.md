@@ -12,7 +12,7 @@ Installation
 
 Get hold of mpmp by cloning this repo or by downloading the .zip via GitHub.
 
-  git clone https://github.com/leletec/mpmp.git
+    git clone https://github.com/leletec/mpmp.git
 
 Open up the project in Eclipse (we use Eclipse because of internal decisions *cough*) and compile it.
 
