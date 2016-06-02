@@ -97,14 +97,10 @@ Beitreten
 		C: <Öffnen der Verbindung>
 		S: <Willkommensbotschaft>
 		C: subscribe [spectator|player] <Name>
-		
-		Falls der Name schon vergeben ist:
-		S: -NEIN
-		S: -This name is already taken!
-		
-		Ansonsten:
-		S: +JAWOHL
-		S: +Subscribed new [spectator|player] under the name <Name> @all
+		S: -JAWOHL
+		oder
+		S: -NEIN Name already taken!
+		S: -NEIN The admin barred you from entering the game.
 
 ##### Beschreibung
 
@@ -117,30 +113,11 @@ Modus       | Bedeutung
 `spectator` | Zuschauer, kann chatten und das Spiel betrachten
 `player`    | echter Spieler
 
-Wenn der Admin des Spiels nicht einverstanden ist, sendet der Server
-anstatt eines `+JAWOHL` ein `-NEIN`.
-Bei Erfolg wird die Beitritts-Nachricht an alle Clients geschickt (s. Kennzeichnung).
-
-Resubscribe
------------
-
-##### Synopsis
-		
-		C: subscribe [spectator|player] <neuer Name>
-		
-		Falls der Name schon vergeben ist:
-		S: -NEIN
-		S: -This name is already taken!
-		
-		Ansonsten:
-		S: +JAWOHL
-		S: <alterStatus [Player|Spectator]> <alter Name> resubscribed as <neuer Status [player|spectator]> under the name <neuer Name> @all
-		
-##### Beschreibung
-
-Um seinen Namen und/oder seinen Modus zu ändern, sendet ein bereits subscribter Client ebenfalls `subscribe`
-mit Angabe des neues Spielmodus und Namen (s. oben).
-Die positive Antwort darauf wird ebenfalls an alle Clients geschickt.
+Wenn der Admin des Spiels nicht einverstanden ist, sendet der Server anstatt eines
+`+JAWOHL` ein `-NEIN`. Bei Erfolg wird die gesamte Spielerliste ausgegeben (vgl.
+Spielbeginn). Um seinen Namen, seinen Modus oder seine Farbe zu ändern, sendet
+ein bereits subscribter Client ebenfalls `subscribe` mit Angabe des neues Spielmodus
+und Namen (s. oben).
 
 Aufgeben
 --------
@@ -153,20 +130,34 @@ Aufgeben
 ##### Beschreibung
 
 Ein Spieler kann mit `ragequit` aufgeben. Er empfängt jedoch weiterhin Updates über das
-Spiel und ist somit ein Zuschauer.
+Spiel und ist somit ein Zuschauer (*Spectator*).
+
+Spieler- bzw. Clientliste
+-------------------------
+
+##### Synopsis
+
+		S: clientlist-update <Anzahl Clients>
+		S: <Farbe>: <Gamemode>: <Name von Client 1>
+		S: <Farbe>: <Gamemode>: <...>
+		C: +JAWOHL
+
+##### Beschreibung
+
+Zu Beginn des Spiels nd nach einem Subscribe sendet der Server an alle Clients die
+Spielerliste inklusive der Farben und des Gamemodes (siehe Subscribe). Die Farben
+sind RGB-Hextriplets wie z.B. `#FFA500`. Falls man nur ein Zuschauer ist, ist die
+Farbe irrelevant.
 
 Spielbeginn
 -----------
 
 ##### Synopsis
 
-		S: start-game <Anzahl Spieler>
-		S: <Farbe>: <Name von Spieler 1>
-		S: <Farbe>: <...>
+		S: start-game
 		C: +JAWOHL
 
 ##### Beschreibung
 
-Zu Beginn des Spiels sendet der Server an alle Clients die Spielerliste inklusive der Farben.
-Die Farben sind RGB-Hextriplets wie z.B. `#FFA500`. Nach dem Beginn des Spiels können keine
-Spieler mehr hinzugefügt werden. Clients sind gehalten, jetzt das Spielfeld zu zeichnen.
+Zu Beginn des Spiels sendet der Server dieses Paket. Clients sind gehalten, jetzt das Spielfeld
+zu zeichnen. Nach dem Beginn des Spiels können keine Spieler mehr hinzugefügt werden.
