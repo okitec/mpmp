@@ -31,6 +31,9 @@ public class Conn {
 
 		for (;;) {
 			line = in.readLine();
+			if(line == null)
+				return;  // Connection has been closed...
+
 			delim = line.indexOf(' ');
 			if (delim < 0)
 				delim = line.length();
