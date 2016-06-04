@@ -1,6 +1,6 @@
 package cmds;
 
-import main.Client;
+import main.Conn;
 
 /**
  * Class Cmd is the table of commands, pairing the String with the associated handler
@@ -28,7 +28,7 @@ public enum Cmd {
 		return null;
 	}
 
-	public void exec(String line, Client c) {
+	public void exec(String line, Conn c) {
 		fn.exec(line, c);
 	}
 }

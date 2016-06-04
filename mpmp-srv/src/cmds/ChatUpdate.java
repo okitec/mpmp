@@ -1,6 +1,6 @@
 package cmds;
 
-import main.Client;
+import main.Conn;
 
 
 /**
@@ -8,8 +8,8 @@ import main.Client;
  */
 public class ChatUpdate implements CmdFunc {
 	@Override
-	public void exec(String line, Client c) {
-		c.send("Hello, chat-update!");
+	public void exec(String line, Conn conn) {
+		conn.send("Hello, chat-update!");
 		// XXX continue
 	}
 }

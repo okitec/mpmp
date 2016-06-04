@@ -1,6 +1,6 @@
 package cmds;
 
-import main.Client;
+import main.Conn;
 
 /**
  * Interface CmdFunc is implemented by all protocol command handlers.
@@ -10,5 +10,5 @@ import main.Client;
  * @author oki, Leander
  */
 public interface CmdFunc {
-	public void exec(String line, Client c);
+	public void exec(String line, Conn conn);
 }
