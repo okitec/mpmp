@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="650" height="980">
+	<param name="param1" />
+	
+	<title>Card: Street</title>
+
+	<rect id = "card"
+		x="0" y="0" width="650" height="980"
+		rx="65" ry="65" fill="#f7f7cf"
+	/>
+	
+	<rect id = "card_border"
+		x="40" y="40" width="570" height="900"
+		fill="none" stroke="#231f20" stroke-width="4"
+	/>
+	
+	<text id = "label"
+		x="325" y="110" font-family="Arial" font-size="30px" fill="#231f20"
+		style="stroke: #231f20" text-anchor="middle">
+		Besitzrechtskarte
+	</text>
+	
+	<text id = "label"
+		x="325" y="190" font-family="Arial" font-size="45px" fill="#231f20"
+		style="stroke: #231f20" text-anchor="middle">
+		Weimarer Bahnhof
+	</text>
+
+	<text id = "text"
+		font-family="Arial" font-size="30px" fill="#231f20"
+		style="stroke: #231f20">
+		<tspan x="50" y="300">
+			Grundstueckswert allein
+		</tspan>
+		<tspan x="50" y="350">
+			Miete
+		</tspan>
+		<tspan x="50" y="400">
+			&#171; wenn man 2 Bahnhoefe besitzt
+		</tspan>
+		<tspan x="125" y="450">
+			&#171;
+		</tspan>
+		<tspan x="125" y="500">
+			&#171;
+		</tspan>
+		<tspan x="226" y="400">
+			
+		</tspan>
+
+		<tspan x="222" y="450">
+			3 Bahnhoefe besitzt
+		</tspan>
+		<tspan x="222" y="500">
+			4 Bahnhoefe besitzt
+		</tspan>
+	</text>
+	
+	<text id = "price"
+		font-family="Arial" font-size="30px" fill="#231f20"
+		style="stroke: #231f20" text-anchor="end">
+		<tspan x="600" y="300">
+			RM 4000
+		</tspan>
+		<tspan x="600" y="350">
+			500
+		</tspan>
+		<tspan x="600" y="400">
+			1000
+		</tspan>
+		<tspan x="600" y="450">
+			2000
+		</tspan>
+		<tspan x="600" y="500">
+			4000
+		</tspan>
+		<tspan x="0" y="0" font-size="0px">
+			Needed for proper formatation. Don't ask why.
+		</tspan>
+	</text>
+</svg>
+

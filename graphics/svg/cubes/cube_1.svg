@@ -7,7 +7,7 @@
 
 	<rect id="cubes"
 		x="0" y="0" width="230" height="230" rx="28" ry="28"
-		fill="000000"
+		fill="#000000"
 	/>
 
 	<circle id="center"
