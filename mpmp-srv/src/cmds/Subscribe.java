@@ -20,6 +20,7 @@ public class Subscribe implements CmdFunc {
 		String name = null;
 		String msg;
 		Client c = (Client) conn;
+		Client.Mode mode = Client.Mode.PreSubscribe; 
 
 		args = line.split(" ");
 		if (args.length < 3) {
@@ -34,39 +35,22 @@ public class Subscribe implements CmdFunc {
 				name = name + " " + s;
 		}
 
-		for (Client cl : Main.getClients())
-			if (name.equals(cl.getName()) && cl != c) {
-				c.sendErr("Name already taken!");
-				return;
-			}
-
-		switch (c.getMode()) {
-		case PreSubscribe:
-			msg = "Subscribed new ";
-			break;
-		case Player:
-			msg = "Player " + c.getName() + " resubscribed as ";
-			break;
-		case Spectator:
-			msg = "Spectator " + c.getName() + " resubscribed as ";
-			break;
-		default:
-			c.sendErr("Internal bug - invalid game mode");
-			return;
-		}
-
-		// XXX just send player list, according to spec  -oki
 		switch (args[1]) {
 		case "player":
-			c.subscribe(Mode.Player, name);
-			Client.broadcast(msg + "player under the name " + name);
+			mode = Mode.Player;
 			break;
 		case "spectator":
-			c.subscribe(Mode.Spectator, name);
-			Client.broadcast(msg + "spectator under the name " + name);
+			mode = Mode.Spectator;
 			break;
 		default:
 			c.sendErr(SubscribeSyntax);
+		}
+
+		if(c.subscribe(mode, name) == false)
+			c.sendErr("Name already taken");
+		else {
+			c.sendOK();
+			Client.listClients();
 		}
 	}
 }

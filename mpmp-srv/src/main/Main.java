@@ -10,7 +10,6 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.HashSet;
 
 /**
  * Main class of the server
@@ -18,11 +17,9 @@ import java.util.HashSet;
  * @author Leander, oki
  */
 public class Main {
-	private static HashSet<Client> clients;
-
 	public static void main(String[] args) {
 		ServerSocket listener = null;
-		clients = new HashSet<Client>();
+		Client.init();
 
 		try {
 			listener = new ServerSocket(1918);
@@ -40,22 +37,21 @@ public class Main {
 							BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 							PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
 							c = new Client(in, out);
-							clients.add(c);
 							c.handle();
 							// XXX duplication -oki
 							System.out.println("Client " + sock + " disconnected");
 							if(c != null)
-								clients.remove(c);
+								c.remove();
 						} catch (SocketException se) {
 							// XXX duplication -oki
 							System.out.println("Client " + sock + " disconnected");
 							if(c != null)
-								clients.remove(c);
+								c.remove();
 						} catch (IOException ioe) {
 							// XXX duplication -oki
 							System.out.println("Client " + sock + " disconnected");
 							if(c != null)
-								clients.remove(c);
+								c.remove();
 						}
 					}
 				}).start();
@@ -65,10 +61,5 @@ public class Main {
 			// TODO Auto-generated catch block
 			ioe.printStackTrace();
 		}
-	}
-
-	// XXX this seems out of place and should be in the Client class -oki
-	public static HashSet<Client> getClients() {
-		return clients;
 	}
 }
