@@ -27,7 +27,6 @@ public class Subscribe implements CmdFunc {
 			return;
 		}
 
-		System.out.println(args + " " + args.length);
 		for (String s : Arrays.copyOfRange(args, 3, args.length)) {
 			if (name == null)
 				name = s;
