@@ -28,6 +28,6 @@ public class Chat implements cmds.CmdFunc {
 		}
 
 		chat = line.substring(argpos);
-		Client.broadcast("chat-update 1\n" + "(" + c.getName() + ") " + chat);
+		Client.broadcast("chat-update " + "(" + c.getName() + ") " + chat);
 	}
 }

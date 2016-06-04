@@ -37,7 +37,7 @@ Paketübersicht
 ### Server → Client
 
  - Spielbeginn
- - neuen Chat senden
+ - neuen Chat broadcasten
  - Fehlermeldungen bei unerlaubter Handlung
  - Disconnect (mit Grund, z.B. Kick)
  - Ereignis- und Gemeinschaftskarten
@@ -57,9 +57,7 @@ Chat
 		C: chat <Textzeile>
 		S: +JAWOHL
 
-		S: chat-update <Anzahl an Nachrichten, eine pro Zeile>
-		S: <Nachricht 1>
-		S: <...>
+		S: chat-update (Sender) <Nachricht>
 		C: +JAWOHL
 		
 ##### Beschreibung
