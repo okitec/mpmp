@@ -86,8 +86,8 @@ Anwesend: *Leander*, oki
 
  - Server, der beliebig viele Verbindungen aufnehmen kann und allen Clients dieselbe Nachricht schickt.
 
-Hardcore-Arbeitsphase vom 30.05.-01.06.
----------------------------------------
+Hardcore-Arbeitsphase vom 30.05.-02.06.2016
+-------------------------------------------
 
  - Protokoll teilweise fertig
  - Server implementiert dieses teilweise; das Hinzufügen von Befehlen ist sehr einfach
@@ -95,3 +95,17 @@ Hardcore-Arbeitsphase vom 30.05.-01.06.
  - einige weitere Grafiken fertig, der Client kann jedoch noch nichts
  - Funktion 'subscribe' hinzugefügt
  - Funktion 'listp' hinzugefügt
+ - Funktion 'listp' entfernt, weil sie niemand braucht
+
+Außerschulisches Arbeiten am 04.06.2016
+---------------------------------------
+
+Anwesend: *oki*, Leander
+
+ - Versuch, den bei Client und Server gleichen Netzwerkteil in eine Lib zu stecken.
+   Dieser Versuch scheitert, weil Cmd ein enum ist und sein muss. Da jedoch Client
+   und Server verschiedene Messages haben, sollten sie Cmd extenden. Enums können
+   aber nicht extended werden. Die Alternativen sind relativ *meh* und deswegen muss
+   der Ansatz noch überdacht werden.
+
+
