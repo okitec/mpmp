@@ -1,5 +1,6 @@
 package cmds;
 
+import main.Conn;
 import main.Client;
 
 /**
@@ -8,9 +9,10 @@ import main.Client;
  */
 public class Chat implements cmds.CmdFunc {
 	@Override
-	public void exec(String line, Client c) {
+	public void exec(String line, Conn conn) {
 		int argpos;
 		String chat;
+		Client c = (Client) conn;
 
 		if (c.getName() == null) {
 			c.sendErr("You are not subscribed!");

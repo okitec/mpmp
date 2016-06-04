@@ -2,6 +2,7 @@ package cmds;
 
 import java.util.Arrays;
 
+import main.Conn;
 import main.Client;
 import main.Client.Mode;
 import main.Main;
@@ -14,10 +15,11 @@ public class Subscribe implements CmdFunc {
 	private static final String SubscribeSyntax = "Syntax: subscribe [spectator|player] <Name>";
 	
 	@Override
-	public void exec(String line, Client c) {
+	public void exec(String line, Conn conn) {
 		String[] args;
 		String name = null;
 		String msg;
+		Client c = (Client) conn;
 
 		args = line.split(" ");
 		if (args.length < 3) {
