@@ -12,23 +12,23 @@ import main.Main;
  * @author Leander
  */
 public class Subscribe implements CmdFunc {
-	private static final String SubscribeSyntax = "Syntax: subscribe [spectator|player] <Name>";
+	private static final String SubscribeSyntax = "Syntax: subscribe <spectator|player> #<rgb hex triplet> <Name>";
 	
 	@Override
 	public void exec(String line, Conn conn) {
 		String[] args;
 		String name = null;
-		String msg;
 		Client c = (Client) conn;
 		Client.Mode mode = Client.Mode.PreSubscribe; 
 
 		args = line.split(" ");
-		if (args.length < 3) {
+		if (args.length < 4) {
 			c.sendErr(SubscribeSyntax);
 			return;
 		}
 
-		for (String s : Arrays.copyOfRange(args, 2, args.length)) {
+		System.out.println(args + " " + args.length);
+		for (String s : Arrays.copyOfRange(args, 3, args.length)) {
 			if (name == null)
 				name = s;
 			else
@@ -46,7 +46,7 @@ public class Subscribe implements CmdFunc {
 			c.sendErr(SubscribeSyntax);
 		}
 
-		if(c.subscribe(mode, name) == false)
+		if(c.subscribe(args[2], mode, name) == false)
 			c.sendErr("Name already taken");
 		else {
 			c.sendOK();

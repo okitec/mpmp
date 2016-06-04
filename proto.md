@@ -94,7 +94,7 @@ Beitreten
 
 		C: <Öffnen der Verbindung>
 		S: <Willkommensbotschaft>
-		C: subscribe [spectator|player] <Name>
+		C: subscribe <spectator|player> <Farbe> <Name>
 		S: -JAWOHL
 		oder
 		S: -NEIN Name already taken!
@@ -103,8 +103,9 @@ Beitreten
 ##### Beschreibung
 
 Um einem Spiel beizutreten, sendet der frisch verbundene Client `subscribe`
-mit Angabe des Spielmodus und dem Namen, der den Rest der Zeile ausmacht.
-Der Name darf somit Leerzeichen enthalten. Es gibt zwei Spielmodi:
+mit Angabe des Spielmodus, dem Farb-Hex-Triplet (HTML-Style, also z.B. `#FFA500`)
+und dem Namen, der den Rest der Zeile ausmacht. Der Name darf somit Leerzeichen
+enthalten. Es gibt zwei Spielmodi:
 
 Modus       | Bedeutung
 ------------|----------

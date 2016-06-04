@@ -17,6 +17,7 @@ import cmds.Cmd;
 public class Client extends Conn {
 	private static HashSet<Client> clients;
 	private String name;
+	private String color;
 
 	// XXX why is "private enum Mode {...} mode;" not allowed in Java? Because
 	// enums are objects. Uh.
@@ -29,6 +30,7 @@ public class Client extends Conn {
 	public Client(BufferedReader in, PrintWriter out) {
 		super(in, out);
 		this.name = null;
+		this.color = null;
 		this.mode = Mode.PreSubscribe;
 		clients.add(this);
 		send("Willkommen, Genosse! Subscriben Sie!");
@@ -38,7 +40,7 @@ public class Client extends Conn {
 	 * Method subscribe subscribes a client as discussed in the protocol.
 	 * @return false on failure (name already used or nil), true otherwise
 	 */
-	public boolean subscribe(Mode mode, String name) {
+	public boolean subscribe(String color, Mode mode, String name) {
 		if(name == null)
 			return false;
 
@@ -46,6 +48,7 @@ public class Client extends Conn {
 			if(name.equals(c.name) && c != this)
 				return false;
 
+		this.color = color;
 		this.mode = mode;
 		this.name = name;
 		return true;
@@ -73,12 +76,8 @@ public class Client extends Conn {
 		// XXX use broadcast
 		for (Client c : clients) {
 			c.send("clientlist-update " + clients.size());
-			for (Client player : clients) {
-				String color = "#000000"; // XXX temporary -oki
-				String name = player.getName();
-				String mode = player.getMode().toString();
-				c.send(color + ": " + mode + ": " + name);
-			}
+			for (Client player : clients)
+				c.send(player.color + ": " + player.mode + ": " + player.name);
 		}
 	}
 	
