@@ -4,13 +4,20 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.SocketException;
+import java.util.HashSet;
 
 import cmds.Cmd;
 
-public class Client {
-	private BufferedReader in;
-	private PrintWriter out;
+/**
+ * Class Client implements the connection to a Client and has static methods for
+ * sending packets to all clients. No gameplay state is saved here, only a name for
+ * chatting.
+ * @author Leander, oki
+ */
+public class Client extends Conn {
+	private static HashSet<Client> clients;
 	private String name;
+	private String color;
 
 	// XXX why is "private enum Mode {...} mode;" not allowed in Java? Because
 	// enums are objects. Uh.
@@ -21,55 +28,30 @@ public class Client {
 	private Mode mode;
 
 	public Client(BufferedReader in, PrintWriter out) {
-		this.in = in;
-		this.out = out;
+		super(in, out);
 		this.name = null;
+		this.color = null;
 		this.mode = Mode.PreSubscribe;
-		send("Willkommen Genosse! Subscriben Sie!");
+		clients.add(this);
+		send("Willkommen, Genosse! Subscriben Sie!");
 	}
 
 	/**
-	 * Handles the connection to a client, reading and writing commands and
-	 * replies.
+	 * Method subscribe subscribes a client as discussed in the protocol.
+	 * @return false on failure (name already used or nil), true otherwise
 	 */
-	public void handle() throws SocketException, IOException {
-		String line, cmd;
-		Cmd c;
-		int delim;
+	public boolean subscribe(String color, Mode mode, String name) {
+		if(name == null)
+			return false;
 
-		for (;;) {
-			line = in.readLine();
-			delim = line.indexOf(' ');
-			if (delim < 0)
-				delim = line.length();
+		for(Client c : clients)
+			if(name.equals(c.name) && c != this)
+				return false;
 
-			cmd = line.substring(0, delim);
-			c = Cmd.search(cmd);
-			if (c == null) {
-				sendErr("Command does not exist!");
-				continue;
-			}
-
-			c.exec(line, this);
-		}
-	}
-
-	public void send(String line) {
-		out.println(line);
-	}
-
-	public void sendOK() {
-		out.println("+JAWOHL");
-	}
-
-	public void sendErr(String s) {
-		out.println("-NEIN " + s);
-	}
-
-	public void subscribe(Mode mode, String name) {
+		this.color = color;
 		this.mode = mode;
 		this.name = name;
-		this.sendOK();
+		return true;
 	}
 
 	public String getName() {
@@ -81,15 +63,36 @@ public class Client {
 	}
 
 	/**
+	 * Remove this client from the client list.
+	 */
+	public void remove() {
+		clients.remove(this);
+	}
+
+	/**
 	 * Send a client list to all clients.
 	 */
-	public static void listCLients() {
-		for (Client c : Main.getClients()) {
-			for (Client player : Main.getClients()) {
-				String name = player.getName();
-				String mode = player.getMode().toString();
-				c.send(mode + " " + name);
-			}
+	public static void listClients() {
+		// XXX use broadcast
+		for (Client c : clients) {
+			c.send("clientlist-update " + clients.size());
+			for (Client player : clients)
+				c.send(player.color + ": " + player.mode + ": " + player.name);
 		}
+	}
+	
+	/**
+	 * Send a string to all clients.
+	 */
+	public static void broadcast(String s) {
+		for (Client c : clients)
+			c.send(s);
+	}
+
+	/**
+	 * Initialise the client table.
+	 */
+	public static void init() {
+		clients = new HashSet<Client>();
 	}
 }

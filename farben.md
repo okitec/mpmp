@@ -8,7 +8,7 @@ verändern kann, wurden angegeben.
 
 SVG-Dateien bearbeiten
 ----------------------
-Zuallererst: GIMP downloaden. Photoshop ist ungünstig.
+Zuallererst: GIMP downloaden. Photoshop in günstig.
 
 Man kann SVG-Dateien nicht direkt bearbeiten. Im Programm GIMP muss man diese zuerst als
 "Pfad" importieren. Falls im rechten Programmdrittel kein Pfad-Dock vorhanden ist, muss
