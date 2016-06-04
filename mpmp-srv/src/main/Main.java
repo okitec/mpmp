@@ -42,12 +42,20 @@ public class Main {
 							c = new Client(in, out);
 							clients.add(c);
 							c.handle();
+							// XXX duplication -oki
+							System.out.println("Client " + sock + " disconnected");
+							if(c != null)
+								clients.remove(c);
 						} catch (SocketException se) {
+							// XXX duplication -oki
 							System.out.println("Client " + sock + " disconnected");
 							if(c != null)
 								clients.remove(c);
 						} catch (IOException ioe) {
-							;
+							// XXX duplication -oki
+							System.out.println("Client " + sock + " disconnected");
+							if(c != null)
+								clients.remove(c);
 						}
 					}
 				}).start();
