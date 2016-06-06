@@ -1,7 +1,0 @@
-#!/usr/local/plan9/bin/rc
-
-javac -d bin `{du -a src | awk '{print $2}' | grep \.java }
-cd bin
-jar cfe mpmp-srv.jar main.Main `{du -a | awk '{print $2}' | grep \.class }
-cd ..
-mv bin/mpmp-srv.jar .

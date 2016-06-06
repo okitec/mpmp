@@ -1,5 +1,7 @@
-/**
- * mpmp server; see proto.md for the protocol
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package main;
 
@@ -12,12 +14,11 @@ import java.net.Socket;
 import java.net.SocketException;
 
 /**
- * Main class of the server
  *
- * @author Leander, oki
+ * @author leander.dreier
  */
-public class Main {
-	public static void main(String[] args) {
+public class SrvMain {
+    public static void srvmain(String[] args) {
 		ServerSocket listener = null;
 		Client.init();
 

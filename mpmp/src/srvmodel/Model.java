@@ -1,4 +1,4 @@
-package model;
+package srvmodel;
 
 /**
  * Not a thing.

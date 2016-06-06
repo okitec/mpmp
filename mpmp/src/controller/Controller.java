@@ -17,7 +17,7 @@ public class Controller {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public Controller() {
 		Model m = new Model();
 		View v = new View(m);
 	}
