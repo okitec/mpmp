@@ -4,14 +4,9 @@
  */
 package model;
 
-
-import org.apache.batik.apps.rasterizer.SVGConverter;
-
 /**
- * @author Leander, oki, Klaus
+ * @author Leander, oki
  */
 public class Model {
-	
-	SVGConverter a;
 
 }

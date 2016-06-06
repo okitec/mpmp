@@ -2,36 +2,5 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="libs/batik-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-rasterizer-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-slideshow-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-squiggle-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-svgpp-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-ttf2svg-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-swing-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-anim-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-awt-util-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-bridge-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-codec-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-css-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-dom-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-ext-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-extension-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-gui-util-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-gvt-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-parser-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-script-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-svg-dom-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-svggen-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-transcoder-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-util-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/batik-xml-1.8.jar"/>
-	<classpathentry kind="lib" path="libs/fop-transcoder-allinone-1.1.jar"/>
-	<classpathentry kind="lib" path="libs/js.jar"/>
-	<classpathentry kind="lib" path="libs/xalan-2.7.0.jar"/>
-	<classpathentry kind="lib" path="libs/xerces_2_5_0.jar"/>
-	<classpathentry kind="lib" path="libs/xml-apis-1.3.04.jar"/>
-	<classpathentry kind="lib" path="libs/xml-apis-ext-1.3.04.jar"/>
-	<classpathentry kind="lib" path="libs/xmlgraphics-commons-2.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
