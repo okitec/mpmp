@@ -23,3 +23,6 @@ secrets.md
 /mpmp/nbproject/private/
 /mpmp/build/
 /mpmp/dist/
+
+# Gimp stuff (file size >30 MB)
+*.xcf
