@@ -18,3 +18,8 @@ secrets.md
 # Eclipse stuff
 .metadata
 .recommenders
+
+# Netbeans stuff
+/mpmp/nbproject/private/
+/mpmp/build/
+/mpmp/dist/
