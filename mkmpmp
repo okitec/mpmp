@@ -1,0 +1,9 @@
+#!/usr/local/plan9/bin/rc
+
+cd mpmp
+mkdir -p bin
+javac -d bin `{du -a src | awk '{print $2}' | grep \.java }
+cd bin
+jar cfe mpmp.jar main.Main `{du -a | awk '{print $2}' | grep \.class }
+cd ../..
+mv mpmp/bin/mpmp.jar .

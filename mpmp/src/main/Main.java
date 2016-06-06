@@ -13,10 +13,11 @@ import static main.SrvMain.srvmain;
  */
 public class Main {
 	public static void main(String[] args) {
-		if(args.length < 2)
+		if(args.length < 1)
 			usage();
 
-		switch(args[1]) {
+		// 0th argument is not the command in Java -oki
+		switch(args[0]) {
 		case "server":
 			srvmain(args);
 			break;
