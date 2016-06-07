@@ -14,10 +14,21 @@ Get hold of mpmp by cloning this repo or by downloading the .zip via GitHub.
 
     git clone https://github.com/leletec/mpmp.git
 
-Open up the project in Eclipse (we use Eclipse because of internal decisions *cough*) and compile it.
+There are two projects: `mpmp-launcher` and `mpmp`. We use NetBeans, but there is a script for Plan 9's
+`rc` shell that can generate `mpmp.jar` automagically. Adapting it to any other shell should be trivial.
+
+How to run it
+-------------
+
+Execute the launcher to either host a game or join one. Essentially, it's passing some
+arguments to mpmp proper, which acts as client or server depending on the first argument.
+
+    java -jar mpmp.jar server
+    java -jar mpmp.jar client
 
 What can it do?
 ---------------
 
-The server implements `subscribe` and `chat`. For more on the yet unfinished protocol, see [its documentation](proto.md).
-Simply connect to a running instance of mpmp-srv on port 1918 via netcat. Telnet will likely not work because it expects CRLF line endings.
+The server implements `subscribe` and `chat`. For more on the yet unfinished protocol, see
+[its documentation](proto.md). Simply connect to a running server instance on port 1918 via
+netcat. Telnet will likely not work because it expects CRLF line endings.
