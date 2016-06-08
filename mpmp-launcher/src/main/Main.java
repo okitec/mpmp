@@ -9,21 +9,13 @@ import java.util.logging.Logger;
 /**
  * @author Klaus, Oskar
  */
-public class main extends javax.swing.JFrame {
+public class Main extends javax.swing.JFrame {
 
-    public main() {
+    public Main() {
         initComponents();
         System.out.println("Launcher showed.");
-        
-        gameHost.setFont(setFont(24));
-        gameJoin.setFont(setFont(24));
-        gameHostPlayerName.setFont(setFont(18));
-        gameJoinAdress.setFont(setFont(18));
-        gameJoinMode.setFont(setFont(18));
-        gameJoinPlayerName.setFont(setFont(18));
-        gameJoinBtn.setFont(setFont(24));
-        gameJoinBtn.setFont(setFont(24));
-        version.setFont(setFont(12));
+        logolabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/logo_small.png"))); // NOI18N
+        loadFonts();
         System.out.println("Sucessfully loaded font");
     }
 
@@ -44,7 +36,7 @@ public class main extends javax.swing.JFrame {
         gameJoinAdress = new javax.swing.JLabel();
         gameJoinChoose = new javax.swing.JComboBox<>();
         gameJoinBtn = new javax.swing.JButton();
-        gameJoinBtn1 = new javax.swing.JButton();
+        gameHostBtn = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         exitBtn = new javax.swing.JButton();
         version = new javax.swing.JLabel();
@@ -101,12 +93,12 @@ public class main extends javax.swing.JFrame {
             }
         });
 
-        gameJoinBtn1.setFont(new java.awt.Font("Monopoly", 0, 24)); // NOI18N
-        gameJoinBtn1.setText("Hosten");
-        gameJoinBtn1.setActionCommand("");
-        gameJoinBtn1.addActionListener(new java.awt.event.ActionListener() {
+        gameHostBtn.setFont(new java.awt.Font("Monopoly", 0, 24)); // NOI18N
+        gameHostBtn.setText("Hosten");
+        gameHostBtn.setActionCommand("");
+        gameHostBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gameJoinBtn1ActionPerformed(evt);
+                gameHostBtnActionPerformed(evt);
             }
         });
 
@@ -139,7 +131,7 @@ public class main extends javax.swing.JFrame {
                                     .addComponent(gameHost)
                                     .addComponent(gameHostPlayerName))
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(gameJoinBtn1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(gameHostBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -197,7 +189,7 @@ public class main extends javax.swing.JFrame {
                                 .addComponent(gameJoinBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(gameJoinBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(gameHostBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -225,14 +217,14 @@ public class main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_gameJoinBtnActionPerformed
 
-    private void gameJoinBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gameJoinBtn1ActionPerformed
+    private void gameHostBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gameHostBtnActionPerformed
         try {
             ProcessBuilder pb = new ProcessBuilder("java -jar mpmp.jar client");
             Process p = pb.start();
         } catch (IOException ex) {
             System.out.println(ex);
         }
-    }//GEN-LAST:event_gameJoinBtn1ActionPerformed
+    }//GEN-LAST:event_gameHostBtnActionPerformed
 
     private void exitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtnActionPerformed
         System.exit(0);
@@ -251,45 +243,55 @@ public class main extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new main().setVisible(true);
+                new Main().setVisible(true);
             }
         });
     }
 
-    public Font setFont(int size){ //24, 18
+    public void loadFonts(){ //24, 18
         try {
             Font f;
-            f = Font.createFont(Font.TRUETYPE_FONT, this.getClass().getResourceAsStream("/res/Monopoly.ttf") );
-            Font font = f.deriveFont(Font.TRUETYPE_FONT, size);
-            return font;
+            f = Font.createFont(Font.TRUETYPE_FONT,
+                    this.getClass().getResourceAsStream("/res/Monopoly.ttf") );
+       
+            gameHost.setFont(f.deriveFont(Font.TRUETYPE_FONT, 24));
+            gameJoin.setFont(f.deriveFont(Font.TRUETYPE_FONT, 24));
+            gameHostPlayerName.setFont(f.deriveFont(Font.TRUETYPE_FONT, 18));
+            gameJoinAdress.setFont(f.deriveFont(Font.TRUETYPE_FONT, 18));
+            gameJoinMode.setFont(f.deriveFont(Font.TRUETYPE_FONT, 18));
+            gameJoinPlayerName.setFont(f.deriveFont(Font.TRUETYPE_FONT, 18));
+            gameJoinBtn.setFont(f.deriveFont(Font.TRUETYPE_FONT, 24));
+            gameHostBtn.setFont(f.deriveFont(Font.TRUETYPE_FONT, 24));
+            version.setFont(f.deriveFont(Font.TRUETYPE_FONT, 12));
+        
         } catch (FontFormatException | IOException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton exitBtn;
     private javax.swing.JLabel gameHost;
+    private javax.swing.JButton gameHostBtn;
     private javax.swing.JTextField gameHostName;
     private javax.swing.JLabel gameHostPlayerName;
     private javax.swing.JLabel gameJoin;
     private javax.swing.JLabel gameJoinAdress;
     private javax.swing.JTextField gameJoinAdressText;
     private javax.swing.JButton gameJoinBtn;
-    private javax.swing.JButton gameJoinBtn1;
     private javax.swing.JComboBox<String> gameJoinChoose;
     private javax.swing.JLabel gameJoinMode;
     private javax.swing.JTextField gameJoinName;
