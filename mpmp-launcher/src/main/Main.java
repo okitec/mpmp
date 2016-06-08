@@ -220,7 +220,7 @@ public class Main extends javax.swing.JFrame {
         String adress = gameJoinAdressText.getText();
         int gamemode = gameJoinChoose.getSelectedIndex(); //0: Spieler, 1: Zuschauer
         try {
-            ProcessBuilder pb = new ProcessBuilder("java -jar mpmp.jar server");
+            ProcessBuilder pb = new ProcessBuilder("java", "-jar", "mpmp.jar", "client");
             Process p = pb.start();
         } catch (IOException ex) {
             System.out.println(ex);
@@ -229,7 +229,7 @@ public class Main extends javax.swing.JFrame {
 
     private void gameHostBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gameHostBtnActionPerformed
         try {
-            ProcessBuilder pb = new ProcessBuilder("java -jar mpmp.jar client");
+            ProcessBuilder pb = new ProcessBuilder("java", "-jar", "mpmp.jar", "server");
             Process p = pb.start();
         } catch (IOException ex) {
             System.out.println(ex);
