@@ -276,7 +276,7 @@ public class Main extends javax.swing.JFrame {
         try {
             Font f;
             f = Font.createFont(Font.TRUETYPE_FONT,
-                    this.getClass().getResourceAsStream("/res/Monopoly.ttf") );
+                    this.getClass().getResourceAsStream("/res/monopoly.ttf") );
        
             gameHost.setFont(f.deriveFont(Font.TRUETYPE_FONT, 24));
             gameJoin.setFont(f.deriveFont(Font.TRUETYPE_FONT, 24));
