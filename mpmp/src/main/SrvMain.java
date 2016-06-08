@@ -36,17 +36,9 @@ public class SrvMain {
 						try {
 							c = new Client(sock);
 							c.handle();
-							// XXX duplication -oki
-							System.out.println("Client " + sock + " disconnected");
-							if(c != null)
-								c.remove();
-						} catch (SocketException se) {
-							// XXX duplication -oki
-							System.out.println("Client " + sock + " disconnected");
-							if(c != null)
-								c.remove();
 						} catch (IOException ioe) {
-							// XXX duplication -oki
+							/* don't do anything; fall through to finally */
+						} finally {
 							System.out.println("Client " + sock + " disconnected");
 							if(c != null)
 								c.remove();
