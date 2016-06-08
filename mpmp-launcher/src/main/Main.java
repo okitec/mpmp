@@ -16,7 +16,6 @@ public class Main extends javax.swing.JFrame {
 
     public Main() {
         initComponents();
-        System.out.println("Launcher showed.");
         
         /* Alternative Methode um das Logo in den Launcher zu bekommen..
         ImageIcon i = new ImageIcon(getClass().getClassLoader().getResource("res/logo_small.png"));
