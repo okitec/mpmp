@@ -2,9 +2,12 @@ package main;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 
 /**
  * @author Klaus, Oskar
@@ -14,9 +17,13 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         System.out.println("Launcher showed.");
-        logolabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/logo_small.png"))); // NOI18N
+        
+        /* Alternative Methode um das Logo in den Launcher zu bekommen..
+        ImageIcon i = new ImageIcon(getClass().getClassLoader().getResource("res/logo_small.png"));
+        logolabel.setIcon(i);
+        */
+        
         loadFont();
-        System.out.println("Sucessfully loaded font");
     }
 
     @SuppressWarnings("unchecked")
@@ -163,7 +170,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(logolabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,11 +204,11 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(version))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleParent(this);
@@ -280,7 +287,8 @@ public class Main extends javax.swing.JFrame {
             gameJoinBtn.setFont(f.deriveFont(Font.TRUETYPE_FONT, 24));
             gameHostBtn.setFont(f.deriveFont(Font.TRUETYPE_FONT, 24));
             version.setFont(f.deriveFont(Font.TRUETYPE_FONT, 12));
-        
+            System.out.println("Successfully loaded font");
+            
         } catch (FontFormatException | IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
