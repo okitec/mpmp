@@ -15,7 +15,7 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         System.out.println("Launcher showed.");
         logolabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/logo_small.png"))); // NOI18N
-        loadFonts();
+        loadFont();
         System.out.println("Sucessfully loaded font");
     }
 
@@ -43,6 +43,7 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MPMP Launcher");
+        setBackground(new java.awt.Color(247, 247, 207));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setLocationByPlatform(true);
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 420, 604));
@@ -60,6 +61,7 @@ public class Main extends javax.swing.JFrame {
         gameJoin.setFont(new java.awt.Font("Monopoly", 1, 24)); // NOI18N
         gameJoin.setText("Spiel beitreten");
 
+        gameHostName.setBackground(new java.awt.Color(247, 247, 207));
         gameHostName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         gameHostName.setToolTipText("Gib hier deinen Spielernamen ein");
 
@@ -69,12 +71,14 @@ public class Main extends javax.swing.JFrame {
         gameJoinPlayerName.setFont(new java.awt.Font("Monopoly", 0, 18)); // NOI18N
         gameJoinPlayerName.setText("Spielername");
 
+        gameJoinName.setBackground(new java.awt.Color(247, 247, 207));
         gameJoinName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         gameJoinName.setToolTipText("Gib hier deinen Spielernamen ein");
 
         gameJoinMode.setFont(new java.awt.Font("Monopoly", 0, 18)); // NOI18N
         gameJoinMode.setText("Spielmodus");
 
+        gameJoinAdressText.setBackground(new java.awt.Color(247, 247, 207));
         gameJoinAdressText.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         gameJoinAdressText.setToolTipText("Gib hier die Adresse des Servers ein.");
 
@@ -261,7 +265,7 @@ public class Main extends javax.swing.JFrame {
         });
     }
 
-    public void loadFonts(){ //24, 18
+    public void loadFont() {
         try {
             Font f;
             f = Font.createFont(Font.TRUETYPE_FONT,
