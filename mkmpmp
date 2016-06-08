@@ -1,5 +1,7 @@
 #!/usr/local/plan9/bin/rc
+# oki's cheap IDE replacement. I could use mk instead, but this seems easy enough.
 
+echo Building mpmp...
 cd mpmp
 mkdir -p bin
 javac -d bin `{du -a src | awk '{print $2}' | grep \.java }
@@ -7,3 +9,12 @@ cd bin
 jar cfe mpmp.jar main.Main `{du -a | awk '{print $2}' | grep \.class }
 cd ../..
 mv mpmp/bin/mpmp.jar .
+
+echo Building mpmp-launcher...
+cd mpmp-launcher
+mkdir -p bin
+javac -d bin `{du -a src | awk '{print $2}' | grep \.java }
+cd bin
+jar cfe mpmp-launcher.jar main.Main `{du -a | awk '{print $2}' | grep \.class } -C ../src res/logo_small.png -C ../src res/monopoly.ttf
+cd ../..
+mv mpmp-launcher/bin/mpmp-launcher.jar .
