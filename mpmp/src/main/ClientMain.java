@@ -33,7 +33,7 @@ public class ClientMain {
 	}
 
 	private static void usage() {
-		System.err.println("Usage: java -jar mpmp.jar client <server address> <color> <gamemode> <username>");
+		System.err.println("Usage: java -jar mpmp.jar client <server address> <gamemode> <color> <username>");
 		System.exit(1);
 	}
 }
