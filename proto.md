@@ -179,7 +179,8 @@ Rundenende und -anfang
 
 Zu Beginn einer Runde wird sofort gewürfelt. Das Ergebnis wird gleich bei `turn-update`
 mitgeliefert, wie auch die Information, ob es ein Pasch war. Die Clients schauen, ob
-ihr Name dem angegebenen Namen gleicht, um herauszufinden, wer am Zug ist.
+ihr Name dem angegebenen Namen gleicht, um herauszufinden, wer am Zug ist. Die Spielfigur
+desjenigen wird dann entsprechend bewegt. Derjenige kann dann weitere Aktionen tätigen.
 
 Wenn der Spieler alles getan hat, was er in der Runde tun wollte, klickt er auf den
 *Runde beenden*-Button und sendet dem Server ein `end-turn`-Kommando.
