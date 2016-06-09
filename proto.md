@@ -222,3 +222,21 @@ Häuser kaufen
 Mit `add-house` erhöht man die Anzahl der Häuser eines Grundstücks um 1.
 Falls die Operation erfolgreich war, sendet der Server ein `plot-update`
 aus (s. o.).
+
+Mieten und andere Geldereignisse
+--------------------------------
+
+#### Synopsis
+
+		S: add-money <Menge> <Grund>
+		C: +JAWOHL
+
+#### Beschreibung
+
+Mit `add-money` verändert der Server, der als Bank fungiert, die Geldmenge
+des angesprochenen Spielers um ein gewisses Delta. Eine negative Zahl verringert
+die Geldmenge des Spielers. Ein Grund muss immer angegeben werden. Drei wichtige
+Gründe sind Mieten, Ereigniskarten und das Gehalt beim Überqueren des Starts.
+
+Die Geldmenge eines Spielers wird nicht an alle weitergegeben, die Transaktionen
+sind "privat".
