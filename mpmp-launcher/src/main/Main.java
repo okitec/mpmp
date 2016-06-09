@@ -16,13 +16,8 @@ public class Main extends javax.swing.JFrame {
 
     public Main() {
         initComponents();
-        
-        /* Alternative Methode um das Logo in den Launcher zu bekommen..
-        ImageIcon i = new ImageIcon(getClass().getClassLoader().getResource("res/logo_small.png"));
-        logolabel.setIcon(i);
-        */
-        
         loadFont();
+        setBackground(new java.awt.Color(247, 247, 207));
     }
 
     @SuppressWarnings("unchecked")
@@ -40,7 +35,7 @@ public class Main extends javax.swing.JFrame {
         gameJoinMode = new javax.swing.JLabel();
         gameJoinAdressText = new javax.swing.JTextField();
         gameJoinAdress = new javax.swing.JLabel();
-        gameJoinChoose = new javax.swing.JComboBox<>();
+        gameJoinChoose = new javax.swing.JComboBox<String>();
         gameJoinBtn = new javax.swing.JButton();
         gameHostBtn = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
@@ -50,11 +45,7 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MPMP Launcher");
         setBackground(new java.awt.Color(247, 247, 207));
-        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setLocationByPlatform(true);
-        setMaximizedBounds(new java.awt.Rectangle(0, 0, 420, 604));
-        setMaximumSize(new java.awt.Dimension(420, 604));
-        setMinimumSize(new java.awt.Dimension(420, 604));
         setResizable(false);
 
         logolabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/logo_small.png"))); // NOI18N
@@ -92,7 +83,7 @@ public class Main extends javax.swing.JFrame {
         gameJoinAdress.setText("Server Adresse");
 
         gameJoinChoose.setFont(new java.awt.Font("Monopoly", 0, 18)); // NOI18N
-        gameJoinChoose.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Spieler", "Zuschauer" }));
+        gameJoinChoose.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Spieler", "Zuschauer" }));
         gameJoinChoose.setToolTipText("Wähle hier aus, ob du zuschauen oder mitspielen willst.");
 
         gameJoinBtn.setFont(new java.awt.Font("Monopoly", 0, 24)); // NOI18N
@@ -210,8 +201,6 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        getAccessibleContext().setAccessibleParent(this);
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -220,7 +209,7 @@ public class Main extends javax.swing.JFrame {
         String adress = gameJoinAdressText.getText();
         int gamemode = gameJoinChoose.getSelectedIndex(); //0: Spieler, 1: Zuschauer
         try {
-            ProcessBuilder pb = new ProcessBuilder("java", "-jar", "mpmp.jar", "client");
+            ProcessBuilder pb = new ProcessBuilder("java", "-jar", "mpmp.jar", "client", adress);
             Process p = pb.start();
         } catch (IOException ex) {
             System.out.println(ex);
@@ -240,6 +229,7 @@ public class Main extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_exitBtnActionPerformed
 
+    private static String s;
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -264,6 +254,9 @@ public class Main extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
+        if(args.length!=0){
+            s = args[0];
+        }
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Main().setVisible(true);
@@ -272,12 +265,13 @@ public class Main extends javax.swing.JFrame {
     }
 
     public void loadFont() {
-        try {
-            Font f;
-            f = Font.createFont(Font.TRUETYPE_FONT,
+        if(s!="comic"){
+            try {
+            Font f = Font.createFont(Font.TRUETYPE_FONT,
                     this.getClass().getResourceAsStream("/res/monopoly.ttf") );
        
             gameHost.setFont(f.deriveFont(Font.TRUETYPE_FONT, 24));
+            exitBtn.setFont(f.deriveFont(Font.TRUETYPE_FONT, 24));
             gameJoin.setFont(f.deriveFont(Font.TRUETYPE_FONT, 24));
             gameHostPlayerName.setFont(f.deriveFont(Font.TRUETYPE_FONT, 18));
             gameJoinAdress.setFont(f.deriveFont(Font.TRUETYPE_FONT, 18));
@@ -291,6 +285,28 @@ public class Main extends javax.swing.JFrame {
         } catch (FontFormatException | IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        } else {
+            try {
+            Font f = Font.createFont(Font.TRUETYPE_FONT,
+                    this.getClass().getResourceAsStream("/res/monopoly.ttf") );
+            
+            exitBtn.setFont(new java.awt.Font("Comic Sans MS", 0, 24));
+            gameHost.setFont(new java.awt.Font("Comic Sans MS", 0, 24));
+            gameJoin.setFont(new java.awt.Font("Comic Sans MS", 0, 24));
+            gameHostPlayerName.setFont(new java.awt.Font("Comic Sans MS", 0, 18));
+            gameJoinAdress.setFont(new java.awt.Font("Comic Sans MS", 0, 18));
+            gameJoinMode.setFont(new java.awt.Font("Comic Sans MS", 0, 18));
+            gameJoinPlayerName.setFont(new java.awt.Font("Comic Sans MS", 0, 18));
+            gameJoinBtn.setFont(new java.awt.Font("Comic Sans MS", 0, 24));
+            gameHostBtn.setFont(new java.awt.Font("Comic Sans MS", 0, 24));
+            version.setFont(new java.awt.Font("Comic Sans MS", 0, 12));
+            System.out.println("Successfully loaded font (COMIC SANS!!111)");
+            
+        } catch (FontFormatException | IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+                
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
