@@ -1,7 +1,9 @@
 package view;
 
 import clientmodel.Model;
+import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -30,26 +32,28 @@ public class Frame extends JFrame implements cmds.ChatUpdate.ChatAdder {
 		setResizable(false);
 		setTitle("mpmp - Multiplayer Monopoly");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 650, 421);
+		setPreferredSize(new Dimension(200, 440));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 
 		JButton bEndTurn = new JButton("Runde beenden");
-		bEndTurn.setBounds(471, 345, 159, 34);
-		contentPane.add(bEndTurn);
+		bEndTurn.setPreferredSize(new Dimension(100, 30));
 
 		chatBox = new JTextPane();
 		chatBox.setEditable(false);
-		chatBox.setBounds(471, 11, 159, 294);
-		contentPane.add(chatBox);
+		chatBox.setPreferredSize(new Dimension(100, 300));
 
 		chatField = new JTextField();
 		chatField.setToolTipText("Enter chat here...");
-		chatField.setBounds(471, 316, 159, 20);
-		contentPane.add(chatField);
+		chatField.setPreferredSize(new Dimension(100, 10));
 		chatField.setColumns(10);
+
+		contentPane.add(chatBox);
+		contentPane.add(chatField);
+		contentPane.add(bEndTurn);
+		pack();
 	}
 	
 	public void addChatListener(KeyAdapter k) {
