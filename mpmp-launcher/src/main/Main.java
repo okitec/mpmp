@@ -2,12 +2,9 @@ package main;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
-import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 
 /**
  * @author Klaus, Oskar
@@ -30,12 +27,12 @@ public class Main extends javax.swing.JFrame {
         gmLabel = new javax.swing.JLabel();
         addrField = new javax.swing.JTextField();
         addrLabel = new javax.swing.JLabel();
-        gamemode = new javax.swing.JComboBox<String>();
+        gamemode = new javax.swing.JComboBox<>();
         joinBtn = new javax.swing.JButton();
         hostBtn = new javax.swing.JButton();
         exitBtn = new javax.swing.JButton();
         colorLabel = new javax.swing.JLabel();
-        color = new javax.swing.JComboBox<String>();
+        color = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MPMP Launcher");
@@ -63,7 +60,7 @@ public class Main extends javax.swing.JFrame {
         addrLabel.setText("Server-Adresse");
 
         gamemode.setFont(new java.awt.Font("Monopoly", 0, 18)); // NOI18N
-        gamemode.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Spieler", "Zuschauer" }));
+        gamemode.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Spieler", "Zuschauer" }));
         gamemode.setToolTipText("Wähle hier aus, ob du zuschauen oder mitspielen willst.");
 
         joinBtn.setFont(new java.awt.Font("Monopoly", 0, 24)); // NOI18N
@@ -96,7 +93,7 @@ public class Main extends javax.swing.JFrame {
         colorLabel.setText("Farbe");
 
         color.setFont(new java.awt.Font("Monopoly", 0, 18)); // NOI18N
-        color.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Rot", "Gelb", "Grün", "Blau", "Lila", " " }));
+        color.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rot", "Gelb", "Gruen", "Blau", "Lila" }));
         color.setToolTipText("Wähle hier deine Farbe aus.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -169,22 +166,24 @@ public class Main extends javax.swing.JFrame {
 	private void joinBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinBtnActionPerformed
 	    String name = nameField.getText();
 	    String addr = addrField.getText();
-	    int gm = gamemode.getSelectedIndex(); //0: Spieler, 1: Zuschauer
+		String c = getColor(color.getSelectedIndex());
+	    String mode = getMode(gamemode.getSelectedIndex());
 		
 	    try {
-		ProcessBuilder pb = new ProcessBuilder("java", "-jar", "mpmp.jar", "client", addr);
-		Process p = pb.start();
+			new ProcessBuilder("java", "-jar", "mpmp.jar", "client", addr, mode, c, name).start();
 	    } catch (IOException ex) {
 		System.out.println(ex);
 	    }
 	}//GEN-LAST:event_joinBtnActionPerformed
 
 	private void hostBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hostBtnActionPerformed
-	    try {
-		    ProcessBuilder srv = new ProcessBuilder("java", "-jar", "mpmp.jar", "server");
-		    Process s = srv.start();
-		    ProcessBuilder usr = new ProcessBuilder("java", "-jar", "mpmp.jar", "client", "localhost");
-		    Process u = usr.start();
+	    String name = nameField.getText();
+		String mode = getMode(gamemode.getSelectedIndex());
+		String c = getColor(color.getSelectedIndex());
+		
+		try {
+		    new ProcessBuilder("java", "-jar", "mpmp.jar", "server").start();
+		    new ProcessBuilder("java", "-jar", "mpmp.jar", "client", "localhost", mode, c, name).start();
 	    } catch (IOException ex) {
 		    System.out.println(ex);
 	    }
@@ -258,6 +257,35 @@ public class Main extends javax.swing.JFrame {
 	    } catch (FontFormatException | IOException ex) {
 		Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 	    }		
+	}
+	
+	public String getMode(int i) {
+		switch (i) {
+		case 0:
+			return "player";
+		case 1:
+			return "spectator";
+		default:
+			return null;
+		}
+	}
+	
+	public String getColor(int i) { //FIXME change Strings to HexCodes
+		switch (i) {
+			//Rot, Gelb, Gruen, Blau, Lila
+		case 0:
+			return "Rot";
+		case 1:
+			return "Gelb";
+		case 2:
+			return "Gruen";
+		case 3:
+			return "Blau";
+		case 4:
+			return "Lila";
+		default:
+			return null;
+		}
 	}
 	
     // Variables declaration - do not modify//GEN-BEGIN:variables

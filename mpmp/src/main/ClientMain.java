@@ -18,11 +18,11 @@ public class ClientMain {
 	public static void clientmain(String[] args) {
 		Controller c;
 
-		if(args.length < 2)
+		if(args.length < 5)
 			usage();
 
 		try {
-			c = new Controller(args[1], 1918); // XXX hardcoded 1918 -oki
+			c = new Controller(args[1], 1918, args[2], args[3], args[4]); // XXX hardcoded 1918 -oki
 		} catch (UnknownHostException uhe) {
 			System.err.println("mpmp client: unknown host '" + args[1] + "'");
 			System.exit(1);
@@ -33,7 +33,7 @@ public class ClientMain {
 	}
 
 	private static void usage() {
-		System.err.println("Usage: java -jar mpmp.jar client <server address>");
+		System.err.println("Usage: java -jar mpmp.jar client <server address> <color> <gamemode> <username>");
 		System.exit(1);
 	}
 }
