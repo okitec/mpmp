@@ -43,6 +43,9 @@ public class Conn {
 				delim = line.length();
 
 			cmd = line.substring(0, delim);
+			if(cmd == "+JAWOHL" || cmd == "-NEIN")  // XXX show error on -NEIN -oki
+				continue;
+
 			c = Cmd.search(cmd);
 			if (c == null) {
 				sendErr("Command does not exist!");
