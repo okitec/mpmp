@@ -108,4 +108,13 @@ Anwesend: *oki*, Leander
    aber nicht extended werden. Die Alternativen sind relativ *meh* und deswegen muss
    der Ansatz noch überdacht werden.
 
+Sitzung am 09.06.2016
+---------------------
 
+Anwesend: *oki*, Leander, Klaus, Daniel, Oskar, Simon
+
+ - Klaus und oki arbeiten am Launcher, redesigned das Interface.
+ - Dani macht das Benutzerhandbuch.
+ - Oskar versucht, in einem Testprojekt Soundeffekte abzuspielen.
+ - Leander, Simon und oki bringen den Client weiter, sodass er Chat senden und
+   empfangen könnte. Das Subscriben wurde jedoch vergessen. derp
