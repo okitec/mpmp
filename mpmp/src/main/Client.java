@@ -1,13 +1,8 @@
 package main;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.SocketException;
 import java.net.Socket;
 import java.util.HashSet;
-
-import cmds.Cmd;
 
 /**
  * Class Client implements the connection to a Client and has static methods for
@@ -94,6 +89,6 @@ public class Client extends Conn {
 	 * Initialise the client table.
 	 */
 	public static void init() {
-		clients = new HashSet<Client>();
+		clients = new HashSet<>();
 	}
 }

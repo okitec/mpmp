@@ -5,13 +5,9 @@
  */
 package main;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 
 /**
  *
@@ -19,7 +15,7 @@ import java.net.SocketException;
  */
 public class SrvMain {
     public static void srvmain(String[] args) {
-		ServerSocket listener = null;
+		ServerSocket listener;
 		Client.init();
 
 		try {
@@ -28,21 +24,18 @@ public class SrvMain {
 			// XXX total exception madness - WHY, JAVA, WHY?
 			for (;;) {
 				final Socket sock = listener.accept();
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
-						Client c = null;
-						System.out.println("Client connected through " + sock);
-						try {
-							c = new Client(sock);
-							c.handle();
-						} catch (IOException ioe) {
-							/* don't do anything; fall through to finally */
-						} finally {
-							System.out.println("Client " + sock + " disconnected");
-							if(c != null)
-								c.remove();
-						}
+				new Thread(() -> {
+					Client c = null;
+					System.out.println("Client connected through " + sock);
+					try {
+						c = new Client(sock);
+						c.handle();
+					} catch (IOException ioe) {
+						/* don't do anything; fall through to finally */
+					} finally {
+						System.out.println("Client " + sock + " disconnected");
+						if(c != null)
+							c.remove();
 					}
 				}).start();
 			}

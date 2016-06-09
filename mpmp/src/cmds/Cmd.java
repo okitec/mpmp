@@ -12,8 +12,8 @@ public enum Cmd {
 	ChatUpdate("chat-update", new cmds.ChatUpdate()),
 	Subscribe("subscribe", new cmds.Subscribe());
 
-	private String s;
-	private CmdFunc fn;
+	private final String s;
+	private final CmdFunc fn;
 
 	private Cmd(String s, CmdFunc fn) {
 		this.s = s;
@@ -30,5 +30,10 @@ public enum Cmd {
 
 	public void exec(String line, Conn c) {
 		fn.exec(line, c);
+	}
+
+	// XXX meh -oki
+	public CmdFunc getFn() {
+		return fn;
 	}
 }
