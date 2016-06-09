@@ -117,4 +117,4 @@ Anwesend: *oki*, Leander, Klaus, Daniel, Oskar, Simon
  - Dani macht das Benutzerhandbuch.
  - Oskar versucht, in einem Testprojekt Soundeffekte abzuspielen.
  - Leander, Simon und oki bringen den Client weiter, sodass er Chat senden und
-   empfangen könnte. Das Subscriben wurde jedoch vergessen. derp
+   empfangen kann. Auch das Subscriben beim Programmstart wurde umgesetzt.
