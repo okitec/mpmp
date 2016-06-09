@@ -86,6 +86,8 @@ Disconnect (Trennen der Verbindung)
 Ein Client kann mit `disconnect` die Verbindung schließen. Der Spieler gibt implizit auf,
 sofern er noch im Spiel ist. Der Server kann auch die Verbindung trennen, wenn der Spieler
 durch den Administrator des Spiels *gekickt* wurde. Es ist immer der Server, der die Verbindung trennt.
+Falls der Client die Verbindung ohne `disconnect` trennt, passiert nichts Schlimmes, jedoch
+kann man keinen Grund angeben.
 
 Beitreten
 ---------
@@ -153,10 +155,30 @@ Spielbeginn
 
 ##### Synopsis
 
-		S: start-game
+		S: start-game <beginnender Spieler>
 		C: +JAWOHL
 
 ##### Beschreibung
 
 Zu Beginn des Spiels sendet der Server dieses Paket. Clients sind gehalten, jetzt das Spielfeld
 zu zeichnen. Nach dem Beginn des Spiels können keine Spieler mehr hinzugefügt werden.
+
+Rundenende und -anfang
+----------------------
+
+#### Synopsis
+
+		S: turn-update <your dice roll> <pasch|nopasch> <Spieler am Zug>
+		C: +JAWOHL
+
+		C: end-turn
+		S: +JAWOHL
+
+#### Beschreibung
+
+Zu Beginn einer Runde wird sofort gewürfelt. Das Ergebnis wird gleich bei `turn-update`
+mitgeliefert, wie auch die Information, ob es ein Pasch war. Die Clients schauen, ob
+ihr Name dem angegebenen Namen gleicht, um herauszufinden, wer am Zug ist.
+
+Wenn der Spieler alles getan hat, was er in der Runde tun wollte, klickt er auf den
+*Runde beenden*-Button und sendet dem Server ein `end-turn`-Kommando.
