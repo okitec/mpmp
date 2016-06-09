@@ -5,7 +5,6 @@ import java.util.Arrays;
 import main.Conn;
 import main.Client;
 import main.Client.Mode;
-import main.Main;
 
 /**
  * subscribe C->s packet
@@ -20,7 +19,7 @@ public class Subscribe implements CmdFunc {
 		String name = null;
 		Client c = (Client) conn;
 		Client.Mode mode = Client.Mode.PreSubscribe; 
-
+		
 		args = line.split(" ");
 		if (args.length < 4) {
 			c.sendErr(SubscribeSyntax);
@@ -43,6 +42,7 @@ public class Subscribe implements CmdFunc {
 			break;
 		default:
 			c.sendErr(SubscribeSyntax);
+			return;
 		}
 
 		if(c.subscribe(args[2], mode, name) == false)
