@@ -160,8 +160,9 @@ Spielbeginn
 
 ##### Beschreibung
 
-Zu Beginn des Spiels sendet der Server dieses Paket. Clients sind gehalten, jetzt das Spielfeld
-zu zeichnen. Nach dem Beginn des Spiels können keine Spieler mehr hinzugefügt werden.
+Zu Beginn des Spiels sendet der Server dieses Paket. Clients sind gehalten, jetzt
+das Spielfeld zu zeichnen. Nach dem Beginn des Spiels können keine Spieler mehr
+hinzugefügt werden.
 
 Rundenende und -anfang
 ----------------------
@@ -182,3 +183,42 @@ ihr Name dem angegebenen Namen gleicht, um herauszufinden, wer am Zug ist.
 
 Wenn der Spieler alles getan hat, was er in der Runde tun wollte, klickt er auf den
 *Runde beenden*-Button und sendet dem Server ein `end-turn`-Kommando.
+
+Grundstücke kaufen
+------------------
+
+#### Synopsis
+
+		C: buy-plot <Name des Grundstücks>
+		S: +JAWOHL
+		oder
+		S: -NEIN insufficient money, need <amount>
+		S: -NEIN belongs to player <player>
+		S: -NEIN you are not a player
+
+		S: plot-update <Name des Grundstücks> <Häuserzahl> <Eigentümer>
+		C: +JAWOHL
+
+#### Beschreibung
+
+Um ein Grundstück zu erwerben, sendet der Client `buy-plot` aus. Wenn der Kauf
+klappt, wird an alle ein `plot-update`-Packet entsendet. Die Häuserzahl liegt
+zwischen 0 (kein Haus) und 5 (Hotel).
+
+Häuser kaufen
+-------------
+
+#### Synopsis
+
+		C: add-house <Grundstück>
+		S: +JAWOHL
+		oder
+		S: -NEIN insufficient money, need <amount>
+		S: -NEIN belongs to player <player>
+		S: -NEIN already fully upgraded
+
+#### Beschreibung
+
+Mit `add-house` erhöht man die Anzahl der Häuser eines Grundstücks um 1.
+Falls die Operation erfolgreich war, sendet der Server ein `plot-update`
+aus (s. o.).
