@@ -3,6 +3,7 @@ package main;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.SocketException;
 import java.net.Socket;
@@ -18,8 +19,9 @@ public class Conn {
 	private PrintWriter out;
 
 	public Conn(Socket sock) throws IOException {
-		in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-		out = new PrintWriter(sock.getOutputStream(), true);
+		// It is detestable that UTF-8 is not the default -oki
+		in = new BufferedReader(new InputStreamReader(sock.getInputStream(), "UTF-8"));
+		out = new PrintWriter(new OutputStreamWriter(sock.getOutputStream(), "UTF-8"), true);
 	}
 
 	/**
