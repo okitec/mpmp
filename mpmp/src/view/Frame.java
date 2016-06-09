@@ -1,25 +1,32 @@
 package view;
 
+import clientmodel.Model;
 import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.Document;
 import javax.swing.JTextPane;
+import javax.swing.text.BadLocationException;
 
-public class Mainframe extends JFrame {
+public class Frame extends JFrame implements cmds.ChatUpdate.ChatAdder {
 	private JPanel contentPane;
 	private JTextField chatField;
+	private Model m;
+	private JTextPane chatBox;
+	
+	public Frame(Model m) {
+		this.m = m;
+		createFrame();
+		setVisible(true);
+	}
 
 	/**
 	 * Create the frame.
 	 */
-	public Mainframe() {
+	public void createFrame() {
 		setResizable(false);
 		setTitle("mpmp - Multiplayer Monopoly");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,35 +40,36 @@ public class Mainframe extends JFrame {
 		bEndTurn.setBounds(471, 345, 159, 34);
 		contentPane.add(bEndTurn);
 
-		JTextPane chatBox = new JTextPane();
+		chatBox = new JTextPane();
 		chatBox.setEditable(false);
 		chatBox.setBounds(471, 11, 159, 294);
 		contentPane.add(chatBox);
 
 		chatField = new JTextField();
 		chatField.setToolTipText("Enter chat here...");
-		// XXX move to controller
-		chatField.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-				Document doc = chatBox.getDocument();
-				try {
-					if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
-						// XXX add scrolling to the chat box
-						String line = chatField.getText();
-						if(line.length() == 0)
-							return;
-						
-						doc.insertString(doc.getLength(), chatField.getText() + "\n", null);
-						chatField.setText("");
-					}
-				} catch (Exception e) {
-					; // XXX do something?
-				}
-			}
-		});
 		chatField.setBounds(471, 316, 159, 20);
 		contentPane.add(chatField);
 		chatField.setColumns(10);
+	}
+	
+	public void addChatListener(KeyAdapter k) {
+		chatField.addKeyListener(k);
+	}
+
+	public String getChat() {
+		String chat = chatField.getText();
+		chatField.setText("");
+		return chat;
+	}
+
+	@Override
+	public void addChat(String s) {
+		try {
+			Document doc = chatBox.getDocument();
+			doc.insertString(doc.getLength(), s + "\n", null);
+		} catch(BadLocationException ble) {
+			// XXX how to handle?
+			;
+		}
 	}
 }

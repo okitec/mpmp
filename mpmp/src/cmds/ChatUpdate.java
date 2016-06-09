@@ -2,14 +2,23 @@ package cmds;
 
 import main.Conn;
 
-
 /**
- * chat-update S->C packet. This is the clien's handler and is but a stub until later.
+ * chat-update S->C packet.
  */
 public class ChatUpdate implements CmdFunc {
+	public interface ChatAdder {
+		public void addChat(String chat);
+	}
+	private ChatAdder cha;
+
 	@Override
 	public void exec(String line, Conn conn) {
-		conn.send("Hello, chat-update!");
-		// XXX continue
+		String message = line.substring(12);
+		cha.addChat(message);
+		conn.sendOK();
+	}
+
+	public void addChatAdder(ChatAdder cha) {
+		this.cha = cha;
 	}
 }

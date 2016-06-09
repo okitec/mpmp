@@ -7,9 +7,13 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import model.Model;
-import view.View;
+import clientmodel.Model;
+import cmds.Cmd;
+import cmds.ChatUpdate;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import main.Conn;
+import view.Frame;
 
 /**
  * Controller class of the MVC model; currently not used correctly.
@@ -18,14 +22,35 @@ import main.Conn;
  * @author Leander, oki
  */
 public class Controller {
-	/**
-	 * @param args
-	 */
-	public Controller(String addr, int port) throws UnknownHostException, IOException {
+	public Controller(String addr, int port, String mode, String color, String name) throws UnknownHostException, IOException {
 		Model m = new Model();
-		View v = new View(m);
-		Conn srv = new Conn(new Socket(addr, port));
+		Frame frame = new Frame(m);
+		Conn conn = new Conn(new Socket(addr, port));
+		
+		conn.send("subscribe " + mode + " " + color + " " + name);
+		
+		frame.addChatListener((new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent ke) {
+				if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
+					// XXX add scrolling to the chat box
+					String line = frame.getChat();
+					System.out.println("Chatline = " + line);
+					if(line.length() == 0)
+						return;
+					conn.send("chat " + line);
+				}
+			}
+		}));
+		
+		((ChatUpdate) Cmd.ChatUpdate.getFn()).addChatAdder(frame);
 
-		srv.handle();
+		new Thread(() -> {
+			try {
+				conn.handle();
+			} catch (IOException ioe) {
+				// XXX "do what"?
+			}
+		}).start();
 	}
 }
