@@ -32,24 +32,13 @@ public class SrvMain {
 					@Override
 					public void run() {
 						Client c = null;
-
 						System.out.println("Client connected through " + sock);
 						try {
-							BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-							PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
-							c = new Client(in, out);
+							c = new Client(sock);
 							c.handle();
-							// XXX duplication -oki
-							System.out.println("Client " + sock + " disconnected");
-							if(c != null)
-								c.remove();
-						} catch (SocketException se) {
-							// XXX duplication -oki
-							System.out.println("Client " + sock + " disconnected");
-							if(c != null)
-								c.remove();
 						} catch (IOException ioe) {
-							// XXX duplication -oki
+							/* don't do anything; fall through to finally */
+						} finally {
 							System.out.println("Client " + sock + " disconnected");
 							if(c != null)
 								c.remove();

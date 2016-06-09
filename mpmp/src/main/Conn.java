@@ -1,9 +1,11 @@
 package main;
 
 import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.SocketException;
+import java.net.Socket;
 
 import cmds.Cmd;
 
@@ -15,9 +17,9 @@ public class Conn {
 	private BufferedReader in;
 	private PrintWriter out;
 
-	public Conn(BufferedReader in, PrintWriter out) {
-		this.in = in;
-		this.out = out;
+	public Conn(Socket sock) throws IOException {
+		in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+		out = new PrintWriter(sock.getOutputStream(), true);
 	}
 
 	/**
