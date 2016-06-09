@@ -86,6 +86,8 @@ Disconnect (Trennen der Verbindung)
 Ein Client kann mit `disconnect` die Verbindung schließen. Der Spieler gibt implizit auf,
 sofern er noch im Spiel ist. Der Server kann auch die Verbindung trennen, wenn der Spieler
 durch den Administrator des Spiels *gekickt* wurde. Es ist immer der Server, der die Verbindung trennt.
+Falls der Client die Verbindung ohne `disconnect` trennt, passiert nichts Schlimmes, jedoch
+kann man keinen Grund angeben.
 
 Beitreten
 ---------
@@ -153,10 +155,89 @@ Spielbeginn
 
 ##### Synopsis
 
-		S: start-game
+		S: start-game <beginnender Spieler>
 		C: +JAWOHL
 
 ##### Beschreibung
 
-Zu Beginn des Spiels sendet der Server dieses Paket. Clients sind gehalten, jetzt das Spielfeld
-zu zeichnen. Nach dem Beginn des Spiels können keine Spieler mehr hinzugefügt werden.
+Zu Beginn des Spiels sendet der Server dieses Paket. Clients sind gehalten, jetzt
+das Spielfeld zu zeichnen. Nach dem Beginn des Spiels können keine Spieler mehr
+hinzugefügt werden.
+
+Rundenende und -anfang
+----------------------
+
+#### Synopsis
+
+		S: turn-update <your dice roll> <pasch|nopasch> <Spieler am Zug>
+		C: +JAWOHL
+
+		C: end-turn
+		S: +JAWOHL
+
+#### Beschreibung
+
+Zu Beginn einer Runde wird sofort gewürfelt. Das Ergebnis wird gleich bei `turn-update`
+mitgeliefert, wie auch die Information, ob es ein Pasch war. Die Clients schauen, ob
+ihr Name dem angegebenen Namen gleicht, um herauszufinden, wer am Zug ist. Die Spielfigur
+desjenigen wird dann entsprechend bewegt. Derjenige kann dann weitere Aktionen tätigen.
+
+Wenn der Spieler alles getan hat, was er in der Runde tun wollte, klickt er auf den
+*Runde beenden*-Button und sendet dem Server ein `end-turn`-Kommando.
+
+Grundstücke kaufen
+------------------
+
+#### Synopsis
+
+		C: buy-plot <Name des Grundstücks>
+		S: +JAWOHL
+		oder
+		S: -NEIN insufficient money, need <amount>
+		S: -NEIN belongs to player <player>
+		S: -NEIN you are not a player
+
+		S: plot-update <Name des Grundstücks> <Häuserzahl> <Eigentümer>
+		C: +JAWOHL
+
+#### Beschreibung
+
+Um ein Grundstück zu erwerben, sendet der Client `buy-plot` aus. Wenn der Kauf
+klappt, wird an alle ein `plot-update`-Packet entsendet. Die Häuserzahl liegt
+zwischen 0 (kein Haus) und 5 (Hotel).
+
+Häuser kaufen
+-------------
+
+#### Synopsis
+
+		C: add-house <Grundstück>
+		S: +JAWOHL
+		oder
+		S: -NEIN insufficient money, need <amount>
+		S: -NEIN belongs to player <player>
+		S: -NEIN already fully upgraded
+
+#### Beschreibung
+
+Mit `add-house` erhöht man die Anzahl der Häuser eines Grundstücks um 1.
+Falls die Operation erfolgreich war, sendet der Server ein `plot-update`
+aus (s. o.).
+
+Mieten und andere Geldereignisse
+--------------------------------
+
+#### Synopsis
+
+		S: add-money <Menge> <Grund>
+		C: +JAWOHL
+
+#### Beschreibung
+
+Mit `add-money` verändert der Server, der als Bank fungiert, die Geldmenge
+des angesprochenen Spielers um ein gewisses Delta. Eine negative Zahl verringert
+die Geldmenge des Spielers. Ein Grund muss immer angegeben werden. Drei wichtige
+Gründe sind Mieten, Ereigniskarten und das Gehalt beim Überqueren des Starts.
+
+Die Geldmenge eines Spielers wird nicht an alle weitergegeben, die Transaktionen
+sind "privat".
