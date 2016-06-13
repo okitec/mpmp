@@ -12,6 +12,11 @@ Start
 - Die Spielerreihenfolge wird zufällig (evtl. durch Würfelwurf) festgelegt.
 - Alle Spieler starten beim Los-Feld.
 
+Los-Feld 
+--------
+ - Beim Gehen über Los ziehe 4000 RM ein
+ - Wenn du direkt auf Los kommst ziehen 8000 RM ein.
+
 Rdm Thoughts
 ------------
 - Auktionen durchführen
