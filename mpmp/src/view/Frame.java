@@ -2,6 +2,7 @@ package view;
 
 import clientmodel.Model;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -14,10 +15,12 @@ import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 
 public class Frame extends JFrame implements cmds.ChatUpdate.ChatAdder {
+	private Model m;
+	
 	private JPanel contentPane;
 	private JTextField chatField;
-	private Model m;
 	private JTextPane chatBox;
+	private JButton bEndTurn;
 	
 	public Frame(Model m) {
 		this.m = m;
@@ -38,7 +41,7 @@ public class Frame extends JFrame implements cmds.ChatUpdate.ChatAdder {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 
-		JButton bEndTurn = new JButton("Runde beenden");
+		bEndTurn = new JButton("Runde beenden");
 		bEndTurn.setPreferredSize(new Dimension(100, 30));
 
 		chatBox = new JTextPane();
@@ -59,7 +62,7 @@ public class Frame extends JFrame implements cmds.ChatUpdate.ChatAdder {
 	public void addChatListener(KeyAdapter k) {
 		chatField.addKeyListener(k);
 	}
-
+	
 	public String getChat() {
 		String chat = chatField.getText();
 		chatField.setText("");
@@ -72,8 +75,11 @@ public class Frame extends JFrame implements cmds.ChatUpdate.ChatAdder {
 			Document doc = chatBox.getDocument();
 			doc.insertString(doc.getLength(), s + "\n", null);
 		} catch(BadLocationException ble) {
-			// XXX how to handle?
-			;
+			;// XXX how to handle?
 		}
+	}
+	
+	public void addEndTurnListener(ActionListener al) {
+		bEndTurn.addActionListener(al);
 	}
 }

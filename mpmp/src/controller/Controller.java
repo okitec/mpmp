@@ -10,6 +10,8 @@ import java.net.UnknownHostException;
 import clientmodel.Model;
 import cmds.Cmd;
 import cmds.ChatUpdate;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import main.Conn;
@@ -27,9 +29,17 @@ public class Controller {
 		Frame frame = new Frame(m);
 		Conn conn = new Conn(new Socket(addr, port));
 		
+		new Thread(() -> {
+			try {
+				conn.handle();
+			} catch (IOException ioe) {
+				// XXX "do what"?
+			}
+		}).start();
+		
 		conn.send("subscribe " + mode + " " + color + " " + name);
 		
-		frame.addChatListener((new KeyAdapter() {
+		frame.addChatListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent ke) {
 				if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -41,16 +51,15 @@ public class Controller {
 					conn.send("chat " + line);
 				}
 			}
-		}));
+		});
 		
 		((ChatUpdate) Cmd.ChatUpdate.getFn()).addChatAdder(frame);
 
-		new Thread(() -> {
-			try {
-				conn.handle();
-			} catch (IOException ioe) {
-				// XXX "do what"?
+		frame.addEndTurnListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				conn.send("endturn");
 			}
-		}).start();
+		});
 	}
 }
