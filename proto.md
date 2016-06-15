@@ -169,7 +169,7 @@ Rundenende und -anfang
 
 #### Synopsis
 
-		S: turn-update <your dice roll> <pasch|nopasch> <Spieler am Zug>
+		S: turn-update <Gesamtwürfelsumme> <Anzahl an Paschs> <Spieler am Zug>
 		C: +JAWOHL
 
 		C: end-turn
@@ -177,10 +177,11 @@ Rundenende und -anfang
 
 #### Beschreibung
 
-Zu Beginn einer Runde wird sofort gewürfelt. Das Ergebnis wird gleich bei `turn-update`
-mitgeliefert, wie auch die Information, ob es ein Pasch war. Die Clients schauen, ob
-ihr Name dem angegebenen Namen gleicht, um herauszufinden, wer am Zug ist. Die Spielfigur
-desjenigen wird dann entsprechend bewegt. Derjenige kann dann weitere Aktionen tätigen.
+Zu Beginn einer Runde wird sofort gewürfelt. Falls es ein Pasch war, wird wieder gewürfelt,
+wobei man beim dritten Pasch ins Gefängnis kommt. Die Anzahl an Paschs wird zusammen mit
+der Gesamtsumme bei `turn-update` mitgeliefert. Die Clients schauen, ob ihr Name dem angegebenen
+Namen gleicht, um herauszufinden, wer am Zug ist. Die Spielfigur desjenigen wird dann
+entsprechend bewegt. Derjenige kann dann weitere Aktionen tätigen.
 
 Wenn der Spieler alles getan hat, was er in der Runde tun wollte, klickt er auf den
 *Runde beenden*-Button und sendet dem Server ein `end-turn`-Kommando.
