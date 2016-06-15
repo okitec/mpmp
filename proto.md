@@ -242,3 +242,16 @@ Gründe sind Mieten, Ereigniskarten und das Gehalt beim Überqueren des Starts.
 
 Die Geldmenge eines Spielers wird nicht an alle weitergegeben, die Transaktionen
 sind "privat".
+
+Gefängnis
+---------
+
+#### Synopsis
+
+		S: prison <enter|leave> <Spieler>
+		C: +JAWOHL
+
+#### Beschreibung
+
+Der `prison`-Befehl befördert den Spieler in das Gefängnis (`prison enter`)
+oder wieder hinaus (`prison leave`).
