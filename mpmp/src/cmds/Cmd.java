@@ -10,7 +10,8 @@ import main.Conn;
 public enum Cmd {
 	Chat("chat", new cmds.Chat()),
 	ChatUpdate("chat-update", new cmds.ChatUpdate()),
-	Subscribe("subscribe", new cmds.Subscribe());
+	Subscribe("subscribe", new cmds.Subscribe()),
+	EndTurn("end-turn", new cmds.EndTurn());
 
 	private final String s;
 	private final CmdFunc fn;

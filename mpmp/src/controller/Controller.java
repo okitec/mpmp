@@ -58,7 +58,7 @@ public class Controller {
 		frame.addEndTurnListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				conn.send("endturn");
+				conn.send("end-turn");
 			}
 		});
 	}
