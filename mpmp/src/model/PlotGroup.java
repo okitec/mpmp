@@ -71,6 +71,15 @@ public class PlotGroup {
 			return false;
 		}
 
+		/**
+		 * Makes the visitor PAY for staying on our lands! Mwahahah
+		 */
+		public int payRent(Player visitor) {
+			int r = rent[houses - 1]; 
+			visitor.addMoney(-r);
+			return r;
+		}
+
 		public boolean isHypothec() {
 			return hypothec;
 		}
