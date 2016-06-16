@@ -34,7 +34,7 @@ public class Client extends Conn {
 			return false;
 
 		for(Client c : clients)
-			if(c != this && c.isSubscribed() && name.equals(c.player.getName())
+			if(c != this && c.isSubscribed() && name.equals(c.player.getName()))
 				return false;
 
 		try {
