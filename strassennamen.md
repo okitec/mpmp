@@ -9,10 +9,11 @@ Sondergrundstücke:
 ------------------
 * Bahnhof Emden-Süd
 * Bahnhof Emden-West
-* Außenhafen
-* Brücke am Stadtwall
-* Denkmal in Harsweg
-* Neutorbrücke
+* Bahnhof Weimar
+* Hauptbahnhof
+
+* Elektrizitätswerk
+* Wasserwerk
 
 Straßennamen:
 -------------
