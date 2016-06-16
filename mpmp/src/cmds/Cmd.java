@@ -11,7 +11,8 @@ public enum Cmd {
 	Chat("chat", new cmds.Chat()),
 	ChatUpdate("chat-update", new cmds.ChatUpdate()),
 	Subscribe("subscribe", new cmds.Subscribe()),
-	EndTurn("end-turn", new cmds.EndTurn());
+	EndTurn("end-turn", new cmds.EndTurn()),
+	Popularise("popularise", new cmds.Popularise());
 
 	private final String s;
 	private final CmdFunc fn;
