@@ -14,7 +14,7 @@ public class Chat implements cmds.CmdFunc {
 		String chat;
 		Client c = (Client) conn;
 
-		if (c.getName() == null) {
+		if (!c.isSubscribed()) {
 			c.sendErr("You are not subscribed!");
 			return;
 		}
