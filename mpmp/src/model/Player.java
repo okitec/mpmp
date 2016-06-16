@@ -48,6 +48,17 @@ public class Player {
 	}
 
 	/**
+	 * Adds or removes money from a player. If the player can't pay, false is returned.
+	 */
+	public boolean addMoney(int sum) {
+		if(money + sum >= 0) {
+			money += sum;
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Initialise the player table.
 	 */
 	public static void init() {
