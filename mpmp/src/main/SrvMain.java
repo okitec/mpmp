@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import model.Player;
+
 /**
  *
  * @author leander.dreier
@@ -17,6 +19,7 @@ public class SrvMain {
     public static void srvmain(String[] args) {
 		ServerSocket listener;
 		Client.init();
+		Player.init();
 
 		try {
 			listener = new ServerSocket(1918);
