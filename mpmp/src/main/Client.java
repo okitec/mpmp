@@ -1,8 +1,10 @@
 package main;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.HashSet;
+import model.Player;
 
 /**
  * Class Client implements the connection to a Client and has static methods for
@@ -13,7 +15,7 @@ import java.util.HashSet;
 public class Client extends Conn {
 	private static HashSet<Client> clients;
 	private String name;
-	private String color;
+	private Player player;
 
 	// XXX why is "private enum Mode {...} mode;" not allowed in Java? Because
 	// enums are objects. Uh.
@@ -26,7 +28,7 @@ public class Client extends Conn {
 	public Client(Socket sock) throws IOException {
 		super(sock);
 		this.name = null;
-		this.color = null;
+		this.player = null;
 		this.mode = Mode.PreSubscribe;
 		clients.add(this);
 		send("Willkommen, Genosse! Subscriben Sie!");
@@ -37,6 +39,8 @@ public class Client extends Conn {
 	 * @return false on failure (name already used or nil), true otherwise
 	 */
 	public boolean subscribe(String color, Mode mode, String name) {
+		Color col;
+
 		if(name == null)
 			return false;
 
@@ -44,7 +48,13 @@ public class Client extends Conn {
 			if(name.equals(c.name) && c != this)
 				return false;
 
-		this.color = color;
+		try {
+			col = Color.decode(color);
+		} catch(NumberFormatException nfe) {
+			col = Color.BLACK;  // XXX default color - randomise
+		}
+
+		this.player = new Player(col);
 		this.mode = mode;
 		this.name = name;
 		return true;
@@ -72,8 +82,11 @@ public class Client extends Conn {
 		// XXX use broadcast
 		for (Client c : clients) {
 			c.send("clientlist-update " + clients.size());
-			for (Client player : clients)
-				c.send(player.color + ": " + player.mode + ": " + player.name);
+			for (Client player : clients) {
+				// Convert to hex triplet without alpha value and in uppercase.
+				String color = "#" + Integer.toHexString(player.player.getColor().getRGB()).substring(2).toUpperCase();
+				c.send(color + ": " + player.mode + ": " + player.name);
+			}
 		}
 	}
 	
