@@ -113,8 +113,20 @@ Sitzung am 09.06.2016
 
 Anwesend: *oki*, Leander, Klaus, Daniel, Oskar, Simon
 
+ - Die Entwicklungsumgebung ist seit dem 06.06.2016 NetBeans. Die Umstellung
+   war einfach.
  - Klaus und oki arbeiten am Launcher, redesigned das Interface.
  - Dani macht das Benutzerhandbuch.
  - Oskar versucht, in einem Testprojekt Soundeffekte abzuspielen.
  - Leander, Simon und oki bringen den Client weiter, sodass er Chat senden und
    empfangen kann. Auch das Subscriben beim Programmstart wurde umgesetzt.
+
+Sitzung am 13.06.2016
+---------------------
+
+Anwesend: *oki*, Leander, Klaus, Daniel, Oskar, Simon, Matthias
+
+ - Leander implementiert das `end-turn`-Paket.
+ - Matthias zeigt oki seinen bisherigen Code zum Einlesen der Ereigniskarten.
+ - Dani und Simon arbeiten weiter am Handbuch.
+ - Klaus und Oskar arbeiten jeweils an Grafik- und Sound-Integration.
