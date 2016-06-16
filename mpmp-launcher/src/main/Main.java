@@ -270,19 +270,19 @@ public class Main extends javax.swing.JFrame {
 		}
 	}
 	
-	public String getColor(int i) { //FIXME change Strings to HexCodes
+	public String getColor(int i) {
 		switch (i) {
 			//Rot, Gelb, Gruen, Blau, Lila
 		case 0:
-			return "Rot";
+			return "#FF0000";
 		case 1:
-			return "Gelb";
+			return "#FFFF00";
 		case 2:
-			return "Gruen";
+			return "#00FF00";
 		case 3:
-			return "Blau";
+			return "#0000FF";
 		case 4:
-			return "Lila";
+			return "#8904B1";
 		default:
 			return null;
 		}
