@@ -4,10 +4,10 @@ import java.util.Arrays;
 
 import main.Conn;
 import main.Client;
-import main.Client.Mode;
+import model.Player.Mode;
 
 /**
- * subscribe C->s packet
+ * subscribe C->S packet
  * @author Leander
  */
 public class Subscribe implements CmdFunc {
@@ -18,7 +18,7 @@ public class Subscribe implements CmdFunc {
 		String[] args;
 		String name = null;
 		Client c = (Client) conn;
-		Client.Mode mode = Client.Mode.PreSubscribe; 
+		Mode mode; 
 		
 		args = line.split(" ");
 		if (args.length < 4) {

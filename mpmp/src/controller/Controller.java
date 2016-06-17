@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import clientmodel.Model;
+import model.Model;
 import cmds.Cmd;
 import cmds.ChatUpdate;
 import java.awt.event.ActionEvent;

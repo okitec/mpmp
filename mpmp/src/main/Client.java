@@ -1,33 +1,24 @@
 package main;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.HashSet;
+import model.Player;
+import model.Player.Mode;
 
 /**
  * Class Client implements the connection to a Client and has static methods for
- * sending packets to all clients. No gameplay state is saved here, only a name for
- * chatting.
+ * sending packets to all clients. No gameplay state is saved here except a reference
+ * to a Player.
  * @author Leander, oki
  */
 public class Client extends Conn {
 	private static HashSet<Client> clients;
-	private String name;
-	private String color;
-
-	// XXX why is "private enum Mode {...} mode;" not allowed in Java? Because
-	// enums are objects. Uh.
-	public enum Mode {
-		PreSubscribe, Spectator, Player
-	}
-
-	private Mode mode;
+	private Player player;
 
 	public Client(Socket sock) throws IOException {
 		super(sock);
-		this.name = null;
-		this.color = null;
-		this.mode = Mode.PreSubscribe;
 		clients.add(this);
 		send("Willkommen, Genosse! Subscriben Sie!");
 	}
@@ -37,25 +28,33 @@ public class Client extends Conn {
 	 * @return false on failure (name already used or nil), true otherwise
 	 */
 	public boolean subscribe(String color, Mode mode, String name) {
+		Color col;
+
 		if(name == null)
 			return false;
 
 		for(Client c : clients)
-			if(name.equals(c.name) && c != this)
+			if(c != this && c.isSubscribed() && name.equals(c.player.getName()))
 				return false;
 
-		this.color = color;
-		this.mode = mode;
-		this.name = name;
+		try {
+			col = Color.decode(color);
+		} catch(NumberFormatException nfe) {
+			col = Color.BLACK;  // XXX default color - randomise
+		}
+
+		this.player = new Player(col, mode, name);
 		return true;
 	}
 
 	public String getName() {
-		return name;
+		if(player != null)
+			return player.getName();
+		return null;
 	}
 
-	public Mode getMode() {
-		return mode;
+	public boolean isSubscribed() {
+		return player != null;
 	}
 
 	/**
@@ -70,10 +69,11 @@ public class Client extends Conn {
 	 */
 	public static void listClients() {
 		// XXX use broadcast
-		for (Client c : clients) {
-			c.send("clientlist-update " + clients.size());
-			for (Client player : clients)
-				c.send(player.color + ": " + player.mode + ": " + player.name);
+		for (Client receiver : clients) {
+			receiver.send("clientlist-update " + clients.size());
+			for (Client c : clients) {
+				receiver.send("" + c.player);
+			}
 		}
 	}
 	
