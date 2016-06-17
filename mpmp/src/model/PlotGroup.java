@@ -20,7 +20,8 @@ public class PlotGroup {
 		private final PlotGroup group;
 		private final String name;
 		private final int price;
-		private final int rent[];
+		private final int hypothecValue;  /* money gained by making it a hypothec; usually half the price */
+		private final int rent[];         /* six entries: plot alone, with one house, two houses, ..., hotel */
 		private final int housePrices[];
 
 		private Player owner;
@@ -31,6 +32,7 @@ public class PlotGroup {
 			this.group = group;
 			this.name = name;
 			this.price = price;
+			this.hypothecValue = price/2; // XXX is this always true?
 			this.rent = rent;
 			this.housePrices = housePrices;
 		}
@@ -75,7 +77,11 @@ public class PlotGroup {
 		 * Makes the visitor PAY for staying on our lands! Mwahahah
 		 */
 		public int payRent(Player visitor) {
-			int r = rent[houses - 1]; 
+			int r = rent[houses];
+
+			if(hypothec)
+				return 0;
+
 			visitor.addMoney(-r);
 			return r;
 		}
@@ -83,6 +89,15 @@ public class PlotGroup {
 		public boolean isHypothec() {
 			return hypothec;
 		}
+
+		/**
+		 * Add or remove hypothec status. Return the hypothec's value.
+		 */
+		public int hypothec(boolean addhyp) {
+			hypothec = addhyp;
+			return hypothecValue;
+		}
+
 	}
 
 	private boolean canAddHouse(Player p, Plot plot) {

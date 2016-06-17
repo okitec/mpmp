@@ -76,6 +76,21 @@ public class Player {
 	}
 
 	/**
+	 * Add or remove hypothec status of plot.
+	 */
+	public void hypothec(PlotGroup.Plot p, boolean addhyp) {
+		if(addhyp) {
+			if(p.isHypothec())
+				return;
+			hypothecs.add(p);
+			hyp += p.hypothec(true);
+		} else {
+			hypothecs.remove(p);
+			hyp -= p.hypothec(false);
+		}
+	}
+
+	/**
 	 * Initialise the player table.
 	 */
 	public static void init() {
