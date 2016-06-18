@@ -63,16 +63,19 @@ public class Player {
 	 * Adds or removes money from a player. If the player can't pay, false is returned.
 	 */
 	public boolean addMoney(int sum) {
-		if(cash + hyp + sum >= 0) {
-			cash += sum;
+		/* Sum is often negative. Have we positive money if we add sum? */
+		if(cash + hyp + sum < 0)
+			return false;
 
-			/* cash exhausted; change to hypothecs instead */
-			if(cash < 0)
-				hyp = -cash;
+		cash += sum;
 
-			return true;
+		/* cash exhausted; change to hypothecs instead */
+		if(cash < 0) {
+			hyp += cash;  /* cash is negative */
+			cash = 0;
 		}
-		return false;
+
+		return true;
 	}
 
 	/**
