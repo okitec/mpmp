@@ -48,7 +48,7 @@ public class Conn {
 
 			c = Cmd.search(cmd);
 			if (c == null) {
-				sendErr("Command does not exist!");
+				sendErr("Command '" + cmd + "' does not exist!");
 				continue;
 			}
 
