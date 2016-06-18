@@ -130,3 +130,16 @@ Anwesend: *oki*, Leander, Klaus, Daniel, Oskar, Simon, Matthias
  - Matthias zeigt oki seinen bisherigen Code zum Einlesen der Ereigniskarten.
  - Dani und Simon arbeiten weiter am Handbuch.
  - Klaus und Oskar arbeiten jeweils an Grafik- und Sound-Integration.
+
+Sitzung am 16.06.2016
+---------------------
+
+Anwesend: *oki*, Leander, Klaus, Daniel, Oskar, Simon, Matthias
+
+ - Leander und oki versuchen, eine `model.Player`-Klase zu machen, die
+   aber keinen Namen speicern soll, sonst würde ja die Info in `main.Client`
+   doppelt gespeichert werden.Problem: Zuschauer haben auch einen Namen, sind
+   aber keine Spieler. okis Lösung am selben Abend: einfach alles in `Player`
+   rein; auch Spectators sind `Player`s; nichts darf in `Client` gespeichert
+   werden, da diese Klasse nur auf dem Server benutzt wird.
+ - Klaus klatscht alle SVGs zu ener großen Spielfeld-SVG zusammen. Komplex.

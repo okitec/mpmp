@@ -77,15 +77,10 @@ Disconnect (Trennen der Verbindung)
 		S: +JAWOHL
 		S: <Verbindung getrennt>
 
-		S: disconnect [Grund]
-		C: +JAWOHL
-		S: <Verbindung getrennt>
-
 ##### Beschreibung
 
 Ein Client kann mit `disconnect` die Verbindung schließen. Der Spieler gibt implizit auf,
-sofern er noch im Spiel ist. Der Server kann auch die Verbindung trennen, wenn der Spieler
-durch den Administrator des Spiels *gekickt* wurde. Es ist immer der Server, der die Verbindung trennt.
+sofern er noch im Spiel ist. Es ist immer der Server, der die Verbindung trennt.
 Falls der Client die Verbindung ohne `disconnect` trennt, passiert nichts Schlimmes, jedoch
 kann man keinen Grund angeben.
 
@@ -197,6 +192,8 @@ Grundstücke kaufen
 		S: -NEIN insufficient money, need <amount>
 		S: -NEIN belongs to player <player>
 		S: -NEIN you are not a player
+		S: add-money <Preis> Buy plot <Grundstück>
+		C: +JAWOHL
 
 		S: plot-update <Name des Grundstücks> <Häuserzahl> <Eigentümer>
 		C: +JAWOHL
@@ -205,7 +202,8 @@ Grundstücke kaufen
 
 Um ein Grundstück zu erwerben, sendet der Client `buy-plot` aus. Wenn der Kauf
 klappt, wird an alle ein `plot-update`-Packet entsendet. Die Häuserzahl liegt
-zwischen 0 (kein Haus) und 5 (Hotel).
+zwischen 0 (kein Haus) und 5 (Hotel). Die eigentliche Transaktion wird durch ein
+`add-money` durchgeführt.
 
 Häuser kaufen
 -------------
@@ -218,12 +216,15 @@ Häuser kaufen
 		S: -NEIN insufficient money, need <amount>
 		S: -NEIN belongs to player <player>
 		S: -NEIN already fully upgraded
+		S: -NEIN unbalanced plot group
+		S: add-money <Preis> Buy house for plot <Grundstück>
+		C: +JAWOHL
 
 #### Beschreibung
 
 Mit `add-house` erhöht man die Anzahl der Häuser eines Grundstücks um 1.
 Falls die Operation erfolgreich war, sendet der Server ein `plot-update`
-aus (s. o.).
+aus (s. o.). Die eigentliche Transaktion wird durch ein `add-money` durchgeführt.
 
 Mieten und andere Geldereignisse
 --------------------------------
@@ -233,15 +234,21 @@ Mieten und andere Geldereignisse
 		S: add-money <Menge> <Grund>
 		C: +JAWOHL
 
+		S: money-update <Cash> <Hypothekengeld> <Spieler>
+		C: +JAWOHL
+
 #### Beschreibung
 
 Mit `add-money` verändert der Server, der als Bank fungiert, die Geldmenge
 des angesprochenen Spielers um ein gewisses Delta. Eine negative Zahl verringert
-die Geldmenge des Spielers. Ein Grund muss immer angegeben werden. Drei wichtige
-Gründe sind Mieten, Ereigniskarten und das Gehalt beim Überqueren des Starts.
+die Geldmenge des Spielers. Ein Grund muss immer angegeben werden. Wichtige
+Gründe sind Mieten, Ereigniskarten, das Gehalt beim Überqueren des Starts sowie
+Häuser- und Grundstückskäufe.
 
-Die Geldmenge eines Spielers wird nicht an alle weitergegeben, die Transaktionen
-sind "privat".
+Die Geldmenge eines Spielers wird im Folgenden mit `money-update` an alle weitergegeben.
+Die Trennung zwischen `add-money` und `money-update` ist nötig, da bei Ersterem
+ein Grund genannt werden muss, der den Rest der Zeile einnimmt, sodass wir den Grund
+nicht von einem Spielernamen unterscheiden könnten (wir verwenden keine Quotes).
 
 Gefängnis
 ---------
