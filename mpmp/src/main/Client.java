@@ -47,6 +47,17 @@ public class Client extends Conn {
 		return true;
 	}
 
+	/**
+	 * Give up, auction everything, become a spectator.
+	 */
+	public void ragequit() {
+		if(player == null)
+			return;
+
+		player.ragequit();
+		player = new Player(player.getColor(), player.getName(), Player.Mode.Spectator);
+	}
+
 	public String getName() {
 		if(player != null)
 			return player.getName();

@@ -8,10 +8,15 @@ import main.Conn;
  * @author oki, Leander
  */
 public enum Cmd {
+	/* C->S */
 	Chat("chat", new cmds.Chat()),
-	ChatUpdate("chat-update", new cmds.ChatUpdate()),
 	Subscribe("subscribe", new cmds.Subscribe()),
-	EndTurn("end-turn", new cmds.EndTurn());
+	Ragequit("ragequit", new cmds.Ragequit()),
+	EndTurn("end-turn", new cmds.EndTurn()),
+
+	/* S->C */
+	ChatUpdate("chat-update", new cmds.ChatUpdate());
+
 
 	private final String s;
 	private final CmdFunc fn;

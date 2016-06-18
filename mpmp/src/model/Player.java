@@ -94,6 +94,13 @@ public class Player {
 	}
 
 	/**
+	 * Give up and auction everything of value.
+	 */
+	public void ragequit() {
+		// XXX auction all the plots and houses the player had 
+	}
+
+	/**
 	 * Initialise the player table.
 	 */
 	public static void init() {
