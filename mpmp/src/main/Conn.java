@@ -49,7 +49,7 @@ public class Conn {
 				delim = line.length();
 
 			cmd = line.substring(0, delim);
-			if(cmd == "+JAWOHL" || cmd == "-NEIN")  // XXX show error on -NEIN -oki
+			if(cmd.equals("+JAWOHL") || cmd.equals("-NEIN"))  // XXX show error on -NEIN -oki
 				continue;
 
 			c = Cmd.search(cmd);
