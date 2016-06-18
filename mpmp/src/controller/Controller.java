@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import model.Model;
+import model.Player;
 import cmds.Cmd;
 import cmds.ChatUpdate;
 import java.awt.event.ActionEvent;
@@ -28,7 +29,9 @@ public class Controller {
 		Model m = new Model();
 		Frame frame = new Frame(m);
 		Conn conn = new Conn(new Socket(addr, port));
-		
+
+		Player.init();
+
 		new Thread(() -> {
 			try {
 				conn.handle();
