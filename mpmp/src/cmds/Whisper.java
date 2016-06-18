@@ -5,6 +5,7 @@ import main.Client;
 import main.Conn;
 
 /**
+ * C->S whisper packet
  * @author Leander
  */
 public class Whisper implements CmdFunc {
