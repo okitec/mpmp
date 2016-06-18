@@ -15,7 +15,8 @@ public enum Cmd {
 	EndTurn("end-turn", new cmds.EndTurn()),
 
 	/* S->C */
-	ChatUpdate("chat-update", new cmds.ChatUpdate());
+	ChatUpdate("chat-update", new cmds.ChatUpdate()),
+	ClientlistUpdate("clientlist-update", new cmds.ClientlistUpdate());
 
 
 	private final String s;
