@@ -91,8 +91,4 @@ public class Client extends Conn {
 	public static void init() {
 		clients = new HashSet<>();
 	}
-	
-	public static HashSet<Client> getClients() {
-		return clients;
-	}
 }
