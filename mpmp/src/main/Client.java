@@ -20,7 +20,6 @@ public class Client extends Conn {
 	public Client(Socket sock) throws IOException {
 		super(sock);
 		clients.add(this);
-		send("Willkommen, Genosse! Subscriben Sie!");
 	}
 
 	/**
@@ -95,5 +94,12 @@ public class Client extends Conn {
 	 */
 	public static void init() {
 		clients = new HashSet<>();
+	}
+	
+	public static Client search(String name) {
+		for (Client c : clients)
+			if (name.equals(c.getName()))
+				return c;
+		return null;
 	}
 }

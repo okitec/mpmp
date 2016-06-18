@@ -14,11 +14,11 @@ public enum Cmd {
 	Ragequit("ragequit", new cmds.Ragequit()),
 	EndTurn("end-turn", new cmds.EndTurn()),
 	Disconnect("disconnect", new cmds.Disconnect()),
+	Whisper("whisper", new cmds.Whisper()),
 
 	/* S->C */
 	ChatUpdate("chat-update", new cmds.ChatUpdate()),
 	ClientlistUpdate("clientlist-update", new cmds.ClientlistUpdate());
-
 
 	private final String s;
 	private final CmdFunc fn;
