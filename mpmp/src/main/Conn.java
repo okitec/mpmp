@@ -41,6 +41,9 @@ public class Conn {
 			if(line == null)
 				return;  // Connection has been closed...
 
+			// Log all protocol packets. Neat debugging hook.
+			System.err.println("->proto: " + line);
+
 			delim = line.indexOf(' ');
 			if (delim < 0)
 				delim = line.length();
