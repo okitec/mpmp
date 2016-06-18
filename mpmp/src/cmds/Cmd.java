@@ -13,6 +13,7 @@ public enum Cmd {
 	Subscribe("subscribe", new cmds.Subscribe()),
 	Ragequit("ragequit", new cmds.Ragequit()),
 	EndTurn("end-turn", new cmds.EndTurn()),
+	Disconnect("disconnect", new cmds.Disconnect()),
 
 	/* S->C */
 	ChatUpdate("chat-update", new cmds.ChatUpdate()),

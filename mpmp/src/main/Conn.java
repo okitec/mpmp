@@ -17,8 +17,11 @@ import cmds.Cmd;
 public class Conn {
 	private BufferedReader in;
 	private PrintWriter out;
+	private Socket sock;
 
 	public Conn(Socket sock) throws IOException {
+		this.sock = sock;
+
 		// It is detestable that UTF-8 is not the default -oki
 		in = new BufferedReader(new InputStreamReader(sock.getInputStream(), "UTF-8"));
 		out = new PrintWriter(new OutputStreamWriter(sock.getOutputStream(), "UTF-8"), true);
@@ -74,5 +77,13 @@ public class Conn {
 
 	public void sendErr(String s) {
 		out.println("-NEIN " + s);
+	}
+
+	public void disconnect() {
+		try {
+			sock.close();
+		} catch(IOException ioe) {
+			;
+		}
 	}
 }

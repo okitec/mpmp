@@ -77,15 +77,10 @@ Disconnect (Trennen der Verbindung)
 		S: +JAWOHL
 		S: <Verbindung getrennt>
 
-		S: disconnect [Grund]
-		C: +JAWOHL
-		S: <Verbindung getrennt>
-
 ##### Beschreibung
 
 Ein Client kann mit `disconnect` die Verbindung schließen. Der Spieler gibt implizit auf,
-sofern er noch im Spiel ist. Der Server kann auch die Verbindung trennen, wenn der Spieler
-durch den Administrator des Spiels *gekickt* wurde. Es ist immer der Server, der die Verbindung trennt.
+sofern er noch im Spiel ist. Es ist immer der Server, der die Verbindung trennt.
 Falls der Client die Verbindung ohne `disconnect` trennt, passiert nichts Schlimmes, jedoch
 kann man keinen Grund angeben.
 
