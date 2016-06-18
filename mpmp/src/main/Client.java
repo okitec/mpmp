@@ -55,7 +55,8 @@ public class Client extends Conn {
 			return;
 
 		player.ragequit();
-		player = new Player(player.getColor(), player.getName(), Player.Mode.Spectator);
+		player = new Player(player.getColor(), Player.Mode.Spectator, player.getName());
+		listClients();
 	}
 
 	public String getName() {
