@@ -17,8 +17,11 @@ import cmds.Cmd;
 public class Conn {
 	private BufferedReader in;
 	private PrintWriter out;
+	private Socket sock;
 
 	public Conn(Socket sock) throws IOException {
+		this.sock = sock;
+
 		// It is detestable that UTF-8 is not the default -oki
 		in = new BufferedReader(new InputStreamReader(sock.getInputStream(), "UTF-8"));
 		out = new PrintWriter(new OutputStreamWriter(sock.getOutputStream(), "UTF-8"), true);
@@ -38,6 +41,9 @@ public class Conn {
 			if(line == null)
 				return;  // Connection has been closed...
 
+			// Log all protocol packets. Neat debugging hook.
+			System.err.println("->proto: " + line);
+
 			delim = line.indexOf(' ');
 			if (delim < 0)
 				delim = line.length();
@@ -56,6 +62,14 @@ public class Conn {
 		}
 	}
 
+	public String readLine() {
+		try {
+			return in.readLine();
+		} catch(IOException ioe) {
+			return null;
+		}
+	}
+
 	public void send(String line) {
 		out.println(line);
 	}
@@ -66,5 +80,13 @@ public class Conn {
 
 	public void sendErr(String s) {
 		out.println("-NEIN " + s);
+	}
+
+	public void disconnect() {
+		try {
+			sock.close();
+		} catch(IOException ioe) {
+			;
+		}
 	}
 }
