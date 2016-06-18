@@ -28,8 +28,6 @@ public class Client extends Conn {
 	 * @return false on failure (name already used or nil), true otherwise
 	 */
 	public boolean subscribe(String color, Mode mode, String name) {
-		Color col;
-
 		if(name == null)
 			return false;
 
@@ -37,13 +35,8 @@ public class Client extends Conn {
 			if(c != this && c.isSubscribed() && name.equals(c.player.getName()))
 				return false;
 
-		try {
-			col = Color.decode(color);
-		} catch(NumberFormatException nfe) {
-			col = Color.BLACK;  // XXX default color - randomise
-		}
 
-		this.player = new Player(col, mode, name);
+		this.player = new Player(Player.parseColor(color), mode, name);
 		return true;
 	}
 

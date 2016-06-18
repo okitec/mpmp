@@ -106,4 +106,15 @@ public class Player {
 	public static void init() {
 		players = new HashSet<>();
 	}
+
+	/**
+	 * Decode a HTML-style RGB hex triplet (#00AABB).
+	 */
+	public static Color parseColor(String s) {
+		try {
+			return Color.decode(s);
+		} catch(NumberFormatException nfe) {
+			return Color.BLACK;  // XXX default color - randomise
+		}
+	}
 }
