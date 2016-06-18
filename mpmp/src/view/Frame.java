@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.Document;
-import javax.swing.text.StyledDocument;
+import javax.swing.text.DefaultStyledDocument;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 
@@ -103,7 +103,7 @@ public class Frame extends JFrame implements ChatUpdate.ChatAdder, ClientlistUpd
 
 	@Override
 	public void resetPlayerList() {
-		playerList.setDocument(new StyledDocument());
+		playerList.setDocument(new DefaultStyledDocument());
 	}
 
 	public void addEndTurnListener(ActionListener al) {
