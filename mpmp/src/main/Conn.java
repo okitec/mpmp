@@ -56,6 +56,14 @@ public class Conn {
 		}
 	}
 
+	public String readLine() {
+		try {
+			return in.readLine();
+		} catch(IOException ioe) {
+			return null;
+		}
+	}
+
 	public void send(String line) {
 		out.println(line);
 	}
