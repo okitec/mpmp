@@ -18,13 +18,8 @@ public class Whisper implements CmdFunc {
 			return;
 		}
 		
-		Client client = null;
-		for (Client c : Client.getClients())
-			if (args[1].equals(c.getName())) {
-				client = c;
-				break;
-			}
-		if (client== null) {
+		Client client = Client.search(args[1]);
+		if (client == null) {
 			conn.sendErr("This player does not exist!");
 			return;
 		}
