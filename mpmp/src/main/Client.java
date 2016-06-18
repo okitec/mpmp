@@ -66,6 +66,7 @@ public class Client extends Conn {
 	 */
 	public void remove() {
 		clients.remove(this);
+		listClients();
 	}
 
 	/**
@@ -73,6 +74,7 @@ public class Client extends Conn {
 	 */
 	public static void listClients() {
 		// XXX use broadcast
+		// XXX stupid name
 		for (Client receiver : clients) {
 			receiver.send("clientlist-update " + clients.size());
 			for (Client c : clients) {
