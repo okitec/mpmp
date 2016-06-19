@@ -1,6 +1,7 @@
 package cmds;
 
 import main.Conn;
+import main.ErrCode;
 
 /**
  * Class Cmd is the table of commands, pairing the String with the associated handler
@@ -43,5 +44,9 @@ public enum Cmd {
 	// XXX meh -oki
 	public CmdFunc getFn() {
 		return fn;
+	}
+	
+	public void error(ErrCode err, String line, Conn conn){
+		fn.error(err, line, conn);
 	}
 }

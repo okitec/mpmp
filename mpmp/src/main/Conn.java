@@ -18,6 +18,7 @@ public class Conn {
 	private BufferedReader in;
 	private PrintWriter out;
 	private Socket sock;
+	private Cmd lastcmd;
 
 	public Conn(Socket sock) throws IOException {
 		this.sock = sock;
@@ -45,12 +46,17 @@ public class Conn {
 			System.err.println("->proto: " + line);
 
 			delim = line.indexOf(' ');
+
 			if (delim < 0)
 				delim = line.length();
 
 			cmd = line.substring(0, delim);
-			if(cmd.equals("+JAWOHL") || cmd.equals("-NEIN"))  // XXX show error on -NEIN -oki
+
+			if(cmd.equals("+JAWOHL"))
 				continue;
+			
+			if (cmd.equals("-NEIN"))
+				errHandle(line, lastcmd);
 
 			c = Cmd.search(cmd);
 			if (c == null) {
@@ -72,6 +78,14 @@ public class Conn {
 
 	public void send(String line) {
 		out.println(line);
+		
+		// Save the last command for error handling
+		int delim = line.indexOf(' ');
+		if (delim < 0)
+			delim = line.length();
+			
+		String cmd = line.substring(delim);
+		lastcmd = Cmd.search(cmd);
 	}
 
 	public void sendOK() {
@@ -81,12 +95,31 @@ public class Conn {
 	public void sendErr(String s) {
 		out.println("-NEIN " + s);
 	}
-
+	
+	public void sendErr(ErrCode err){
+		out.println("-NEIN " + err.getCode() + " " + err.getMessage());
+	}
+	
 	public void disconnect() {
 		try {
 			sock.close();
 		} catch(IOException ioe) {
 			;
+		}
+	}
+	
+	private void errHandle(String line, Cmd cmd) {
+		String[] args = line.split(" ");
+		ErrCode err;
+		
+		if (args.length < 2)
+			return;
+		
+		try {
+			err = ErrCode.search(Integer.parseInt(args[1]));
+			cmd.error(err, line, this);
+		} catch(NumberFormatException nfe) {
+			//XXX error in error :(
 		}
 	}
 }

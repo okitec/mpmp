@@ -16,10 +16,13 @@ import javax.swing.text.BadLocationException;
 
 import cmds.ChatUpdate;
 import cmds.ClientlistUpdate;
+import cmds.Subscribe;
+import javax.swing.JOptionPane;
+import main.ErrCode;
 import model.Model;
 import model.Player;
 
-public class Frame extends JFrame implements ChatUpdate.ChatAdder, ClientlistUpdate.ClientLister {
+public class Frame extends JFrame implements ChatUpdate.ChatAdder, ClientlistUpdate.ClientLister, Subscribe.SubscribeErrer {
 	private Model m;
 	
 	private JPanel contentPane;
@@ -108,5 +111,10 @@ public class Frame extends JFrame implements ChatUpdate.ChatAdder, ClientlistUpd
 
 	public void addEndTurnListener(ActionListener al) {
 		bEndTurn.addActionListener(al);
+	}
+	
+	@Override
+	public void subscribeErr() {
+		JOptionPane.showMessageDialog(this, ErrCode.NameTaken.getMessage());
 	}
 }

@@ -16,6 +16,7 @@ import model.Player;
 import cmds.Cmd;
 import cmds.ChatUpdate;
 import cmds.ClientlistUpdate;
+import cmds.Subscribe;
 import main.Conn;
 import view.Frame;
 
@@ -58,6 +59,7 @@ public class Controller {
 		
 		((ChatUpdate) Cmd.ChatUpdate.getFn()).addChatAdder(frame);
 		((ClientlistUpdate) Cmd.ClientlistUpdate.getFn()).addClientLister(frame);
+		((Subscribe) Cmd.Subscribe.getFn()).addSubscribeErrer(frame);
 
 		frame.addEndTurnListener(new ActionListener() {
 			@Override
