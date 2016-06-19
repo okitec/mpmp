@@ -78,7 +78,7 @@ public class Client extends Conn {
 		for (Client receiver : clients) {
 			receiver.send("clientlist-update " + clients.size());
 			for (Client c : clients) {
-				receiver.send("" + c.player);
+				receiver.sendCont("" + c.player);
 			}
 		}
 	}

@@ -78,14 +78,22 @@ public class Conn {
 
 	public void send(String line) {
 		out.println(line);
-		
+		System.out.println("proto->: " + line);
+
 		// Save the last command for error handling
 		int delim = line.indexOf(' ');
 		if (delim < 0)
 			delim = line.length();
 			
-		String cmd = line.substring(delim);
+		String cmd = line.substring(0, delim);
 		lastcmd = Cmd.search(cmd);
+	}
+
+	/**
+	 * Send a line continuing a multi-line command.
+	 */
+	public void sendCont(String line) {
+		out.println(line);
 	}
 
 	public void sendOK() {
