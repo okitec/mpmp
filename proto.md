@@ -140,7 +140,7 @@ Spieler- bzw. Clientliste
 
 ##### Beschreibung
 
-Zu Beginn des Spiels nd nach einem Subscribe sendet der Server an alle Clients die
+Zu Beginn des Spiels und nach einem Subscribe sendet der Server an alle Clients die
 Spielerliste inklusive der Farben und des Gamemodes (siehe Subscribe). Die Farben
 sind RGB-Hextriplets wie z.B. `#FFA500`. Falls man nur ein Zuschauer ist, ist die
 Farbe irrelevant.
