@@ -10,6 +10,8 @@ import java.util.HashSet;
  * @author Leander, oki
  */
 public class Player {
+	private static final int StartCash = 30000; // XXX value
+
 	public enum Mode {
 		Spectator, Player
 	}
@@ -21,16 +23,26 @@ public class Player {
 
 	/* only active players */
 	private static HashSet<Player> players;
+	private HashSet<PlotGroup.Plot> plots;
+	private HashSet<PlotGroup.Plot> hypothecs;
+	private int cash;                         /* actual liquid money */
+	private int hyp;                          /* hypothec money */
+	private int pos;                          /* 0 is start; counted clockwise */
 	private boolean inPrison;
-	private int money;
 
 	public Player(Color color, Mode mode, String name) {
 		this.name = name;
 		this.color = color;
 		this.mode = mode;
 
-		if(mode == Mode.Player)
+		if(mode == Mode.Player) {
 			players.add(this);
+			plots = new HashSet<>();
+			hypothecs = new HashSet<>();
+			pos = 0;
+			cash = StartCash;
+			hyp = 0;
+		}
 	}
 
 	public String getName() {
@@ -51,11 +63,41 @@ public class Player {
 	 * Adds or removes money from a player. If the player can't pay, false is returned.
 	 */
 	public boolean addMoney(int sum) {
-		if(money + sum >= 0) {
-			money += sum;
-			return true;
+		/* Sum is often negative. Have we positive money if we add sum? */
+		if(cash + hyp + sum < 0)
+			return false;
+
+		cash += sum;
+
+		/* cash exhausted; change to hypothecs instead */
+		if(cash < 0) {
+			hyp += cash;  /* cash is negative */
+			cash = 0;
 		}
-		return false;
+
+		return true;
+	}
+
+	/**
+	 * Add or remove hypothec status of plot.
+	 */
+	public void hypothec(PlotGroup.Plot p, boolean addhyp) {
+		if(addhyp) {
+			if(p.isHypothec())
+				return;
+			hypothecs.add(p);
+			hyp += p.hypothec(true);
+		} else {
+			hypothecs.remove(p);
+			hyp -= p.hypothec(false);
+		}
+	}
+
+	/**
+	 * Give up and auction everything of value.
+	 */
+	public void ragequit() {
+		// XXX auction all the plots and houses the player had 
 	}
 
 	/**
@@ -63,5 +105,16 @@ public class Player {
 	 */
 	public static void init() {
 		players = new HashSet<>();
+	}
+
+	/**
+	 * Decode a HTML-style RGB hex triplet (#00AABB).
+	 */
+	public static Color parseColor(String s) {
+		try {
+			return Color.decode(s);
+		} catch(NumberFormatException nfe) {
+			return Color.BLACK;  // XXX default color - randomise
+		}
 	}
 }

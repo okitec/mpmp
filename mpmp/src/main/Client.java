@@ -20,7 +20,6 @@ public class Client extends Conn {
 	public Client(Socket sock) throws IOException {
 		super(sock);
 		clients.add(this);
-		send("Willkommen, Genosse! Subscriben Sie!");
 	}
 
 	/**
@@ -28,8 +27,6 @@ public class Client extends Conn {
 	 * @return false on failure (name already used or nil), true otherwise
 	 */
 	public boolean subscribe(String color, Mode mode, String name) {
-		Color col;
-
 		if(name == null)
 			return false;
 
@@ -37,14 +34,21 @@ public class Client extends Conn {
 			if(c != this && c.isSubscribed() && name.equals(c.player.getName()))
 				return false;
 
-		try {
-			col = Color.decode(color);
-		} catch(NumberFormatException nfe) {
-			col = Color.BLACK;  // XXX default color - randomise
-		}
 
-		this.player = new Player(col, mode, name);
+		this.player = new Player(Player.parseColor(color), mode, name);
 		return true;
+	}
+
+	/**
+	 * Give up, auction everything, become a spectator.
+	 */
+	public void ragequit() {
+		if(player == null)
+			return;
+
+		player.ragequit();
+		player = new Player(player.getColor(), Player.Mode.Spectator, player.getName());
+		listClients();
 	}
 
 	public String getName() {
@@ -62,6 +66,7 @@ public class Client extends Conn {
 	 */
 	public void remove() {
 		clients.remove(this);
+		listClients();
 	}
 
 	/**
@@ -69,6 +74,7 @@ public class Client extends Conn {
 	 */
 	public static void listClients() {
 		// XXX use broadcast
+		// XXX stupid name
 		for (Client receiver : clients) {
 			receiver.send("clientlist-update " + clients.size());
 			for (Client c : clients) {

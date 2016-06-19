@@ -1,25 +1,26 @@
 /**
- * Controller part of the MVC model
+ * Controller part of the MVC model (MVC is used in the client only).
  */
 package controller;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
-import model.Model;
-import cmds.Cmd;
-import cmds.ChatUpdate;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
+import model.Model;
+import model.Player;
+import cmds.Cmd;
+import cmds.ChatUpdate;
+import cmds.ClientlistUpdate;
 import main.Conn;
 import view.Frame;
 
 /**
- * Controller class of the MVC model; currently not used correctly.
- * The main method is also located here.
+ * Controller class of the MVC model; used only by the client.
  *
  * @author Leander, oki
  */
@@ -28,7 +29,9 @@ public class Controller {
 		Model m = new Model();
 		Frame frame = new Frame(m);
 		Conn conn = new Conn(new Socket(addr, port));
-		
+
+		Player.init();
+
 		new Thread(() -> {
 			try {
 				conn.handle();
@@ -54,6 +57,7 @@ public class Controller {
 		});
 		
 		((ChatUpdate) Cmd.ChatUpdate.getFn()).addChatAdder(frame);
+		((ClientlistUpdate) Cmd.ClientlistUpdate.getFn()).addClientLister(frame);
 
 		frame.addEndTurnListener(new ActionListener() {
 			@Override
