@@ -14,6 +14,9 @@ public class PlotGroup {
 		plots = new HashSet<>();
 	}
 
+	/**
+	 * A plot that can be bought, sold, turned into a hypothec, ...
+	 */
 	public class Plot {
 		public static final int MaxHouses = 5;        /* hotel counts as five houses */
 

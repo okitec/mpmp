@@ -11,6 +11,7 @@ import java.util.HashSet;
  */
 public class Player {
 	private static final int StartCash = 30000; // XXX value
+	private static final int Wage      = 4000;  // XXX value
 
 	public enum Mode {
 		Spectator, Player
@@ -103,6 +104,8 @@ public class Player {
 		// XXX auction all the plots and houses the player had 
 	}
 
+	
+
 	/**
 	 * Add a unjail card to the player.
 	 */
@@ -130,6 +133,41 @@ public class Player {
 
 		inPrison = false;
 		unjails--;
+	}
+
+	/**
+	 * Move a number of fields. If you pass the start, you get paid.
+	 */
+	public void move(int distance) {
+		teleport((pos + distance) % Field.Nfields, true);
+	}
+
+	/**
+	 */
+	public void teleport(int pos, boolean passStart) {
+		int oldpos;
+
+		if(inPrison)
+			return;
+
+		oldpos = this.pos;
+		this.pos = pos;
+
+		// Axiom: pos < oldpos is true if we passed the start
+		if(passStart && pos < oldpos)
+			addMoney(Wage);
+	}
+
+	/**
+	 * @param enter if true, you enter the prison; if false, you leave it.
+	 */
+	public void prison(boolean enter) {
+		if(enter) {
+			teleport(Field.Prison, false);
+			inPrison = true;
+		} else {
+			inPrison = false;
+		}
 	}
 
 	/* STATIC */
