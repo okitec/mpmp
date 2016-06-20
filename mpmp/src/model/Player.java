@@ -117,4 +117,8 @@ public class Player {
 			return Color.BLACK;  // XXX default color - randomise
 		}
 	}
+	
+	public static int numPlayers() {
+		return players.size();
+	}
 }

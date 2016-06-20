@@ -69,7 +69,7 @@ public class Conn {
 		}
 	}
 
-	public String readLine() {
+	public synchronized String readLine() {
 		try {
 			return in.readLine();
 		} catch(IOException ioe) {
@@ -77,7 +77,7 @@ public class Conn {
 		}
 	}
 
-	public void send(String line) {
+	public synchronized void send(String line) {
 		out.println(line);
 		System.out.println("proto->: " + line);
 
@@ -93,19 +93,20 @@ public class Conn {
 	/**
 	 * Send a line continuing a multi-line command.
 	 */
-	public void sendCont(String line) {
+	public synchronized void sendCont(String line) {
 		out.println(line);
+		System.out.println("proto->: " + line);
 	}
 
-	public void sendOK() {
+	public synchronized void sendOK() {
 		out.println("+JAWOHL");
 	}
 
-	public void sendErr(String s) {
+	public synchronized void sendErr(String s) {
 		out.println("-NEIN " + s);
 	}
 	
-	public void sendErr(ErrCode err){
+	public synchronized void sendErr(ErrCode err){
 		out.println("-NEIN " + err.getCode() + " " + err.getMessage());
 	}
 	
