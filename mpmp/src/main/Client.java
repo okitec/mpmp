@@ -1,6 +1,5 @@
 package main;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.HashSet;
@@ -20,6 +19,7 @@ public class Client extends Conn {
 	public Client(Socket sock) throws IOException {
 		super(sock);
 		clients.add(this);
+		send("+JAWOHL Willkommen, Genosse! Subscriben Sie!");
 	}
 
 	/**
