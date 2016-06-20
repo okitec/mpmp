@@ -29,6 +29,7 @@ public class Player {
 	private int hyp;                          /* hypothec money */
 	private int pos;                          /* 0 is start; counted clockwise */
 	private boolean inPrison;
+	private int unjails;                      /* number of unjail cards */
 
 	public Player(Color color, Mode mode, String name) {
 		this.name = name;
@@ -58,6 +59,8 @@ public class Player {
 		String col = "#" + Integer.toHexString(color.getRGB()).substring(2).toUpperCase();
 		return col + ": " + mode + ": " + name;
 	}
+
+	/* GAME LOGIC */
 
 	/**
 	 * Adds or removes money from a player. If the player can't pay, false is returned.
@@ -99,6 +102,37 @@ public class Player {
 	public void ragequit() {
 		// XXX auction all the plots and houses the player had 
 	}
+
+	/**
+	 * Add a unjail card to the player.
+	 */
+	public void addUnjailCard() {
+		unjails++;
+	}
+
+	/**
+	 * Give one unjail card to player p. Usually against monetary compensation.
+	 */
+	public void giveUnjailCard(Player p) {
+		if(unjails <= 0)
+			return;
+
+		unjails--;
+		p.unjails++;
+	}
+
+	/**
+	 * Leave the prison by using a unjail card.
+	 */
+	public void useUnjailCard() {
+		if(!inPrison)
+			return;
+
+		inPrison = false;
+		unjails--;
+	}
+
+	/* STATIC */
 
 	/**
 	 * Initialise the player table.
