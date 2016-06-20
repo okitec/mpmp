@@ -55,7 +55,7 @@ public class Subscribe implements CmdFunc {
 	@Override
 	public void error(ErrCode err, String line, Conn conn) {
 		if (err == ErrCode.NameTaken) {
-			
+			suerr.subscribeErr();
 		} else
 			System.err.println("Can't happen: " + err.getMessage());
 	}

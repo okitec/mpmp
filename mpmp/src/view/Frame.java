@@ -116,5 +116,6 @@ public class Frame extends JFrame implements ChatUpdate.ChatAdder, ClientlistUpd
 	@Override
 	public void subscribeErr() {
 		JOptionPane.showMessageDialog(this, ErrCode.NameTaken.getMessage());
+		System.exit(0);
 	}
 }
