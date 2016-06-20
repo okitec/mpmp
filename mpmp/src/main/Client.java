@@ -72,7 +72,7 @@ public class Client extends Conn {
 	/**
 	 * Send a client list to all clients.
 	 */
-	public static void listClients() {
+	public static synchronized void listClients() {
 		// XXX use broadcast
 		// XXX stupid name
 		for (Client receiver : clients) {

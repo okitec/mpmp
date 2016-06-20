@@ -33,6 +33,10 @@ public class Controller {
 
 		Player.init();
 
+		((ChatUpdate) Cmd.ChatUpdate.getFn()).addChatAdder(frame);
+		((ClientlistUpdate) Cmd.ClientlistUpdate.getFn()).addClientLister(frame);
+		((Subscribe) Cmd.Subscribe.getFn()).addSubscribeErrer(frame);
+
 		new Thread(() -> {
 			try {
 				conn.handle();
@@ -56,10 +60,6 @@ public class Controller {
 				}
 			}
 		});
-		
-		((ChatUpdate) Cmd.ChatUpdate.getFn()).addChatAdder(frame);
-		((ClientlistUpdate) Cmd.ClientlistUpdate.getFn()).addClientLister(frame);
-		((Subscribe) Cmd.Subscribe.getFn()).addSubscribeErrer(frame);
 
 		frame.addEndTurnListener(new ActionListener() {
 			@Override

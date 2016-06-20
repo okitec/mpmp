@@ -51,12 +51,13 @@ public class Conn {
 				delim = line.length();
 
 			cmd = line.substring(0, delim);
-
 			if(cmd.equals("+JAWOHL"))
 				continue;
 			
-			if (cmd.equals("-NEIN"))
+			if (cmd.equals("-NEIN")) {
 				errHandle(line, lastcmd);
+				continue;
+			}
 
 			c = Cmd.search(cmd);
 			if (c == null) {
@@ -122,7 +123,7 @@ public class Conn {
 		
 		if (args.length < 2)
 			return;
-		
+
 		try {
 			err = ErrCode.search(Integer.parseInt(args[1]));
 			cmd.error(err, line, this);
