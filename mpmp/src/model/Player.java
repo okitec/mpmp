@@ -67,6 +67,8 @@ public class Player {
 	 * Adds or removes money from a player. If the player can't pay, false is returned.
 	 */
 	public boolean addMoney(int sum) {
+		// XXX simply allow negative money instead of returning right here might be better. -oki
+
 		/* Sum is often negative. Have we positive money if we add sum? */
 		if(cash + hyp + sum < 0)
 			return false;
@@ -80,6 +82,26 @@ public class Player {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Collect a sum of money from each player.
+	 */
+	public void collect(int sum) {
+		int total;
+
+		if(sum < 0)
+			return;
+
+		total = 0;
+		for(Player p : players) {
+			if(p.addMoney(-sum) == false)
+				continue; // XXX eh, what to do (loaning is not implemented)
+			
+			total += sum;
+		}
+
+		cash += total;
 	}
 
 	/**
