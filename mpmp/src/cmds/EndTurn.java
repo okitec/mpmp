@@ -6,6 +6,7 @@
 package cmds;
 
 import main.Conn;
+import main.ErrCode;
 
 /**
  *
@@ -15,6 +16,11 @@ public class EndTurn implements CmdFunc {
 
 	@Override
 	public void exec(String line, Conn conn) {
+		//TODO
+	}
+
+	@Override
+	public void error(ErrCode err, String line, Conn conn) {
 		//TODO
 	}
 	

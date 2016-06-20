@@ -1,6 +1,7 @@
 package cmds;
 
 import main.Conn;
+import main.ErrCode;
 import model.Player;
 
 /**
@@ -14,14 +15,14 @@ public class ClientlistUpdate implements CmdFunc {
 
 		args = line.split(" ");
 		if(args.length < 2) {
-			conn.sendErr("Usage: clientlist-update <number of clients>");
+			conn.sendErr(ErrCode.ClientlistUpdateUsage);
 			return;
 		}
 
 		try {
 			nclients = Integer.parseInt(args[1]);
 		} catch(NumberFormatException nfe) {
-			conn.sendErr("'" + args[1] + "': not a number");
+			conn.sendErr("'" + args[1] + "': not a number"); //XXX -.-  -lele
 			return;
 		}
 
@@ -33,13 +34,13 @@ public class ClientlistUpdate implements CmdFunc {
 
 			s = conn.readLine();
 			if(s == null) {
-				conn.sendErr("unxpected EOF");
+				conn.sendErr(ErrCode.EOF);
 				return;
 			}
 
 			fields = s.split(": ");
 			if(fields.length < 3) {
-				conn.sendErr("expected three fields: 'color: mode: name'");
+				conn.sendErr(ErrCode.ClientlistUpdateMissingFields);
 				return;
 			}
 
@@ -51,7 +52,7 @@ public class ClientlistUpdate implements CmdFunc {
 				mode = Player.Mode.Player;
 				break;
 			default:
-				conn.sendErr("bad gamemode '" + fields[1] + "'");
+				conn.sendErr("bad gamemode '" + fields[1] + "'"); //XXX -.-  -lele
 				return;
 			}
 
@@ -59,6 +60,11 @@ public class ClientlistUpdate implements CmdFunc {
 		}
 
 		conn.sendOK();
+	}
+
+	@Override
+	public void error(ErrCode err, String line, Conn conn) {
+		System.err.println("Can't happen: " + err.getMessage());
 	}
 	
 	public interface ClientLister {

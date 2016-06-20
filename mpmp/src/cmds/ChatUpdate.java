@@ -1,6 +1,7 @@
 package cmds;
 
 import main.Conn;
+import main.ErrCode;
 
 /**
  * chat-update S->C packet.
@@ -12,6 +13,9 @@ public class ChatUpdate implements CmdFunc {
 		cha.addChat(message);
 		conn.sendOK();
 	}
+
+	@Override
+	public void error(ErrCode err, String line, Conn conn) {}
 	
 	public interface ChatAdder {
 		public void addChat(String chat);
