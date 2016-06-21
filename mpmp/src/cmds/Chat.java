@@ -2,6 +2,7 @@ package cmds;
 
 import main.Conn;
 import main.Client;
+import main.ErrCode;
 
 /**
  * chat C->S packet
@@ -15,7 +16,7 @@ public class Chat implements cmds.CmdFunc {
 		Client c = (Client) conn;
 
 		if (!c.isSubscribed()) {
-			c.sendErr("You are not subscribed!");
+			c.sendErr(ErrCode.NotSubscribed);
 			return;
 		}
 
@@ -29,5 +30,10 @@ public class Chat implements cmds.CmdFunc {
 
 		chat = line.substring(argpos);
 		Client.broadcast("chat-update " + "(" + c.getName() + ") " + chat);
+	}
+
+	@Override
+	public void error(ErrCode err, String line, Conn conn) {
+		System.err.println("Can't happen: " + err.getMessage());
 	}
 }

@@ -16,7 +16,7 @@ import model.Player;
  * @author leander.dreier
  */
 public class SrvMain {
-    public static void srvmain(String[] args) {
+	public static void srvmain(String[] args) {
 		ServerSocket listener;
 		Client.init();
 		Player.init();

@@ -2,6 +2,7 @@ package cmds;
 
 import main.Conn;
 import main.Client;
+import main.ErrCode;
 
 /**
  * ragequit C->S: give up and become a spectator.
@@ -13,4 +14,7 @@ public class Ragequit implements CmdFunc {
 		c.sendOK();
 		c.ragequit();
 	}
+
+	@Override
+	public void error(ErrCode err, String line, Conn conn) {}
 }

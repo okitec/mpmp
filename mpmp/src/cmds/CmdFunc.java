@@ -1,6 +1,7 @@
 package cmds;
 
 import main.Conn;
+import main.ErrCode;
 
 /**
  * Interface CmdFunc is implemented by all protocol command handlers.
@@ -11,4 +12,5 @@ import main.Conn;
  */
 public interface CmdFunc {
 	public void exec(String line, Conn conn);
+	public void error(ErrCode err, String line, Conn conn);
 }

@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import main.Conn;
 import main.Client;
+import main.ErrCode;
 import model.Player.Mode;
 
 /**
@@ -11,8 +12,6 @@ import model.Player.Mode;
  * @author Leander
  */
 public class Subscribe implements CmdFunc {
-	private static final String SubscribeSyntax = "Syntax: subscribe <spectator|player> #<rgb hex triplet> <Name>";
-	
 	@Override
 	public void exec(String line, Conn conn) {
 		String[] args;
@@ -22,7 +21,7 @@ public class Subscribe implements CmdFunc {
 		
 		args = line.split(" ");
 		if (args.length < 4) {
-			c.sendErr(SubscribeSyntax);
+			c.sendErr(ErrCode.SubscribeUsage);
 			return;
 		}
 
@@ -41,15 +40,32 @@ public class Subscribe implements CmdFunc {
 			mode = Mode.Spectator;
 			break;
 		default:
-			c.sendErr(SubscribeSyntax);
+			c.sendErr(ErrCode.SubscribeUsage);
 			return;
 		}
 
 		if(c.subscribe(args[2], mode, name) == false)
-			c.sendErr("Name already taken");
+			c.sendErr(ErrCode.NameTaken);
 		else {
 			c.sendOK();
 			Client.listClients();
 		}
+	}
+
+	@Override
+	public void error(ErrCode err, String line, Conn conn) {
+		if (err == ErrCode.NameTaken) {
+			suerr.subscribeErr();
+		} else
+			System.err.println("Can't happen: " + err.getMessage());
+	}
+	
+	public interface SubscribeErrer {
+		public void subscribeErr();
+	}
+	private SubscribeErrer suerr;
+	
+	public void addSubscribeErrer(SubscribeErrer suerr) {
+		this.suerr = suerr;
 	}
 }
