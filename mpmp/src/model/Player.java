@@ -10,8 +10,11 @@ import java.util.HashSet;
  * @author Leander, oki
  */
 public class Player {
+	// XXX move to a new file of constants?
 	private static final int StartCash = 30000; // XXX value
 	private static final int Wage      = 4000;  // XXX value
+	private static final int IncomeTax = 2000;  // XXX value
+	private static final int ExtraTax  = 8000;  // XXX value
 
 	public enum Mode {
 		Spectator, Player
@@ -138,46 +141,74 @@ public class Player {
 	/**
 	 * Give one unjail card to player p. Usually against monetary compensation.
 	 */
-	public void giveUnjailCard(Player p) {
+	public boolean giveUnjailCard(Player p) {
 		if(unjails <= 0)
-			return;
+			return false;
 
 		unjails--;
 		p.unjails++;
+		return true;
 	}
 
 	/**
 	 * Leave the prison by using a unjail card.
 	 */
-	public void useUnjailCard() {
+	public boolean useUnjailCard() {
 		if(!inPrison)
-			return;
+			return false;
 
 		inPrison = false;
 		unjails--;
+		return true;
 	}
 
 	/**
 	 * Move a number of fields. If you pass the start, you get paid.
 	 */
-	public void move(int distance) {
-		teleport((pos + distance) % Field.Nfields, true);
+	public boolean move(int distance) {
+		return teleport((pos + distance) % Field.Nfields, true);
 	}
 
 	/**
+	 * Teleport the player to the position; fails if they are in prison.
+	 *
+	 * @param pos index of destination (start is 0; counted clockwise)
+	 * @param passStart whether you get money if you pass start.
 	 */
-	public void teleport(int pos, boolean passStart) {
+	public boolean teleport(int pos, boolean passStart) {
 		int oldpos;
 
 		if(inPrison)
-			return;
+			return false;
 
 		oldpos = this.pos;
 		this.pos = pos;
 
-		// Axiom: pos < oldpos is true if we passed the start
+		/* Axiom: pos < oldpos is true if we passed the start */
 		if(passStart && pos < oldpos)
 			addMoney(Wage);
+
+		switch(pos) {
+		case Field.IncomeTax:
+			addMoney(-IncomeTax);
+			break;
+
+		case Field.FreeParking:
+			// XXX implement rule variation where you get all the tax money?
+			break;
+
+		case Field.Police:
+			prison(true);
+			break;
+
+		case Field.ExtraTax:
+			addMoney(-ExtraTax);
+			break;
+
+		default:
+		} 
+
+		return true;
 	}
 
 	/**
