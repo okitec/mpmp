@@ -10,7 +10,11 @@ import java.util.HashSet;
  * @author Leander, oki
  */
 public class Player {
+	// XXX move to a new file of constants?
 	private static final int StartCash = 30000; // XXX value
+	private static final int Wage      = 4000;  // XXX value
+	private static final int IncomeTax = 2000;  // XXX value
+	private static final int ExtraTax  = 8000;  // XXX value
 
 	public enum Mode {
 		Spectator, Player
@@ -29,6 +33,7 @@ public class Player {
 	private int hyp;                          /* hypothec money */
 	private int pos;                          /* 0 is start; counted clockwise */
 	private boolean inPrison;
+	private int unjails;                      /* number of unjail cards */
 
 	public Player(Color color, Mode mode, String name) {
 		this.name = name;
@@ -59,10 +64,14 @@ public class Player {
 		return col + ": " + mode + ": " + name;
 	}
 
+	/* GAME LOGIC */
+
 	/**
 	 * Adds or removes money from a player. If the player can't pay, false is returned.
 	 */
 	public boolean addMoney(int sum) {
+		// XXX simply allow negative money instead of returning right here might be better. -oki
+
 		/* Sum is often negative. Have we positive money if we add sum? */
 		if(cash + hyp + sum < 0)
 			return false;
@@ -76,6 +85,26 @@ public class Player {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Collect a sum of money from each player.
+	 */
+	public void collect(int sum) {
+		int total;
+
+		if(sum < 0)
+			return;
+
+		total = 0;
+		for(Player p : players) {
+			if(p.addMoney(-sum) == false)
+				continue; // XXX eh, what to do (loaning is not implemented)
+			
+			total += sum;
+		}
+
+		cash += total;
 	}
 
 	/**
@@ -99,6 +128,102 @@ public class Player {
 	public void ragequit() {
 		// XXX auction all the plots and houses the player had 
 	}
+
+	
+
+	/**
+	 * Add a unjail card to the player.
+	 */
+	public void addUnjailCard() {
+		unjails++;
+	}
+
+	/**
+	 * Give one unjail card to player p. Usually against monetary compensation.
+	 */
+	public boolean giveUnjailCard(Player p) {
+		if(unjails <= 0)
+			return false;
+
+		unjails--;
+		p.unjails++;
+		return true;
+	}
+
+	/**
+	 * Leave the prison by using a unjail card.
+	 */
+	public boolean useUnjailCard() {
+		if(!inPrison)
+			return false;
+
+		inPrison = false;
+		unjails--;
+		return true;
+	}
+
+	/**
+	 * Move a number of fields. If you pass the start, you get paid.
+	 */
+	public boolean move(int distance) {
+		return teleport((pos + distance) % Field.Nfields, true);
+	}
+
+	/**
+	 * Teleport the player to the position; fails if they are in prison.
+	 *
+	 * @param pos index of destination (start is 0; counted clockwise)
+	 * @param passStart whether you get money if you pass start.
+	 */
+	public boolean teleport(int pos, boolean passStart) {
+		int oldpos;
+
+		if(inPrison)
+			return false;
+
+		oldpos = this.pos;
+		this.pos = pos;
+
+		/* Axiom: pos < oldpos is true if we passed the start */
+		if(passStart && pos < oldpos)
+			addMoney(Wage);
+
+		switch(pos) {
+		case Field.IncomeTax:
+			addMoney(-IncomeTax);
+			break;
+
+		case Field.FreeParking:
+			// XXX implement rule variation where you get all the tax money?
+			break;
+
+		case Field.Police:
+			prison(true);
+			break;
+
+		case Field.ExtraTax:
+			addMoney(-ExtraTax);
+			break;
+
+		default:
+		} 
+
+		return true;
+	}
+
+	/**
+	 * @param enter if true, you enter the prison; if false, you leave it.
+	 */
+	public void prison(boolean enter) {
+		if(enter) {
+			teleport(Field.Prison, false);
+			inPrison = true;
+		} else {
+			inPrison = false;
+		}
+	}
+
+	/* STATIC */
 
 	/**
 	 * Initialise the player table.
