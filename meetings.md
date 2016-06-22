@@ -136,10 +136,25 @@ Sitzung am 16.06.2016
 
 Anwesend: *oki*, Leander, Klaus, Daniel, Oskar, Simon, Matthias
 
- - Leander und oki versuchen, eine `model.Player`-Klase zu machen, die
-   aber keinen Namen speicern soll, sonst würde ja die Info in `main.Client`
-   doppelt gespeichert werden.Problem: Zuschauer haben auch einen Namen, sind
+ - Leander und oki versuchen, eine `model.Player`-Klasse zu machen, die
+   aber keinen Namen speichern soll, sonst würde ja die Info in `main.Client`
+   doppelt gespeichert werden. Problem: Zuschauer haben auch einen Namen, sind
    aber keine Spieler. okis Lösung am selben Abend: einfach alles in `Player`
    rein; auch Spectators sind `Player`s; nichts darf in `Client` gespeichert
    werden, da diese Klasse nur auf dem Server benutzt wird.
  - Klaus klatscht alle SVGs zu ener großen Spielfeld-SVG zusammen. Komplex.
+
+Sitzung am 20.06.2016
+---------------------
+
+Anwesend: *oki*, Leander, Klaus, Daniel, Oskar, Simon, Matthias
+
+ - Matthias erstellt eine Liste der von den Ereigniskarten benötigten Methoden.
+ - Klaus hat nun ein Testprojekt eingefügt (`mpmp-client`), das das Hintergrundbild
+   zeichnet und die SVG richtig darauf einfügt. Problem: die SVG skaliert nicht
+   automatisch. Wahrscheinlich muss eine Transform-Methode von *Butt-kick* (lt. Klaus)
+   aufgerufen werden.
+ - Simon, Leander und oki implementieren das Protokollfehlersystem (PR #20) zuende.
+   Die Race-Condition im Networking-Code wird am selben Tag gelöst (Issue #31).
+ - Dani ist im Regeldetailbereich des Handbuchs; die Arbeit stockt, weil die Regeln
+   nicht genau genug sind (Issue #27).
