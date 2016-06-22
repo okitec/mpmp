@@ -22,7 +22,7 @@ public class Chat implements cmds.CmdFunc {
 		
 		String[] args = line.split("@");
 		if (args.length > 2) {
-			c.sendErr("Don't put a '@' in your message please.");
+			c.sendErr("Don't put a '@' in your message if you want to whisper, please.");
 			return;
 		}
 		if (args.length > 1) {
