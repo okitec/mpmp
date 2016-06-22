@@ -25,6 +25,7 @@ Paketübersicht
 
  - Beitreten
  - Chateingabe senden
+ - Flüstern senden
  - Disconnect
  - Aufgeben
  - Spielhandlung ausführen
@@ -262,3 +263,35 @@ Gefängnis
 
 Der `prison`-Befehl befördert den Spieler in das Gefängnis (`prison enter`)
 oder wieder hinaus (`prison leave`).
+
+Flüstern
+--------
+
+#### Synopsis
+
+		C: whisper <Spieler> <Nachricht>
+		S: +JAWOHL
+		
+		S: chat-update <Nachricht>
+		C: +JAWOHL
+		
+#### Beschreibung
+
+Der `whisper`-Befehl ermöglicht es einem Spieler, einen anderen direkt anzuschreiben, ohne dass dies von den anderen Spielern bemerkt wird.
+
+Errorhandling
+-------------
+
+Tritt ein Fehler bei einem Befehl auf, wird dies meist durch einen Fehlercode quittiert.
+
+Diese sind von den `SMTP reply codes` inspiriert und werden wie folgt gebildet:
+
+	Erste Stelle: Wie schwerwiegend ist der Fehler? (Aufgrund von `+JAWOHL` benötigen wir hier keine positiven Werte.)
+		1yz  Vorübergehendes Fehlschlagen (Der selbe Befehl kann zu einem anderen Zeitpunkt funktionieren.)
+		2yz  Permanentes Fehlschlagen (Dieser Befehl wird so nie funktionieren.)
+	Zweite Stelle: Wo ist der Fehler aufgetreten?
+		x0z  Allgemeine Fehler die in verschiedenen Bereichen auftreten können
+		x1z  Beitreten, Chatupdate
+		x2z  Chatten, Flüstern
+	Dritte Stelle: Was genau ist passiert?
+		Die Bedeutung der dritten Stelle hängt von der zweiten Stelle ab.
