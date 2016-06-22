@@ -29,20 +29,22 @@ public class Chat implements cmds.CmdFunc {
 			String name = args[1].substring(0, args[1].indexOf(' '));
 			String message = args[1].substring(args[1].indexOf(' ')+1);
 			Client receiver = Client.search(name);
-			receiver.send("chat-update [" + c.getName() + "] "+ message);
-			
-		} else {
-			argpos = line.indexOf(' ');
-			if(argpos < 0) {
-				argpos = line.length();
-			} else {
-				while(argpos < line.length() && Character.isWhitespace(line.codePointAt(argpos)))
-					argpos++;
+			if (receiver != null){
+				receiver.send("chat-update [" + c.getName() + "] "+ message);
+				return;
 			}
-
-			chat = line.substring(argpos);
-			Client.broadcast("chat-update " + "(" + c.getName() + ") " + chat);
 		}
+		
+		argpos = line.indexOf(' ');
+		if(argpos < 0) {
+			argpos = line.length();
+		} else {
+			while(argpos < line.length() && Character.isWhitespace(line.codePointAt(argpos)))
+				argpos++;
+		}
+
+		chat = line.substring(argpos);
+		Client.broadcast("chat-update " + "(" + c.getName() + ") " + chat);
 	}
 
 	@Override
