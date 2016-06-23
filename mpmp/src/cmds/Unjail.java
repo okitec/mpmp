@@ -16,7 +16,7 @@ public class Unjail implements CmdFunc{
 		Player p = Player.search(((Client) conn).getName());
 		
 		if (!p.isPlayer()){
-			conn.sendErr("Not a player"); //TODO
+			conn.sendErr(ErrCode.NotAPlayer);
 			return;
 		}
 		

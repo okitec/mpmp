@@ -29,9 +29,10 @@ public enum ErrCode {
 	ClientlistUpdateMissingFields(213, "Expected three fields: 'color: mode: name'"),
 	SubscribeUsage(214, "Usage: subscribe <spectator|player> #<rgb hex triplet> <Name>"),
 	NotSubscribed(221, "You are not subscribed"),
-	NoSuchPlayer(222, "This player does not exist"),
+	NoSuchClient(222, "This player does not exist"),
 	WhisperUsage(223, "Usage: whisper <playername> <message>"),
-	UnjailUsage(231, "Usage: unjail [card|money]");
+	UnjailUsage(231, "Usage: unjail [card|money]"),
+	NotAPlayer(232, "You are not a player");
 	
 	private final int code;
 	private final String message;
