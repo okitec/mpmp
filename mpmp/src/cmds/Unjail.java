@@ -1,6 +1,6 @@
 package cmds;
 
-import java.util.Arrays;
+import main.Client;
 import main.Conn;
 import main.ErrCode;
 import model.Player;
@@ -10,46 +10,36 @@ import model.Player;
  * @author Leander
  */
 public class Unjail implements CmdFunc{
-	//Usage: unjail [card|money] <player>
-
+	public final static int UnjailCost = -1000;
+	
 	@Override
 	public void exec(String line, Conn conn) {
 		String[] args = line.split(" ");
-		Player p;
+		Player p = Player.search(((Client) conn).getName());
 		
-		if (args.length < 3) {
-			conn.sendErr("Usage ..."); //TODO
+		if (!p.isPlayer()){
+			conn.sendErr("Not a player"); //TODO
 			return;
 		}
 		
-		String pname = null;
-		for (String s : Arrays.copyOfRange(args, 2, args.length)) {
-			if (pname == null)
-				pname = s;
-			else
-				pname += s;
-		}
-		
-		if (Player.search(pname).isPlayer())
-			p = Player.search(pname);
-		else {
-			conn.sendErr("Not a player"); //TODO
+		if (args.length < 2) {
+			conn.sendErr(ErrCode.UnjailUsage);
 			return;
 		}
 		
 		switch (args[1]) {
 		case "card":
 			if (!p.useUnjailCard())
-				conn.sendErr("Player not in prison"); //TODO
+				System.err.println("Player not in prison");
 			break;
 		case "money":
-			if (!p.addMoney(-500)) //check;
-				conn.sendErr("Not enough money"); //TODO
+			if (!p.addMoney(UnjailCost))
+				conn.sendErr(ErrCode.MissingMoney);
 			else
 				p.prison(false);
 			break;
 		default:
-			conn.sendErr("Usage: ..."); //TODO;
+			conn.sendErr(ErrCode.UnjailUsage);
 		}
 	}
 
