@@ -326,11 +326,11 @@ Ereigniskarte ziehen
 		C: +JAWOHL
 		oder
 		C: -NEIN 133 Please gimme a different card!
-		S: JAWOHL
+		S: +JAWOHL
 		oder
 		C: -NEIN 133 Please gimme a different card!
 		S: -NEIN 134 You cannot take a different card.
-		C: -JAWOHL
+		C: +JAWOHL
 
 #### Beschreibung
 
