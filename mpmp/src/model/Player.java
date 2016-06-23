@@ -3,7 +3,6 @@ package model;
 import java.awt.Color;
 import java.util.HashSet;
 import java.util.Iterator;
-import main.Client;
 
 /**
  * Player represents spectators and the actual, actuve players.
@@ -262,5 +261,16 @@ public class Player {
 		if (bestMatch.equals(""))
 			return null;
 		return bestMatch;
+	}
+	
+	public static Player search(String name) {
+		for (Player p : players)
+			if (name.equals(p.getName()))
+				return p;
+		return null;
+	}
+	
+	public boolean isPlayer() {
+		return mode == Mode.Player;
 	}
 }
