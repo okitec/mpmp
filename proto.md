@@ -177,7 +177,8 @@ Zu Beginn einer Runde wird sofort gewürfelt. Falls es ein Pasch war, wird wiede
 wobei man beim dritten Pasch ins Gefängnis kommt. Die Anzahl an Paschs wird zusammen mit
 der Gesamtsumme bei `turn-update` mitgeliefert. Die Clients schauen, ob ihr Name dem angegebenen
 Namen gleicht, um herauszufinden, wer am Zug ist. Die Spielfigur desjenigen wird dann
-entsprechend bewegt. Derjenige kann dann weitere Aktionen tätigen.
+entsprechend bewegt, sofern man nicht im Gefängnis ist.. Derjenige kann dann weitere Aktionen
+tätigen.
 
 Wenn der Spieler alles getan hat, was er in der Runde tun wollte, klickt er auf den
 *Runde beenden*-Button und sendet dem Server ein `end-turn`-Kommando.
@@ -280,7 +281,6 @@ Flüstern
 
 		C: whisper <Spieler> <Nachricht>
 		S: +JAWOHL
-		
 		S: chat-update <Nachricht>
 		C: +JAWOHL
 		
@@ -288,6 +288,30 @@ Flüstern
 
 Der `whisper`-Befehl ermöglicht es einem Spieler, einen anderen direkt anzuschreiben,
 ohne dass dies von den anderen Spielern bemerkt wird.
+
+Ereigniskarte ziehen
+--------------------
+
+#### Synopsis
+
+		S: eventcard <Text>
+		C: +JAWOHL
+		oder
+		C: -NEIN 133 Please gimme a different card!
+		S: JAWOHL
+		oder
+		C: -NEIN 133 Please gimme a different card!
+		S: -NEIN 134 You cannot take a different card.
+		C: -JAWOHL
+
+#### Beschreibung
+
+`eventcard` wird nur an den Spieler gesendet, der gerade eine Ereigniskarte ziehen musste.
+Enthalten ist nur der Text der Karte; die Aktion wird, sofern möglich, vom Server sofort
+durchgeführt. Falls man die Möglichkeit hat, statt der Aktion eine andere Karte zu ziehen
+("Tun Sie das und das oder nehmen Sie eine Gemeinschaftskarte"), returnt der Client mit
+einem `-NEIN 133`. Fals das nicht möglich ist, beschwert sich der Server, was der Client
+akzeptieren muss.
 
 Errorhandling
 -------------
@@ -303,6 +327,11 @@ keine positiven Werte.
 Code | Beschreibung
 -----|-------------
  **1yz** | vorübergehendes Fehlschlagen; der Befehl kann zu einem anderen Zeitpunkt funktionieren.
+ **13z** | temp. Gameplay-Fehler
+ 131 | nicht genug Geld
+ 132 | keine Gefängnis-Frei-Karte vorhanden, die benutzt werden kann
+ 133 | Client will eine neue Ereigniskarte ziehen
+ 134 | Gesuch des Clients auf eine neue Karte wird abgelehnt
  **2yz** | permanentes Fehlschlagen; der Befehl kann nie funktionieren
  **20z** | allgemeiner Fehler, kann in verschiedenen Bereichen auftreten
  201 | unerwartetes End-of-File
@@ -313,6 +342,6 @@ Code | Beschreibung
  214 | `subscribe` mit falscher Syntax
  **22z** | Chatten, Flüstern
  221 | nicht subscribter Client will chatten
- 222 | mit whisperr angesprochener Spieler existiert nicht
+ 222 | mit `whisper` angesprochener Spieler existiert nicht
  223 | `whisper` mit falscher Syntax
  **23z** | Gameplay
