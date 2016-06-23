@@ -41,9 +41,10 @@ public class Player {
 		this.name = name;
 		this.color = color;
 		this.mode = mode;
-
+		
+		players.add(this);
+		
 		if(mode == Mode.Player) {
-			players.add(this);
 			plots = new HashSet<>();
 			hypothecs = new HashSet<>();
 			pos = 0;
