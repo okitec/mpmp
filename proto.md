@@ -259,10 +259,19 @@ Gefängnis
 		S: prison <enter|leave> <Spieler>
 		C: +JAWOHL
 
+		C: unjail <card|money>
+		S: +JAWOHL
+		oder
+		S: -NEIN 131 insufficient money, need <amount>
+		S: -NEIN 132 no unjail card
+
 #### Beschreibung
 
 Der `prison`-Befehl befördert den Spieler in das Gefängnis (`prison enter`)
-oder wieder hinaus (`prison leave`).
+oder wieder hinaus (`prison leave`). Mit dem `unjail`-Befehl hat der Spieler
+die Möglichkeit, seine Gefängnis-Frei-Karte einzusetzen oder den fixen Betrag
+zu zahlen, um freizukommen. Das *passive* Freikommen durch Pasch passiert im
+Server und wird nicht durch `unjail` initiiert.
 
 Flüstern
 --------
@@ -277,7 +286,8 @@ Flüstern
 		
 #### Beschreibung
 
-Der `whisper`-Befehl ermöglicht es einem Spieler, einen anderen direkt anzuschreiben, ohne dass dies von den anderen Spielern bemerkt wird.
+Der `whisper`-Befehl ermöglicht es einem Spieler, einen anderen direkt anzuschreiben,
+ohne dass dies von den anderen Spielern bemerkt wird.
 
 Errorhandling
 -------------
@@ -293,5 +303,6 @@ Diese sind von den `SMTP reply codes` inspiriert und werden wie folgt gebildet:
 		x0z  Allgemeine Fehler die in verschiedenen Bereichen auftreten können
 		x1z  Beitreten, Chatupdate
 		x2z  Chatten, Flüstern
+		x3z  Gameplay
 	Dritte Stelle: Was genau ist passiert?
 		Die Bedeutung der dritten Stelle hängt von der zweiten Stelle ab.
