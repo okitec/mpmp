@@ -16,6 +16,7 @@ public enum Cmd {
 	EndTurn("end-turn", new cmds.EndTurn()),
 	Disconnect("disconnect", new cmds.Disconnect()),
 	Whisper("whisper", new cmds.Whisper()),
+	Unjail("unjail", new cmds.Unjail()),
 
 	/* S->C */
 	ChatUpdate("chat-update", new cmds.ChatUpdate()),
