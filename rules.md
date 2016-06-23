@@ -95,5 +95,5 @@ Gefängnis
 - Wenn Sie auf dem Gefängnisfeld landen, sind Sie als Besucher dort und es passiert nichts.
 - Landen Sie allerdings auf dem Feld „Gehen Sie in das Gefängnis“ , ziehen die entsprechende Karte oder würfeln dreimal einen Pasch, dann sitzt Ihre Spielfigur im Gefängnis ein.
 - Mieten eintreiben und Häuser bauen können Sie trotzdem noch.
-- Man kommt aus dem Gefängnis frei wenn man bei seinem Zug einen Pasch würfelt, eine "Gefängnis Frei" Karte benutzt oder eine Strafe von 1000 RM. **genauer definieren**
+- Man kommt aus dem Gefängnis frei wenn man bei seinem Zug einen Pasch würfelt, eine "Gefängnis Frei" Karte benutzt oder eine Strafe von 1000 RM bezahlt.
 - Schafft man es in drei Runden nicht einen Pasch zu würfeln muss man die Strafe zahlen.
