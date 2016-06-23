@@ -3,6 +3,7 @@ package cmds;
 import main.Conn;
 import main.Client;
 import main.ErrCode;
+import model.Player;
 
 /**
  * chat C->S packet
@@ -20,21 +21,6 @@ public class Chat implements cmds.CmdFunc {
 			return;
 		}
 		
-		String[] args = line.split("@");
-		if (args.length > 2) {
-			c.sendErr("Don't put a '@' in your message if you want to whisper, please.");
-			return;
-		}
-		if (args.length > 1) {
-			String name = args[1].substring(0, args[1].indexOf(' '));
-			String message = args[1].substring(args[1].indexOf(' ')+1);
-			Client receiver = Client.search(name);
-			if (receiver != null){
-				receiver.send("chat-update [" + c.getName() + "] "+ message);
-				return;
-			}
-		}
-		
 		argpos = line.indexOf(' ');
 		if(argpos < 0) {
 			argpos = line.length();
@@ -44,8 +30,19 @@ public class Chat implements cmds.CmdFunc {
 		}
 
 		chat = line.substring(argpos);
-		Client.broadcast("chat-update " + "(" + c.getName() + ") " + chat);
-	}
+		
+		String receiver = Player.matches(chat);
+		
+		if (receiver == null)
+			Client.broadcast("chat-update " + "(" + c.getName() + ") " + chat);
+		else {
+			String[] s = chat.split("@" + receiver);
+			if (s.length < 2)
+				return;
+			String message = s[1];
+			Client.search(receiver).send("chat-update [" + c.getName() + "] "+ message);
+		}
+}
 
 	@Override
 	public void error(ErrCode err, String line, Conn conn) {
