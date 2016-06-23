@@ -292,17 +292,27 @@ ohne dass dies von den anderen Spielern bemerkt wird.
 Errorhandling
 -------------
 
-Tritt ein Fehler bei einem Befehl auf, wird dies meist durch einen Fehlercode quittiert.
+Tritt ein Fehler bei einem Befehl auf, wird dies *meist* durch einen Fehlercode quittiert;
+diese sind von den *SMTP Reply-Codes* inspiriert. Aufgrund von `+JAWOHL` benötigen wir hier
+keine positiven Werte.
 
-Diese sind von den `SMTP reply codes` inspiriert und werden wie folgt gebildet:
+1. Ziffer: Dauerhaftigkeit des Fehlers
+2. Ziffer: Ort des Fehlers
+3. Ziffer: genauere Einteilung
 
-	Erste Stelle: Wie schwerwiegend ist der Fehler? (Aufgrund von `+JAWOHL` benötigen wir hier keine positiven Werte.)
-		1yz  Vorübergehendes Fehlschlagen (Der selbe Befehl kann zu einem anderen Zeitpunkt funktionieren.)
-		2yz  Permanentes Fehlschlagen (Dieser Befehl wird so nie funktionieren.)
-	Zweite Stelle: Wo ist der Fehler aufgetreten?
-		x0z  Allgemeine Fehler die in verschiedenen Bereichen auftreten können
-		x1z  Beitreten, Chatupdate
-		x2z  Chatten, Flüstern
-		x3z  Gameplay
-	Dritte Stelle: Was genau ist passiert?
-		Die Bedeutung der dritten Stelle hängt von der zweiten Stelle ab.
+Code | Beschreibung
+-----|-------------
+ **1yz** | vorübergehendes Fehlschlagen; der Befehl kann zu einem anderen Zeitpunkt funktionieren.
+ **2yz** | permanentes Fehlschlagen; der Befehl kann nie funktionieren
+ **20z** | allgemeiner Fehler, kann in verschiedenen Bereichen auftreten
+ 201 | unerwartetes End-of-File
+ **21z** | Beitreten und Clientlist-Updates
+ 211 | gewähler Name bereits vergeben
+ 212 | `clientlist-update` mit falscher Syntax
+ 213 | `clientlist-update` mit falschen Listenzeilen
+ 214 | `subscribe` mit falscher Syntax
+ **22z** | Chatten, Flüstern
+ 221 | nicht subscribter Client will chatten
+ 222 | mit whisperr angesprochener Spieler existiert nicht
+ 223 | `whisper` mit falscher Syntax
+ **23z** | Gameplay
