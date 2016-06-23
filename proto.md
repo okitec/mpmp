@@ -177,7 +177,7 @@ Zu Beginn einer Runde wird sofort gewürfelt. Falls es ein Pasch war, wird wiede
 wobei man beim dritten Pasch ins Gefängnis kommt. Die Anzahl an Paschs wird zusammen mit
 der Gesamtsumme bei `turn-update` mitgeliefert. Die Clients schauen, ob ihr Name dem angegebenen
 Namen gleicht, um herauszufinden, wer am Zug ist. Die Spielfigur desjenigen wird dann
-entsprechend bewegt, sofern man nicht im Gefängnis ist.. Derjenige kann dann weitere Aktionen
+entsprechend bewegt, sofern man nicht im Gefängnis ist. Derjenige kann dann weitere Aktionen
 tätigen.
 
 Wenn der Spieler alles getan hat, was er in der Runde tun wollte, klickt er auf den
