@@ -43,6 +43,6 @@ public class Unjail implements CmdFunc{
 
 	@Override
 	public void error(ErrCode err, String line, Conn conn) {
-		//TODO
+		conn.send("chat-update " + err.getMessage());
 	}
 }
