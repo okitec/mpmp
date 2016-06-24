@@ -1,7 +1,7 @@
 Protokoll
 =========
 
-Protokollversion: 0
+Protokollversion: 1
 
 Das Protokoll ist ein simples textbasiertes Protokoll mit Ähnlichkeit zu POP3.
 Beide Seiten, Client und Server, senden unaufgefordert Pakete aus, die das
@@ -177,26 +177,43 @@ Zu Beginn einer Runde wird sofort gewürfelt. Falls es ein Pasch war, wird wiede
 wobei man beim dritten Pasch ins Gefängnis kommt. Die Anzahl an Paschs wird zusammen mit
 der Gesamtsumme bei `turn-update` mitgeliefert. Die Clients schauen, ob ihr Name dem angegebenen
 Namen gleicht, um herauszufinden, wer am Zug ist. Die Spielfigur desjenigen wird dann
-entsprechend bewegt. Derjenige kann dann weitere Aktionen tätigen.
+entsprechend bewegt, sofern man nicht im Gefängnis ist. Derjenige kann dann weitere Aktionen
+tätigen.
 
 Wenn der Spieler alles getan hat, was er in der Runde tun wollte, klickt er auf den
 *Runde beenden*-Button und sendet dem Server ein `end-turn`-Kommando.
 
-Grundstücke kaufen
-------------------
+Grundstücke
+-----------
 
 #### Synopsis
 
 		C: buy-plot <Name des Grundstücks>
 		S: +JAWOHL
 		oder
-		S: -NEIN insufficient money, need <amount>
-		S: -NEIN belongs to player <player>
+		S: -NEIN 131 insufficient money, need <amount>
+		S: -NEIN 136 belongs to player <player>
 		S: -NEIN you are not a player
 		S: add-money <Preis> Buy plot <Grundstück>
 		C: +JAWOHL
 
-		S: plot-update <Name des Grundstücks> <Häuserzahl> <Eigentümer>
+		C: sell-plot <Käufer> <Preis>
+		S: +JAWOHL
+		oder
+		S: -NEIN 136 belongs to player <player>
+		S: -NEIN 137 can't sell plot with houses on it
+
+		S: auction-plot <Name des Grundstücks> <Preis> <Höchstbietender>
+		C: +JAWOHL
+		C: make-offer <Name des Grundstücks> <Preis>
+		S: +JAWOHL
+		oder
+		C: -NEIN I don't wanna pay that much.
+
+		C: hypothec <yes|no> <Name des Grundstücks>
+		S: +JAWOHL
+
+		S: plot-update <Name des Grundstücks> <Häuserzahl> <hypothec|nohypothec> <Eigentümer>
 		C: +JAWOHL
 
 #### Beschreibung
@@ -204,28 +221,40 @@ Grundstücke kaufen
 Um ein Grundstück zu erwerben, sendet der Client `buy-plot` aus. Wenn der Kauf
 klappt, wird an alle ein `plot-update`-Packet entsendet. Die Häuserzahl liegt
 zwischen 0 (kein Haus) und 5 (Hotel). Die eigentliche Transaktion wird durch ein
-`add-money` durchgeführt.
+`add-money` durchgeführt. Ein unbebautes Grundstück kann mit `sell-plot` an einen
+anderen Spieler zu einem vereinbarten Preis verkauft werden. Wenn derjenige auf dem
+Grundstück dieses nicht kaufen will, wird es mit `auction-plot` und `make-offer`
+versteigert. Ob ein Grundstück hypothekarisch belastet ist, wird mit `hypothec`
+verändert. Die Bank sendet dann entsprechende `add-money`s.
 
-Häuser kaufen
--------------
+Häuser kaufen und verkaufen
+---------------------------
 
 #### Synopsis
 
 		C: add-house <Grundstück>
 		S: +JAWOHL
 		oder
-		S: -NEIN insufficient money, need <amount>
-		S: -NEIN belongs to player <player>
+		S: -NEIN 131 insufficient money, need <amount>
+		S: -NEIN 136 belongs to player <player>
 		S: -NEIN already fully upgraded
-		S: -NEIN unbalanced plot group
+		S: -NEIN 135 unbalanced plot group
 		S: add-money <Preis> Buy house for plot <Grundstück>
 		C: +JAWOHL
+
+		C: rm-house >Grundstück>
+		S: +JAWOHL
+		S: add-money <halber Hauserwerbspreis> sold house to bank
+		oder
+		S: -NEIN 135 unbalanced plot group
+		<XXX add missing>
 
 #### Beschreibung
 
 Mit `add-house` erhöht man die Anzahl der Häuser eines Grundstücks um 1.
 Falls die Operation erfolgreich war, sendet der Server ein `plot-update`
 aus (s. o.). Die eigentliche Transaktion wird durch ein `add-money` durchgeführt.
+`rm-house` ermöglicht es, ein Haus an die Bank für den halben Preis zurückzugeben.
 
 Mieten und andere Geldereignisse
 --------------------------------
@@ -259,10 +288,19 @@ Gefängnis
 		S: prison <enter|leave> <Spieler>
 		C: +JAWOHL
 
+		C: unjail <card|money>
+		S: +JAWOHL
+		oder
+		S: -NEIN 131 insufficient money, need <amount>
+		S: -NEIN 132 no unjail card
+
 #### Beschreibung
 
 Der `prison`-Befehl befördert den Spieler in das Gefängnis (`prison enter`)
-oder wieder hinaus (`prison leave`).
+oder wieder hinaus (`prison leave`). Mit dem `unjail`-Befehl hat der Spieler
+die Möglichkeit, seine Gefängnis-Frei-Karte einzusetzen oder den fixen Betrag
+zu zahlen, um freizukommen. Das *passive* Freikommen durch Pasch passiert im
+Server und wird nicht durch `unjail` initiiert.
 
 Flüstern
 --------
@@ -271,27 +309,70 @@ Flüstern
 
 		C: whisper <Spieler> <Nachricht>
 		S: +JAWOHL
-		
 		S: chat-update <Nachricht>
 		C: +JAWOHL
 		
 #### Beschreibung
 
-Der `whisper`-Befehl ermöglicht es einem Spieler, einen anderen direkt anzuschreiben, ohne dass dies von den anderen Spielern bemerkt wird.
+Der `whisper`-Befehl ermöglicht es einem Spieler, einen anderen direkt anzuschreiben,
+ohne dass dies von den anderen Spielern bemerkt wird.
+
+Ereigniskarte ziehen
+--------------------
+
+#### Synopsis
+
+		S: eventcard <Text>
+		C: +JAWOHL
+		oder
+		C: -NEIN 133 Please gimme a different card!
+		S: +JAWOHL
+		oder
+		C: -NEIN 133 Please gimme a different card!
+		S: -NEIN 134 You cannot take a different card.
+		C: +JAWOHL
+
+#### Beschreibung
+
+`eventcard` wird nur an den Spieler gesendet, der gerade eine Ereigniskarte ziehen musste.
+Enthalten ist nur der Text der Karte; die Aktion wird, sofern möglich, vom Server sofort
+durchgeführt. Falls man die Möglichkeit hat, statt der Aktion eine andere Karte zu ziehen
+("Tun Sie das und das oder nehmen Sie eine Gemeinschaftskarte"), returnt der Client mit
+einem `-NEIN 133`. Fals das nicht möglich ist, beschwert sich der Server, was der Client
+akzeptieren muss.
 
 Errorhandling
 -------------
 
-Tritt ein Fehler bei einem Befehl auf, wird dies meist durch einen Fehlercode quittiert.
+Tritt ein Fehler bei einem Befehl auf, wird dies *meist* durch einen Fehlercode quittiert;
+diese sind von den *SMTP Reply-Codes* inspiriert. Aufgrund von `+JAWOHL` benötigen wir hier
+keine positiven Werte.
 
-Diese sind von den `SMTP reply codes` inspiriert und werden wie folgt gebildet:
+1. Ziffer: Dauerhaftigkeit des Fehlers
+2. Ziffer: Ort des Fehlers
+3. Ziffer: genauere Einteilung
 
-	Erste Stelle: Wie schwerwiegend ist der Fehler? (Aufgrund von `+JAWOHL` benötigen wir hier keine positiven Werte.)
-		1yz  Vorübergehendes Fehlschlagen (Der selbe Befehl kann zu einem anderen Zeitpunkt funktionieren.)
-		2yz  Permanentes Fehlschlagen (Dieser Befehl wird so nie funktionieren.)
-	Zweite Stelle: Wo ist der Fehler aufgetreten?
-		x0z  Allgemeine Fehler die in verschiedenen Bereichen auftreten können
-		x1z  Beitreten, Chatupdate
-		x2z  Chatten, Flüstern
-	Dritte Stelle: Was genau ist passiert?
-		Die Bedeutung der dritten Stelle hängt von der zweiten Stelle ab.
+Code | Beschreibung
+-----|-------------
+ **1yz** | vorübergehendes Fehlschlagen; der Befehl kann zu einem anderen Zeitpunkt funktionieren.
+ **13z** | temp. Gameplay-Fehler
+ 131 | nicht genug Geld
+ 132 | keine Gefängnis-Frei-Karte vorhanden, die benutzt werden kann
+ 133 | Client will eine neue Ereigniskarte ziehen
+ 134 | Gesuch des Clients auf eine neue Karte wird abgelehnt
+ 135 | unbalancierte Frabgruppe: Häuseranzahl zu unterschiedlich
+ 136 | gehört einem anderen Spieler
+ 137 | Grundstücke mit Häusern können nicht verkauft werden
+ **2yz** | permanentes Fehlschlagen; der Befehl kann nie funktionieren
+ **20z** | allgemeiner Fehler, kann in verschiedenen Bereichen auftreten
+ 201 | unerwartetes End-of-File
+ **21z** | Beitreten und Clientlist-Updates
+ 211 | gewähler Name bereits vergeben
+ 212 | `clientlist-update` mit falscher Syntax
+ 213 | `clientlist-update` mit falschen Listenzeilen
+ 214 | `subscribe` mit falscher Syntax
+ **22z** | Chatten, Flüstern
+ 221 | nicht subscribter Client will chatten
+ 222 | mit `whisper` angesprochener Spieler existiert nicht
+ 223 | `whisper` mit falscher Syntax
+ **23z** | Gameplay
