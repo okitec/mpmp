@@ -3,7 +3,7 @@ Liste an Grundstücken
 
 https://www.edvsz.hs-osnabrueck.de/fileadmin/user/koller/dokumentation/intern/programmierung/C/prog2_Cpp/regeln.html
 
-Straßenname              |Kaufpreis |ohne Haus |1 Haus |2 Häuser |3 Häuser  |4 Häußer| Hotel| Preis für ein Haus | Farbe     |
+Straßenname              |Kaufpreis |ohne Haus |1 Haus |2 Häuser |3 Häuser  |4 Häuser| Hotel| Preis für ein Haus | Farbe     |
 -------------------------|----------|----------|-------|---------|----------|--------|------|--------------------|-----------|
 Küstenbahndamm           |1200      |40        |200    |600      |1800      |3200    |5000  |1000                |blau       |
 Zimmererstraße           |1200      |80        |400    |1200     |3600      |6400    |9000  |1000                |blau       |
