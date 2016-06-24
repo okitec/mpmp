@@ -40,7 +40,8 @@ public class Chat implements cmds.CmdFunc {
 			if (s.length < 2)
 				return;
 			String message = s[1];
-			Client.search(receiver).send("chat-update [" + c.getName() + "] "+ message);
+			Client.search(receiver).send("chat-update [" + c.getName() + "] " + message);
+			c.send("chat-update [->" + receiver + "] " + message);
 		}
 }
 
