@@ -20,7 +20,7 @@ public class Whisper implements CmdFunc {
 		
 		Client client = Client.search(args[1]);
 		if (client == null) {
-			conn.sendErr(ErrCode.NoSuchClient);
+			conn.sendErr(ErrCode.NoSuchPlayer);
 			return;
 		}
 		
