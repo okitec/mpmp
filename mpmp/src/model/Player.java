@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Color;
 import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * Player represents spectators and the actual, actuve players.
@@ -15,6 +16,7 @@ public class Player {
 	private static final int Wage      = 4000;  // XXX value
 	private static final int IncomeTax = 2000;  // XXX value
 	private static final int ExtraTax  = 8000;  // XXX value
+	public static final int UnjailFee = 1000;
 
 	public enum Mode {
 		Spectator, Player
@@ -39,9 +41,10 @@ public class Player {
 		this.name = name;
 		this.color = color;
 		this.mode = mode;
-
+		
+		players.add(this);
+		
 		if(mode == Mode.Player) {
-			players.add(this);
 			plots = new HashSet<>();
 			hypothecs = new HashSet<>();
 			pos = 0;
@@ -245,5 +248,30 @@ public class Player {
 	
 	public static int numPlayers() {
 		return players.size();
+	}
+	
+	public static String matches(String name) {
+		Iterator i = players.iterator();
+		String bestMatch = "";
+		while (i.hasNext()) {
+			Player p = (Player) i.next();
+			String pname = p.getName();
+			if (name.matches("@" + pname + "(.*)") && pname.length() > bestMatch.length())
+				bestMatch = pname;
+		}
+		if (bestMatch.equals(""))
+			return null;
+		return bestMatch;
+	}
+	
+	public static Player search(String name) {
+		for (Player p : players)
+			if (name.equals(p.getName()))
+				return p;
+		return null;
+	}
+	
+	public boolean isPlayer() {
+		return mode == Mode.Player;
 	}
 }

@@ -3,6 +3,7 @@ package cmds;
 import main.Conn;
 import main.Client;
 import main.ErrCode;
+import model.Player;
 
 /**
  * chat C->S packet
@@ -19,7 +20,7 @@ public class Chat implements cmds.CmdFunc {
 			c.sendErr(ErrCode.NotSubscribed);
 			return;
 		}
-
+		
 		argpos = line.indexOf(' ');
 		if(argpos < 0) {
 			argpos = line.length();
@@ -29,8 +30,20 @@ public class Chat implements cmds.CmdFunc {
 		}
 
 		chat = line.substring(argpos);
-		Client.broadcast("chat-update " + "(" + c.getName() + ") " + chat);
-	}
+		
+		String receiver = Player.matches(chat);
+		
+		if (receiver == null)
+			Client.broadcast("chat-update " + "(" + c.getName() + ") " + chat);
+		else {
+			String[] s = chat.split("@" + receiver);
+			if (s.length < 2)
+				return;
+			String message = s[1];
+			Client.search(receiver).send("chat-update [" + c.getName() + "] " + message);
+			c.send("chat-update [->" + receiver + "] " + message);
+		}
+}
 
 	@Override
 	public void error(ErrCode err, String line, Conn conn) {
