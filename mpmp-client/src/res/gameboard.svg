@@ -3,8 +3,8 @@
 
 <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="3748" height="3748">
 	<title>Game board</title>
-	<!-- transform="scale(0.267)" fits perfectly to 1280x1024 resolution -->
-
+	<!-- Use transform="scale(0.xx)" -->
+	
 	<g id="gameboard" transform="scale(0.267)">
 		<g id="oben0" transform="translate(506 0) rotate(90 0 0)">
 			<rect id = "field_border"
@@ -1482,7 +1482,7 @@
 				<text id = "bottomlabel"
 					x="126" y="379"  
 					transform = "rotate(45 126 379)">
-					in das Gefaengnis
+					in das Gef&#228;ngnis
 				</text>
 			</g>
 		</g>
@@ -2318,7 +2318,7 @@
 
 			<text id = "tag"  font-size="30px" style="stroke: #000000" text-anchor="middle">
 					<tspan x="150" y="75">
-						Elektrizitaetswerk
+						Elektrizit&#228;tswerk
 					</tspan>
 					<tspan x="150" y="480" stroke-width="0">
 						RM 3200
@@ -3684,7 +3684,7 @@
 					Ziehen Sie
 				</tspan>
 				<tspan x="116" y="171">
-					im Voraebergehen
+					im Vor&#228;bergehen
 				</tspan>
 				<tspan x="116" y="216">
 					RM 2000 Gehalt ein.
