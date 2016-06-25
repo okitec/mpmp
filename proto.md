@@ -360,19 +360,19 @@ Code | Beschreibung
  132 | keine Gefängnis-Frei-Karte vorhanden, die benutzt werden kann
  133 | Client will eine neue Ereigniskarte ziehen
  134 | Gesuch des Clients auf eine neue Karte wird abgelehnt
- 135 | unbalancierte Frabgruppe: Häuseranzahl zu unterschiedlich
+ 135 | unbalancierte Fatbgruppe: Häuseranzahl zu unterschiedlich
  136 | gehört einem anderen Spieler
  137 | Grundstücke mit Häusern können nicht verkauft werden
  **2yz** | permanentes Fehlschlagen; der Befehl kann nie funktionieren
  **20z** | allgemeiner Fehler, kann in verschiedenen Bereichen auftreten
  201 | unerwartetes End-of-File
  **21z** | Beitreten und Clientlist-Updates
- 211 | gewähler Name bereits vergeben
+ 211 | gewählter Name bereits vergeben
  212 | `clientlist-update` mit falscher Syntax
  213 | `clientlist-update` mit falschen Listenzeilen
  214 | `subscribe` mit falscher Syntax
+ 215 | Spieler existiert nicht
  **22z** | Chatten, Flüstern
  221 | nicht subscribter Client will chatten
- 222 | mit `whisper` angesprochener Spieler existiert nicht
  223 | `whisper` mit falscher Syntax
  **23z** | Gameplay
