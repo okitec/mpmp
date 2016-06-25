@@ -15,6 +15,7 @@ public class Main extends javax.swing.JFrame {
 		initComponents();
 		loadFont();
 		setBackground(new java.awt.Color(247, 247, 207));
+		pack();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -43,27 +44,27 @@ public class Main extends javax.swing.JFrame {
         logolabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/logo_small.png"))); // NOI18N
 
         nameField.setBackground(new java.awt.Color(247, 247, 207));
-        nameField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nameField.setFont(new java.awt.Font("Source Sans Pro Light", 0, 14)); // NOI18N
         nameField.setToolTipText("Gib hier deinen Spielernamen ein");
 
-        nameLabel.setFont(new java.awt.Font("Monopoly", 0, 18)); // NOI18N
+        nameLabel.setFont(new java.awt.Font("Source Sans Pro Light", 1, 18)); // NOI18N
         nameLabel.setText("Spielername");
 
-        gmLabel.setFont(new java.awt.Font("Monopoly", 0, 18)); // NOI18N
+        gmLabel.setFont(new java.awt.Font("Source Sans Pro Light", 1, 18)); // NOI18N
         gmLabel.setText("Spielmodus");
 
         addrField.setBackground(new java.awt.Color(247, 247, 207));
-        addrField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        addrField.setFont(new java.awt.Font("Source Sans Pro Light", 0, 14)); // NOI18N
         addrField.setToolTipText("Gib hier die Adresse des Servers ein.");
 
-        addrLabel.setFont(new java.awt.Font("Monopoly", 0, 18)); // NOI18N
+        addrLabel.setFont(new java.awt.Font("Source Sans Pro Light", 1, 18)); // NOI18N
         addrLabel.setText("Server-Adresse");
 
-        gamemode.setFont(new java.awt.Font("Monopoly", 0, 18)); // NOI18N
+        gamemode.setFont(new java.awt.Font("Source Sans Pro Light", 0, 14)); // NOI18N
         gamemode.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Spieler", "Zuschauer" }));
         gamemode.setToolTipText("Wähle hier aus, ob du zuschauen oder mitspielen willst.");
 
-        joinBtn.setFont(new java.awt.Font("Monopoly", 0, 24)); // NOI18N
+        joinBtn.setFont(new java.awt.Font("Source Sans Pro Light", 1, 24)); // NOI18N
         joinBtn.setText("Beitreten");
         joinBtn.setPreferredSize(new java.awt.Dimension(109, 41));
         joinBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -72,7 +73,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        hostBtn.setFont(new java.awt.Font("Monopoly", 0, 24)); // NOI18N
+        hostBtn.setFont(new java.awt.Font("Source Sans Pro Light", 1, 24)); // NOI18N
         hostBtn.setText("Hosten");
         hostBtn.setActionCommand("");
         hostBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -81,7 +82,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        exitBtn.setFont(new java.awt.Font("Monopoly", 0, 24)); // NOI18N
+        exitBtn.setFont(new java.awt.Font("Source Sans Pro Light", 1, 24)); // NOI18N
         exitBtn.setText("Beenden");
         exitBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,10 +90,10 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        colorLabel.setFont(new java.awt.Font("Monopoly", 0, 18)); // NOI18N
+        colorLabel.setFont(new java.awt.Font("Source Sans Pro Light", 1, 18)); // NOI18N
         colorLabel.setText("Farbe");
 
-        color.setFont(new java.awt.Font("Monopoly", 0, 18)); // NOI18N
+        color.setFont(new java.awt.Font("Source Sans Pro Light", 0, 14)); // NOI18N
         color.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rot", "Gelb", "Gruen", "Blau", "Lila" }));
         color.setToolTipText("Wähle hier deine Farbe aus.");
 
@@ -157,7 +158,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(hostBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(joinBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -231,28 +232,34 @@ public class Main extends javax.swing.JFrame {
 	public void loadFont() {
 	    try {
 		Font f;
-
 		if(s == "comic") {
 		    f = new java.awt.Font("Comic Sans MS", 0, 24);
-		    exitBtn.setFont(f.deriveFont(Font.TRUETYPE_FONT, 24));
-		    joinBtn.setFont(f.deriveFont(Font.TRUETYPE_FONT, 24));
-		    hostBtn.setFont(f.deriveFont(Font.TRUETYPE_FONT, 24));
-		    nameLabel.setFont(f.deriveFont(Font.TRUETYPE_FONT, 18));
-		    colorLabel.setFont(f.deriveFont(Font.TRUETYPE_FONT, 18));
-		    addrLabel.setFont(f.deriveFont(Font.TRUETYPE_FONT, 18));
-		    gmLabel.setFont(f.deriveFont(Font.TRUETYPE_FONT, 18));
+		    nameLabel.setFont(f.deriveFont(1, 18));
+                    addrLabel.setFont(f.deriveFont(1, 18));
+                    gmLabel.setFont(f.deriveFont(1, 18));
+                    colorLabel.setFont(f.deriveFont(1, 18));
+                    nameField.setFont(f.deriveFont(1, 14));
+                    addrField.setFont(f.deriveFont(1, 14));
+                    gamemode.setFont(f.deriveFont(1, 14));
+                    color.setFont(f.deriveFont(1, 14));
+                    exitBtn.setFont(f.deriveFont(1, 24));
+		    joinBtn.setFont(f.deriveFont(1, 24));
+		    hostBtn.setFont(f.deriveFont(1, 24));
 		    hostBtn.setText("Horsten");
 		} else {
 		    f = Font.createFont(Font.TRUETYPE_FONT,
-		    this.getClass().getResourceAsStream("/res/monopoly.ttf"));
-		    exitBtn.setFont(f.deriveFont(Font.TRUETYPE_FONT, 24));
-		    joinBtn.setFont(f.deriveFont(Font.TRUETYPE_FONT, 24));
-		    hostBtn.setFont(f.deriveFont(Font.TRUETYPE_FONT, 24));
-		    color.setFont(f.deriveFont(Font.TRUETYPE_FONT, 18));
-		    nameLabel.setFont(f.deriveFont(Font.TRUETYPE_FONT, 18));
-		    addrLabel.setFont(f.deriveFont(Font.TRUETYPE_FONT, 18));
-		    colorLabel.setFont(f.deriveFont(Font.TRUETYPE_FONT, 18));
-		    gmLabel.setFont(f.deriveFont(Font.TRUETYPE_FONT, 18));
+		    this.getClass().getResourceAsStream("/res/SourceSansPro-Light.ttf"));
+		    nameLabel.setFont(f.deriveFont(1, 18));
+                    addrLabel.setFont(f.deriveFont(1, 18));
+                    gmLabel.setFont(f.deriveFont(1, 18));
+                    colorLabel.setFont(f.deriveFont(1, 18));
+                    nameField.setFont(f.deriveFont(1, 14));
+                    addrField.setFont(f.deriveFont(1, 14));
+                    gamemode.setFont(f.deriveFont(1, 14));
+                    color.setFont(f.deriveFont(1, 14));
+                    exitBtn.setFont(f.deriveFont(1, 24));
+		    joinBtn.setFont(f.deriveFont(1, 24));
+		    hostBtn.setFont(f.deriveFont(1, 24));
 		}
 	    } catch (FontFormatException | IOException ex) {
 		Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
