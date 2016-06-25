@@ -496,13 +496,13 @@
 		/>
 
 		<text id="toplabel"
-			x="379" y="126" font-size="45px" stroke="#000000" text-anchor="middle"
+			x="379" y="126" font-family="Monopoly" font-size="45px" stroke="#000000" text-anchor="middle"
 			transform = "rotate(45 379 126)">
 			Frei
 		</text>
 
 		<text id="bottomlabel"
-			x="126" y="379" font-size="45px" stroke="#000000" text-anchor="middle"
+			x="126" y="379" font-family="Monopoly" font-size="45px" stroke="#000000" text-anchor="middle"
 			transform = "rotate(45 126 379)">
 			Parken
 		</text>
@@ -527,7 +527,7 @@
 			x="2" y="2" width="300" height="93" fill="#d01f26"
 		/>
 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 			<text id = "twoliner"
 				style="stroke: #000000">
 				<tspan x="150" y="182">
@@ -664,7 +664,7 @@
 		/>
 		
 		<text id = "titel"
-			x="150" y="75" fill="#231f20" style="stroke: #231f20"
+			x="150" y="75" font-family="Monopoly" fill="#231f20" style="stroke: #231f20"
 			font-size="30px" text-anchor="middle">
 			Ereignisfield
 		</text>
@@ -689,7 +689,7 @@
 			x="2" y="2" width="300" height="93" fill="#d01f26"
 		/>
 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 			<text id = "twoliner"
 				style="stroke: #000000">
 				<tspan x="150" y="182">
@@ -726,7 +726,7 @@
 			x="2" y="2" width="300" height="93" fill="#d01f26"
 		/>
 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 
 		
 			<text id = "twoliner"
@@ -809,7 +809,7 @@
 		/>
 		
 		<text id = "twoliner"
-			font-size="30px" fill="#231f20"
+			font-family="Monopoly" font-size="30px" fill="#231f20"
 			style="stroke: #000000" text-anchor="middle">
 			<tspan x="150" y="182">
 				Weimarer
@@ -820,7 +820,7 @@
 		</text>
 		
 		<text id = "price"
-			x="150" y="480" font-size="33px" text-anchor="middle">
+			x="150" y="480" font-family="Monopoly" font-size="33px" text-anchor="middle">
 			RM 7200
 		</text>
 
@@ -845,7 +845,7 @@
 			x="2" y="2" width="300" height="93" fill="#fbe821"
 		/>
 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 
 		
 			<text id = "twoliner"
@@ -884,7 +884,7 @@
 			x="2" y="2" width="300" height="93" fill="#fbe821"
 		/>
 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 
 		
 			<text id = "twoliner"
@@ -1046,7 +1046,7 @@
 				 182.16,214.16 184.64,218.73 186.00,223.00
 				 185.92,227.11 145.92,227.35 146.00,223.00 Z" />
 		
-		<text id = "tag" font-size="30px"  text-anchor="middle">
+		<text id = "tag" font-family="Monopoly" font-size="30px"  text-anchor="middle">
 				<tspan x="150" y="75" style="stroke: #000000">
 					Wasserwerk
 				</tspan>
@@ -1075,7 +1075,7 @@
 			x="2" y="2" width="300" height="93" fill="#fbe821"
 		/>
 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 
 		
 			<text id = "twoliner"
@@ -1490,7 +1490,7 @@
 				 248.00,353.00 264.00,352.00 264.00,352.00
 				 264.00,352.00 268.33,324.00 268.33,324.00 Z" />
 
-		<g font-size="45px" stroke="#000000" text-anchor="middle">
+		<g font-family="Monopoly" font-size="45px" stroke="#000000" text-anchor="middle">
 			<text id = "toplabel"
 				x="379" y="126"
 				transform = "rotate(45 379 126)">
@@ -1525,7 +1525,7 @@
 			x="2" y="2" width="300" height="93" fill="#de5126"
 		/>
 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 
 			<text id = "twoliner"
 				style="stroke: #000000">
@@ -1563,7 +1563,7 @@
 			x="2" y="2" width="300" height="93" fill="#de5126"
 		/>
 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 
 			<text id = "twoliner"
 				style="stroke: #000000">
@@ -1953,13 +1953,13 @@
 				 102.06,270.81 72.00,264.00 72.00,264.00 Z" />
 		</g>
 	 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 			<text id = "tag"
-				x="150" y="75" font-size="30px" style="stroke: #000000" text-anchor="middle">
+				x="150" y="75" font-family="Monopoly" font-size="30px" style="stroke: #000000" text-anchor="middle">
 				Gemein-
 			</text>
 			<text id = "tag"
-				x="150" y="105" font-size="30px" style="stroke: #000000" text-anchor="middle">
+				x="150" y="105" font-family="Monopoly" font-size="30px" style="stroke: #000000" text-anchor="middle">
 				schaftsfeld
 			</text>
 		</g>
@@ -1984,7 +1984,7 @@
 			x="2" y="2" width="300" height="93" fill="#de5126"
 		/>
 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 
 			<text id = "twoliner"
 				style="stroke: #000000">
@@ -2066,7 +2066,7 @@
 		/>
 		
 		<text id = "twoliner"
-			font-size="30px" fill="#231f20"
+			font-family="Monopoly" font-size="30px" fill="#231f20"
 			style="stroke: #000000" text-anchor="middle">
 			<tspan x="150" y="182">
 				Weimarer
@@ -2077,7 +2077,7 @@
 		</text>
 		
 		<text id = "price"
-			x="150" y="480" font-size="33px" text-anchor="middle">
+			x="150" y="480" font-family="Monopoly" font-size="33px" text-anchor="middle">
 			RM 7200
 		</text>
 		</g>
@@ -2101,7 +2101,7 @@
 			x="2" y="2" width="300" height="93" fill="#860459"
 		/>
 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 
 		
 			<text id = "twoliner"
@@ -2140,7 +2140,7 @@
 			x="2" y="2" width="300" height="93" fill="#860459"
 		/>
 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 
 		
 			<text id = "twoliner"
@@ -2354,7 +2354,7 @@
 				 149.39,357.35 135.49,347.32 133.00,345.00
 				 133.00,345.00 173.00,343.00 173.00,343.00 Z" />
 
-		<text id = "tag" font-size="30px" style="stroke: #000000" text-anchor="middle">
+		<text id = "tag" font-family="Monopoly" font-size="30px" style="stroke: #000000" text-anchor="middle">
 				<tspan x="150" y="75">
 					Elektrizitaetswerk
 				</tspan>
@@ -2383,7 +2383,7 @@
 			x="2" y="2" width="300" height="93" fill="#860459"
 		/>
 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 
 		
 			<text id = "twoliner"
@@ -2647,7 +2647,7 @@
 			/>
 		</g>
 		
-		<g font-size="38px" text-anchor="middle">
+		<g font-family="Monopoly" font-size="38px" text-anchor="middle">
 			<text id = "Y-label"
 				x="59" y="251" writing-mode="tb">
 				Nur zu Besuch
@@ -2680,7 +2680,7 @@
 			x="2" y="2" width="300" height="93" fill="#91c3d8"
 		/>
 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 
 		
 			<text id = "twoliner"
@@ -2719,7 +2719,7 @@
 			x="2" y="2" width="300" height="93" fill="#91c3d8"
 		/>
 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 
 		
 			<text id = "twoliner"
@@ -2858,7 +2858,7 @@
 		/>
 		
 		<text id = "titel"
-			x="150" y="75" fill="#231f20" style="stroke: #231f20"
+			x="150" y="75" font-family="Monopoly" fill="#231f20" style="stroke: #231f20"
 			font-size="30px" text-anchor="middle">
 			Ereignisfield
 		</text>
@@ -2883,7 +2883,7 @@
 			x="2" y="2" width="300" height="93" fill="#91c3d8"
 		/>
 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 
 		
 			<text id = "twoliner"
@@ -2966,7 +2966,7 @@
 		/>
 		
 		<text id = "twoliner"
-			font-size="30px" fill="#231f20"
+			font-family="Monopoly" font-size="30px" fill="#231f20"
 			style="stroke: #000000" text-anchor="middle">
 			<tspan x="150" y="182">
 				Weimarer
@@ -2977,7 +2977,7 @@
 		</text>
 		
 		<text id = "price"
-			x="150" y="480" font-size="33px" text-anchor="middle">
+			x="150" y="480" font-family="Monopoly" font-size="33px" text-anchor="middle">
 			RM 7200
 		</text>
 		</g>
@@ -2995,7 +2995,7 @@
 				♦
 		</text>
 		
-		<text id = "tag" font-size="30px" text-anchor="middle">
+		<text id = "tag" font-family="Monopoly" font-size="30px" text-anchor="middle">
 				<tspan x="150" y="75" style="stroke: #000000" >
 					Einkommenssteuer
 				</tspan>
@@ -3024,7 +3024,7 @@
 			x="2" y="2" width="300" height="93" fill="#441d32"
 		/>
 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 
 		
 			<text id = "twoliner"
@@ -3415,13 +3415,13 @@
 				 102.06,270.81 72.00,264.00 72.00,264.00 Z" />
 		</g>
 	 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 			<text id = "tag"
-				x="150" y="75" font-size="30px" style="stroke: #000000" text-anchor="middle">
+				x="150" y="75" font-family="Monopoly" font-size="30px" style="stroke: #000000" text-anchor="middle">
 				Gemein-
 			</text>
 			<text id = "tag"
-				x="150" y="105" font-size="30px" style="stroke: #000000" text-anchor="middle">
+				x="150" y="105" font-family="Monopoly" font-size="30px" style="stroke: #000000" text-anchor="middle">
 				schaftsfeld
 			</text>
 		</g>
@@ -3446,7 +3446,7 @@
 			x="2" y="2" width="300" height="93" fill="#441d32"
 		/>
 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 
 		
 			<text id = "twoliner"
@@ -3740,7 +3740,7 @@
 				 138.00,422.00 94.00,442.69 94.00,442.69 Z" />
 				 
 		<text id = "label"
-			x="116" font-size="38px" text-anchor="middle"
+			x="116" font-family="Monopoly" font-size="38px" text-anchor="middle"
 			stroke="#000000" transform = "rotate(-45 116 116)">
 			<tspan x="116" y="126">
 				Ziehen Sie
@@ -3774,7 +3774,7 @@
 			x="2" y="2" width="300" height="93" fill="#168140"
 		/>
 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 
 			<text id = "twoliner"
 				style="stroke: #000000">
@@ -3812,7 +3812,7 @@
 			x="2" y="2" width="300" height="93" fill="#168140"
 		/>
 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 
 			<text id = "twoliner"
 				style="stroke: #000000">
@@ -4202,13 +4202,13 @@
 				 102.06,270.81 72.00,264.00 72.00,264.00 Z" />
 		</g>
 	 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 			<text id = "tag"
-				x="150" y="75" font-size="30px" style="stroke: #000000" text-anchor="middle">
+				x="150" y="75" font-family="Monopoly" font-size="30px" style="stroke: #000000" text-anchor="middle">
 				Gemein-
 			</text>
 			<text id = "tag"
-				x="150" y="105" font-size="30px" style="stroke: #000000" text-anchor="middle">
+				x="150" y="105" font-family="Monopoly" font-size="30px" style="stroke: #000000" text-anchor="middle">
 				schaftsfeld
 			</text>
 		</g>
@@ -4233,7 +4233,7 @@
 			x="2" y="2" width="300" height="93" fill="#168140"
 		/>
 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 
 			<text id = "twoliner"
 				style="stroke: #000000">
@@ -4315,7 +4315,7 @@
 		/>
 		
 		<text id = "twoliner"
-			font-size="30px" fill="#231f20"
+			font-family="Monopoly" font-size="30px" fill="#231f20"
 			style="stroke: #000000" text-anchor="middle">
 			<tspan x="150" y="182">
 				Weimarer
@@ -4326,7 +4326,7 @@
 		</text>
 		
 		<text id = "price"
-			x="150" y="480" font-size="33px" text-anchor="middle">
+			x="150" y="480" font-family="Monopoly" font-size="33px" text-anchor="middle">
 			RM 7200
 		</text>
 		</g>
@@ -4450,7 +4450,7 @@
 		/>
 		
 		<text id = "titel"
-			x="150" y="75" fill="#231f20" style="stroke: #231f20"
+			x="150" y="75" font-family="Monopoly" fill="#231f20" style="stroke: #231f20"
 			font-size="30px" text-anchor="middle">
 			Ereignisfield
 		</text>
@@ -4476,7 +4476,7 @@
 			x="2" y="2" width="300" height="93" fill="#183a66"
 		/>
 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 
 		
 			<text id = "twoliner"
@@ -4729,12 +4729,12 @@
 				 180.19,225.12 183.05,225.07 185.40,227.65 Z" />
 				 
 		<text id = "tag"
-			x="150" y="75" font-size="30px" style="stroke: #000000" text-anchor="middle">
+			x="150" y="75" font-family="Monopoly" font-size="30px" style="stroke: #000000" text-anchor="middle">
 			Zusatzsteuern
 		</text>
 		
 		<text id = "price"
-			x="150" y="480" font-size="33px" text-anchor="middle">
+			x="150" y="480" font-family="Monopoly" font-size="33px" text-anchor="middle">
 			RM 2000
 		</text>
 		</g>
@@ -4758,7 +4758,7 @@
 			x="2" y="2" width="300" height="93" fill="#183a66"
 		/>
 
-		<g font-size="30px" fill="#231f20" text-anchor="middle">
+		<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
 
 		
 			<text id = "twoliner"
