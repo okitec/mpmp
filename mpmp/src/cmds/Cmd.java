@@ -20,7 +20,8 @@ public enum Cmd {
 
 	/* S->C */
 	ChatUpdate("chat-update", new cmds.ChatUpdate()),
-	ClientlistUpdate("clientlist-update", new cmds.ClientlistUpdate());
+	ClientlistUpdate("clientlist-update", new cmds.ClientlistUpdate()),
+	AddMoney("add-money", new cmds.AddMoney());
 
 	private final String s;
 	private final CmdFunc fn;
