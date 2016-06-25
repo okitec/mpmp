@@ -13,6 +13,7 @@ import java.awt.event.KeyEvent;
 
 import model.Model;
 import model.Player;
+import cmds.AddMoney;
 import cmds.Cmd;
 import cmds.ChatUpdate;
 import cmds.ClientlistUpdate;
@@ -35,6 +36,7 @@ public class Controller {
 
 		((ChatUpdate) Cmd.ChatUpdate.getFn()).addDisplayer(frame.chatDisp);
 		((ClientlistUpdate) Cmd.ClientlistUpdate.getFn()).addDisplayer(frame.playerDisp);
+		((AddMoney) Cmd.AddMoney.getFn()).addDisplayer(frame.chatDisp);
 		((Subscribe) Cmd.Subscribe.getFn()).addSubscribeErrer(frame);
 
 		new Thread(() -> {

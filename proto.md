@@ -269,11 +269,11 @@ Mieten und andere Geldereignisse
 
 #### Beschreibung
 
-Mit `add-money` verändert der Server, der als Bank fungiert, die Geldmenge
-des angesprochenen Spielers um ein gewisses Delta. Eine negative Zahl verringert
-die Geldmenge des Spielers. Ein Grund muss immer angegeben werden. Wichtige
-Gründe sind Mieten, Ereigniskarten, das Gehalt beim Überqueren des Starts sowie
-Häuser- und Grundstückskäufe.
+Mit `add-money` notifiziert der als Bank fungierende Server den Client über eine
+Geldmengenänderung des angesprochenen Spielers. Ein Grund muss immer angegeben werden.
+Wichtige Gründe sind Mieten, Ereigniskarten, das Gehalt beim Überqueren des Starts sowie
+Häuser- und Grundstückskäufe. Die eigentliche Veränderung des gespeicherten Wertes geschieht
+durch das an alle versendete `money-update`.
 
 Die Geldmenge eines Spielers wird im Folgenden mit `money-update` an alle weitergegeben.
 Die Trennung zwischen `add-money` und `money-update` ist nötig, da bei Ersterem
