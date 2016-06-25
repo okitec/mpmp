@@ -3,11 +3,14 @@ package cmds;
 import main.Conn;
 import main.ErrCode;
 import model.Player;
+import view.Displayer;
 
 /**
  * clientlist-update S->C packet.
  */
 public class ClientlistUpdate implements CmdFunc {
+	private Displayer d;
+
 	@Override
 	public void exec(String line, Conn conn) {
 		int nclients;
@@ -26,7 +29,7 @@ public class ClientlistUpdate implements CmdFunc {
 			return;
 		}
 
-		lister.resetPlayerList();
+		d.reset();
 		while(nclients --> 0) {
 			String s;
 			String fields[];
@@ -56,7 +59,7 @@ public class ClientlistUpdate implements CmdFunc {
 				return;
 			}
 
-			lister.addPlayer(new Player(Player.parseColor(fields[0]), mode, fields[2]));
+			d.show("" + new Player(Player.parseColor(fields[0]), mode, fields[2]));
 		}
 
 		conn.sendOK();
@@ -67,13 +70,7 @@ public class ClientlistUpdate implements CmdFunc {
 		System.err.println("Can't happen: " + err.getMessage());
 	}
 	
-	public interface ClientLister {
-		public void addPlayer(Player p);
-		public void resetPlayerList();
-	}
-	private ClientLister lister;
-	
-	public void addClientLister(ClientLister lister) {
-		this.lister = lister;
+	public void addDisplayer(Displayer d) {
+		this.d = d;
 	}
 }

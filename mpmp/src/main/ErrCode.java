@@ -28,8 +28,8 @@ public enum ErrCode {
 	ClientlistUpdateUsage(212, "Usage: clientlist-update <number of clients>"),
 	ClientlistUpdateMissingFields(213, "Expected three fields: 'color: mode: name'"),
 	SubscribeUsage(214, "Usage: subscribe <spectator|player> #<rgb hex triplet> <Name>"),
+	NoSuchPlayer(215, "This player does not exist"),
 	NotSubscribed(221, "You are not subscribed"),
-	NoSuchClient(222, "This player does not exist"),
 	WhisperUsage(223, "Usage: whisper <playername> <message>"),
 	UnjailUsage(231, "Usage: unjail [card|money]"),
 	NotAPlayer(232, "You are not a player");
@@ -41,7 +41,7 @@ public enum ErrCode {
 		this.message = message;
 	}
 	
-	public static ErrCode search(int code){
+	public static ErrCode search(int code) {
 		for (ErrCode err : ErrCode.values())
 			if (err.code == code)
 				return err;
