@@ -33,15 +33,7 @@ public class AddMoney implements CmdFunc {
 			return;
 		}
 
-		reason = null;
-		// XXX make a static method for recombining the string -oki
-		for (String s : Arrays.copyOfRange(args, 2, args.length)) {
-			if (reason == null)
-				reason = s;
-			else
-				reason +=  " " + s;
-		}
-
+		reason = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
 		d.show("add-money: " + amount + " " + reason);
 	}
 

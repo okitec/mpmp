@@ -24,14 +24,7 @@ public class Whisper implements CmdFunc {
 			return;
 		}
 		
-		String message = null;
-		for (String s : Arrays.copyOfRange(args, 2, args.length)) {
-			if (message == null)
-				message = s;
-			else
-				message = message + " " + s;
-		}	
-		
+		String message = String.join(" ", Arrays.copyOfRange(args, 2, args.length));	
 		client.send("chat-update " + message);
 		conn.sendOK();
 	}

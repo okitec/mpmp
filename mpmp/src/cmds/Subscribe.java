@@ -25,12 +25,7 @@ public class Subscribe implements CmdFunc {
 			return;
 		}
 
-		for (String s : Arrays.copyOfRange(args, 3, args.length)) {
-			if (name == null)
-				name = s;
-			else
-				name = name + " " + s;
-		}
+		name = String.join(" ", Arrays.copyOfRange(args, 3, args.length));
 
 		switch (args[1]) {
 		case "player":
