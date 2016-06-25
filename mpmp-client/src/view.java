@@ -1,40 +1,22 @@
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.LayoutManager;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.io.IOException;
-import static javafx.application.ConditionalFeature.SWT;
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import static javax.swing.text.StyleConstants.setBackground;
-import org.apache.batik.anim.dom.SVG12OMDocument;
 import org.apache.batik.swing.JSVGCanvas;
-import org.apache.bcel.generic.AALOAD;
-import org.w3c.dom.Attr;
-import org.w3c.dom.CDATASection;
-import org.w3c.dom.Comment;
-import org.w3c.dom.DOMConfiguration;
-import org.w3c.dom.DOMException;
-import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.Document;
-import org.w3c.dom.DocumentFragment;
-import org.w3c.dom.DocumentType;
-import org.w3c.dom.Element;
-import org.w3c.dom.EntityReference;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.ProcessingInstruction;
-import org.w3c.dom.Text;
-import org.w3c.dom.UserDataHandler;
-import org.w3c.dom.events.Event;
 import org.w3c.dom.svg.SVGDocument;
-import org.w3c.dom.svg.SVGSVGElement;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -50,30 +32,33 @@ public class view extends javax.swing.JFrame {
 
     public view() {
         initComponents();
-        
+	
+  	getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
 	
 	try {
     		setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("src/res/background.png")))));
     	} catch (IOException e) {
     		e.printStackTrace();
     	}
+
+	canvas.setURI(new File("src/res/gameboard.svg").toURI().toString());
+
         this.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
-                Dimension d = getSize();
+		Dimension d = getPreferredSize();
 		d.height = d.height - 50;
 		d.width = d.width - 50;
-                canvas.setLocation(200, 5);
-		canvas.setURI(new File("src/res/gameboard.svg").toURI().toString());
 		canvas.setPreferredSize(d);
 		canvas.setBackground(new Color(0, 0, 0, 0));
-                setLayout(new FlowLayout());
-                getContentPane().add(canvas);
-       
+		getContentPane().add(canvas);
+		
+		canvas.setEnableRotateInteractor(true);
+		//("transform=scale(0.2)"
+		//SVGDocument svgd = canvas.getSVGDocument();		
             }
         });
 	pack();
         setVisible(true);
-        setSize(1200,785);
     }
 
     /**
