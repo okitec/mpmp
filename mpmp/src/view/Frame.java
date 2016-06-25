@@ -22,7 +22,10 @@ import main.ErrCode;
 import model.Model;
 import model.Player;
 
-public class Frame extends JFrame implements ChatUpdate.ChatAdder, ClientlistUpdate.ClientLister, Subscribe.SubscribeErrer {
+public class Frame extends JFrame implements Subscribe.SubscribeErrer {
+	public final ChatDisp chatDisp;
+	public final PlayerDisp playerDisp;
+
 	private Model m;
 	
 	private JPanel contentPane;
@@ -33,6 +36,8 @@ public class Frame extends JFrame implements ChatUpdate.ChatAdder, ClientlistUpd
 	
 	public Frame(Model m) {
 		this.m = m;
+		chatDisp = new ChatDisp();
+		playerDisp = new PlayerDisp();
 		createFrame();
 		setVisible(true);
 	}
@@ -84,31 +89,6 @@ public class Frame extends JFrame implements ChatUpdate.ChatAdder, ClientlistUpd
 		return chat;
 	}
 
-	@Override
-	public void addChat(String s) {
-		try {
-			Document doc = chatBox.getDocument();
-			doc.insertString(doc.getLength(), s + "\n", null);
-		} catch(BadLocationException ble) {
-			;// XXX how to handle?
-		}
-	}
-
-	@Override
-	public void addPlayer(Player p) {
-		try {
-			Document doc = playerList.getDocument();
-			doc.insertString(doc.getLength(), p + "\n", null);
-		} catch(BadLocationException ble) {
-			;// XXX how to handle?
-		}
-	}
-
-	@Override
-	public void resetPlayerList() {
-		playerList.setDocument(new DefaultStyledDocument());
-	}
-
 	public void addEndTurnListener(ActionListener al) {
 		bEndTurn.addActionListener(al);
 	}
@@ -117,5 +97,37 @@ public class Frame extends JFrame implements ChatUpdate.ChatAdder, ClientlistUpd
 	public void subscribeErr() {
 		JOptionPane.showMessageDialog(this, ErrCode.NameTaken.getMessage());
 		System.exit(0);
+	}
+
+	public class ChatDisp implements Displayer {
+		@Override
+		public void show(String s) {
+			try {
+				Document doc = chatBox.getDocument();
+				doc.insertString(doc.getLength(), s + "\n", null);
+			} catch(BadLocationException ble) {
+				;// XXX how to handle?
+			}
+		}
+
+		@Override
+		public void reset() {}
+	}
+
+	public class PlayerDisp implements Displayer {
+		@Override
+		public void show(String s) {
+			try {
+				Document doc = playerList.getDocument();
+				doc.insertString(doc.getLength(), s + "\n", null);
+			} catch(BadLocationException ble) {
+				;// XXX how to handle?
+			}
+		}
+
+		@Override
+		public void reset() {
+			playerList.setDocument(new DefaultStyledDocument());
+		}
 	}
 }

@@ -33,8 +33,8 @@ public class Controller {
 
 		Player.init();
 
-		((ChatUpdate) Cmd.ChatUpdate.getFn()).addChatAdder(frame);
-		((ClientlistUpdate) Cmd.ClientlistUpdate.getFn()).addClientLister(frame);
+		((ChatUpdate) Cmd.ChatUpdate.getFn()).addDisplayer(frame.chatDisp);
+		((ClientlistUpdate) Cmd.ClientlistUpdate.getFn()).addDisplayer(frame.playerDisp);
 		((Subscribe) Cmd.Subscribe.getFn()).addSubscribeErrer(frame);
 
 		new Thread(() -> {
