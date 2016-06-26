@@ -1,17 +1,9 @@
-<<<<<<< HEAD
-Liste an Grundst¸cken
-=======
 Liste an Grundst√ºcken
->>>>>>> d5e2f7c72ec4fcdffc2e7ed1c8c2bfac8e633a5e
 =====================
 
 https://www.edvsz.hs-osnabrueck.de/fileadmin/user/koller/dokumentation/intern/programmierung/C/prog2_Cpp/regeln.html
 
-<<<<<<< HEAD
-Straﬂenname              |Kaufpreis |ohne Haus |1 Haus |2 H‰user |3 H‰user  |4 H‰user |Hotel  |Preis f¸r ein Haus  |Farbe   |
-=======
 Stra√üenname              |Kaufpreis |ohne Haus |1 Haus |2 H√§user |3 H√§user  |4 H√§user |Hotel  |Preis f√ºr ein Haus  |Farbe   |
->>>>>>> d5e2f7c72ec4fcdffc2e7ed1c8c2bfac8e633a5e
 -------------------------|----------|----------|-------|---------|----------|---------|-------|--------------------|--------|
 K√ºstenbahndamm           |1200      |40        |200    |600      |1800      |3200     |5000   |1000                |#30041c |
 Zimmererstra√üe           |1200      |80        |400    |1200     |3600      |6400     |9000   |1000                |#30041c |
@@ -34,16 +26,8 @@ Jahnstra√üe               |6000      |520       |2600   |7800     |18000     |22
 Karl-Marx-Stra√üe         |6000      |520       |2600   |7800     |18000     |22000    |25500  |4000                |#168140 |
 Am Bollwerk              |6400      |560       |3000   |9000     |20000     |24000    |28000  |4000                |#168140 |
 Pariserplatz             |7000      |700       |3500   |10000    |22000     |26000    |30000  |4000                |#183a66 |
-<<<<<<< HEAD
-Triumphstraﬂe            |8000      |1000      |4000   |12000    |28000     |34000    |40000  |4000                |#183a66 |
-Bahnhof Weimar           |4000      |/         |/      |/        |/         |/        |/      |/                   |S¸d     |
-Anhalter Bahnhof         |4000      |/         |/      |/        |/         |/        |/      |/                   |Nord    |
-Centralbahnhof (IN)      |4000      |/         |/      |/        |/         |/        |/      |/                   |Ost     |
-Fl¸gelbahnhof            |4000      |/         |/      |/        |/         |/        |/      |/                   |West    |
-=======
 Triumphstra√üe            |8000      |1000      |4000   |12000    |28000     |34000    |40000  |4000                |#183a66 |
 Bahnhof Weimar           |4000      |/         |/      |/        |/         |/        |/      |/                   |S√ºd     |
 Anhalter Bahnhof         |4000      |/         |/      |/        |/         |/        |/      |/                   |Nord    |
 Centralbahnhof (IN)      |4000      |/         |/      |/        |/         |/        |/      |/                   |Ost     |
 Fl√ºgelbahnhof            |4000      |/         |/      |/        |/         |/        |/      |/                   |West    |
->>>>>>> d5e2f7c72ec4fcdffc2e7ed1c8c2bfac8e633a5e
