@@ -27,3 +27,7 @@ Karl-Marx-Straße         |6000      |520       |2600   |7800     |18000     |22
 Am Bollwerk              |6400      |560       |3000   |9000     |20000     |24000   |28000 |4000                |grün       |
 Pariserplatz             |7000      |700       |3500   |10000    |22000     |26000   |30000 |4000                |dunkelblau |
 Triumphstraße            |8000      |1000      |4000   |12000    |28000     |34000   |40000 |4000                |dunkelblau |
+Bahnhof Weimar           |4000      |/         |/      |/        |/         |/       |/     |/                   |Süd        |
+Anhalter Bahnhof         |4000      |/         |/      |/        |/         |/       |/     |/                   |Nord       |
+Centralbahnhof (IN)      |4000      |/         |/      |/        |/         |/       |/     |/                   |Ost        |
+Flügelbahnhof            |4000      |/         |/      |/        |/         |/       |/     |/                   |West       |
