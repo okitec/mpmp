@@ -1,3 +1,8 @@
+Liste an Grundstücken
+=====================
+
+https://www.edvsz.hs-osnabrueck.de/fileadmin/user/koller/dokumentation/intern/programmierung/C/prog2_Cpp/regeln.html
+
 Straßenname              |Kaufpreis |ohne Haus |1 Haus |2 Häuser |3 Häuser  |4 Häuser |Hotel  |Preis für ein Haus  |Farbe   |
 -------------------------|----------|----------|-------|---------|----------|---------|-------|--------------------|--------|
 Küstenbahndamm           |1200      |40        |200    |600      |1800      |3200     |5000   |1000                |#30041c |
@@ -22,12 +27,7 @@ Karl-Marx-Straße         |6000      |520       |2600   |7800     |18000     |220
 Am Bollwerk              |6400      |560       |3000   |9000     |20000     |24000    |28000  |4000                |#168140 |
 Pariserplatz             |7000      |700       |3500   |10000    |22000     |26000    |30000  |4000                |#183a66 |
 Triumphstraße            |8000      |1000      |4000   |12000    |28000     |34000    |40000  |4000                |#183a66 |
-
-Und die Bahnhöfe nicht zu vergessen (nicht fertig!):
-
-Bahnhofsname    |Kaufpreis |1 BH |2BH  |3BH  |4BH  |
-----------------|----------|-----|-----|-----|-----|
-Train Station 1 |4000      |500  |1000 |2000 |4000 |
-Train Station 2 |4000      |500  |1000 |2000 |4000 |
-Train Station 3 |4000      |500  |1000 |2000 |4000 |
-Train Station 4 |4000      |500  |1000 |2000 |4000 |
+Bahnhof Weimar           |4000      |/         |/      |/        |/         |/        |/      |/                   |Süd     |
+Anhalter Bahnhof         |4000      |/         |/      |/        |/         |/        |/      |/                   |Nord    |
+Centralbahnhof (IN)      |4000      |/         |/      |/        |/         |/        |/      |/                   |Ost     |
+Flügelbahnhof            |4000      |/         |/      |/        |/         |/        |/      |/                   |West    |
