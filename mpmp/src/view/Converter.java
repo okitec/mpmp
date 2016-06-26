@@ -2,6 +2,8 @@ package view;
 
 import java.awt.Point;
 
+import model.Field;
+
 /**
  * Converter converts the position of a field to the left upper corner pixel of that field
  * relative to the gameboard. wfld and hfld are the width and height of an unrotated field
@@ -14,9 +16,9 @@ public class Converter {
 	private int hfld;
 	private int wfld;
 
-	/* generated at Sun 26 Jun 16:42:11 CEST 2016 */
+	/* generated at Sun 26 Jun 17:14:55 CEST 2016 */
 	public Converter(int wfld, int hfld) {
-		pos2xypx = new Point[model.Field.Nfields];
+		pos2xypx = new Point[Field.Nfields];
 
 		pos2xypx[ 0] = mkpt(10, 10);
 		pos2xypx[ 1] = mkpt( 9, 10);
@@ -58,6 +60,16 @@ public class Converter {
 		pos2xypx[37] = mkpt(10,  7);
 		pos2xypx[38] = mkpt(10,  8);
 		pos2xypx[39] = mkpt(10,  9);
+	}
+
+	/**
+	 * cornerRelPx takes a field position and returns the upper left corner pixel of the field
+	 * relative to the gameboard origin. The Point must then be translated to absolute coordinates
+	 * and rotated.
+	 */
+	public Point cornerRelPx(int pos) {
+		pos %= Field.Nfields;
+		return pos2xypx[pos];
 	}
 
 	/**
