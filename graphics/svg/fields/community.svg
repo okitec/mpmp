@@ -376,13 +376,13 @@
              102.06,270.81 72.00,264.00 72.00,264.00 Z" />
 	</g>
  
-	<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
+	<g font-size="30px" fill="#231f20" text-anchor="middle">
 		<text id = "tag"
-			x="150" y="75" font-family="Monopoly" font-size="30px" style="stroke: #000000" text-anchor="middle">
+			x="150" y="75" font-size="30px" style="stroke: #000000" text-anchor="middle">
 			Gemein-
 		</text>
 		<text id = "tag"
-			x="150" y="105" font-family="Monopoly" font-size="30px" style="stroke: #000000" text-anchor="middle">
+			x="150" y="105" font-size="30px" style="stroke: #000000" text-anchor="middle">
 			schaftsfeld
 		</text>
 	</g>

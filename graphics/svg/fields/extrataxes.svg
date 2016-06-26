@@ -238,12 +238,12 @@
              180.19,225.12 183.05,225.07 185.40,227.65 Z" />
 			 
 	<text id = "tag"
-		x="150" y="75" font-family="Monopoly" font-size="30px" style="stroke: #000000" text-anchor="middle">
+		x="150" y="75" font-size="30px" style="stroke: #000000" text-anchor="middle">
 		Zusatzsteuern
 	</text>
 	
 	<text id = "price"
-		x="150" y="480" font-family="Monopoly" font-size="33px" text-anchor="middle">
+		x="150" y="480" font-size="33px" text-anchor="middle">
 		RM 2000
 	</text>
 </svg>

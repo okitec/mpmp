@@ -124,7 +124,7 @@
 	/>
 	
 	<text id = "titel"
-		x="150" y="75" font-family="Monopoly" fill="#231f20" style="stroke: #231f20"
+		x="150" y="75" fill="#231f20" style="stroke: #231f20"
 		font-size="30px" text-anchor="middle">
 		Ereignisfield
 	</text>

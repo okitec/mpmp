@@ -24,7 +24,7 @@
 		x="2" y="2" width="300" height="93" fill="#d01f26"
 	/>
 
-	<g font-family="Monopoly" font-size="30px" fill="#231f20" text-anchor="middle">
+	<g font-size="30px" fill="#231f20" text-anchor="middle">
 		<text id = "oneliner"
 			x="150" y="195"
 			style="stroke: #000000">

@@ -18,7 +18,7 @@
 			♦
 	</text>
 	
-	<text id = "tag" font-family="Monopoly" font-size="30px" text-anchor="middle">
+	<text id = "tag" font-size="30px" text-anchor="middle">
 			<tspan x="150" y="75" style="stroke: #000000" >
 				Einkommenssteuer
 			</tspan>
