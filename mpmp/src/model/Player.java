@@ -29,6 +29,7 @@ public class Player {
 
 	/* only active players */
 	private static HashSet<Player> players;
+
 	private HashSet<PlotGroup.Plot> plots;
 	private HashSet<PlotGroup.Plot> hypothecs;
 	private int cash;                         /* actual liquid money */
