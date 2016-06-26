@@ -494,13 +494,13 @@
 	/>
 
 	<text id="toplabel"
-		x="379" y="126" font-family="Monopoly" font-size="45px" stroke="#000000" text-anchor="middle"
+		x="379" y="126" font-size="45px" stroke="#000000" text-anchor="middle"
 		transform = "rotate(45 379 126)">
 		Frei
 	</text>
 
 	<text id="bottomlabel"
-		x="126" y="379" font-family="Monopoly" font-size="45px" stroke="#000000" text-anchor="middle"
+		x="126" y="379" font-size="45px" stroke="#000000" text-anchor="middle"
 		transform = "rotate(45 126 379)">
 		Parken
 	</text>

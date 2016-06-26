@@ -4,172 +4,159 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
-import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.geom.Ellipse2D;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import org.apache.batik.anim.dom.SVGDOMImplementation;
-import org.apache.batik.svggen.SVGGraphics2D;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
 import org.apache.batik.swing.JSVGCanvas;
-import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.Element;
+import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
+import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
+import org.apache.batik.util.XMLResourceDescriptor;
+import org.w3c.dom.Document;
 import org.w3c.dom.svg.SVGDocument;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  * @author Klaus, Oskar
  */
 public class view extends javax.swing.JFrame {
+
     JSVGCanvas canvas;
 
     public view() {
-	initComponents();
-	canvas = new JSVGCanvas();
 	setTitle("Monopoly Multiplayer");
-	canvas.setURI(new File("src/res/gameboard.svg").toURI().toString());
-	
+	setResizable(true);
+	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	canvas = new JSVGCanvas();
+	canvas.setBackground(new Color(0, 0, 0, 0));
+
 	try {
 	    setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("src/res/background.png")))));
 	    canvas.setFont(Font.createFont(Font.TRUETYPE_FONT, this.getClass().getResourceAsStream("/res/SourceSansPro-Light.ttf")));
+
+	    String parser = XMLResourceDescriptor.getXMLParserClassName();
+	    SAXSVGDocumentFactory f = new SAXSVGDocumentFactory(parser);
+	    String uri = new File("src/res/gameboard.svg").toURI().toString();
+	    Document doc = f.createDocument(uri);
+	    canvas.setDocument(doc);
 	} catch (FontFormatException | IOException e) {
+
 	}
-	
+
+	canvas.addGVTTreeRendererListener(new GVTTreeRendererAdapter() {
+	    public void gvtRenderingPrepare(GVTTreeRendererEvent e) {
+		setTitle("Monopoly Multiplayer - Loading...");
+	    }
+
+	    public void gvtRenderingCompleted(GVTTreeRendererEvent e) {
+		setTitle("Monopoly Multiplayer");
+	    }
+	});
+
+	createFrame();
+	setVisible(true);
+	pack();
+    }
+
+    public void createFrame() {
 	setLayout(new BorderLayout());
-	Dimension d = getPreferredSize();
-	d.height = d.height - 50;
-	d.width = d.width - 50;
-	canvas.setPreferredSize(d);
-	canvas.setBackground(new Color(0, 0, 0, 0));
-	//SVGDocument svgd = canvas.getSVGDocument();
-	add(canvas);
-	
-	//Background optimieren:
-	//https://tips4java.wordpress.com/2008/10/12/background-panel/
-	//TODO: Herr Hanauska fragen, ob das geht.
 
-	this.addComponentListener(new ComponentAdapter() {
-	    @Override
-	    public void componentResized(ComponentEvent e) {
-	    }
-	});
-
-	//http://stackoverflow.com/questions/22010658/boxlayout-inside-a-borderlayout
-	JPanel buttons = new JPanel();
+	JPanel left = new JPanel();
 	JPanel chat = new JPanel();
-	buttons.setLayout(new BoxLayout(buttons, BoxLayout.Y_AXIS));
-	JButton btn1 = new JButton("Move to LOS");
+	JPanel bottom = new JPanel();
+	left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
+	chat.setLayout(new BoxLayout(chat, BoxLayout.Y_AXIS));
+	bottom.setLayout(new BoxLayout(bottom, BoxLayout.X_AXIS));
 
-	btn1.addActionListener(new ActionListener() {
-	    public void actionPerformed(ActionEvent e) {
-	    }
-	});
-	
+	JButton btn1 = new JButton("getSVG");
 	JButton btn2 = new JButton("Hello World 2");
 	JButton btn3 = new JButton("Hello World 3");
 	JButton btn4 = new JButton("Hello World 4");
 	JButton btn5 = new JButton("Hello World 5");
 	JButton btn6 = new JButton("Hello World 6");
-	JButton btn7 = new JButton("Me is chat box");
+	JButton btn8 = new JButton("Hello World 2");
+	JButton btn9 = new JButton("Hello World 3");
+	JButton btn10 = new JButton("Hello World 4");
+	JButton btn11 = new JButton("Hello World 5");
+	JButton btn12 = new JButton("Hello World 6");
+	JButton btn13 = new JButton("Me is no chat box");
+	JButton bEndTurn = new JButton("Runde beenden");
 
-	buttons.add(btn1);
-	buttons.add(btn2);
-	buttons.add(btn3);
-	buttons.add(btn4);
-	buttons.add(btn5);
-	buttons.add(btn6);
-	chat.add(btn7);
+	btn1.addActionListener(new ActionListener() {
+	    public void actionPerformed(ActionEvent e) {
+		SVGDocument svgd = canvas.getSVGDocument();
+		System.out.println(svgd.toString());
+	    }
+	});
 
-	add(buttons, BorderLayout.WEST);
-	add(canvas, BorderLayout.CENTER);
-	add(chat, BorderLayout.EAST);
+	left.add(btn1);
+	left.add(btn2);
+	left.add(btn3);
+	left.add(btn4);
+	left.add(btn5);
+	left.add(btn6);
+
+	JTextPane chatBox = new JTextPane();
+	chatBox.setEditable(false);
+
+	JTextField chatField = new JTextField();
+	chatField.setToolTipText("Enter chat here...");
 	
-	pack();
-	setVisible(true);
+
+	JTextPane playerList = new JTextPane();
+	playerList.setEditable(false);
+
+	bEndTurn.setPreferredSize(new Dimension(250, 60));
+	chatBox.setPreferredSize(new Dimension(250, 300));
+	playerList.setPreferredSize(new Dimension(250, 300));
+	chatField.setPreferredSize(new Dimension(250, 300));
+	chatField.setColumns(10);
+
+	chat.add(chatBox);
+	chat.add(chatField);
+	chat.add(bEndTurn);
+	chat.add(playerList);
+	
+	bottom.add(btn8);
+	bottom.add(btn9);
+	bottom.add(btn10);
+	bottom.add(btn11);
+	bottom.add(btn12);
+	bottom.add(btn13);
+
+	this.addComponentListener(new ComponentAdapter() {
+	    @Override
+	    public void componentResized(ComponentEvent e) {
+		System.out.println("Resized");
+		//Do linear algebra
+		//bEndTurn.setSize(getContentPane().getWidth() / 6, 30);
+		//chatBox.setSize(getContentPane().getWidth() / 6, 300);
+		//playerList.setSize(getContentPane().getWidth() / 6, 300);
+	    }
+	});
+
+	add(canvas, BorderLayout.CENTER);
+	add(left, BorderLayout.WEST);
+	add(chat, BorderLayout.EAST);
+	add(bottom, BorderLayout.SOUTH);
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
-                formComponentResized(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
-
-    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
-// TODO add your handling code here:
-    }//GEN-LAST:event_formComponentResized
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-	/* Set the Nimbus look and feel */
-//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-/* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
- * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-	 */
-	try {
-	    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-		if ("Nimbus".equals(info.getName())) {
-		    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-		    break;
-		}
-	    }
-	} catch (ClassNotFoundException ex) {
-	    java.util.logging.Logger.getLogger(view.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	} catch (InstantiationException ex) {
-	    java.util.logging.Logger.getLogger(view.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	} catch (IllegalAccessException ex) {
-	    java.util.logging.Logger.getLogger(view.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-	    java.util.logging.Logger.getLogger(view.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	}
-//</editor-fold>
-
-	/* Create and display the form */
 	java.awt.EventQueue.invokeLater(new Runnable() {
 	    public void run() {
-		new view().setVisible(true);
+		new view();
 	    }
 	});
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
 }

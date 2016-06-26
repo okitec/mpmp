@@ -279,7 +279,7 @@
              138.00,422.00 94.00,442.69 94.00,442.69 Z" />
 			 
 	<text id = "label"
-		x="116" font-family="Monopoly" font-size="38px" text-anchor="middle"
+		x="116" font-size="38px" text-anchor="middle"
 		stroke="#000000" transform = "rotate(-45 116 116)">
 		<tspan x="116" y="126">
 			Ziehen Sie

@@ -199,7 +199,7 @@
              149.39,357.35 135.49,347.32 133.00,345.00
              133.00,345.00 173.00,343.00 173.00,343.00 Z" />
 
-	<text id = "tag" font-family="Monopoly" font-size="30px" style="stroke: #000000" text-anchor="middle">
+	<text id = "tag" font-size="30px" style="stroke: #000000" text-anchor="middle">
 			<tspan x="150" y="75">
 				Elektrizitaetswerk
 			</tspan>

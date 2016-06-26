@@ -147,7 +147,7 @@
              182.16,214.16 184.64,218.73 186.00,223.00
              185.92,227.11 145.92,227.35 146.00,223.00 Z" />
 	
-	<text id = "tag" font-family="Monopoly" font-size="30px"  text-anchor="middle">
+	<text id = "tag" font-size="30px"  text-anchor="middle">
 			<tspan x="150" y="75" style="stroke: #000000">
 				Wasserwerk
 			</tspan>

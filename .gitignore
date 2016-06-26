@@ -13,6 +13,7 @@ mpmp/bin
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+#Secret Files
 secrets.md
 
 # Eclipse stuff
@@ -32,7 +33,9 @@ secrets.md
 /mpmp-client/build/
 /mpmp-client/dist/
 
+#batik-Files
+!mpmp-client/lib/*
+!mpmp-client/lib/*.jar
+
 # Gimp stuff (file size >30 MB)
 *.xcf
-/mpmp-client/nbproject/private/
-/mpmp-client/build/
