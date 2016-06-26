@@ -808,16 +808,16 @@
 				 font-size="30px" fill="#231f20"
 				style="stroke: #000000" text-anchor="middle">
 				<tspan x="150" y="182">
-					Weimarer
+					Bahnhof
 				</tspan>
 				<tspan x="150" y="212">
-					Bahnhof
+					Weimar
 				</tspan>
 			</text>
 			
 			<text id = "price"
 				x="150" y="480"  font-size="33px" text-anchor="middle">
-				RM 7200
+				RM 4000
 			</text>
 		</g>
 		<g id="oben6" transform="translate(2330 506) rotate(180 0 0)">
@@ -2041,7 +2041,7 @@
 				 font-size="30px" fill="#231f20"
 				style="stroke: #000000" text-anchor="middle">
 				<tspan x="150" y="182">
-					Weimarer
+					Anhalter
 				</tspan>
 				<tspan x="150" y="212">
 					Bahnhof
@@ -2050,7 +2050,7 @@
 			
 			<text id = "price"
 				x="150" y="480"  font-size="33px" text-anchor="middle">
-				RM 7200
+				RM 4000
 			</text>
 		</g>
 		<g id="links6" transform="translate(506 2026) rotate(90 0 0)">
@@ -2616,7 +2616,7 @@
 				</text>
 			</g>
 		</g>
-			<g id="unten1" transform="translate(506 3242)">
+		<g id="unten1" transform="translate(506 3242)">
 			
 				<rect id = "field_border"
 				x="0" y="0" width="304" height="506"
@@ -2813,7 +2813,7 @@
 				Ereignisfield
 			</text>
 			</g>
-			<g id="unten4" transform="translate(1418 3242)">
+		<g id="unten4" transform="translate(1418 3242)">
 		<rect id = "field_border"
 				x="0" y="0" width="304" height="506"
 				rx="0" ry="0" fill="#231f20" 
@@ -2860,7 +2860,7 @@
 				rx="0" ry="0" fill="#f7f7cf" 
 			/>
 			
-				<path id="train"
+			<path id="train"
 				fill="#231f20"
 				d="M 110.47,266.74
 					C 117.28,266.75 119.84,266.22 123.64,272.59
@@ -2917,7 +2917,7 @@
 				 font-size="30px" fill="#231f20"
 				style="stroke: #000000" text-anchor="middle">
 				<tspan x="150" y="182">
-					Weimarer
+					Central-
 				</tspan>
 				<tspan x="150" y="212">
 					Bahnhof
@@ -2926,10 +2926,10 @@
 			
 			<text id = "price"
 				x="150" y="480"  font-size="33px" text-anchor="middle">
-				RM 7200
+				RM 4000
 			</text>
 		</g>
-			<g id="unten6" transform="translate(2026 3242)">
+		<g id="unten6" transform="translate(2026 3242)">
 			<rect id = "field_rahmen"
 				x="0" y="0" width="304" height="506" fill="#231f20"
 			/>
@@ -4193,7 +4193,7 @@
 				rx="0" ry="0" fill="#f7f7cf" 
 			/>
 			
-				<path id="train"
+			<path id="train"
 				fill="#231f20"
 				d="M 110.47,266.74
 					C 117.28,266.75 119.84,266.22 123.64,272.59
@@ -4250,7 +4250,7 @@
 				 font-size="30px" fill="#231f20"
 				style="stroke: #000000" text-anchor="middle">
 				<tspan x="150" y="182">
-					Weimarer
+					Fl&#252;gel-
 				</tspan>
 				<tspan x="150" y="212">
 					Bahnhof
@@ -4259,7 +4259,7 @@
 			
 			<text id = "price"
 				x="150" y="480"  font-size="33px" text-anchor="middle">
-				RM 7200
+				RM 4000
 			</text>
 		</g>
 		<g id="rechts6" transform="translate(3242 2330) rotate(-90 0 0)">
