@@ -30,8 +30,8 @@ public class Player {
 	/* only active players */
 	private static HashSet<Player> players;
 
-	private HashSet<PlotGroup.Plot> plots;
-	private HashSet<PlotGroup.Plot> hypothecs;
+	private HashSet<Plot> plots;
+	private HashSet<Plot> hypothecs;
 	private int cash;                         /* actual liquid money */
 	private int hyp;                          /* hypothec money */
 	private int pos;                          /* 0 is start; counted clockwise */
@@ -114,7 +114,7 @@ public class Player {
 	/**
 	 * Add or remove hypothec status of plot.
 	 */
-	public void hypothec(PlotGroup.Plot p, boolean addhyp) {
+	public void hypothec(Plot p, boolean addhyp) {
 		if(addhyp) {
 			if(p.isHypothec())
 				return;

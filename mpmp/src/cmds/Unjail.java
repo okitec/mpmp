@@ -21,7 +21,7 @@ public class Unjail implements CmdFunc{
 		}
 		
 		if (args.length < 2) {
-			conn.sendErr(ErrCode.UnjailUsage);
+			conn.sendErr(ErrCode.Usage, "unjail [card|money]");
 			return;
 		}
 		
@@ -37,7 +37,7 @@ public class Unjail implements CmdFunc{
 				p.prison(false);
 			break;
 		default:
-			conn.sendErr(ErrCode.UnjailUsage);
+			conn.sendErr(ErrCode.Usage, "unjail [card|money]");
 		}
 	}
 
