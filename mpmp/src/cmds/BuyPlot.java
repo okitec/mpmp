@@ -30,27 +30,30 @@ public class BuyPlot implements CmdFunc {
 		}
 		
 		if (args.length < 2) {
-			conn.sendErr(ErrCode.Usage + "buy-plot <Name des Grundstücks>");
+			conn.sendErr(ErrCode.Usage, "buy-plot <Name des Grundstücks>");
 			return;
 		}
 		
 		if (plot == null) {
-			conn.sendErr("Not a plot");
+			conn.sendErr(ErrCode.NotAPlot);
 			return;
 		}
 		
 		if (plot.getOwner() != null) {
-			conn.sendErr("Plot belongs to player " + plot.getOwner());
+			conn.sendErr(ErrCode.PlotOwned, plot.getOwner().getName());
 			return;
 		}
 		
 		int price = plot.getPrice();
 		if (!p.addMoney(price)) {
-			conn.sendErr("Insufficient money, need " + price);
+			conn.sendErr(ErrCode.InsufficientMoney, "RM" + price);
 			return;
 		}
 		
-		plot.buy(p);
+		if (!plot.buy(p)) {
+			conn.sendErr(ErrCode.Unexpected, "somebody bought it before you");
+			p.addMoney(price);
+		}
 	}
 
 	@Override

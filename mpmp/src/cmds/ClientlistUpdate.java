@@ -18,14 +18,14 @@ public class ClientlistUpdate implements CmdFunc {
 
 		args = line.split(" ");
 		if(args.length < 2) {
-			conn.sendErr(ErrCode.Usage + "clientlist-update <number of clients>");
+			conn.sendErr(ErrCode.Usage, "clientlist-update <number of clients>");
 			return;
 		}
 
 		try {
 			nclients = Integer.parseInt(args[1]);
 		} catch(NumberFormatException nfe) {
-			conn.sendErr("'" + args[1] + "': not a number"); //XXX -.-  -lele
+			conn.sendErr(ErrCode.Unexpected, "'" + args[1] + "' is not a number");
 			return;
 		}
 
@@ -55,7 +55,7 @@ public class ClientlistUpdate implements CmdFunc {
 				mode = Player.Mode.Player;
 				break;
 			default:
-				conn.sendErr("bad gamemode '" + fields[1] + "'"); //XXX -.-  -lele
+				conn.sendErr(ErrCode.Unexpected, "bad gamemode '" + fields[1] + "'");
 				return;
 			}
 
