@@ -9,6 +9,7 @@ import java.net.SocketException;
 import java.net.Socket;
 
 import cmds.Cmd;
+import java.util.Arrays;
 
 /**
  * Class Conn implements the connection to a Client or the server.
@@ -61,7 +62,7 @@ public class Conn {
 
 			c = Cmd.search(cmd);
 			if (c == null) {
-				sendErr("Command '" + cmd + "' does not exist!");
+				sendErr(ErrCode.Command, cmd);
 				continue;
 			}
 
@@ -102,12 +103,12 @@ public class Conn {
 		out.println("+JAWOHL");
 	}
 
-	public synchronized void sendErr(String s) {
-		out.println("-NEIN " + s);
-	}
-	
 	public synchronized void sendErr(ErrCode err){
 		out.println("-NEIN " + err.getCode() + " " + err.getMessage());
+	}
+	
+	public synchronized void sendErr(ErrCode err, String s){
+		out.println("-NEIN " + err.getCode() + " " + err.getMessage() + " " + s);
 	}
 	
 	public void disconnect() {
@@ -121,13 +122,17 @@ public class Conn {
 	private void errHandle(String line, Cmd cmd) {
 		String[] args = line.split(" ");
 		ErrCode err;
+		String message = null;
 		
 		if (args.length < 2)
 			return;
 
+		if (args.length > 2)
+			message = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
+		
 		try {
 			err = ErrCode.search(Integer.parseInt(args[1]));
-			cmd.error(err, line, this);
+			cmd.error(err, message, this);
 		} catch(NumberFormatException nfe) {
 			//XXX error in error :(
 		}

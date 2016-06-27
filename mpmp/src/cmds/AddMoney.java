@@ -22,14 +22,14 @@ public class AddMoney implements CmdFunc {
 		args = line.split(" ");
 		if(args.length < 3) {
 			// XXX one syntax/usage error code should suffice -oki
-			conn.sendErr("Usage: add-money <amount> <reason>");
+			conn.sendErr(ErrCode.Usage, "add-money <amount> <reason>");
 			return;
 		}
 
 		try {
 			amount = Integer.parseInt(args[1]);
 		} catch(NumberFormatException nfe) {
-			conn.sendErr("Not a number");  // XXX make general error?
+			conn.sendErr(ErrCode.Unexpected, "'" + args[1] + "' is not a number");
 			return;
 		}
 

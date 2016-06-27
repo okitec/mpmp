@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cat header-Converter.java >Converter.java
+awk -f mkxy.awk | awk -f xy2java.awk >>Converter.java
+cat footer-Converter.java >>Converter.java
+mv Converter.java ../mpmp/src/view/

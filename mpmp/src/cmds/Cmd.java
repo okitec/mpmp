@@ -17,6 +17,7 @@ public enum Cmd {
 	Disconnect("disconnect", new cmds.Disconnect()),
 	Whisper("whisper", new cmds.Whisper()),
 	Unjail("unjail", new cmds.Unjail()),
+	BuyPlot("buy-plot", new cmds.BuyPlot()),
 
 	/* S->C */
 	ChatUpdate("chat-update", new cmds.ChatUpdate()),
