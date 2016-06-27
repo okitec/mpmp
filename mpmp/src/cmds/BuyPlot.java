@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cmds;
 
 import java.util.Arrays;
@@ -13,11 +8,10 @@ import model.Player;
 import model.Plot;
 
 /**
- *
- * @author leander.dreier
+ * buy-plot C->S packet; see https://github.com/leletec/mpmp/blob/master/proto.md#grundstücke
+ * @author Leander
  */
 public class BuyPlot implements CmdFunc {
-//https://github.com/leletec/mpmp/blob/master/proto.md#grundstücke
 	@Override
 	public void exec(String line, Conn conn) {
 		String[] args = line.split(" ");
