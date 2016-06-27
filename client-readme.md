@@ -15,5 +15,4 @@ http://stackoverflow.com/questions/22010658/boxlayout-inside-a-borderlayout
 
 ### Sonstiges
 
-Set Background:
-https://tips4java.wordpress.com/2008/10/12/background-panel/
+[Set Background] (https://tips4java.wordpress.com/2008/10/12/background-panel/)
