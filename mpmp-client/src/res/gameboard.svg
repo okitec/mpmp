@@ -5,7 +5,7 @@
 	<title>Game board</title>
 	<!-- Use transform="scale(0.xx)" -->
 	
-	<g id="gameboard">
+	<g id="gameboard" transform="scale(0.267)">
 		<g id="oben0" transform="translate(506 0) rotate(90 0 0)">
 			<rect id = "field_border"
 				x="0" y="0" width="506" height="506" fill="#231f20"
