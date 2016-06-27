@@ -1,15 +1,18 @@
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -20,12 +23,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
+import org.apache.batik.anim.dom.SVGDOMImplementation;
 import org.apache.batik.swing.JSVGCanvas;
 import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
 import org.apache.batik.util.XMLResourceDescriptor;
 import org.w3c.dom.Document;
 import org.w3c.dom.svg.SVGDocument;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * @author Klaus, Oskar
@@ -50,6 +57,7 @@ public class view extends javax.swing.JFrame {
 	    String uri = new File("src/res/gameboard.svg").toURI().toString();
 	    Document doc = f.createDocument(uri);
 	    canvas.setDocument(doc);
+
 	} catch (FontFormatException | IOException e) {
 
 	}
@@ -61,6 +69,12 @@ public class view extends javax.swing.JFrame {
 
 	    public void gvtRenderingCompleted(GVTTreeRendererEvent e) {
 		setTitle("Monopoly Multiplayer");
+		//Document svgd = canvas.get
+		System.out.println(canvas.getX() + "  " + canvas.getSize() + "  " + canvas.getRenderRect() + "  " + canvas.getSVGDocument().getRootElement());
+		Graphics g = canvas.getGraphics();
+		g.drawOval(0, 0, 50, 50);
+
+		canvas.invalidate();
 	    }
 	});
 
@@ -95,8 +109,7 @@ public class view extends javax.swing.JFrame {
 
 	btn1.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
-		SVGDocument svgd = canvas.getSVGDocument();
-		System.out.println(svgd.toString());
+
 	    }
 	});
 
@@ -112,22 +125,21 @@ public class view extends javax.swing.JFrame {
 
 	JTextField chatField = new JTextField();
 	chatField.setToolTipText("Enter chat here...");
-	
 
 	JTextPane playerList = new JTextPane();
 	playerList.setEditable(false);
 
-	bEndTurn.setPreferredSize(new Dimension(250, 60));
-	chatBox.setPreferredSize(new Dimension(250, 300));
-	playerList.setPreferredSize(new Dimension(250, 300));
-	chatField.setPreferredSize(new Dimension(250, 300));
+	bEndTurn.setPreferredSize(new Dimension(200, 60));
+	chatBox.setPreferredSize(new Dimension(200, 300));
+	playerList.setPreferredSize(new Dimension(200, 300));
+	chatField.setPreferredSize(new Dimension(200, 300));
 	chatField.setColumns(10);
 
 	chat.add(chatBox);
 	chat.add(chatField);
 	chat.add(bEndTurn);
 	chat.add(playerList);
-	
+
 	bottom.add(btn8);
 	bottom.add(btn9);
 	bottom.add(btn10);
@@ -139,10 +151,6 @@ public class view extends javax.swing.JFrame {
 	    @Override
 	    public void componentResized(ComponentEvent e) {
 		System.out.println("Resized");
-		//Do linear algebra
-		//bEndTurn.setSize(getContentPane().getWidth() / 6, 30);
-		//chatBox.setSize(getContentPane().getWidth() / 6, 300);
-		//playerList.setSize(getContentPane().getWidth() / 6, 300);
 	    }
 	});
 
