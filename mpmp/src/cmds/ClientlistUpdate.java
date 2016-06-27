@@ -18,7 +18,7 @@ public class ClientlistUpdate implements CmdFunc {
 
 		args = line.split(" ");
 		if(args.length < 2) {
-			conn.sendErr(ErrCode.ClientlistUpdateUsage);
+			conn.sendErr(ErrCode.Usage + "clientlist-update <number of clients>");
 			return;
 		}
 

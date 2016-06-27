@@ -21,7 +21,7 @@ public class Subscribe implements CmdFunc {
 		
 		args = line.split(" ");
 		if (args.length < 4) {
-			c.sendErr(ErrCode.SubscribeUsage);
+			c.sendErr(ErrCode.Usage + "subscribe <spectator|player> #<rgb hex triplet> <Name>");
 			return;
 		}
 
@@ -35,7 +35,7 @@ public class Subscribe implements CmdFunc {
 			mode = Mode.Spectator;
 			break;
 		default:
-			c.sendErr(ErrCode.SubscribeUsage);
+			c.sendErr(ErrCode.Usage + "subscribe <spectator|player> #<rgb hex triplet> <Name>");
 			return;
 		}
 

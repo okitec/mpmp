@@ -14,7 +14,7 @@ public class Whisper implements CmdFunc {
 	public void exec(String line, Conn conn) {
 		String[] args = line.split(" ");
 		if (args.length < 3) {
-			conn.sendErr(ErrCode.WhisperUsage);
+			conn.sendErr(ErrCode.Usage + "whisper <playername> <message>");
 			return;
 		}
 		
