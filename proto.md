@@ -1,7 +1,7 @@
 Protokoll
 =========
 
-Protokollversion: 1
+Protokollversion: 2
 
 Das Protokoll ist ein simples textbasiertes Protokoll mit Ähnlichkeit zu POP3.
 Beide Seiten, Client und Server, senden unaufgefordert Pakete aus, die das
@@ -197,7 +197,7 @@ Grundstücke
 		S: add-money <Preis> Buy plot <Grundstück>
 		C: +JAWOHL
 
-		C: sell-plot <Käufer> <Preis>
+		C: sell-plot <Name des Grundstücks> @<Käufer> <Preis>
 		S: +JAWOHL
 		oder
 		S: -NEIN 136 belongs to player <player>
@@ -226,6 +226,12 @@ anderen Spieler zu einem vereinbarten Preis verkauft werden. Wenn derjenige auf 
 Grundstück dieses nicht kaufen will, wird es mit `auction-plot` und `make-offer`
 versteigert. Ob ein Grundstück hypothekarisch belastet ist, wird mit `hypothec`
 verändert. Die Bank sendet dann entsprechende `add-money`s.
+
+**Kleiner Hack**: Bei `sell-plot` wird deswegen ein `@` vor den Käufer gestellt, um Käufer
+und Grundstück zu unterscheiden. Natürlich könnte man auch einfach den Preis in die
+Mitte stellen. Das Tolle ist, dass die `@`-Syntax bereits verstanden wird, weil `whisper`
+diese braucht.
+
 
 Häuser kaufen und verkaufen
 ---------------------------
@@ -366,6 +372,7 @@ Code | Beschreibung
  **2yz** | permanentes Fehlschlagen; der Befehl kann nie funktionieren
  **20z** | allgemeiner Fehler, kann in verschiedenen Bereichen auftreten
  201 | unerwartetes End-of-File
+ 
  **21z** | Beitreten und Clientlist-Updates
  211 | gewählter Name bereits vergeben
  212 | `clientlist-update` mit falscher Syntax
@@ -376,3 +383,10 @@ Code | Beschreibung
  221 | nicht subscribter Client will chatten
  223 | `whisper` mit falscher Syntax
  **23z** | Gameplay
+ **3yz** | Protokollfehler
+ 301 | Paketbefehl hat falsche Argumente
+ 302 | unerwarteter interner Fehler
+ 303 | unerwartetes EOF
+ 304 | Befehl existiert nicht
+ 311 | Zeilensyntax von `clientlist-update` falsch
+ 333 | angegebenes Grundstück existiert nicht

@@ -1,6 +1,7 @@
 package model;
 
 import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * A plot that can be bought, sold, turned into a hypothec, ...
@@ -47,11 +48,11 @@ public class Plot {
 		return true;
 	}
 	
-	public boolean sell() { //TODO
+	public boolean resell(Player buyer) {
 		if (owner == null)
 			return false;
 		
-		owner = null;
+		owner = buyer;
 		return true;
 	}
 
@@ -109,5 +110,19 @@ public class Plot {
 			if (name.equals(p.getName()))
 				return p;
 		return null;
+	}
+	
+	public static String matches(String name) {
+		Iterator i = allplots.iterator();
+		String bestMatch = "";
+		while (i.hasNext()) {
+			Plot p = (Plot) i.next();
+			String pname = p.getName();
+			if (name.matches(pname + "(.*)") && pname.length() > bestMatch.length())
+				bestMatch = pname;
+		}
+		if (bestMatch.equals(""))
+			return null;
+		return bestMatch;
 	}
 }

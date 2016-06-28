@@ -29,7 +29,7 @@ public class AddMoney implements CmdFunc {
 		try {
 			amount = Integer.parseInt(args[1]);
 		} catch(NumberFormatException nfe) {
-			conn.sendErr(ErrCode.Unexpected, "'" + args[1] + "' is not a number");
+			conn.sendErr(ErrCode.Internal, "'" + args[1] + "' is not a number");
 			return;
 		}
 
@@ -38,7 +38,9 @@ public class AddMoney implements CmdFunc {
 	}
 
 	@Override
-	public void error(ErrCode err, String line, Conn conn) {}
+	public void error(ErrCode err, String line, Conn conn) {
+		System.err.println("Can't happen: " + err.getMessage());
+	}
 
 	public void addDisplayer(Displayer d) {
 		this.d = d;

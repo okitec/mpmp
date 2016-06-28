@@ -6,18 +6,20 @@ import main.Conn;
 import main.ErrCode;
 import model.Player;
 import model.Plot;
+import view.Displayer;
 
 /**
  * buy-plot C->S packet; see https://github.com/leletec/mpmp/blob/master/proto.md#grundstücke
  * @author Leander
  */
 public class BuyPlot implements CmdFunc {
+	private Displayer d;
+	
 	@Override
 	public void exec(String line, Conn conn) {
 		String[] args = line.split(" ");
-		Plot plot = Plot.search(String.join(" ", Arrays.copyOfRange(args, 1, args.length)));
-		Player p = Player.search(((Client) conn).getName());
 		
+		Player p = Player.search(((Client) conn).getName());
 		if (!p.isPlayer()) {
 			conn.sendErr(ErrCode.NotAPlayer);
 			return;
@@ -28,26 +30,30 @@ public class BuyPlot implements CmdFunc {
 			return;
 		}
 		
+		Plot plot = Plot.search(String.join(" ", Arrays.copyOfRange(args, 1, args.length)));
 		if (plot == null) {
 			conn.sendErr(ErrCode.NotAPlot);
 			return;
 		}
 		
 		if (plot.getOwner() != null) {
-			conn.sendErr(ErrCode.PlotOwned, plot.getOwner().getName());
+			conn.sendErr(ErrCode.AlreadyOwned, plot.getOwner().getName());
 			return;
 		}
 		
 		int price = plot.getPrice();
-		if (!p.addMoney(price)) {
-			conn.sendErr(ErrCode.InsufficientMoney, "RM" + price);
+		if (!p.addMoney(-price)) {
+			conn.sendErr(ErrCode.MissingMoney, "" + price);
 			return;
 		}
 		
 		if (!plot.buy(p)) {
-			conn.sendErr(ErrCode.Unexpected, "somebody bought it before you");
+			conn.sendErr(ErrCode.Internal, "somebody bought it before you");
 			p.addMoney(price);
+			return;
 		}
+		
+		conn.send("add-money " + price + " Buy plot " + plot.getName());
 	}
 
 	@Override
@@ -55,4 +61,7 @@ public class BuyPlot implements CmdFunc {
 		//TODO
 	}
 	
+	public void addDisplayer(Displayer d) {
+		this.d = d;
+	}
 }
