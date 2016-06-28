@@ -1,99 +1,93 @@
 Regeln von MPMP
 ===============
 
-Grundsätzliches
----------------
-- Bei einem Pasch würfelt er nach Ausführung des Spielzuges noch einmal.
-- Sollte er eine Reihe von 3 Paschs hintereinander haben, geht er allerdings ins Gefängnis (s. unten).
+Bewegung
+--------
+
+Es wird mit zwei Würfeln gewürfelt. Bei einem Pasch wird **sofort** nochmal gewürfelt.
+An den Zwischenstationen kann man im Unterschied zur Standardversion keine Handlungen
+durchführen. Wer drei Pasche hintereinander wirft, kommt ins Gefängnis.
+
+
+Ziel
+----
+
+Ziel ist es, möglichst reich zu werden und die Mitspieler in den Ruin zu treiben.
 
 Start
 -----
-- Vor Spielbeginn erhält jeder Spieler 30.000 RM Startkapital und eine Spielfigur.
-- Die Spielerreihenfolge wird zufällig (evtl. durch Würfelwurf) festgelegt.
-- Alle Spieler starten beim Los-Feld.
 
-Los-Feld 
---------
- - Beim Gehen über Los ziehe 4000 RM ein.
- - Wenn du direkt auf Los kommst ziehen 8000 RM ein.
+Das Startkapital beträgt 30000 RM. Alle Spielfiguren sind anfangs auf dem Los-Feld.
+Wer als erster zieht, wird durch Zufall festgelegt.
 
-Rdm Thoughts
-------------
-- Auktionen durchführen
-- Inflation als Feature??
 
-Bank (wird vom Server übernommen)
----------------------------------
-- Spielgeld verwalten
-- Besitzrechtkarten verwalten
-- Apartments und Hotels verwalten
-
-Spielablauf
+Grundstücke
 -----------
-- Server bestimmt zufällig die Spielerreihenfolge
-- Jeder Spieler "würfelt"
 
-Grundstücke kaufen
-------------------
-- Ein Spieler kann nur dann ein Grundstück kaufen, wenn sich seine Spielfigur auf dem Grundstücksfeld befindet, es noch niemandem gehört und er genug Geld hat.
-- Die Preise sind auf der Besitzrechtkarte angegeben.
-- (Falls der Spieler die Karte nicht kaufen möchte, wird sie von der Bank versteigert und alle Spieler haben die Möglichkeit, sie zu ersteigern.)
+Ein Spieler kann nur dann ein Grundstück kaufen, wenn sich seine Spielfigur auf dem
+Grundstücksfeld befindet, es noch niemandem gehört und er genug Geld hat. Die Preise
+sind auf der Besitzrechtkarte angegeben. Falls der Spieler die Karte nicht kaufen
+möchte, wird sie von der Bank versteigert und alle Spieler haben die Möglichkeit,
+sie zu ersteigern.
+
+Unbebaute Grundstücke können zu einem frei verhandelten Preis an Mitspieler verkauft
+werden, aber niemals an die Bank zurückgegeben werden. Man kann ein Grundstück jedoch
+hypothekarisch belasten, wofür man von der Bank einen bestimmten Hypothekswert
+ausgezahlt bekommt; Mieten müssen aber nicht mehr gezahlt werden. Beim Zurückzahlen
+der Hypothek muss man 10% Zinsen bezahlen. Bei einem Verkauf eines hypothekarisch
+belasteten Grundstücks muss der Käufer **keine** Zinsen zahlen.
+
 
 Miete zahlen
--------------
-- Wenn ein Spieler auf ein Grundstücksfeld eines anderen Spielers kommt, so muss er die Miete zahlen.
-- Die Miete ist auf der Besitzrechtkarte verankert und hängt von der Straße, sowie von der Anzahl der Häuser bzw. Hotels auf der Straße ab.
+------------
 
-Versorgungswerke
-----------------
-- Miete bezahlen s. oben.
-- Miete hängt von der gewürfelten Augenzahl ab (s. Besitzrechtkarte der Versorgungswerke).
+Wenn ein Spieler auf ein Grundstücksfeld eines anderen Spielers kommt, so muss er die
+Miete zahlen, die auf der Besitzrechtskarte für diese Straße und Anzahl an Häusern
+eingetragen ist. Bei Versorgungswerken hängt die Miete von der Augenzahl desjenigen
+ab, der auf ihnen landet; wenn man ein Werk besitzt, beträgt die Miete das Achtzigfache
+der Augensumme. Wenn man beide Werke besitzt, wird mit Faktor 200 multipliziert.
 
-Bahnhöfe
---------
-- Miete bezahlen s. oben.
-- Die Miete hängt von der Anzahl der vom Vermieter besessenen Bahnhöfe ab.
+Bahnhöfe arbeiten auf ähnlicher Basis. Die Miete ist bei einem Bahnhof 500 RM und
+verdoppelt sich pro Bahnhof, die der Mietefordernde besitzt. 
 
-Apartments und Hotels bauen
-----------------
-- Wenn ein Spieler alle Grundstücke einer Farbgruppe besitzt, kann er dort Häuser bauen.
-- Die Häuser müssen gleichmäßig auf die Farbgruppe verteilt werden, es darf also in einer Straße erst das zweite Haus gebaut werden, wenn in allen Straßen der Gruppe je ein Haus steht.
-- Die Kaufpreise für die Häuser und die Mieten für die Grundstücke mit den unterschiedlichen Häuserzahlen können Sie der Straßenkarte entnehmen.
-- In jeder Straße dürfen nur 4 *grüne* Häuser stehen. Das fünfte Gebäude wird dann ein *rotes* Hotel: Es kostet die vier Häuser plus den Preis für ein fünftes Haus.
-- Pro Straße kann es nur ein Hotel geben.
-- *evtl: Limit an Häusern*
 
-Geldmangel
-----------
-- Wenn einem Spieler das Geld ausgeht, kann er seine Häuser und Hotels zum Kaufpreis an die Bank zurückgeben.
-- Auf Grundstücke können außerdem Hypotheken aufgenommen werden. Die Bedingungen sind auf der Besitzkarte geregelt.
+Häuser und Hotels
+-----------------
 
-Grundstücke verkaufen
----------------------
-- Nur wenn auf der Farbgruppe keine Gebäude stehen.
-- Können an andere Spieler zu einem verhandelbaren Preis verkauft werden.
+Wenn ein Spieler alle Grundstücke einer Farbgruppe besitzt, kann er dort Häuser bauen.
+Die Häuser müssen gleichmäßig auf die Farbgruppe verteilt werden, es darf also in einer
+Straße erst das zweite Haus gebaut werden, wenn in allen Straßen der Gruppe je ein Haus
+steht. Die Kaufpreise für die Häuser und die Mieten für die Grundstücke mit den
+unterschiedlichen Häuserzahlen stehen auf der Besitzrechtskarte.
 
-Bankrott
---------
-Wer Bankrott geht, scheidet aus dem Spiel aus. Gewonnen hat, wer am Schluss als Letzter übrigbleibt.
+In jeder Straße dürfen nur vier *grüne* Häuser stehen. Das fünfte Gebäude wird dann ein
+*rotes* Hotel: Es kostet die vier Häuser plus den Preis für ein fünftes Haus. Die vier
+Häuser werden sodann abgeräumt. Die Bank hat **kein** Limit an Häusern.
 
-Ereignis- und Gemeinschaftsfelder
----------------------------------
-Landet der Spieler auf einem Ereignis- oder Gemeinschaftsfeld, deckt er die oberste Karte auf dem entsprechenden "Stapel" auf und befolgt die Anweisung.
+Häuser und Hotels können für den Hälfte des Kaufpreises der Bank wieder zurückgegeben
+werden, jedoch muss auch der Abriss gleichmäßig in der Farbgruppe passieren.
 
-Frei parken
------------
-- Normale Regeln: nichts passiert.
-- *evtl: Man erhält alles Geld "aus der Mitte" (Steuern).*
-
-Steuer
-------
-Auf den Feldern mit den besonderen Steuern oder Abgaben sind die zu zahlenden Beträge angegeben.
 
 Gefängnis
 ---------
-- Wenn Sie auf dem Gefängnisfeld landen, sind Sie als Besucher dort und es passiert nichts.
-- Landen Sie allerdings auf dem Feld „Gehen Sie in das Gefängnis“ , ziehen die entsprechende Karte oder würfeln dreimal einen Pasch, dann sitzt Ihre Spielfigur im Gefängnis ein.
-- Mieten eintreiben und Häuser bauen können Sie trotzdem noch.
-- Man kommt aus dem Gefängnis frei wenn man bei seinem Zug einen Pasch würfelt, eine "Gefängnis Frei" Karte benutzt oder eine Strafe von 1000 RM bezahlt.
-- Schafft man es in drei Runden nicht einen Pasch zu würfeln muss man die Strafe zahlen.
+
+Wer durch drei Pasche hintereinander, als Folge einer Ereigniskarte oder durch Betreten des
+Polizistenfelds im Gefängnis einsitzen muss, darf Mieten eintreiben und Häuser bauen, aber
+kann sich nicht bewegen. Wenn man einen Pasch würfelt, eine Gefängnis-Frei-Karte benutzt oder
+eine Strafe von 1000 RM bezahlt, kommt man frei. Man kann die Gefängnis-Frei-Kartwe **nicht**
+von einem Mitspieler erwerben. Man kommt **nicht** frei, wenn man drei Runden lang keinen Pasch
+erreicht.
+
+
+Spezielle Felder
+----------------
+
+Name                                 | Beschreibung
+-------------------------------------|----------------------------------------------------------------------------
+Los                                  | Man nimmt 4000 RM Gehalt beim Passieren ein; 8000 RM, wenn man dort landet.
+Ereignis- u. Gemeinschaftskartenfeld | Eine zufällige Karte wird gezogen.
+Gefängnis                            | Man ist /nur zu Besuch/.
+Polizist                             | Der Spieler wird in das Gefängnis gebracht.
+Frei Parken                          | Der Spieler erhält alles Steuergeld aus dem Steuertopf.
+Zusatzsteuer                         | 2000 RM werden in den Steuertopf transportiert.
+Einkommenssteuer                     | 4000 RM werden in den Steuertopf transportiert.
