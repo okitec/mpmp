@@ -25,7 +25,7 @@ public class ClientlistUpdate implements CmdFunc {
 		try {
 			nclients = Integer.parseInt(args[1]);
 		} catch(NumberFormatException nfe) {
-			conn.sendErr(ErrCode.Unexpected, "'" + args[1] + "' is not a number");
+			conn.sendErr(ErrCode.Internal, "'" + args[1] + "' is not a number");
 			return;
 		}
 
@@ -55,7 +55,7 @@ public class ClientlistUpdate implements CmdFunc {
 				mode = Player.Mode.Player;
 				break;
 			default:
-				conn.sendErr(ErrCode.Unexpected, "bad gamemode '" + fields[1] + "'");
+				conn.sendErr(ErrCode.Internal, "bad gamemode '" + fields[1] + "'");
 				return;
 			}
 

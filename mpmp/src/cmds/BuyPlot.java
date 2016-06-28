@@ -6,12 +6,15 @@ import main.Conn;
 import main.ErrCode;
 import model.Player;
 import model.Plot;
+import view.Displayer;
 
 /**
  * buy-plot C->S packet; see https://github.com/leletec/mpmp/blob/master/proto.md#grundstücke
  * @author Leander
  */
 public class BuyPlot implements CmdFunc {
+	private Displayer d;
+	
 	@Override
 	public void exec(String line, Conn conn) {
 		String[] args = line.split(" ");
@@ -34,7 +37,7 @@ public class BuyPlot implements CmdFunc {
 		}
 		
 		if (plot.getOwner() != null) {
-			conn.sendErr(ErrCode.PlotOwned, plot.getOwner().getName());
+			conn.sendErr(ErrCode.AlreadyOwned, plot.getOwner().getName());
 			return;
 		}
 		
@@ -45,7 +48,7 @@ public class BuyPlot implements CmdFunc {
 		}
 		
 		if (!plot.buy(p)) {
-			conn.sendErr(ErrCode.Unexpected, "somebody bought it before you");
+			conn.sendErr(ErrCode.Internal, "somebody bought it before you");
 			p.addMoney(price);
 		}
 	}
@@ -55,4 +58,7 @@ public class BuyPlot implements CmdFunc {
 		//TODO
 	}
 	
+	public void addDisplayer(Displayer d) {
+		this.d = d;
+	}
 }
