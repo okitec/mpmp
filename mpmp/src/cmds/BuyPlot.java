@@ -43,14 +43,17 @@ public class BuyPlot implements CmdFunc {
 		
 		int price = plot.getPrice();
 		if (!p.addMoney(price)) {
-			conn.sendErr(ErrCode.InsufficientMoney, "RM" + price);
+			conn.sendErr(ErrCode.InsufficientMoney, "" + price);
 			return;
 		}
 		
 		if (!plot.buy(p)) {
 			conn.sendErr(ErrCode.Internal, "somebody bought it before you");
 			p.addMoney(price);
+			return;
 		}
+		
+		conn.send("add-money " + price + " Buy plot " + plot.getName());
 	}
 
 	@Override
