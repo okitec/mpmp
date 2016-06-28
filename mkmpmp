@@ -4,9 +4,9 @@
 echo Building mpmp...
 cd mpmp
 mkdir -p bin
-javac -d bin `{du -a src | awk '{print $2}' | grep \.java }
+javac -classpath ../lib/*:. -d bin `{du -a src | awk '{print $2}' | grep \.java }
 cd bin
-jar cfe mpmp.jar main.Main `{du -a | awk '{print $2}' | grep \.class }
+jar cfem mpmp.jar main.Main ../../scripts/client-manifest `{du -a | awk '{print $2}' | grep \.class }
 cd ../..
 mv mpmp/bin/mpmp.jar .
 
@@ -15,15 +15,6 @@ cd mpmp-launcher
 mkdir -p bin
 javac -d bin `{du -a src | awk '{print $2}' | grep \.java }
 cd bin
-jar cfe mpmp-launcher.jar main.Main `{du -a | awk '{print $2}' | grep \.class } -C ../src res/logo_small.png -C ../src res/monopoly.ttf
+jar cfe mpmp-launcher.jar main.Main `{du -a | awk '{print $2}' | grep \.class }
 cd ../..
 mv mpmp-launcher/bin/mpmp-launcher.jar .
-
-echo Building mpmp-client...
-cd mpmp-client
-mkdir -p bin
-javac -classpath lib/*:. -d bin `{du -a src | awk '{print $2}' | grep \.java }
-cd bin
-jar cfem mpmp-client.jar view ../../scripts/client-manifest `{du -a | awk '{print $2}' | grep \.class } -C ../src res/SourceSansPro-Light.ttf
-cd ../..
-mv mpmp-client/bin/mpmp-client.jar .
