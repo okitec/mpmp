@@ -26,10 +26,9 @@ public class Player {
 	private String name;
 	private Color color;
 	private Mode mode;
-
-	/* only active players */
 	private static HashSet<Player> players;
 
+	/* only active players */
 	private HashSet<Plot> plots;
 	private HashSet<Plot> hypothecs;
 	private int cash;                         /* actual liquid money */
@@ -42,8 +41,10 @@ public class Player {
 		this.name = name;
 		this.color = color;
 		this.mode = mode;
-		
-		players.add(this);
+
+		synchronized(players) {
+			players.add(this);
+		}
 		
 		if(mode == Mode.Player) {
 			plots = new HashSet<>();
@@ -66,6 +67,12 @@ public class Player {
 		// Convert to hex triplet without alpha value and in uppercase.
 		String col = "#" + Integer.toHexString(color.getRGB()).substring(2).toUpperCase();
 		return col + ": " + mode + ": " + name;
+	}
+
+	public void remove() {
+		synchronized(players) {
+			players.remove(this);
+		}
 	}
 
 	/* GAME LOGIC */
@@ -127,10 +134,12 @@ public class Player {
 	}
 
 	/**
-	 * Give up and auction everything of value.
+	 * Give up and auction everything of value and delete from player list.
 	 */
 	public void ragequit() {
-		// XXX auction all the plots and houses the player had 
+		// XXX auction all the plots and houses the player had
+		// We'll be replaced by a fresh spectator Player, so remove ourselves.
+		remove();
 	}
 
 	
@@ -230,9 +239,10 @@ public class Player {
 	/* STATIC */
 
 	/**
-	 * Initialise the player table.
+	 * Reset the player table. Called on start. In the client, this is also called
+	 * when a clientlist-update comes in.
 	 */
-	public static void init() {
+	public static void reset() {
 		players = new HashSet<>();
 	}
 
@@ -246,7 +256,7 @@ public class Player {
 			return Color.BLACK;  // XXX default color - randomise
 		}
 	}
-	
+
 	public static int numPlayers() {
 		return players.size();
 	}
