@@ -236,8 +236,10 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		}
 
 		@Override
-		public void reset() {
-			playerList.setDocument(new DefaultStyledDocument());
+		public synchronized void reset() {
+			SwingUtilities.invokeLater(() -> {
+				playerList.setDocument(new DefaultStyledDocument());
+			});
 		}
 	}
 }
