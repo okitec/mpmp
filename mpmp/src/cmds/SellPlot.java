@@ -27,7 +27,7 @@ public class SellPlot implements CmdFunc{
 		}
 		
 		if (args.length < 4) {
-			conn.sendErr(ErrCode.Usage, "sell-plot <Name des Grundstückes> <Käufer> <Preis>");
+			conn.sendErr(ErrCode.Usage, "sell-plot <Name des Grundstückes> @<Käufer> <Preis>");
 			return;
 		}
 		
@@ -58,7 +58,7 @@ public class SellPlot implements CmdFunc{
 		
 		Player buyer = Player.search(buyername);
 		
-		String[] s2 = line.split(buyername + " ");
+		String[] s2 = line.split("@" + buyername + " ");
 		try {
 			price = Integer.parseInt(s2[1]);
 		} catch (NumberFormatException nfe) {
