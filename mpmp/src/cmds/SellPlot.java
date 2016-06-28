@@ -67,7 +67,7 @@ public class SellPlot implements CmdFunc{
 		}
 		
 		if (!buyer.addMoney(-price)) {
-			conn.sendErr(ErrCode.InsufficientMoney, "" + price);
+			conn.sendErr(ErrCode.MissingMoney, "" + price);
 			return;
 		}
 		

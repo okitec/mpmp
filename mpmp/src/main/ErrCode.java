@@ -17,24 +17,25 @@ package main;
  * @author Leander
  */
 public enum ErrCode {
-	MissingMoney(131, "You don't have enough money for this"),
-	MissingUnjailCard(132, "You don't have a unjail card"),
-	NewEventCard(133, "I want to have a new eventcard"),
-	NewEventCardImossible(134, "You can't get a new eventcard"),
-	UnbalancedColor(135, "Your houses are to unbalanced for that color"), //XXX Say what color?
-	AlreadyOwned(136, "This is owned by"),
-	PlotWithHouse(137, "You can't sell a plot with houses on it"),
-	InsufficientMoney(138, "You don't have enough money for this. You would need"),
-	NameTaken(211, "Name already taken!"),
+	MissingMoney(131, "Insufficient money, need"),
+	MissingUnjailCard(132, "Missing unjail card"),
+	NewEventCard(133, "pls giv me new eventcart"),
+	NewEventCardImpossible(134, "Taking new eventcard not allowed"),
+	UnbalancedColor(135, "Your houses are to unbalanced for that plot group"), //XXX Say what color?
+	AlreadyOwned(136, "Owned by"),
+	PlotWithHouse(137, "Can't sell a plot with houses on it"),
+
+	NameTaken(211, "Name already taken"),
 	NoSuchPlayer(215, "This player does not exist"),
 	NotSubscribed(221, "You are not subscribed"),
 	NotAPlayer(232, "You are not a player"),
+
 	Usage(301, "Usage:"),
 	Internal(302, "Unexpected Error:"),
 	EOF(303, "Unexpected EOF"),
-	Command(304, "Not existing command:"),
+	Command(304, "Non-existing command:"),
 	ClientlistUpdateMissingFields(311, "Expected three fields: 'color: mode: name'"),
-	NotAPlot(333, "This is not a valid plot");
+	NotAPlot(333, "Not a valid plot");
 	
 	private final int code;
 	private final String message;
