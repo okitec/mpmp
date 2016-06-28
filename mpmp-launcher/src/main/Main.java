@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,7 +42,7 @@ public class Main extends javax.swing.JFrame {
         setLocationByPlatform(true);
         setResizable(false);
 
-        logolabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/logo_small.png"))); // NOI18N
+        logolabel.setIcon(new javax.swing.ImageIcon("graphics/logo-small.png")); // NOI18N
 
         nameField.setBackground(new java.awt.Color(247, 247, 207));
         nameField.setFont(new java.awt.Font("Source Sans Pro Light", 0, 14)); // NOI18N
@@ -247,8 +248,7 @@ public class Main extends javax.swing.JFrame {
 		    hostBtn.setFont(f.deriveFont(1, 24));
 		    hostBtn.setText("Horsten");
 		} else {
-		    f = Font.createFont(Font.TRUETYPE_FONT,
-		    this.getClass().getResourceAsStream("/res/SourceSansPro-Light.ttf"));
+		    f = Font.createFont(Font.TRUETYPE_FONT, new File("graphics/font/SourceSansPro-Light.ttf"));
 		    nameLabel.setFont(f.deriveFont(1, 18));
                     addrLabel.setFont(f.deriveFont(1, 18));
                     gmLabel.setFont(f.deriveFont(1, 18));
