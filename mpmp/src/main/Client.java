@@ -72,7 +72,8 @@ public class Client extends Conn {
 	 */
 	public void remove() {
 		clients.remove(this);
-		player.remove();
+		if(player != null)
+			player.remove();
 		listClients();
 	}
 
