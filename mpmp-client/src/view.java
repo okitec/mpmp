@@ -49,12 +49,12 @@ public class view extends javax.swing.JFrame {
 	canvas.setBackground(new Color(0, 0, 0, 0));
 
 	try {
-	    setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("src/res/background.png")))));
+	    setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("graphics/background.png")))));
 	    canvas.setFont(Font.createFont(Font.TRUETYPE_FONT, this.getClass().getResourceAsStream("/res/SourceSansPro-Light.ttf")));
 
 	    String parser = XMLResourceDescriptor.getXMLParserClassName();
 	    SAXSVGDocumentFactory f = new SAXSVGDocumentFactory(parser);
-	    String uri = new File("src/res/gameboard.svg").toURI().toString();
+	    String uri = new File("graphics/svg/gameboard.svg").toURI().toString();
 	    Document doc = f.createDocument(uri);
 	    canvas.setDocument(doc);
 
