@@ -18,9 +18,8 @@ public class BuyPlot implements CmdFunc {
 	@Override
 	public void exec(String line, Conn conn) {
 		String[] args = line.split(" ");
-		Plot plot = Plot.search(String.join(" ", Arrays.copyOfRange(args, 1, args.length)));
-		Player p = Player.search(((Client) conn).getName());
 		
+		Player p = Player.search(((Client) conn).getName());
 		if (!p.isPlayer()) {
 			conn.sendErr(ErrCode.NotAPlayer);
 			return;
@@ -31,6 +30,7 @@ public class BuyPlot implements CmdFunc {
 			return;
 		}
 		
+		Plot plot = Plot.search(String.join(" ", Arrays.copyOfRange(args, 1, args.length)));
 		if (plot == null) {
 			conn.sendErr(ErrCode.NotAPlot);
 			return;
@@ -42,7 +42,7 @@ public class BuyPlot implements CmdFunc {
 		}
 		
 		int price = plot.getPrice();
-		if (!p.addMoney(price)) {
+		if (!p.addMoney(-price)) {
 			conn.sendErr(ErrCode.InsufficientMoney, "" + price);
 			return;
 		}
