@@ -14,6 +14,7 @@ Ziel
 
 Ziel ist es, möglichst reich zu werden und die Mitspieler in den Ruin zu treiben.
 
+
 Start
 -----
 
@@ -68,6 +69,15 @@ Häuser und Hotels können für den Hälfte des Kaufpreises der Bank wieder zur�
 werden, jedoch muss auch der Abriss gleichmäßig in der Farbgruppe passieren.
 
 
+Bankrott
+--------
+
+Wer seine Schulden nicht zahlen kann, indem er sein Geld hergibt, seine Häuser zurückgibt
+und die Grundstücke hypothekarisch belastet, der ist *bankrott* und darf nicht weiterspielen.
+Der Gläubiger bekommt dann allen Besitz des Bankrotten. Wer durch Steuern und Strafen
+bankrott gegangen ist, wenn also das Reich der Gläubiger ist, dessen ganzer Besitz wird
+versteigert. Der Höchstbietende bekommt alles.
+
 Gefängnis
 ---------
 
@@ -86,7 +96,7 @@ Name                                 | Beschreibung
 -------------------------------------|----------------------------------------------------------------------------
 Los                                  | Man nimmt 4000 RM Gehalt beim Passieren ein; 8000 RM, wenn man dort landet.
 Ereignis- u. Gemeinschaftskartenfeld | Eine zufällige Karte wird gezogen.
-Gefängnis                            | Man ist /nur zu Besuch/.
+Gefängnis                            | Man ist *nur zu Besuch*.
 Polizist                             | Der Spieler wird in das Gefängnis gebracht.
 Frei Parken                          | Der Spieler erhält alles Steuergeld aus dem Steuertopf.
 Zusatzsteuer                         | 2000 RM werden in den Steuertopf transportiert.
