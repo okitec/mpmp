@@ -239,9 +239,10 @@ public class Player {
 	/* STATIC */
 
 	/**
-	 * Initialise the player table.
+	 * Reset the player table. Called on start. In the client, this is also called
+	 * when a clientlist-update comes in.
 	 */
-	public static void init() {
+	public static void reset() {
 		players = new HashSet<>();
 	}
 

@@ -101,9 +101,9 @@ public class Client extends Conn {
 	}
 
 	/**
-	 * Initialise the client table.
+	 * Reset the client table.
 	 */
-	public static void init() {
+	public static void reset() {
 		clients = new HashSet<>();
 	}
 	

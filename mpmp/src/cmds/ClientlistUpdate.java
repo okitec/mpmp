@@ -30,6 +30,7 @@ public class ClientlistUpdate implements CmdFunc {
 		}
 
 		d.reset();
+		Player.reset();
 		while(nclients --> 0) {
 			String s;
 			String fields[];

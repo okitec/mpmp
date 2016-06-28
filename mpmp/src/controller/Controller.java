@@ -32,7 +32,7 @@ public class Controller {
 		Frame frame = new Frame(m);
 		Conn conn = new Conn(new Socket(addr, port));
 
-		Player.init();
+		Player.reset();
 
 		((ChatUpdate) Cmd.ChatUpdate.getFn()).addDisplayer(frame.chatDisp);
 		((ClientlistUpdate) Cmd.ClientlistUpdate.getFn()).addDisplayer(frame.playerDisp);
