@@ -92,12 +92,13 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
             public void gvtRenderingCompleted(GVTTreeRendererEvent e) {
                 setTitle("MPMP");
-                SVGDocument svgd = gameboard.getSVGDocument();
-                final Element element = svgd.getElementById("");
+                //Does this work?
+                /*SVGDocument svgd = gameboard.getSVGDocument();
+                final Element element = svgd.getElementById("gameboard");
                 System.out.println(gameboard.getX() + "  " + gameboard.getSize() + "  " + gameboard.getRenderRect() + "  " + gameboard.getSVGDocument().getRootElement());
+                */
                 Graphics g = gameboard.getGraphics();
                 g.drawOval(0, 0, 50, 50);
-
                 gameboard.invalidate();
             }
         });
