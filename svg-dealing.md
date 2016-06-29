@@ -147,12 +147,12 @@ Triumphstraße            |8000      |1000      |4000   |12000    |28000     |34
 
 Und die Bahnhöfe nicht zu vergessen (nicht fertig!):
 
-Bahnhofsname    |SVG-Bahnhofsname |Kaufpreis |1 BH |2BH  |3BH  |4BH  |
-----------------|-----------------|----------|-----|-----|-----|-----|
-Train Station 1 |Train Station 1  |4000      |500  |1000 |2000 |4000 |
-Train Station 2 |Train Station 2  |4000      |500  |1000 |2000 |4000 |
-Train Station 3 |Train Station 3  |4000      |500  |1000 |2000 |4000 |
-Train Station 4 |Train Station 4  |4000      |500  |1000 |2000 |4000 |
+Bahnhofsname     |Kaufpreis |1 BH |2BH  |3BH  |4BH  |
+-----------------|----------|-----|-----|-----|-----|
+Central-Bahnhof  |4000      |500  |1000 |2000 |4000 |
+Anhalter Bahnhof |4000      |500  |1000 |2000 |4000 |
+Bahnhof Weimar   |4000      |500  |1000 |2000 |4000 |
+Flügel-Bahnhof   |4000      |500  |1000 |2000 |4000 |
 
 Quellen
 -------
