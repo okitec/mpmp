@@ -22,6 +22,7 @@ public enum Cmd {
 	Hypothec("hypothec", new cmds.Hypothec()),
 	AddHouse("add-house", new cmds.AddHouse()),
 	RmHouse("rm-house", new cmds.RmHouse()),
+	StartGame("start-game", new cmds.StartGame()),
 
 	/* S->C */
 	ChatUpdate("chat-update", new cmds.ChatUpdate()),
