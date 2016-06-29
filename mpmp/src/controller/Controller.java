@@ -101,5 +101,13 @@ public class Controller {
 		conn.send("ragequit");
 	    }
 	});
+	
+	frame.addStartGameListener(new ActionListener() {
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+		conn.send("start-game");
+		frame.removeStartGameButton();
+	    }
+	});
     }
 }
