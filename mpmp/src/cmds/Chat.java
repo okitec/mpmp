@@ -31,7 +31,7 @@ public class Chat implements cmds.CmdFunc {
 
 		chat = line.substring(argpos);
 		
-		String receiver = Player.matches(chat);
+		String receiver = Player.matches(chat, true);
 		
 		if (receiver == null)
 			Client.broadcast("chat-update " + "(" + c.getName() + ") " + chat);

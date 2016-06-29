@@ -261,14 +261,20 @@ public class Player {
 		return players.size();
 	}
 	
-	public static String matches(String name) {
+	public static String matches(String name, boolean at) {
 		Iterator i = players.iterator();
 		String bestMatch = "";
 		while (i.hasNext()) {
 			Player p = (Player) i.next();
 			String pname = p.getName();
-			if (name.matches("@" + pname + "(.*)") && pname.length() > bestMatch.length())
-				bestMatch = pname;
+			if (at) {
+				if (name.matches("@" + pname + "(.*)") && pname.length() > bestMatch.length())
+					bestMatch = pname;
+			} else {
+				if (name.matches(pname + "(.*)") && pname.length() > bestMatch.length())
+					bestMatch = pname;
+			}
+					
 		}
 		if (bestMatch.equals(""))
 			return null;
