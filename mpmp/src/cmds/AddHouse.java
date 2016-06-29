@@ -54,7 +54,7 @@ public class AddHouse implements CmdFunc {
 			return;
 		case 1:
 			conn.sendOK();
-			//conn.send("add-money " + <preis für das Haus> + " Buy house for plot " + plot.getName());
+			//conn.send("show-transaction " + <preis für das Haus> + " Buy house for plot " + plot.getName());
 			conn.send("plot-update " + plot.getName() + " " + plot.getHouses() + " " + plot.isHypothec() + plot.getOwner());
 			break;
 		default:
