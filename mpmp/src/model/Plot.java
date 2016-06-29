@@ -64,20 +64,20 @@ public class Plot {
 		return houses;
 	}
 
-	public boolean addHouse() {
+	public int addHouse() {
 		// One hotel per street.
 		if(houses == 5)
-			return false;
+			return -1;
 
-		if(!group.canAddHouse(owner, this))
-			return false;
+		if(group.canAddHouse(owner, this) != 1)
+			return group.canAddHouse(owner, this);
 
-		if(owner.addMoney(-housePrices[houses])) {
-			houses++;
-			return true;
+		if(!owner.addMoney(-housePrices[houses])) {
+			return -4;
 		}
-
-		return false;
+		
+		houses++;
+		return 1;
 	}
 
 	/**
