@@ -62,6 +62,8 @@ public class Hypothec implements CmdFunc {
 		}
 		
 		conn.sendOK();
+		conn.send("show-transaction " + plot.getHousePrice(plot.getHouses()) + " Hypothec for plot " + plot.getName());
+		conn.send("money-update " + plot.getHousePrice(plot.getHouses()) + " Hypothec for plot " + plot.getName());
 		conn.send("plot-update " + plot.getName() + " " + plot.getHouses() + " " + plot.isHypothec() + plot.getOwner());
 	}
 

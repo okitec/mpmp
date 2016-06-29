@@ -95,7 +95,7 @@ public class Plot {
 		if(!group.canRmHouse(owner, this))
 			return -2;
 
-		owner.addMoney(housePrices[houses]/2); //Not quite sure about that. oki pls help
+		owner.addMoney(housePrices[houses]/2);
 		return 1;
 	}
 
