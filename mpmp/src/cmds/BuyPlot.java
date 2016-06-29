@@ -55,6 +55,7 @@ public class BuyPlot implements CmdFunc {
 
 		conn.sendOK();
 		conn.send("add-money " + price + " Buy plot " + plot.getName());
+		conn.send("plot-update " + plot.getName() + " " + plot.getHouses() + " " + plot.isHypothec() + plot.getOwner());
 	}
 
 	@Override
