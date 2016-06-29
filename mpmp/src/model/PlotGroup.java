@@ -23,27 +23,49 @@ public class PlotGroup {
 	}
 
 	/**
-	 * Tells whether the player can actually build a house on this plot.
+	 * @return true when a house can be built on the plot.
 	 */
-	public int canAddHouse(Player p, Plot plot) {
+	public int canAddHouse(Player p, HousePlot plot) {
 		for(Plot pl : plots) {
+			HousePlot hp = (HousePlot) pl;
+
 			// You must control all plots in the group.
-			if(pl.getOwner() != p)
+			if(hp.getOwner() != p)
 				return -2;
 
 			// You can't build a house if another plot of the group has fewer houses already.
-			if(pl.getHouses() < plot.getHouses())
+			if(hp.getHouses() < plot.getHouses())
 				return -3;
 		}
 
 		return 1;	
 	}
 
-	public boolean canRmHouse(Player p, Plot plot) {
-		for (Plot pl : plots)
-			if (pl.getHouses() > plot.getHouses())
+	/**
+	 * @return true when house can be removed.
+	 */
+	public boolean canRmHouse(Player p, HousePlot plot) {
+		for (Plot pl : plots) {
+			HousePlot hp = (HousePlot) pl;
+			if (hp.getHouses() > plot.getHouses())
 				return false;
+		}
+
 		return true;
+	}
+
+	/**
+	 * @return number of plots in the group owned by a player.
+	 */
+	public int plotsOwned(Player p) {
+		int n;
+
+		n = 0;
+		for(Plot pl : plots)
+			if(pl.owner == p)
+				n++;
+
+		return n;
 	}
 
 	private void add(Plot p) {
