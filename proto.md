@@ -1,7 +1,7 @@
 Protokoll
 =========
 
-Protokollversion: 2
+Protokollversion: 3
 
 Das Protokoll ist ein simples textbasiertes Protokoll mit Ähnlichkeit zu POP3.
 Beide Seiten, Client und Server, senden unaufgefordert Pakete aus, die das
@@ -176,9 +176,8 @@ Rundenende und -anfang
 Zu Beginn einer Runde wird sofort gewürfelt. Falls es ein Pasch war, wird wieder gewürfelt,
 wobei man beim dritten Pasch ins Gefängnis kommt. Die Anzahl an Paschs wird zusammen mit
 der Gesamtsumme bei `turn-update` mitgeliefert. Die Clients schauen, ob ihr Name dem angegebenen
-Namen gleicht, um herauszufinden, wer am Zug ist. Die Spielfigur desjenigen wird dann
-entsprechend bewegt, sofern man nicht im Gefängnis ist. Derjenige kann dann weitere Aktionen
-tätigen.
+Namen gleicht, um herauszufinden, wer am Zug ist. Derjenige kann dann weitere Aktionen
+tätigen. Der eigentliche Zug wird durch `pos-update` durchgeführt.
 
 Wenn der Spieler alles getan hat, was er in der Runde tun wollte, klickt er auf den
 *Runde beenden*-Button und sendet dem Server ein `end-turn`-Kommando.
@@ -194,7 +193,8 @@ Grundstücke
 		S: -NEIN 131 insufficient money, need <amount>
 		S: -NEIN 136 belongs to player <player>
 		S: -NEIN you are not a player
-		S: add-money <Preis> Buy plot <Grundstück>
+		S: show-transaction <Preis> Buy plot <Grundstück>
+		S: money-update ...
 		C: +JAWOHL
 
 		C: sell-plot <Name des Grundstücks> @<Käufer> <Preis>
@@ -220,12 +220,11 @@ Grundstücke
 
 Um ein Grundstück zu erwerben, sendet der Client `buy-plot` aus. Wenn der Kauf
 klappt, wird an alle ein `plot-update`-Packet entsendet. Die Häuserzahl liegt
-zwischen 0 (kein Haus) und 5 (Hotel). Die eigentliche Transaktion wird durch ein
-`add-money` durchgeführt. Ein unbebautes Grundstück kann mit `sell-plot` an einen
-anderen Spieler zu einem vereinbarten Preis verkauft werden. Wenn derjenige auf dem
-Grundstück dieses nicht kaufen will, wird es mit `auction-plot` und `make-offer`
+zwischen 0 (kein Haus) und 5 (Hotel). Ein unbebautes Grundstück kann mit `sell-plot`
+an einen anderen Spieler zu einem vereinbarten Preis verkauft werden. Wenn derjenige
+auf dem Grundstück dieses nicht kaufen will, wird es mit `auction-plot` und `make-offer`
 versteigert. Ob ein Grundstück hypothekarisch belastet ist, wird mit `hypothec`
-verändert. Die Bank sendet dann entsprechende `add-money`s.
+verändert. Die Bank sendet dann entsprechende `show-transaction`s und `money-update`s.
 
 **Kleiner Hack**: Bei `sell-plot` wird deswegen ein `@` vor den Käufer gestellt, um Käufer
 und Grundstück zu unterscheiden. Natürlich könnte man auch einfach den Preis in die
@@ -245,12 +244,14 @@ Häuser kaufen und verkaufen
 		S: -NEIN 136 belongs to player <player>
 		S: -NEIN already fully upgraded
 		S: -NEIN 135 unbalanced plot group
-		S: add-money <Preis> Buy house for plot <Grundstück>
+		S: show-transaction <Preis> Buy house for plot <Grundstück>
+		S: money-update ...
 		C: +JAWOHL
 
-		C: rm-house >Grundstück>
+		C: rm-house <Grundstück>
 		S: +JAWOHL
-		S: add-money <halber Hauserwerbspreis> sold house to bank
+		S: show-transaction <halber Hauserwerbspreis> sold house to bank
+		S: money-update ...
 		oder
 		S: -NEIN 135 unbalanced plot group
 		<XXX add missing>
@@ -259,15 +260,15 @@ Häuser kaufen und verkaufen
 
 Mit `add-house` erhöht man die Anzahl der Häuser eines Grundstücks um 1.
 Falls die Operation erfolgreich war, sendet der Server ein `plot-update`
-aus (s. o.). Die eigentliche Transaktion wird durch ein `add-money` durchgeführt.
-`rm-house` ermöglicht es, ein Haus an die Bank für den halben Preis zurückzugeben.
+aus (s. o.). `rm-house` ermöglicht es, ein Haus an die Bank für den halben
+Preis zurückzugeben.
 
 Mieten und andere Geldereignisse
 --------------------------------
 
 #### Synopsis
 
-		S: add-money <Menge> <Grund>
+		S: show-transaction <Menge> <Grund>
 		C: +JAWOHL
 
 		S: money-update <Cash> <Hypothekengeld> <Spieler>
@@ -275,14 +276,14 @@ Mieten und andere Geldereignisse
 
 #### Beschreibung
 
-Mit `add-money` notifiziert der als Bank fungierende Server den Client über eine
+Mit `show-transaction` notifiziert der als Bank fungierende Server den Client über eine
 Geldmengenänderung des angesprochenen Spielers. Ein Grund muss immer angegeben werden.
 Wichtige Gründe sind Mieten, Ereigniskarten, das Gehalt beim Überqueren des Starts sowie
 Häuser- und Grundstückskäufe. Die eigentliche Veränderung des gespeicherten Wertes geschieht
 durch das an alle versendete `money-update`.
 
 Die Geldmenge eines Spielers wird im Folgenden mit `money-update` an alle weitergegeben.
-Die Trennung zwischen `add-money` und `money-update` ist nötig, da bei Ersterem
+Die Trennung zwischen `show-transaction` und `money-update` ist nötig, da bei Ersterem
 ein Grund genannt werden muss, der den Rest der Zeile einnimmt, sodass wir den Grund
 nicht von einem Spielernamen unterscheiden könnten (wir verwenden keine Quotes).
 
@@ -303,10 +304,11 @@ Gefängnis
 #### Beschreibung
 
 Der `prison`-Befehl befördert den Spieler in das Gefängnis (`prison enter`)
-oder wieder hinaus (`prison leave`). Mit dem `unjail`-Befehl hat der Spieler
-die Möglichkeit, seine Gefängnis-Frei-Karte einzusetzen oder den fixen Betrag
-zu zahlen, um freizukommen. Das *passive* Freikommen durch Pasch passiert im
-Server und wird nicht durch `unjail` initiiert.
+oder wieder hinaus (`prison leave`). Damit wird nur der Status des Spielers visuell geändert;
+die Bewegung auf das Gefängnisfeld findet durch `pos-update` statt. Mit dem `unjail`-Befehl
+hat der Spieler die Möglichkeit, seine Gefängnis-Frei-Karte einzusetzen oder den fixen Betrag
+zu zahlen, um freizukommen. Das *passive* Freikommen durch Pasch passiert im Server und wird
+nicht durch `unjail` initiiert.
 
 Flüstern
 --------
@@ -346,6 +348,21 @@ durchgeführt. Falls man die Möglichkeit hat, statt der Aktion eine andere Kart
 ("Tun Sie das und das oder nehmen Sie eine Gemeinschaftskarte"), returnt der Client mit
 einem `-NEIN 133`. Fals das nicht möglich ist, beschwert sich der Server, was der Client
 akzeptieren muss.
+
+
+Bewegung
+--------
+
+#### Synopsis
+
+		S: pos-update <Zielposition> <Spieler>
+		C: +JAWOHL
+
+##### Beschreibung
+
+Dieses Paket teleportiert den Spieler auf das Feld mit dieser Position. Position 0 ist das
+Los-Feld, daraufhin wird im Uhrzeigersinn gezählt. Bei jeder Bewegung wird dieses Packet
+an alle gesendet.
 
 Errorhandling
 -------------
