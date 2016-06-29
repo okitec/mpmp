@@ -22,6 +22,7 @@ public class Subscribe implements CmdFunc {
 		
 		if (GameState.running()) {
 			conn.sendErr(ErrCode.GameRunning);
+			return;
 		}
 		
 		args = line.split(" ");
