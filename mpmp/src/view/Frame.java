@@ -50,9 +50,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
     public final ChatDisp chatDisp;
     public final PlayerDisp playerDisp;
-
     private Model m;
-
     private JPanel left;
     private JPanel chat;
     private JPanel bottom;
@@ -188,15 +186,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	bottom.add(new JLabel("          "));
 	bottom.add(currentPlayer);
 
-	final int ChatBoxWidth = 200;
-
-	/*
-		bEndTurn.setPreferredSize(new Dimension(ChatBoxWidth, 60));
-		
-		playerList.setPreferredSize(new Dimension(ChatBoxWidth, 100));
-		chatField.setPreferredSize(new Dimension(ChatBoxWidth, 20));
-	 */
-	
 	this.addComponentListener(new ComponentAdapter() {
 	    @Override
 	    public void componentResized(ComponentEvent e) {
@@ -237,11 +226,11 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	return 0.0;
     }
 
+
     @Override
     public void subscribeErr() {
 	JOptionPane.showMessageDialog(this, ErrCode.NameTaken.getMessage());
 	System.exit(0);
-
     }
 
     public class ChatDisp implements Displayer {
