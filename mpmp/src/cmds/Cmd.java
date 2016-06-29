@@ -31,7 +31,8 @@ public enum Cmd {
 	AuctionPlot("auction-plot", new cmds.AuctionPlot()),
 	PlotUpdate("plot-update", new cmds.PlotUpdate()),
 	Prison("prison", new cmds.Prison()),
-	PosUpdate("pos-update", new cmds.PosUpdate());
+	PosUpdate("pos-update", new cmds.PosUpdate()),
+	MoneyUpdate("money-update", new cmds.MoneyUpdate());
 
 	private final String s;
 	private final CmdFunc fn;
