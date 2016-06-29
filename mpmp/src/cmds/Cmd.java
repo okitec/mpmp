@@ -19,11 +19,13 @@ public enum Cmd {
 	Unjail("unjail", new cmds.Unjail()),
 	BuyPlot("buy-plot", new cmds.BuyPlot()),
 	SellPlot("sell-plot", new cmds.SellPlot()),
+	Hypothec("hypothec", new cmds.Hypothec()),
 
 	/* S->C */
 	ChatUpdate("chat-update", new cmds.ChatUpdate()),
 	ClientlistUpdate("clientlist-update", new cmds.ClientlistUpdate()),
-	AddMoney("add-money", new cmds.AddMoney());
+	AddMoney("add-money", new cmds.AddMoney()),
+	AuctionPlot("auction-plot", new cmds.AuctionPlot());
 
 	private final String s;
 	private final CmdFunc fn;
