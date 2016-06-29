@@ -3,9 +3,9 @@
 
 <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="3748" height="3748">
 	<title>Game board</title>
-	<!-- Use transform="scale(0.xx)" -->
+	<!-- Use transform="scale(0.258)" -->
 	
-	<g id="gameboard" transform="scale(0.26)" >
+	<g id="gameboard">
 		<g id="oben0" transform="translate(506 0) rotate(90 0 0)">
 			<rect id = "field_border"
 				x="0" y="0" width="506" height="506" fill="#231f20"

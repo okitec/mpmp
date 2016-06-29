@@ -28,50 +28,78 @@ import view.Frame;
  * @author Leander, oki
  */
 public class Controller {
-	public Controller(String addr, int port, String mode, String color, String name) throws UnknownHostException, IOException {
-		Model m = new Model();
-		Frame frame = new Frame(m);
-		Conn conn = new Conn(new Socket(addr, port));
 
-		Player.reset();
-		PlotGroup.init();
+    public Controller(String addr, int port, String mode, String color, String name) throws UnknownHostException, IOException {
+	Model m = new Model();
+	Frame frame = new Frame(m);
+	Conn conn = new Conn(new Socket(addr, port));
 
-		((ChatUpdate) Cmd.ChatUpdate.getFn()).addDisplayer(frame.chatDisp);
-		((ClientlistUpdate) Cmd.ClientlistUpdate.getFn()).addDisplayer(frame.playerDisp);
-		((AddMoney) Cmd.AddMoney.getFn()).addDisplayer(frame.chatDisp);
-		((Subscribe) Cmd.Subscribe.getFn()).addSubscribeErrer(frame);
+	Player.reset();
+	PlotGroup.init();
 
-		new Thread(() -> {
-			try {
-				conn.handle();
-			} catch (IOException ioe) {
-				// XXX "do what"?
-			}
-		}).start();
-		
-		conn.send("subscribe " + mode + " " + color + " " + name);
-		
-		frame.addChatListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent ke) {
-				if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-					// XXX add scrolling to the chat box
-					String line = frame.getChat();
-					System.out.println("Chatline = " + line);
-					if(line.length() == 0)
-						return;
-					conn.send("chat " + line);
-				}
-			}
-		});
+	((ChatUpdate) Cmd.ChatUpdate.getFn()).addDisplayer(frame.chatDisp);
+	((ClientlistUpdate) Cmd.ClientlistUpdate.getFn()).addDisplayer(frame.playerDisp);
+	((AddMoney) Cmd.AddMoney.getFn()).addDisplayer(frame.chatDisp);
+	((Subscribe) Cmd.Subscribe.getFn()).addSubscribeErrer(frame);
 
-		frame.addEndTurnListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				conn.send("end-turn");
-			}
-		});
-		
-		
-	}
+	new Thread(() -> {
+	    try {
+		conn.handle();
+	    } catch (IOException ioe) {
+		// XXX "do what"?
+	    }
+	}).start();
+
+	conn.send("subscribe " + mode + " " + color + " " + name);
+
+	frame.addChatListener(new KeyAdapter() {
+	    @Override
+	    public void keyPressed(KeyEvent ke) {
+		if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
+		    // XXX add scrolling to the chat box
+		    String line = frame.getChat();
+		    System.out.println("Chatline = " + line);
+		    if (line.length() == 0) {
+			return;
+		    }
+		    conn.send("chat " + line);
+		}
+	    }
+	});
+
+	frame.addEndTurnListener(new ActionListener() {
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+		conn.send("end-turn");
+	    }
+	});
+
+	frame.addTradeListener(new ActionListener() {
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+		//conn.send("trade");
+	    }
+	});
+
+	frame.addBuyHouseListener(new ActionListener() {
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+		//conn.send("buy-house");
+	    }
+	});
+
+	frame.addBuyPlotListener(new ActionListener() {
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+		//conn.send("buy-plot");
+	    }
+	});
+
+	frame.addSurrenderListener(new ActionListener() {
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+		conn.send("ragequit");
+	    }
+	});
+    }
 }

@@ -4,16 +4,12 @@ import cmds.Subscribe;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Event;
 import java.awt.Font;
 import java.awt.FontFormatException;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
-import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -32,19 +28,11 @@ import javax.swing.text.Document;
 import javax.swing.SwingUtilities;
 import main.ErrCode;
 import model.Model;
-import model.Player;
-import javax.swing.AbstractAction;
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
 import org.apache.batik.swing.JSVGCanvas;
-import org.apache.batik.swing.JSVGCanvas.AffineAction;
-import org.apache.batik.swing.JSVGCanvas.ZoomAction;
-import org.apache.batik.swing.JSVGCanvas.ZoomInAction;
-import org.apache.batik.swing.JSVGCanvas.ZoomOutAction;
 import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
 import org.apache.batik.util.XMLResourceDescriptor;
-import org.w3c.dom.Element;
-import org.w3c.dom.svg.SVGDocument;
 
 public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
@@ -66,9 +54,8 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
     private JButton bEndTurn;
     private JSVGCanvas gameboard;
     private org.w3c.dom.Document doc;
-    private Font f;
+    private Font fo;
 
-    
     public static void main(String args[]) {
 	java.awt.EventQueue.invokeLater(new Runnable() {
 	    public void run() {
@@ -76,7 +63,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	    }
 	});
     }
-    
+
     public Frame(Model m) {
 	this.m = m;
 	chatDisp = new ChatDisp();
@@ -92,18 +79,18 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	setTitle("MPMP");
 	setResizable(true);
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-	//Canvas-Stuff
 	gameboard = new JSVGCanvas();
-	gameboard.setBackground(new Color(0, 0, 0, 0));
+	//Canvas-Stuff
 	try {
 	    setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("graphics/background.png")))));
-	    f = Font.createFont(Font.TRUETYPE_FONT, new File("graphics/font/SourceSansPro-Light.ttf"));
-	    gameboard.setFont(f);
+	    fo = Font.createFont(Font.TRUETYPE_FONT, new File("graphics/font/SourceSansPro-Light.ttf"));
 	    String parser = XMLResourceDescriptor.getXMLParserClassName();
 	    SAXSVGDocumentFactory f = new SAXSVGDocumentFactory(parser);
 	    String uri = new File("graphics/svg/gameboard.svg").toURI().toString();
 	    doc = f.createDocument(uri);
+
+	    gameboard.setBackground(new Color(0, 0, 0, 0));
+	    gameboard.setFont(fo);
 	    gameboard.setDocument(doc);
 	    gameboard.setRecenterOnResize(false);
 	    gameboard.setEnableRotateInteractor(false);
@@ -115,16 +102,8 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
 		public void gvtRenderingCompleted(GVTTreeRendererEvent e) {
 		    setTitle("MPMP");
-		    /*
-		SVGDocument svgd = gameboard.getSVGDocument();
-		final Element element = svgd.getElementById("gameboard");
-		System.out.println(gameboard.getX() + "  " + gameboard.getSize() + "  " + gameboard.getRenderRect() + "  " + gameboard.getSVGDocument().getRootElement());
-		     */
-		    Graphics g = gameboard.getGraphics();
-		    g.drawOval(0, 0, 50, 50);
 		    System.out.println("Resized");
 		    gameboard.invalidate();
-		    getCurrentRotation();
 		    getCurrentZoom();
 		}
 	    });
@@ -150,27 +129,30 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	buyHouse = new JButton("Haus kaufen");
 	buyPlot = new JButton("Straße kaufen");
 	surrender = new JButton("Aufgeben");
+	bEndTurn = new JButton("Runde beenden");
+
 	playerList = new JTextPane();
 	playerList.setEditable(false);
 
-	left.add(new JButton("Insert Players here!"));
-	left.add(new JLabel("Spieler:"));
-	left.add(playerList);
+	chatBox = new JTextPane();
+	chatBox.setEditable(false);
 
 	chatField = new JTextField();
 	chatField.requestFocus(true);
 	chatField.setSize(new Dimension(10, 100));
 	chatField.setSelectionColor(Color.pink);
 
-	chatBox = new JTextPane();
-	chatBox.setEditable(false);
+	//Implement this!
+	trade.setEnabled(false);
+	buyHouse.setEnabled(false);
+	buyPlot.setEnabled(false);
 
-	bEndTurn = new JButton("Runde beenden");
-
+	left.add(new JLabel("Spieler:"));
+	left.add(playerList);
 	chat.add(chatBox);
 	chat.add(chatField);
 	chat.add(bEndTurn);
-	
+
 	//Real stuff cP = current Player
 	//Player cP = new Player();
 	currentPlayer.add(new JLabel("Spieler"));
@@ -216,16 +198,35 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	bEndTurn.addActionListener(al);
     }
 
+    public void addTradeListener(ActionListener al) {
+	System.out.println("Tausch.");
+	trade.addActionListener(al);
+    }
+
+    public void addBuyHouseListener(ActionListener al) {
+	System.out.println("Haus gekauft.");
+	buyHouse.addActionListener(al);
+    }
+
+    public void addBuyPlotListener(ActionListener al) {
+	System.out.println("Grundstück gekauft.");
+	buyPlot.addActionListener(al);
+    }
+
+    public void addSurrenderListener(ActionListener al) {
+	System.out.println("Aufgegeben.");
+	surrender.addActionListener(al);
+    }
+
     public double getCurrentZoom() {
-	System.out.println("Current zoom: " + gameboard.getSVGDocument().getRootElement().getCurrentScale());
+	System.out.println("Current zoom: " + gameboard.getSVGDocument().getRootElement().getCurrentScale() + "\nCurrent rotation: " + getCurrentRotation());
 	return gameboard.getSVGDocument().getRootElement().getCurrentScale();
     }
 
     public double getCurrentRotation() {
 	System.out.println("Current Rotation: " + gameboard.getSVGDocument().getRootElement().getZoomAndPan());
-	return 0.0;
+	return gameboard.getSVGDocument().getRootElement().getZoomAndPan();
     }
-
 
     @Override
     public void subscribeErr() {
