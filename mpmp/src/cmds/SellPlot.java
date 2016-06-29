@@ -12,15 +12,17 @@ import view.Displayer;
  * C->S
  * @author Leander
  */
-public class SellPlot implements CmdFunc{
+public class SellPlot implements CmdFunc {
 	private Displayer d;
 
 	@Override
 	public void exec(String line, Conn conn) {
+		Player p;
+		Plot plot;
 		String[] args = line.split(" ");
 		int price = -1;
 
-		Player p = Player.search(((Client) conn).getName());
+		p = Player.search(((Client) conn).getName());
 		if (!p.isPlayer()) {
 			conn.sendErr(ErrCode.NotAPlayer);
 			return;
@@ -37,14 +39,13 @@ public class SellPlot implements CmdFunc{
 			return;
 		}
 
-		Plot plot = Plot.search(plotname);
-
+		plot = Plot.search(plotname);
 		if (p != plot.getOwner()) {
 			conn.sendErr(ErrCode.AlreadyOwned, plot.getOwner().getName());
 			return;
 		}
 
-		if (plot.getHouses() != 0) {
+		if (!plot.canSell()) {
 			conn.sendErr(ErrCode.PlotWithHouse);
 			return;
 		}
@@ -76,7 +77,7 @@ public class SellPlot implements CmdFunc{
 
 		conn.sendOK();
 		conn.send("show-transaction " + price + " Resell plot " + plot.getName());
-		conn.send("plot-update " + plot.getName() + " " + plot.getHouses() + " " + plot.isHypothec() + plot.getOwner());
+		Client.broadcast("plot-update " + plot);
 	}
 
 	@Override
