@@ -29,7 +29,9 @@ public enum Cmd {
 	ClientlistUpdate("clientlist-update", new cmds.ClientlistUpdate()),
 	AddMoney("show-transaction", new cmds.ShowTransaction()),
 	AuctionPlot("auction-plot", new cmds.AuctionPlot()),
-	PlotUpdate("plot-update", new cmds.PlotUpdate());
+	PlotUpdate("plot-update", new cmds.PlotUpdate()),
+	Prison("prison", new cmds.Prison()),
+	PosUpdate("pos-update", new cmds.PosUpdate());
 
 	private final String s;
 	private final CmdFunc fn;
