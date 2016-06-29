@@ -237,14 +237,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	System.out.println("Current Rotation: " + gameboard.getSVGDocument().getRootElement().getZoomAndPan());
 	return gameboard.getSVGDocument().getRootElement().getZoomAndPan();
     }
-    
-    public void addStartGameListener(ActionListener al) {
-	startGame.addActionListener(al);
-    }
-    
-    public void removeStartGameButton(){
-	startGame.setVisible(false);
-    }
 
     public void addStartGameListener(ActionListener al) {
 	startGame.addActionListener(al);
