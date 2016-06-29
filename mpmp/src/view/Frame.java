@@ -184,6 +184,12 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	add(chat, BorderLayout.EAST);
 	add(bottom, BorderLayout.SOUTH);
 	setVisible(true);
+	
+	/*
+	System.out.println(gameboard.showPrompt("Welcher Spieler"));
+	System.out.println(gameboard.showPrompt("Welches Grundstück"));
+	*/
+	
 	pack();
     }
 
@@ -231,12 +237,12 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	System.out.println("Current Rotation: " + gameboard.getSVGDocument().getRootElement().getZoomAndPan());
 	return gameboard.getSVGDocument().getRootElement().getZoomAndPan();
     }
-    
+
     public void addStartGameListener(ActionListener al) {
 	startGame.addActionListener(al);
     }
-    
-    public void removeStartGameButton(){
+
+    public void removeStartGameButton() {
 	startGame.setVisible(false);
     }
 
