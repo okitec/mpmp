@@ -76,6 +76,7 @@ public class SellPlot implements CmdFunc{
 
 		conn.sendOK();
 		conn.send("add-money " + price + " Resell plot " + plot.getName());
+		conn.send("plot-update " + plot.getName() + " " + plot.getHouses() + " " + plot.isHypothec() + plot.getOwner());
 	}
 
 	@Override

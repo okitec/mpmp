@@ -20,6 +20,8 @@ public enum Cmd {
 	BuyPlot("buy-plot", new cmds.BuyPlot()),
 	SellPlot("sell-plot", new cmds.SellPlot()),
 	Hypothec("hypothec", new cmds.Hypothec()),
+	AddHouse("add-house", new cmds.AddHouse()),
+	RmHouse("rm-house", new cmds.RmHouse()),
 
 	/* S->C */
 	ChatUpdate("chat-update", new cmds.ChatUpdate()),

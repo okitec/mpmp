@@ -6,20 +6,16 @@ import main.Conn;
 import main.ErrCode;
 import model.Player;
 import model.Plot;
-import view.Displayer;
 
 /**
  * C->S
  * @author Leander
  */
-public class Hypothec implements CmdFunc {
-	private Displayer d;
+public class RmHouse implements CmdFunc {
 
 	@Override
 	public void exec(String line, Conn conn) {
 		String[] args = line.split(" ");
-		String pname;
-		Plot plot;
 
 		Player p = Player.search(((Client) conn).getName());
 		if (!p.isPlayer()) {
@@ -27,41 +23,30 @@ public class Hypothec implements CmdFunc {
 			return;
 		}
 
-		if (args.length < 3) {
-			conn.sendErr(ErrCode.Usage, "hypothec <yes|no> <Name des Grundstücks>");
+		if (args.length < 2) {
+			conn.sendErr(ErrCode.Usage, "rm-house <Grundstück>");
 			return;
 		}
 
-		pname = Plot.matches(String.join(" ", Arrays.copyOfRange(args, 2, args.length)));
-		if (pname == null) {
+		Plot plot = Plot.search(String.join(" ", Arrays.copyOfRange(args, 1, args.length)));
+		if (plot == null) {
 			conn.sendErr(ErrCode.NotAPlot);
 			return;
 		}
 
-		plot = Plot.search(pname);
-		
-		if (p != plot.getOwner()) {
+		if (plot.getOwner() != p) {
 			conn.sendErr(ErrCode.AlreadyOwned, plot.getOwner().getName());
 			return;
 		}
-			
-		switch (args[1]) {
-		case "yes":
-			p.addMoney(plot.hypothec(true));
-			break;
-		case "no":
-			int hyp = plot.hypothec(false);
-			if (!p.addMoney(-hyp)) {
-				conn.sendErr(ErrCode.MissingMoney, hyp + "");
-				return;
-			}
-			break;
-		default:
-			conn.sendErr(ErrCode.Usage, "hypothec <yes|no> <Name des Grundstücks>");
+		
+		if (plot.getHouses() < 1) {
+			conn.sendErr(ErrCode.DontHave, "a single house");
 			return;
 		}
 		
+		//TODO Remove house
 		conn.sendOK();
+		//conn.send("add-money " + <halber Preis für das Haus> + " Buy house for plot " + plot.getName());
 		conn.send("plot-update " + plot.getName() + " " + plot.getHouses() + " " + plot.isHypothec() + plot.getOwner());
 	}
 
@@ -70,7 +55,4 @@ public class Hypothec implements CmdFunc {
 		//TODO
 	}
 	
-	public void addDisplayer(Displayer d) {
-		this.d = d;
-	}
 }

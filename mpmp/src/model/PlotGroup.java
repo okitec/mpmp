@@ -25,18 +25,18 @@ public class PlotGroup {
 	/**
 	 * Tells whether the player can actually build a house on this plot.
 	 */
-	public boolean canAddHouse(Player p, Plot plot) {
+	public int canAddHouse(Player p, Plot plot) {
 		for(Plot pl : plots) {
 			// You must control all plots in the group.
 			if(pl.getOwner() != p)
-				return false;
+				return -2;
 
 			// You can't build a house if another plot of the group has fewer houses already.
 			if(pl.getHouses() < plot.getHouses())
-				return false;
+				return -3;
 		}
 
-		return true;	
+		return 1;	
 	}
 
 	private void add(Plot p) {
