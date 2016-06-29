@@ -24,6 +24,8 @@ public enum ErrCode {
 	UnbalancedColor(135, "Your houses are to unbalanced for that plot group"), //XXX Say what color?
 	AlreadyOwned(136, "Owned by"),
 	PlotWithHouse(137, "Can't sell a plot with houses on it"),
+	TooManyHouses(138, "Already fully upgraded"),
+	DontHave(139, "You don't have"),
 
 	NameTaken(211, "Name already taken"),
 	NoSuchPlayer(215, "This player does not exist"),
