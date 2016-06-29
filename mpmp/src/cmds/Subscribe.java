@@ -5,6 +5,7 @@ import java.util.Arrays;
 import main.Conn;
 import main.Client;
 import main.ErrCode;
+import main.GameState;
 import model.Player.Mode;
 
 /**
@@ -18,6 +19,10 @@ public class Subscribe implements CmdFunc {
 		String name = null;
 		Client c = (Client) conn;
 		Mode mode; 
+		
+		if (GameState.running()) {
+			conn.sendErr(ErrCode.GameRunning);
+		}
 		
 		args = line.split(" ");
 		if (args.length < 4) {
@@ -49,10 +54,17 @@ public class Subscribe implements CmdFunc {
 
 	@Override
 	public void error(ErrCode err, String line, Conn conn) {
-		if (err == ErrCode.NameTaken) {
+		switch (err) {
+		case NameTaken:
 			suerr.subscribeErr();
-		} else
+			break;
+		case GameRunning:
+			suerr.subscribeErr();
+			break;
+		default:
 			System.err.println("Can't happen: " + err.getMessage());
+			break;
+		}
 	}
 	
 	public interface SubscribeErrer {

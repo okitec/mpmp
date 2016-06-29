@@ -28,10 +28,11 @@ public enum ErrCode {
 	DontHave(139, "You don't have"),
 
 	NameTaken(211, "Name already taken"),
+	GameRunning(212, "Game already running"),
 	NoSuchPlayer(215, "This player does not exist"),
 	NotSubscribed(221, "You are not subscribed"),
 	NotAPlayer(232, "You are not a player"),
-
+	
 	Usage(301, "Usage:"),
 	Internal(302, "Unexpected Error:"),
 	EOF(303, "Unexpected EOF"),
