@@ -3,48 +3,50 @@ package model;
 import java.util.HashSet;
 
 /**
- * In its basic form, a plot that can be bought, sold, turned into a hypothec, ...
+ * Overclass for property you can purchase. Concretely implemented
+ * by HousePlot and TrainStation.
  *
  * @author oki, Leander
  */
-public class Plot {
-	public static final int MaxHouses = 5;        /* hotel counts as five houses */
+public abstract class Plot {
 	private static HashSet<Plot> allplots;
 
-	private final PlotGroup group;
-	private final String name;
-	private final int price;
-	private final int hypothecValue;  /* money gained by making it a hypothec; usually half the price */
-	private final int rent[];         /* six entries: plot alone, with one house, two houses, ..., hotel */
-	private final int housePrices[];
+	protected final PlotGroup group;
+	protected final String name;
+	protected final int price;
+	protected final int hypothecValue;  /* money gained by making it a hypothec; half the price */
+	protected Player owner;
+	protected boolean hypothec;
 
-	private Player owner;
-	private int houses;
-	private boolean hypothec;
-
-	public Plot(PlotGroup group, String name, int price, int[] rent, int[] housePrices) {
+	public Plot(PlotGroup group, String name, int price) {
 		this.group = group;
 		this.name = name;
 		this.price = price;
-		this.hypothecValue = price/2; // XXX is this always true?
-		this.rent = rent;
-		this.housePrices = housePrices;
+		this.hypothecValue = price / 2;
 
 		allplots.add(this);
 	}
-	
+
 	public String getName() {
 		return name;
+	}
+
+	/**
+	 * @return amount of houses; overridden in HousePlot.
+	 */
+	public int getHouses() {
+		return 0;
 	}
 
 	public int getPrice() {
 		return price;
 	}
-	
-	public int getHousePrice(int houses) {
-		return housePrices[houses];
-	}
-	
+
+	public String toString() {
+		String hyp = (hypothec)? "hypothec": "nohypothec";
+		return ""  + name + " " + getHouses() + " " + hyp + " " + owner.getName();
+	} 
+
 	public boolean buy(Player buyer) {
 		if(owner != null)
 			return false;
@@ -52,7 +54,7 @@ public class Plot {
 		owner = buyer;
 		return true;
 	}
-	
+
 	public boolean resell(Player buyer) {
 		if (owner == null)
 			return false;
@@ -65,58 +67,23 @@ public class Plot {
 		return owner;
 	}
 
-	public int getHouses() {
-		return houses;
-	}
-
-	/**
-	 * Add a house to the street, if possible.
-	 */
-	public int addHouse() {
-		// One hotel per street.
-		if(houses == 5)
-			return -1;
-
-		if(group.canAddHouse(owner, this) != 1)
-			return group.canAddHouse(owner, this);
-
-		if(!owner.addMoney(-housePrices[houses])) {
-			return -4;
-		}
-		
-		houses++;
-		return 1;
-	}
-	
-	public int rmHouse() {
-		if (houses == 0)
-			return -1;
-
-		if(!group.canRmHouse(owner, this))
-			return -2;
-
-		owner.addMoney(housePrices[houses]/2); //Not quite sure about that. oki pls help
-		return 1;
-	}
-
 	/**
 	 * Makes the visitor PAY for staying on our lands! Mwahahah
 	 */
-	public int payRent(Player visitor) {
-		int r = rent[houses];
-
-		if(hypothec)
-			return 0;
-
-		visitor.addMoney(-r);
-		return r;
-	}
+	public abstract int payRent(Player visitor);
 
 	/**
 	 * @return true if this plot acts as a hypothec.
 	 */
 	public boolean isHypothec() {
 		return hypothec;
+	}
+
+	/**
+	 * @return true if the plot can be sold; overriden byHousePlot
+	 */
+	public boolean canSell() {
+		return true;
 	}
 
 	/**
