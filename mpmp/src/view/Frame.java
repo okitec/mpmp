@@ -136,6 +136,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
 	chatBox = new JTextPane();
 	chatBox.setEditable(false);
+	chatBox.setSize(new Dimension(chatBox.getHeight(), 100));
 
 	chatField = new JTextField();
 	chatField.requestFocus(true);
