@@ -1,7 +1,7 @@
 Protokoll
 =========
 
-Protokollversion: 3
+Protokollversion: 4
 
 Das Protokoll ist ein simples textbasiertes Protokoll mit Ähnlichkeit zu POP3.
 Beide Seiten, Client und Server, senden unaufgefordert Pakete aus, die das
@@ -151,14 +151,13 @@ Spielbeginn
 
 ##### Synopsis
 
-		S: start-game <beginnender Spieler>
-		C: +JAWOHL
+		C: start-game
+		S: +JAWOHL
 
 ##### Beschreibung
 
-Zu Beginn des Spiels sendet der Server dieses Paket. Clients sind gehalten, jetzt
-das Spielfeld zu zeichnen. Nach dem Beginn des Spiels können keine Spieler mehr
-hinzugefügt werden.
+Ein Client, der das Spiel beginnen will, sendet dieses Paket. Momentan sind keine
+Restriktionen eingebaut: jeder kann das Spiel starten.
 
 Rundenende und -anfang
 ----------------------
