@@ -39,19 +39,20 @@ public class Hypothec implements CmdFunc {
 		}
 
 		plot = Plot.search(pname);
-		
 		if (p != plot.getOwner()) {
 			conn.sendErr(ErrCode.AlreadyOwned, plot.getOwner().getName());
 			return;
 		}
-			
+
+		int hyp;
 		switch (args[1]) {
 		case "yes":
-			p.addMoney(plot.hypothec(true));
+			hyp = plot.hypothec(true);
+			p.addMoney(hyp);
 			break;
 		case "no":
-			int hyp = plot.hypothec(false);
-			if (!p.addMoney(-hyp)) {
+			hyp = plot.hypothec(false);
+			if (!p.addMoney(-hyp - hyp/10)) {
 				conn.sendErr(ErrCode.MissingMoney, hyp + "");
 				return;
 			}
@@ -62,9 +63,8 @@ public class Hypothec implements CmdFunc {
 		}
 		
 		conn.sendOK();
-		conn.send("show-transaction " + plot.getHousePrice(plot.getHouses()) + " Hypothec for plot " + plot.getName());
-		conn.send("money-update " + plot.getHousePrice(plot.getHouses()) + " Hypothec for plot " + plot.getName());
-		conn.send("plot-update " + plot.getName() + " " + plot.getHouses() + " " + plot.isHypothec() + plot.getOwner());
+		conn.send("show-transaction " + hyp + " Hypothec for plot " + plot.getName());;
+		conn.send("plot-update " + plot);
 	}
 
 	@Override
