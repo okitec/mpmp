@@ -84,7 +84,7 @@ Gefängnis
 Wer durch drei Pasche hintereinander, als Folge einer Ereigniskarte oder durch Betreten des
 Polizistenfelds im Gefängnis einsitzen muss, darf Mieten eintreiben und Häuser bauen, aber
 kann sich nicht bewegen. Wenn man einen Pasch würfelt, eine Gefängnis-Frei-Karte benutzt oder
-eine Strafe von 1000 RM bezahlt, kommt man frei. Man kann die Gefängnis-Frei-Kartwe **nicht**
+eine Strafe von 1000 RM bezahlt, kommt man frei. Man kann die Gefängnis-Frei-Karte **nicht**
 von einem Mitspieler erwerben. Man kommt **nicht** frei, wenn man drei Runden lang keinen Pasch
 erreicht.
 
