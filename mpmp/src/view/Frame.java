@@ -1,6 +1,7 @@
 package view;
 
 import cmds.Subscribe;
+import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
+import java.awt.Graphics;
+import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -56,6 +59,8 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	private org.w3c.dom.Document doc;
 	private Font fo;
 
+	private Converter converter;
+
 	public static void main(String args[]) {
 	java.awt.EventQueue.invokeLater(new Runnable() {
 		public void run() {
@@ -68,6 +73,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		this.m = m;
 		chatDisp = new ChatDisp();
 		playerDisp = new PlayerDisp();
+		converter = new Converter(304, 506);      // XXX magic: original unresized wfld, hfld
 		setMinimumSize(new Dimension(200, 200));
 		createFrame();
 	}
@@ -238,7 +244,13 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	}
 
 	public void addStartGameListener(ActionListener al) {
-		startGame.addActionListener(al);
+		//startGame.addActionListener(al);
+		startGame.addActionListener((ActionEvent e) -> {
+			drawPiece(Color.RED, 0);
+			drawPiece(Color.GREEN, 36);
+			drawPiece(Color.YELLOW, 17);
+			drawPiece(Color.BLUE, 20);
+		});
 	}
 
 	public void removeStartGameButton() {
@@ -249,6 +261,30 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	public void subscribeErr() {
 		JOptionPane.showMessageDialog(this, ErrCode.NameTaken.getMessage());
 		System.exit(0);
+	}
+
+	public void drawPiece(Color c, int pos) {
+		Graphics g;
+		double scale;
+		int rOuter = 15;
+		int rInner = 12;
+
+		pos %= model.Field.Nfields;
+		scale = gameboard.getSVGDocument().getRootElement().getCurrentScale();
+		g = gameboard.getGraphics();
+
+
+		Point pt = converter.middleRelPx(pos);
+		// 0.258: scale transform set in the gameboard SVG internally
+		pt.x *= 0.258 * scale;
+		pt.y *= 0.258 * scale;
+		rOuter *= scale;
+		rInner *= scale;
+
+		g.setColor(Color.BLACK);
+		g.fillOval(pt.x - rOuter, pt.y - rOuter, 2 * rOuter, 2 * rOuter);
+		g.setColor(c);
+		g.fillOval(pt.x - rInner, pt.y - rInner, 2 * rInner, 2 * rInner);
 	}
 
 	public class ChatDisp implements Displayer {
