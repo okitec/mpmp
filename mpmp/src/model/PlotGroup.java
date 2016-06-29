@@ -39,6 +39,13 @@ public class PlotGroup {
 		return 1;	
 	}
 
+	public boolean canRmHouse(Player p, Plot plot) {
+		for (Plot pl : plots)
+			if (pl.getHouses() > plot.getHouses())
+				return false;
+		return true;
+	}
+
 	private void add(Plot p) {
 		plots.add(p);
 	}

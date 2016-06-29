@@ -39,15 +39,24 @@ public class RmHouse implements CmdFunc {
 			return;
 		}
 		
-		if (plot.getHouses() < 1) {
+		switch (plot.rmHouse()) {
+		case -1:
 			conn.sendErr(ErrCode.DontHave, "a single house");
 			return;
+		case -2:
+			conn.sendErr(ErrCode.UnbalancedColor);
+			return;
+		case 1:
+			conn.sendOK();
+			conn.send("show-transaction " + plot.getHousePrice(plot.getHouses()+1)/2 + " Remove house for plot " + plot.getName());
+			conn.send("money-update " + plot.getHousePrice(plot.getHouses()+1)/2 + " Remove house for plot " + plot.getName());
+			conn.send("plot-update " + plot.getName() + " " + plot.getHouses() + " " + plot.isHypothec() + plot.getOwner());
+			break;
+		default:
+			conn.sendErr(ErrCode.Internal, "Unexpected error");
 		}
 		
-		//TODO Remove house
-		conn.sendOK();
-		//conn.send("add-money " + <halber Preis für das Haus> + " Buy house for plot " + plot.getName());
-		conn.send("plot-update " + plot.getName() + " " + plot.getHouses() + " " + plot.isHypothec() + plot.getOwner());
+		
 	}
 
 	@Override

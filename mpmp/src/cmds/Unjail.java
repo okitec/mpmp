@@ -31,8 +31,10 @@ public class Unjail implements CmdFunc{
 				System.err.println("Player not in prison");
 			break;
 		case "money":
-			if (!p.addMoney(-Player.UnjailFee))
+			if (!p.addMoney(-Player.UnjailFee)) {
 				conn.sendErr(ErrCode.MissingMoney);
+				conn.send("money-update " + Player.UnjailFee + " Payed Unjail-fee ");
+			}
 			else
 				p.prison(false);
 			break;
