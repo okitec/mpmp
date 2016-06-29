@@ -41,6 +41,10 @@ public class Plot {
 		return price;
 	}
 	
+	public int getHousePrice(int houses) {
+		return housePrices[houses];
+	}
+	
 	public boolean buy(Player buyer) {
 		if(owner != null)
 			return false;
@@ -81,6 +85,17 @@ public class Plot {
 		}
 		
 		houses++;
+		return 1;
+	}
+	
+	public int rmHouse() {
+		if (houses == 0)
+			return -1;
+
+		if(!group.canRmHouse(owner, this))
+			return -2;
+
+		owner.addMoney(housePrices[houses]/2); //Not quite sure about that. oki pls help
 		return 1;
 	}
 
