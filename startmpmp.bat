@@ -1,3 +1,4 @@
+
 del mpmp.jar
 copy mpmp\dist\mpmp.jar mpmp.jar
 del mpmp-launcher.jar
