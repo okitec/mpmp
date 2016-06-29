@@ -16,7 +16,7 @@ public class Converter {
 	private int hfld;
 	private int wfld;
 
-	/* generated at Sun 26 Jun 17:14:55 CEST 2016 */
+	/* generated at Thu 30 Jun 00:55:42 CEST 2016 */
 	public Converter(int wfld, int hfld) {
 		pos2xypx = new Point[Field.Nfields];
 
@@ -70,6 +70,16 @@ public class Converter {
 	public Point cornerRelPx(int pos) {
 		pos %= Field.Nfields;
 		return pos2xypx[pos];
+	}
+
+	public Point middleRelPx(int pos) {
+		Point p = cornerRelPx(pos);
+
+		/* corner fields */
+		if(pos % 10 == 0)
+			return new Point((int) p.getX() + hfld/2, (int) p.getY() + hfld/2);
+
+		return new Point((int) p.getX() + wfld/2, (int) p.getY() + hfld/2);
 	}
 
 	/**
