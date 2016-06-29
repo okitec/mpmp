@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 /**
- * A plot that can be bought, sold, turned into a hypothec, ...
+ * In its basic form, a plot that can be bought, sold, turned into a hypothec, ...
  *
  * @author oki, Leander
  */
@@ -30,6 +30,8 @@ public class Plot {
 		this.hypothecValue = price/2; // XXX is this always true?
 		this.rent = rent;
 		this.housePrices = housePrices;
+
+		allplots.add(this);
 	}
 	
 	public String getName() {
@@ -64,6 +66,9 @@ public class Plot {
 		return houses;
 	}
 
+	/**
+	 * Add a house to the street, if possible.
+	 */
 	public boolean addHouse() {
 		// One hotel per street.
 		if(houses == 5)
@@ -93,6 +98,9 @@ public class Plot {
 		return r;
 	}
 
+	/**
+	 * @return true if this plot acts as a hypothec.
+	 */
 	public boolean isHypothec() {
 		return hypothec;
 	}
@@ -105,24 +113,35 @@ public class Plot {
 		return hypothecValue;
 	}
 
+	/**
+	 * Search for the plot of that name.
+	 */
 	public static Plot search(String name) {
 		for (Plot p : allplots)
 			if (name.equals(p.getName()))
 				return p;
 		return null;
 	}
-	
-	public static String matches(String name) {
-		Iterator i = allplots.iterator();
+
+	/**
+	 * Find longest string in the input that matches one of the plot names.
+	 */
+	public static String matches(String s) {
 		String bestMatch = "";
-		while (i.hasNext()) {
-			Plot p = (Plot) i.next();
-			String pname = p.getName();
-			if (name.matches(pname + "(.*)") && pname.length() > bestMatch.length())
-				bestMatch = pname;
-		}
+		for(Plot p : allplots)
+			if (s.matches(p.name + "(.*)") && p.name.length() > bestMatch.length())
+				bestMatch = p.name;
+
 		if (bestMatch.equals(""))
 			return null;
+
 		return bestMatch;
+	}
+
+	/**
+	 * Initialise allplots set. It is filled by PlotGroup.init.
+	 */
+	public static void init() {
+		allplots = new HashSet<>();
 	}
 }

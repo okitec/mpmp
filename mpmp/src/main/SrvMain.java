@@ -5,6 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import model.Player;
+import model.PlotGroup;
 
 /**
  * Main class of the server.
@@ -16,6 +17,7 @@ public class SrvMain {
 		ServerSocket listener;
 		Client.reset();
 		Player.reset();
+		PlotGroup.init();
 
 		try {
 			listener = new ServerSocket(1918);
