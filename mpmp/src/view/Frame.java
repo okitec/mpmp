@@ -48,6 +48,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
     private JButton buyHouse;
     private JButton buyPlot;
     private JButton surrender;
+    private JButton startGame;
     private JTextField chatField;
     private JTextPane chatBox;
     private JTextPane playerList;
@@ -130,6 +131,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	buyPlot = new JButton("Straße kaufen");
 	surrender = new JButton("Aufgeben");
 	bEndTurn = new JButton("Runde beenden");
+	startGame = new JButton("Spiel starten");
 
 	playerList = new JTextPane();
 	playerList.setEditable(false);
@@ -150,6 +152,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
 	left.add(new JLabel("Spieler:"));
 	left.add(playerList);
+	chat.add(startGame);
 	chat.add(chatBox);
 	chat.add(chatField);
 	chat.add(bEndTurn);
@@ -227,6 +230,14 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
     public double getCurrentRotation() {
 	System.out.println("Current Rotation: " + gameboard.getSVGDocument().getRootElement().getZoomAndPan());
 	return gameboard.getSVGDocument().getRootElement().getZoomAndPan();
+    }
+    
+    public void addStartGameListener(ActionListener al) {
+	startGame.addActionListener(al);
+    }
+    
+    public void removeStartGameButton(){
+	startGame.setVisible(false);
     }
 
     @Override
