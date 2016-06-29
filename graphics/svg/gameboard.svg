@@ -497,13 +497,13 @@
 			/>
 
 			<text id="toplabel"
-				x="379" y="126"  font-size="45px" stroke="#000000" text-anchor="middle"
+				x="379" y="126" fill="#231f20" font-size="45px" stroke="#231f20" text-anchor="middle"
 				transform = "rotate(45 379 126)">
 				Frei
 			</text>
 
 			<text id="bottomlabel"
-				x="126" y="379"  font-size="45px" stroke="#000000" text-anchor="middle"
+				x="126" y="379" fill="#231f20"  font-size="45px" stroke="#231f20" text-anchor="middle"
 				transform = "rotate(45 126 379)">
 				Parken
 			</text>
@@ -530,7 +530,7 @@
 
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 				<text id = "twoliner"
-					style="stroke: #000000">
+					style="stroke: #231f20">
 					<tspan x="150" y="195">
 						Philosophenweg
 					</tspan>
@@ -689,7 +689,7 @@
 
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 				<text id = "twoliner"
-					style="stroke: #000000">
+					style="stroke: #231f20">
 					<tspan x="150" y="182">
 						Otto-von-Bismark
 					</tspan>
@@ -726,7 +726,7 @@
 
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 				<text id = "twoliner"
-					style="stroke: #000000">
+					style="stroke: #231f20">
 					<tspan x="150" y="182">
 						Friedrich-Ebert
 					</tspan>
@@ -806,7 +806,7 @@
 			
 			<text id = "twoliner"
 				 font-size="30px" fill="#231f20"
-				style="stroke: #000000" text-anchor="middle">
+				style="stroke: #231f20" text-anchor="middle">
 				<tspan x="150" y="182">
 					Bahnhof
 				</tspan>
@@ -842,7 +842,7 @@
 
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 				<text id = "twoliner"
-					style="stroke: #000000">
+					style="stroke: #231f20">
 					<tspan x="150" y="195">
 						Sch&#252;tzenStra&#223;e
 					</tspan>
@@ -876,7 +876,7 @@
 
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 				<text id = "twoliner"
-					style="stroke: #000000">
+					style="stroke: #231f20">
 					<tspan x="150" y="195">
 						Hafenstra&#223;e
 					</tspan>
@@ -1032,7 +1032,7 @@
 					 185.92,227.11 145.92,227.35 146.00,223.00 Z" />
 			
 			<text id = "tag"  font-size="30px"  text-anchor="middle">
-					<tspan x="150" y="75" style="stroke: #000000">
+					<tspan x="150" y="75" style="stroke: #231f20">
 						Wasserwerk
 					</tspan>
 					<tspan x="150" y="480">
@@ -1062,7 +1062,7 @@
 
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 				<text id = "twoliner"
-					style="stroke: #000000">
+					style="stroke: #231f20">
 					<tspan x="150" y="182">
 						Hindenburg
 					</tspan>
@@ -1472,7 +1472,7 @@
 					 248.00,353.00 264.00,352.00 264.00,352.00
 					 264.00,352.00 268.33,324.00 268.33,324.00 Z" />
 
-			<g font-size="45px" stroke="#000000" text-anchor="middle">
+			<g font-size="45px" stroke="#231f20" text-anchor="middle">
 				<text id = "toplabel"
 					x="379" y="126"
 					transform = "rotate(45 379 126)">
@@ -1509,7 +1509,7 @@
 
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 				<text id = "twoliner"
-					style="stroke: #000000">
+					style="stroke: #231f20">
 					<tspan x="150" y="195">
 						Bollwerkstra&#223;e
 					</tspan>
@@ -1543,7 +1543,7 @@
 
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 				<text id = "twoliner"
-					style="stroke: #000000">
+					style="stroke: #231f20">
 					<tspan x="150" y="195">
 						Am Burggraben
 					</tspan>
@@ -1928,11 +1928,11 @@
 			</g>
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 				<text id = "tag"
-					x="150" y="75"  font-size="30px" style="stroke: #000000" text-anchor="middle">
+					x="150" y="75"  font-size="30px" style="stroke: #231f20" text-anchor="middle">
 					Gemein-
 				</text>
 				<text id = "tag"
-					x="150" y="105"  font-size="30px" style="stroke: #000000" text-anchor="middle">
+					x="150" y="105"  font-size="30px" style="stroke: #231f20" text-anchor="middle">
 					schaftsfeld
 				</text>
 			</g>
@@ -1959,7 +1959,7 @@
 
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 				<text id = "twoliner"
-					style="stroke: #000000">
+					style="stroke: #231f20">
 					<tspan x="150" y="182">
 						Gorch-Fock
 					</tspan>
@@ -2039,7 +2039,7 @@
 			
 			<text id = "twoliner"
 				 font-size="30px" fill="#231f20"
-				style="stroke: #000000" text-anchor="middle">
+				style="stroke: #231f20" text-anchor="middle">
 				<tspan x="150" y="182">
 					Anhalter
 				</tspan>
@@ -2075,7 +2075,7 @@
 
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 				<text id = "twoliner"
-					style="stroke: #000000">
+					style="stroke: #231f20">
 					<tspan x="150" y="195">
 						Neue Stra&#223;e
 					</tspan>
@@ -2109,7 +2109,7 @@
 
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 				<text id = "twoliner"
-					style="stroke: #000000">
+					style="stroke: #231f20">
 					<tspan x="150" y="195">
 						Sieges-Alee
 					</tspan>
@@ -2316,7 +2316,7 @@
 					 149.39,357.35 135.49,347.32 133.00,345.00
 					 133.00,345.00 173.00,343.00 173.00,343.00 Z" />
 
-			<text id = "tag"  font-size="30px" style="stroke: #000000" text-anchor="middle">
+			<text id = "tag"  font-size="30px" style="stroke: #231f20" text-anchor="middle">
 					<tspan x="150" y="75">
 						Elektrizit&#228;tswerk
 					</tspan>
@@ -2347,7 +2347,7 @@
 
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 				<text id = "twoliner"
-					style="stroke: #000000">
+					style="stroke: #231f20">
 					<tspan x="150" y="195">
 						Faldernstra&#223;e
 					</tspan>
@@ -2370,7 +2370,7 @@
 			/>
 			
 			<rect id = "jailframe_border"
-				x="120" y="2" width="384" height="384" fill="#000000"
+				x="120" y="2" width="384" height="384" fill="#231f20"
 			/>
 
 			<rect id = "jailframe_background"
@@ -2639,7 +2639,7 @@
 
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 				<text id = "twoliner"
-					style="stroke: #000000">
+					style="stroke: #231f20">
 					<tspan x="150" y="195">
 						Am Eisenbahndock
 					</tspan>
@@ -2673,7 +2673,7 @@
 
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 				<text id = "twoliner"
-					style="stroke: #000000">
+					style="stroke: #231f20">
 					<tspan x="150" y="182">
 						August-Bebel
 					</tspan>
@@ -2835,7 +2835,7 @@
 
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 				<text id = "twoliner"
-					style="stroke: #000000">
+					style="stroke: #231f20">
 					<tspan x="150" y="182">
 						Wasserschiff-
 					</tspan>
@@ -2915,7 +2915,7 @@
 			
 			<text id = "twoliner"
 				 font-size="30px" fill="#231f20"
-				style="stroke: #000000" text-anchor="middle">
+				style="stroke: #231f20" text-anchor="middle">
 				<tspan x="150" y="182">
 					Central-
 				</tspan>
@@ -2940,11 +2940,11 @@
 			
 			<text id = "rhombus"
 				x="164" y="284" font-family="Arial" font-size="80px" text-anchor="middle">
-					♦
+					♦  
 			</text>
 			
-			<text id = "tag"  font-size="30px" text-anchor="middle">
-					<tspan x="150" y="75" style="stroke: #000000" >
+			<text id = "tag"  font-size="30px" fill="#231f20" text-anchor="middle">
+					<tspan x="150" y="75" style="stroke: #231f20" >
 						Einkommenssteuer
 					</tspan>
 					<tspan x="150" y="480">
@@ -2974,7 +2974,7 @@
 
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 				<text id = "twoliner"
-					style="stroke: #000000">
+					style="stroke: #231f20">
 					<tspan x="150" y="195">
 						Zimmererstra&#223;e
 					</tspan>
@@ -3360,11 +3360,11 @@
 		 
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 				<text id = "tag"
-					x="150" y="75"  font-size="30px" style="stroke: #000000" text-anchor="middle">
+					x="150" y="75"  font-size="30px" style="stroke: #231f20" text-anchor="middle">
 					Gemein-
 				</text>
 				<text id = "tag"
-					x="150" y="105"  font-size="30px" style="stroke: #000000" text-anchor="middle">
+					x="150" y="105"  font-size="30px" style="stroke: #231f20" text-anchor="middle">
 					schaftsfeld
 				</text>
 			</g>
@@ -3391,7 +3391,7 @@
 
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 				<text id = "twoliner"
-					style="stroke: #000000">
+					style="stroke: #231f20">
 					<tspan x="150" y="195">
 						K&#252;stenbahndamm
 					</tspan>
@@ -3678,13 +3678,13 @@
 					 138.00,422.00 94.00,442.69 94.00,442.69 Z" />
 					 
 			<text id = "label"
-				x="116"  font-size="38px" text-anchor="middle"
-				stroke="#000000" transform = "rotate(-45 116 116)">
+				x="116"  font-size="38px" text-anchor="middle" fill="#231f20"
+				stroke="#231f20" transform = "rotate(-45 116 116)">
 				<tspan x="116" y="126">
 					Ziehen Sie
 				</tspan>
 				<tspan x="116" y="171">
-					im Vor&#228;bergehen
+					im Vor&#252;bergehen
 				</tspan>
 				<tspan x="116" y="216">
 					RM 2000 Gehalt ein.
@@ -3715,7 +3715,7 @@
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 
 				<text id = "twoliner"
-					style="stroke: #000000">
+					style="stroke: #231f20">
 					<tspan x="150" y="195">
 						Jahnstra&#223;e
 					</tspan>
@@ -3750,7 +3750,7 @@
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 
 				<text id = "twoliner"
-					style="stroke: #000000">
+					style="stroke: #231f20">
 					<tspan x="150" y="182">
 						Karl-Marx
 					</tspan>
@@ -4139,11 +4139,11 @@
 		 
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 				<text id = "tag"
-					x="150" y="75"  font-size="30px" style="stroke: #000000" text-anchor="middle">
+					x="150" y="75"  font-size="30px" style="stroke: #231f20" text-anchor="middle">
 					Gemein-
 				</text>
 				<text id = "tag"
-					x="150" y="105"  font-size="30px" style="stroke: #000000" text-anchor="middle">
+					x="150" y="105"  font-size="30px" style="stroke: #231f20" text-anchor="middle">
 					schaftsfeld
 				</text>
 			</g>
@@ -4171,7 +4171,7 @@
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 
 				<text id = "twoliner"
-					style="stroke: #000000">
+					style="stroke: #231f20">
 					<tspan x="150" y="195">
 						Am Bollwerk
 					</tspan>
@@ -4248,7 +4248,7 @@
 			
 			<text id = "twoliner"
 				 font-size="30px" fill="#231f20"
-				style="stroke: #000000" text-anchor="middle">
+				style="stroke: #231f20" text-anchor="middle">
 				<tspan x="150" y="182">
 					Fl&#252;gel-
 				</tspan>
@@ -4409,7 +4409,7 @@
 
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 				<text id = "twoliner"
-					style="stroke: #000000">
+					style="stroke: #231f20">
 					<tspan x="150" y="195">
 						Pariser Platz
 					</tspan>
@@ -4655,7 +4655,7 @@
 					 180.19,225.12 183.05,225.07 185.40,227.65 Z" />
 					 
 			<text id = "tag"
-				x="150" y="75"  font-size="30px" style="stroke: #000000" text-anchor="middle">
+				x="150" y="75"  font-size="30px" style="stroke: #231f20" text-anchor="middle">
 				Zusatzsteuern
 			</text>
 			
@@ -4686,7 +4686,7 @@
 
 			<g font-size="30px" fill="#231f20" text-anchor="middle">
 				<text id = "twoliner"
-					style="stroke: #000000">
+					style="stroke: #231f20">
 					<tspan x="150" y="195">
 						Triumphstra&#223;e
 					</tspan>
