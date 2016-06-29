@@ -73,6 +73,8 @@ public class SellPlot implements CmdFunc{
 		
 		p.addMoney(price);
 		plot.resell(buyer);
+		
+		conn.send("add-money " + price + " Resell plot " + plot.getName());
 	}
 
 	@Override
