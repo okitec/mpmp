@@ -27,7 +27,8 @@ public enum Cmd {
 	ChatUpdate("chat-update", new cmds.ChatUpdate()),
 	ClientlistUpdate("clientlist-update", new cmds.ClientlistUpdate()),
 	AddMoney("show-transaction", new cmds.ShowTransaction()),
-	AuctionPlot("auction-plot", new cmds.AuctionPlot());
+	AuctionPlot("auction-plot", new cmds.AuctionPlot()),
+	PlotUpdate("plot-update", new cmds.PlotUpdate());
 
 	private final String s;
 	private final CmdFunc fn;

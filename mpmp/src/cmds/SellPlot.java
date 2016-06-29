@@ -50,7 +50,7 @@ public class SellPlot implements CmdFunc{
 		}
 
 		String[] s1 = line.split(plotname + " ");
-		String buyername = Player.matches(s1[1]);
+		String buyername = Player.matches(s1[1], true);
 		if (buyername == null) {
 			conn.sendErr(ErrCode.NotAPlayer);
 			return;

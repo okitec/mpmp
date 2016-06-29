@@ -16,7 +16,7 @@ public class AuctionPlot implements CmdFunc {
 
 	@Override
 	public void exec(String line, Conn conn) {
-		int price = -1, delim = -1;
+		int price, delim = -1;
 		String[] args = line.split(" ");
 		String pname, bname;
 		Plot plot;
@@ -38,13 +38,13 @@ public class AuctionPlot implements CmdFunc {
 					return;
 				}
 
-		if (price == -1) {
+		if (delim == -1) {
 			conn.sendErr(ErrCode.Usage, "auction-plot <Name des Grundstücks> <Preis> <Höchstbietender>");
 			return;
 		}
 
 		pname = Plot.matches(String.join(" ", Arrays.copyOfRange(args, 1, delim--)));
-		bname = Player.matches(String.join(" ", Arrays.copyOfRange(args, delim++, args.length)));
+		bname = Player.matches(String.join(" ", Arrays.copyOfRange(args, delim++, args.length)), false);
 
 		if (pname == null) {
 			conn.sendErr(ErrCode.NotAPlot);
