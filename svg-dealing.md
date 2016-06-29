@@ -27,9 +27,6 @@ Die `text`-Felder  `Farbe`, `Einzeilig`, `Zweizeilig` und `Preis` sind für die 
 und befinden sich jeweils am Datei-Ende. Umlaute etc. werden u. U. nicht korrekt angezeigt, weswegen
 die entsprechenden HTML-Codes dafür ebenfalls am Ende dieser Hilfe-Datei zu finden sind.
 
-Alle Eingaben werden zentriert dargestellt. Für die Darstellung ist die Monopoly-Schriftart notwendig.
-Die benötigten Dateien liegen (wahrscheinlich illegal) in [graphics/fonts/](graphics/fonts)
-
 ### Hier mal ein paar Beispiele:
 
 `fill="..."` beschreibt die Farbe. Hier kann man Farben (weiter unten im Text) einfügen
