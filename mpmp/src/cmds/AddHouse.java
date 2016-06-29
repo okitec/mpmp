@@ -1,23 +1,26 @@
 package cmds;
 
 import java.util.Arrays;
+
 import main.Client;
 import main.Conn;
 import main.ErrCode;
 import model.Player;
 import model.Plot;
+import model.HousePlot;
 
 /**
  * C->S
  * @author Leander
  */
 public class AddHouse implements CmdFunc {
-
 	@Override
 	public void exec(String line, Conn conn) {
+		Player p;
+		HousePlot hp;
 		String[] args = line.split(" ");
 
-		Player p = Player.search(((Client) conn).getName());
+		p = Player.search(((Client) conn).getName());
 		if (!p.isPlayer()) {
 			conn.sendErr(ErrCode.NotAPlayer);
 			return;
@@ -28,18 +31,18 @@ public class AddHouse implements CmdFunc {
 			return;
 		}
 
-		Plot plot = Plot.search(String.join(" ", Arrays.copyOfRange(args, 1, args.length)));
-		if (plot == null) {
+		hp = (HousePlot) Plot.search(String.join(" ", Arrays.copyOfRange(args, 1, args.length)));
+		if (hp == null) {
 			conn.sendErr(ErrCode.NotAPlot);
 			return;
 		}
 
-		if (plot.getOwner() != p) {
-			conn.sendErr(ErrCode.AlreadyOwned, plot.getOwner().getName());
+		if (hp.getOwner() != p) {
+			conn.sendErr(ErrCode.AlreadyOwned, hp.getOwner().getName());
 			return;
 		}
 
-		switch (plot.addHouse()) {
+		switch (hp.addHouse()) {
 		case -1:
 			conn.sendErr(ErrCode.TooManyHouses);
 			return;
@@ -54,9 +57,8 @@ public class AddHouse implements CmdFunc {
 			return;
 		case 1:
 			conn.sendOK();
-			conn.send("show-transaction " + plot.getHousePrice(plot.getHouses()) + " Buy house for plot " + plot.getName());
-			conn.send("money-update " + plot.getHousePrice(plot.getHouses()) + " Buy house for plot " + plot.getName());
-			conn.send("plot-update " + plot.getName() + " " + plot.getHouses() + " " + plot.isHypothec() + plot.getOwner());
+			conn.send("show-transaction " + hp.getHousePrice(hp.getHouses()) + " Buy house for plot " + hp.getName());
+			Client.broadcast("plot-update " + hp);
 			break;
 		default:
 			conn.sendErr(ErrCode.Internal, "Unexpected error");
@@ -67,5 +69,4 @@ public class AddHouse implements CmdFunc {
 	public void error(ErrCode err, String line, Conn conn) {
 		//TODO
 	}
-	
 }
