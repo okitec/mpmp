@@ -52,7 +52,8 @@ public class BuyPlot implements CmdFunc {
 			p.addMoney(price);
 			return;
 		}
-		
+
+		conn.sendOK();
 		conn.send("add-money " + price + " Buy plot " + plot.getName());
 	}
 
