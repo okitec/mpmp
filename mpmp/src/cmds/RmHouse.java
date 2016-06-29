@@ -46,7 +46,7 @@ public class RmHouse implements CmdFunc {
 		
 		//TODO Remove house
 		conn.sendOK();
-		//conn.send("add-money " + <halber Preis für das Haus> + " Buy house for plot " + plot.getName());
+		//conn.send("show-transaction " + <halber Preis für das Haus> + " Buy house for plot " + plot.getName());
 		conn.send("plot-update " + plot.getName() + " " + plot.getHouses() + " " + plot.isHypothec() + plot.getOwner());
 	}
 

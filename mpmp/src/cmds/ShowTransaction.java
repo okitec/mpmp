@@ -7,10 +7,10 @@ import main.ErrCode;
 import view.Displayer;
 
 /**
- * add-money S->C packet
+ * show-transaction S->C packet
  * @author oki
  */
-public class AddMoney implements CmdFunc {
+public class ShowTransaction implements CmdFunc {
 	private Displayer d;
 
 	@Override
@@ -22,7 +22,7 @@ public class AddMoney implements CmdFunc {
 		args = line.split(" ");
 		if(args.length < 3) {
 			// XXX one syntax/usage error code should suffice -oki
-			conn.sendErr(ErrCode.Usage, "add-money <amount> <reason>");
+			conn.sendErr(ErrCode.Usage, "show-transaction <amount> <reason>");
 			return;
 		}
 
@@ -34,7 +34,7 @@ public class AddMoney implements CmdFunc {
 		}
 
 		reason = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
-		d.show("add-money: " + amount + " " + reason);
+		d.show("show-transaction: " + amount + " " + reason);
 	}
 
 	@Override
