@@ -4,13 +4,16 @@ import cmds.Subscribe;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Event;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
+import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -29,8 +32,14 @@ import javax.swing.text.Document;
 import javax.swing.SwingUtilities;
 import main.ErrCode;
 import model.Model;
+import model.Player;
+import javax.swing.AbstractAction;
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
 import org.apache.batik.swing.JSVGCanvas;
+import org.apache.batik.swing.JSVGCanvas.AffineAction;
+import org.apache.batik.swing.JSVGCanvas.ZoomAction;
+import org.apache.batik.swing.JSVGCanvas.ZoomInAction;
+import org.apache.batik.swing.JSVGCanvas.ZoomOutAction;
 import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
 import org.apache.batik.util.XMLResourceDescriptor;
@@ -38,208 +47,242 @@ import org.w3c.dom.Element;
 import org.w3c.dom.svg.SVGDocument;
 
 public class Frame extends JFrame implements Subscribe.SubscribeErrer {
-	public final ChatDisp chatDisp;
-	public final PlayerDisp playerDisp;
 
-	private Model m;
+    public final ChatDisp chatDisp;
+    public final PlayerDisp playerDisp;
 
-	private JPanel left;
-	private JPanel chat;
-	private JPanel bottom;
-	private JPanel bottomMenu;
-	private JTextField chatField;
-	private JTextPane chatBox;
-	private JTextPane playerList;
-	private JButton bEndTurn;
-	private JSVGCanvas gameboard;
+    private Model m;
 
-	public Frame(Model m) {
-		this.m = m;
-		chatDisp = new ChatDisp();
-		playerDisp = new PlayerDisp();
-		createFrame();
-		setVisible(true);
-	}
+    private JPanel left;
+    private JPanel chat;
+    private JPanel bottom;
+    private JPanel currentPlayer;
+    private JPanel bottomMenu;
+    private JButton trade;
+    private JButton buyHouse;
+    private JButton buyPlot;
+    private JButton surrender;
+    private JTextField chatField;
+    private JTextPane chatBox;
+    private JTextPane playerList;
+    private JButton bEndTurn;
+    private JSVGCanvas gameboard;
+    private org.w3c.dom.Document doc;
+    private Font f;
 
-	/**
-	 * Create the frame.
-	 */
-	public void createFrame() {
-		setTitle("MPMP");
-		setResizable(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gameboard = new JSVGCanvas();
-		gameboard.setBackground(new Color(0, 0, 0, 0));
+    
+    public static void main(String args[]) {
+	java.awt.EventQueue.invokeLater(new Runnable() {
+	    public void run() {
+		new Frame(null);
+	    }
+	});
+    }
+    
+    public Frame(Model m) {
+	this.m = m;
+	chatDisp = new ChatDisp();
+	playerDisp = new PlayerDisp();
+	setMinimumSize(new Dimension(200, 200));
+	createFrame();
+    }
 
-		try {
-			setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("graphics/background.png")))));
-			gameboard.setFont(Font.createFont(Font.TRUETYPE_FONT, new File("graphics/font/SourceSansPro-Light.ttf")));
+    /**
+     * Create the frame.
+     */
+    public void createFrame() {
+	setTitle("MPMP");
+	setResizable(true);
+	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-			String parser = XMLResourceDescriptor.getXMLParserClassName();
-			SAXSVGDocumentFactory f = new SAXSVGDocumentFactory(parser);
-			String uri = new File("graphics/svg/gameboard.svg").toURI().toString();
-			org.w3c.dom.Document doc = f.createDocument(uri);
-			gameboard.setDocument(doc);
-
-		} catch (FontFormatException | IOException e) {
-			e.printStackTrace();
+	//Canvas-Stuff
+	gameboard = new JSVGCanvas();
+	gameboard.setBackground(new Color(0, 0, 0, 0));
+	try {
+	    setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("graphics/background.png")))));
+	    f = Font.createFont(Font.TRUETYPE_FONT, new File("graphics/font/SourceSansPro-Light.ttf"));
+	    gameboard.setFont(f);
+	    String parser = XMLResourceDescriptor.getXMLParserClassName();
+	    SAXSVGDocumentFactory f = new SAXSVGDocumentFactory(parser);
+	    String uri = new File("graphics/svg/gameboard.svg").toURI().toString();
+	    doc = f.createDocument(uri);
+	    gameboard.setDocument(doc);
+	    gameboard.setRecenterOnResize(false);
+	    gameboard.setEnableRotateInteractor(false);
+	    gameboard.setEnableResetTransformInteractor(true);
+	    gameboard.addGVTTreeRendererListener(new GVTTreeRendererAdapter() {
+		public void gvtRenderingPrepare(GVTTreeRendererEvent e) {
+		    setTitle("MPMP - Loading...");
 		}
 
-		gameboard.addGVTTreeRendererListener(new GVTTreeRendererAdapter() {
-			public void gvtRenderingPrepare(GVTTreeRendererEvent e) {
-				setTitle("MPMP - Loading...");
-			}
+		public void gvtRenderingCompleted(GVTTreeRendererEvent e) {
+		    setTitle("MPMP");
+		    /*
+		SVGDocument svgd = gameboard.getSVGDocument();
+		final Element element = svgd.getElementById("gameboard");
+		System.out.println(gameboard.getX() + "  " + gameboard.getSize() + "  " + gameboard.getRenderRect() + "  " + gameboard.getSVGDocument().getRootElement());
+		     */
+		    Graphics g = gameboard.getGraphics();
+		    g.drawOval(0, 0, 50, 50);
+		    System.out.println("Resized");
+		    gameboard.invalidate();
+		    getCurrentRotation();
+		    getCurrentZoom();
+		}
+	    });
+	} catch (FontFormatException | IOException e) {
+	    e.printStackTrace();
+	}
 
-			public void gvtRenderingCompleted(GVTTreeRendererEvent e) {
-				setTitle("MPMP");
-				//Does this work?
-				/*SVGDocument svgd = gameboard.getSVGDocument();
-				final Element element = svgd.getElementById("gameboard");
-				System.out.println(gameboard.getX() + "  " + gameboard.getSize() + "  " + gameboard.getRenderRect() + "  " + gameboard.getSVGDocument().getRootElement());
-				*/
-				Graphics g = gameboard.getGraphics();
-				g.drawOval(0, 0, 50, 50);
-				gameboard.invalidate();
-			}
-		});
+	//Set all layouts
+	setLayout(new BorderLayout());
+	left = new JPanel();
+	chat = new JPanel();
+	bottom = new JPanel();
+	bottomMenu = new JPanel();
+	currentPlayer = new JPanel();
 
-		//Set all layouts
-		setLayout(new BorderLayout());
-		left = new JPanel();
-		chat = new JPanel();
-		bottom = new JPanel();
-		bottomMenu = new JPanel();
-		
-		left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
-		chat.setLayout(new BoxLayout(chat, BoxLayout.Y_AXIS));
-		bottom.setLayout(new BoxLayout(bottom, BoxLayout.X_AXIS));
-		bottomMenu.setLayout(new BoxLayout(bottomMenu, BoxLayout.X_AXIS));
+	left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
+	chat.setLayout(new BoxLayout(chat, BoxLayout.Y_AXIS));
+	bottom.setLayout(new BoxLayout(bottom, BoxLayout.X_AXIS));
+	bottomMenu.setLayout(new BoxLayout(bottomMenu, BoxLayout.Y_AXIS));
+	currentPlayer.setLayout(new BoxLayout(currentPlayer, BoxLayout.Y_AXIS));
 
-		//Set testing Buttons
-		JButton player1 = new JButton("Player 1");
-		JButton player2 = new JButton("Player 2");
-		JButton player3=  new JButton("Player 3");
-		JButton player4 = new JButton("Player 4");
-		JButton player5 = new JButton("Player 5");
-		JButton player6 = new JButton("Player 6");
-		JButton trade = new JButton("Tauschen");
-		JButton buyHouse = new JButton("Haus kaufen");
-		JButton buyPlot = new JButton("Straße kaufen");
-		JButton surrender = new JButton("Aufgeben");
-		JButton btn12 = new JButton("Current Player");
-		JButton btn13 = new JButton("Me is no chat box");
+	trade = new JButton("Tauschen");
+	buyHouse = new JButton("Haus kaufen");
+	buyPlot = new JButton("Straße kaufen");
+	surrender = new JButton("Aufgeben");
+	playerList = new JTextPane();
+	playerList.setEditable(false);
 
-		left.add(player1);
-		left.add(player2);
-		left.add(player3);
-		left.add(player4);
-		left.add(player5);
-		left.add(player6);
-		bottomMenu.add(trade);
-		bottomMenu.add(buyHouse);
-		bottomMenu.add(buyPlot);
-		bottomMenu.add(surrender);
-		bottom.add(bottomMenu);
-		bottom.add(btn12);
-		bottom.add(btn13);
-		
-		final int ChatBoxWidth = 200;
+	left.add(new JButton("Insert Players here!"));
+	left.add(new JLabel("Spieler:"));
+	left.add(playerList);
 
-		playerList = new JTextPane();
-		playerList.setEditable(false);
+	chatField = new JTextField();
+	chatField.requestFocus(true);
+	chatField.setSize(new Dimension(10, 100));
+	chatField.setSelectionColor(Color.pink);
 
-		chatField = new JTextField();
+	chatBox = new JTextPane();
+	chatBox.setEditable(false);
 
-		chatBox = new JTextPane();
-		chatBox.setEditable(false);
+	bEndTurn = new JButton("Runde beenden");
 
-		bEndTurn = new JButton("Runde beenden");
+	chat.add(chatBox);
+	chat.add(chatField);
+	chat.add(bEndTurn);
+	
+	//Real stuff cP = current Player
+	//Player cP = new Player();
+	currentPlayer.add(new JLabel("Spieler"));
+	currentPlayer.add(new JLabel("DieEchteNilente"));
+	currentPlayer.add(new JLabel("RM 0"));
+	currentPlayer.add(new JLabel("Gekaufte Straßen: --"));
 
-/*
+	bottomMenu.add(trade);
+	bottomMenu.add(buyHouse);
+	bottomMenu.add(buyPlot);
+	bottomMenu.add(surrender);
+	bottom.add(bottomMenu);
+	bottom.add(new JLabel("          "));
+	bottom.add(currentPlayer);
+
+	final int ChatBoxWidth = 200;
+
+	/*
 		bEndTurn.setPreferredSize(new Dimension(ChatBoxWidth, 60));
-		chatBox.setPreferredSize(new Dimension(ChatBoxWidth, 300));
+		
 		playerList.setPreferredSize(new Dimension(ChatBoxWidth, 100));
 		chatField.setPreferredSize(new Dimension(ChatBoxWidth, 20));
-*/
+	 */
+	
+	this.addComponentListener(new ComponentAdapter() {
+	    @Override
+	    public void componentResized(ComponentEvent e) {
+		gameboard.invalidate();
+	    }
+	});
 
-		left.add(playerList);
-		chat.add(chatBox);
-		chat.add(chatField);
-		chat.add(bEndTurn);
+	add(gameboard, BorderLayout.CENTER);
+	add(left, BorderLayout.WEST);
+	add(chat, BorderLayout.EAST);
+	add(bottom, BorderLayout.SOUTH);
+	setVisible(true);
+	pack();
+    }
 
-		this.addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentResized(ComponentEvent e) {
-				gameboard.invalidate();
-				System.out.println("Resized");
-			}
-		});
+    public void addChatListener(KeyAdapter k) {
+	chatField.addKeyListener(k);
+    }
 
-		add(gameboard, BorderLayout.CENTER);
-		add(left, BorderLayout.WEST);
-		add(chat, BorderLayout.EAST);
-		add(bottom, BorderLayout.SOUTH);
-		add(bottomMenu, BorderLayout.SOUTH);
-		setVisible(true);
-		pack();
-	}
+    public String getChat() {
+	String chat = chatField.getText();
+	chatField.setText("");
+	return chat;
+    }
 
-	public void addChatListener(KeyAdapter k) {
-		chatField.addKeyListener(k);
-	}
+    public void addEndTurnListener(ActionListener al) {
+	System.out.println("Runde beendet.");
+	bEndTurn.addActionListener(al);
+    }
 
-	public String getChat() {
-		String chat = chatField.getText();
-		chatField.setText("");
-		return chat;
-	}
+    public double getCurrentZoom() {
+	System.out.println("Current zoom: " + gameboard.getSVGDocument().getRootElement().getCurrentScale());
+	return gameboard.getSVGDocument().getRootElement().getCurrentScale();
+    }
 
-	public void addEndTurnListener(ActionListener al) {
-		bEndTurn.addActionListener(al);
+    public double getCurrentRotation() {
+	System.out.println("Current Rotation: " + gameboard.getSVGDocument().getRootElement().getZoomAndPan());
+	return 0.0;
+    }
+
+    @Override
+    public void subscribeErr() {
+	JOptionPane.showMessageDialog(this, ErrCode.NameTaken.getMessage());
+	System.exit(0);
+
+    }
+
+    public class ChatDisp implements Displayer {
+
+	@Override
+	public synchronized void show(String s) {
+	    // Call in the Event Dispatching Thread.
+	    SwingUtilities.invokeLater(() -> {
+		try {
+		    Document doc = chatBox.getDocument();
+		    doc.insertString(doc.getLength(), s + "\n", null);
+		} catch (BadLocationException ble) {
+		    ;// XXX how to handle?
+		}
+	    });
 	}
 
 	@Override
-	public void subscribeErr() {
-		JOptionPane.showMessageDialog(this, ErrCode.NameTaken.getMessage());
-		System.exit(0);
+	public void reset() {
+	}
+    }
+
+    public class PlayerDisp implements Displayer {
+
+	@Override
+	public synchronized void show(String s) {
+	    SwingUtilities.invokeLater(() -> {
+		try {
+		    Document doc = playerList.getDocument();
+		    doc.insertString(doc.getLength(), s + "\n", null);
+		} catch (BadLocationException ble) {
+		    ;// XXX how to handle?
+		}
+	    });
 	}
 
-	public class ChatDisp implements Displayer {
-		@Override
-		public synchronized void show(String s) {
-			// Call in the Event Dispatching Thread.
-			SwingUtilities.invokeLater(() -> {
-				try {
-					Document doc = chatBox.getDocument();
-					doc.insertString(doc.getLength(), s + "\n", null);
-				} catch (BadLocationException ble) {
-					;// XXX how to handle?
-				}
-			});
-		}
-
-		@Override
-		public void reset() {}
+	@Override
+	public synchronized void reset() {
+	    SwingUtilities.invokeLater(() -> {
+		playerList.setDocument(new DefaultStyledDocument());
+	    });
 	}
-
-	public class PlayerDisp implements Displayer {
-		@Override
-		public synchronized void show(String s) {
-			SwingUtilities.invokeLater(() -> {
-				try {
-					Document doc = playerList.getDocument();
-					doc.insertString(doc.getLength(), s + "\n", null);
-				} catch (BadLocationException ble) {
-					;// XXX how to handle?
-				}
-			});
-		}
-
-		@Override
-		public synchronized void reset() {
-			SwingUtilities.invokeLater(() -> {
-				playerList.setDocument(new DefaultStyledDocument());
-			});
-		}
-	}
+    }
 }
