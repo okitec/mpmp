@@ -5,17 +5,18 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 /**
- * Player represents spectators and the actual, actuve players.
- * The info stored here exists in both client and server and is
- * kept up-to-date by the clientlist-update packet.
+ * Player represents spectators and the actual, actuve players. The info stored here exists in both client and server
+ * and is kept up-to-date by the clientlist-update packet.
+ *
  * @author Leander, oki
  */
 public class Player {
+
 	// XXX move to a new file of constants?
 	private static final int StartCash = 30000; // XXX value
-	private static final int Wage      = 4000;  // XXX value
+	private static final int Wage = 4000;  // XXX value
 	private static final int IncomeTax = 2000;  // XXX value
-	private static final int ExtraTax  = 8000;  // XXX value
+	private static final int ExtraTax = 8000;  // XXX value
 	public static final int UnjailFee = 1000;
 
 	public enum Mode {
@@ -31,22 +32,27 @@ public class Player {
 	/* only active players */
 	private HashSet<Plot> plots;
 	private HashSet<Plot> hypothecs;
-	private int cash;                         /* actual liquid money */
-	private int hyp;                          /* hypothec money */
-	private int pos;                          /* 0 is start; counted clockwise */
+	private int cash;
+	/* actual liquid money */
+	private int hyp;
+	/* hypothec money */
+	private int pos;
+	/* 0 is start; counted clockwise */
 	private boolean inPrison;
-	private int unjails;                      /* number of unjail cards */
+	private int unjails;
+
+	/* number of unjail cards */
 
 	public Player(Color color, Mode mode, String name) {
 		this.name = name;
 		this.color = color;
 		this.mode = mode;
 
-		synchronized(players) {
+		synchronized (players) {
 			players.add(this);
 		}
-		
-		if(mode == Mode.Player) {
+
+		if (mode == Mode.Player) {
 			plots = new HashSet<>();
 			hypothecs = new HashSet<>();
 			pos = 0;
@@ -70,13 +76,12 @@ public class Player {
 	}
 
 	public void remove() {
-		synchronized(players) {
+		synchronized (players) {
 			players.remove(this);
 		}
 	}
 
 	/* GAME LOGIC */
-
 	/**
 	 * Adds or removes money from a player. If the player can't pay, false is returned.
 	 */
@@ -84,14 +89,16 @@ public class Player {
 		// XXX simply allow negative money instead of returning right here might be better. -oki
 
 		/* Sum is often negative. Have we positive money if we add sum? */
-		if(cash + hyp + sum < 0)
+		if (cash + hyp + sum < 0) {
 			return false;
+		}
 
 		cash += sum;
 
 		/* cash exhausted; change to hypothecs instead */
-		if(cash < 0) {
-			hyp += cash;  /* cash is negative */
+		if (cash < 0) {
+			hyp += cash;
+			/* cash is negative */
 			cash = 0;
 		}
 
@@ -104,14 +111,15 @@ public class Player {
 	public void collect(int sum) {
 		int total;
 
-		if(sum < 0)
+		if (sum < 0) {
 			return;
+		}
 
 		total = 0;
-		for(Player p : players) {
-			if(p.addMoney(-sum) == false)
+		for (Player p : players) {
+			if (p.addMoney(-sum) == false) {
 				continue; // XXX eh, what to do (loaning is not implemented)
-			
+			}
 			total += sum;
 		}
 
@@ -122,9 +130,10 @@ public class Player {
 	 * Add or remove hypothec status of plot.
 	 */
 	public void hypothec(Plot p, boolean addhyp) {
-		if(addhyp) {
-			if(p.isHypothec())
+		if (addhyp) {
+			if (p.isHypothec()) {
 				return;
+			}
 			hypothecs.add(p);
 			hyp += p.hypothec(true);
 		} else {
@@ -142,8 +151,6 @@ public class Player {
 		remove();
 	}
 
-	
-
 	/**
 	 * Add a unjail card to the player.
 	 */
@@ -155,8 +162,9 @@ public class Player {
 	 * Give one unjail card to player p. Usually against monetary compensation.
 	 */
 	public boolean giveUnjailCard(Player p) {
-		if(unjails <= 0)
+		if (unjails <= 0) {
 			return false;
+		}
 
 		unjails--;
 		p.unjails++;
@@ -167,8 +175,9 @@ public class Player {
 	 * Leave the prison by using a unjail card.
 	 */
 	public boolean useUnjailCard() {
-		if(!inPrison)
+		if (!inPrison) {
 			return false;
+		}
 
 		inPrison = false;
 		unjails--;
@@ -191,17 +200,31 @@ public class Player {
 	public boolean teleport(int pos, boolean passStart) {
 		int oldpos;
 
-		if(inPrison)
+		if (inPrison) {
 			return false;
+		}
 
 		oldpos = this.pos;
 		this.pos = pos;
 
 		/* Axiom: pos < oldpos is true if we passed the start */
-		if(passStart && pos < oldpos)
+		if (passStart && pos < oldpos) {
 			addMoney(Wage);
+		}
 
-		switch(pos) {
+		switch (pos) {
+		case Field.EventField1:
+		case Field.EventField2:
+		case Field.EventField3:
+			Card.getRandomCard(true).run(this);
+			break;
+			
+		case Field.CommunityField1:
+		case Field.CommunityField2:
+		case Field.CommunityField3:
+			Card.getRandomCard(false).run(this);
+			break;
+
 		case Field.IncomeTax:
 			addMoney(-IncomeTax);
 			break;
@@ -219,7 +242,7 @@ public class Player {
 			break;
 
 		default:
-		} 
+		}
 
 		return true;
 	}
@@ -228,7 +251,7 @@ public class Player {
 	 * @param enter if true, you enter the prison; if false, you leave it.
 	 */
 	public void prison(boolean enter) {
-		if(enter) {
+		if (enter) {
 			teleport(Field.Prison, false);
 			inPrison = true;
 		} else {
@@ -237,10 +260,9 @@ public class Player {
 	}
 
 	/* STATIC */
-
 	/**
-	 * Reset the player table. Called on start. In the client, this is also called
-	 * when a clientlist-update comes in.
+	 * Reset the player table. Called on start. In the client, this is also called when a clientlist-update comes
+	 * in.
 	 */
 	public static void reset() {
 		players = new HashSet<>();
@@ -252,7 +274,7 @@ public class Player {
 	public static Color parseColor(String s) {
 		try {
 			return Color.decode(s);
-		} catch(NumberFormatException nfe) {
+		} catch (NumberFormatException nfe) {
 			return Color.BLACK;  // XXX default color - randomise
 		}
 	}
@@ -260,7 +282,7 @@ public class Player {
 	public static int numPlayers() {
 		return players.size();
 	}
-	
+
 	public static String matches(String name, boolean at) {
 		Iterator i = players.iterator();
 		String bestMatch = "";
@@ -268,26 +290,29 @@ public class Player {
 			Player p = (Player) i.next();
 			String pname = p.getName();
 			if (at) {
-				if (name.matches("@" + pname + "(.*)") && pname.length() > bestMatch.length())
+				if (name.matches("@" + pname + "(.*)") && pname.length() > bestMatch.length()) {
 					bestMatch = pname;
-			} else {
-				if (name.matches(pname + "(.*)") && pname.length() > bestMatch.length())
-					bestMatch = pname;
+				}
+			} else if (name.matches(pname + "(.*)") && pname.length() > bestMatch.length()) {
+				bestMatch = pname;
 			}
-					
+
 		}
-		if (bestMatch.equals(""))
+		if (bestMatch.equals("")) {
 			return null;
+		}
 		return bestMatch;
 	}
-	
+
 	public static Player search(String name) {
-		for (Player p : players)
-			if (name.equals(p.getName()))
+		for (Player p : players) {
+			if (name.equals(p.getName())) {
 				return p;
+			}
+		}
 		return null;
 	}
-	
+
 	public boolean isPlayer() {
 		return mode == Mode.Player;
 	}
