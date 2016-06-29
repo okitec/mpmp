@@ -29,6 +29,10 @@ public class Client extends Conn {
 	 * @return false on failure (name already used or nil), true otherwise
 	 */
 	public boolean subscribe(String color, Mode mode, String name) {
+		/* remove old Player from player list */
+		if(player != null)
+			player.remove();
+
 		if(name == null)
 			return false;
 
@@ -37,7 +41,7 @@ public class Client extends Conn {
 				return false;
 
 
-		this.player = new Player(Player.parseColor(color), mode, name);
+		player = new Player(Player.parseColor(color), mode, name);
 		return true;
 	}
 
@@ -68,6 +72,8 @@ public class Client extends Conn {
 	 */
 	public void remove() {
 		clients.remove(this);
+		if(player != null)
+			player.remove();
 		listClients();
 	}
 
@@ -96,9 +102,9 @@ public class Client extends Conn {
 	}
 
 	/**
-	 * Initialise the client table.
+	 * Reset the client table.
 	 */
-	public static void init() {
+	public static void reset() {
 		clients = new HashSet<>();
 	}
 	

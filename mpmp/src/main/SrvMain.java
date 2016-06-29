@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package main;
 
 import java.io.IOException;
@@ -10,16 +5,19 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import model.Player;
+import model.PlotGroup;
 
 /**
+ * Main class of the server.
  *
- * @author leander.dreier
+ * @author Leander, oki
  */
 public class SrvMain {
 	public static void srvmain(String[] args) {
 		ServerSocket listener;
-		Client.init();
-		Player.init();
+		Client.reset();
+		Player.reset();
+		PlotGroup.init();
 
 		try {
 			listener = new ServerSocket(1918);

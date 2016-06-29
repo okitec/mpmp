@@ -55,3 +55,6 @@ secrets.md
 # Gimp stuff (file size >30 MB)
 *.xcf
 /mpmp/build
+
+#Klaus' stuff
+mpmp_klaus.bat

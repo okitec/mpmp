@@ -13,6 +13,7 @@ import java.awt.event.KeyEvent;
 
 import model.Model;
 import model.Player;
+import model.PlotGroup;
 import cmds.AddMoney;
 import cmds.Cmd;
 import cmds.ChatUpdate;
@@ -32,7 +33,8 @@ public class Controller {
 		Frame frame = new Frame(m);
 		Conn conn = new Conn(new Socket(addr, port));
 
-		Player.init();
+		Player.reset();
+		PlotGroup.init();
 
 		((ChatUpdate) Cmd.ChatUpdate.getFn()).addDisplayer(frame.chatDisp);
 		((ClientlistUpdate) Cmd.ClientlistUpdate.getFn()).addDisplayer(frame.playerDisp);
