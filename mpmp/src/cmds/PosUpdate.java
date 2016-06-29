@@ -6,7 +6,7 @@ import main.ErrCode;
 import model.Player;
 
 /**
- *
+ * S->C
  * @author Leander
  */
 public class PosUpdate implements CmdFunc {
@@ -35,7 +35,7 @@ public class PosUpdate implements CmdFunc {
 			return;
 		}
 		
-		//TODO
+		p.teleport(pos, false);
 	}
 
 	@Override
