@@ -39,7 +39,7 @@ public class SellPlot implements CmdFunc{
 		
 		Plot plot = Plot.search(plotname);
 		
-		if (!p.equals(plot.getOwner())) {
+		if (p != plot.getOwner()) {
 			conn.sendErr(ErrCode.AlreadyOwned, plot.getOwner().getName());
 			return;
 		}
