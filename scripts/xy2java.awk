@@ -5,7 +5,9 @@ BEGIN {
 
 	printf("\t/* generated at %s */\n", d)
 	printf("\tpublic Converter(int wfld, int hfld) {\n")
-	printf("\t\tpos2xypx = new Point[Field.Nfields];\n\n")
+	printf("\t\tpos2xypx = new Point[Field.Nfields];\n")
+	printf("\t\tthis.wfld = wfld;\n")
+	printf("\t\tthis.hfld = hfld;\n\n")
 }
 
 NF == 5 {
