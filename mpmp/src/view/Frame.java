@@ -81,7 +81,8 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		playerDisp = new PlayerDisp();
 		pieceDisp = new PieceDisp();
 		converter = new Converter(304, 506);	  // XXX magic: original unresized wfld, hfld
-		setMinimumSize(new Dimension(200, 200));
+		setMinimumSize(new Dimension(800, 800));
+		setPreferredSize(new Dimension(1920, 1080));
 		createFrame();
 	}
 
@@ -159,11 +160,9 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		
 		chatBox = new JTextPane();
 		chatBox.setEditable(false);
-		chatBox.setSize(new Dimension(chatBox.getHeight(), 100));
 		
 		chatField = new JTextField();
 		chatField.requestFocus(true);
-		chatField.setSize(new Dimension(10, 100));
 		chatField.setSelectionColor(Color.pink);
 		
 		left.add(new JLabel("Spieler:"));
@@ -203,11 +202,11 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		add(bottom, BorderLayout.SOUTH);
 		setVisible(true);
 
-	/*
-	 System.out.println(gameboard.showPrompt("Welcher Spieler"));
-	 System.out.println(gameboard.showPrompt("Welches Grundstück"));
-	 */
-	pack();
+		/*
+		 System.out.println(gameboard.showPrompt("Welcher Spieler"));
+		 System.out.println(gameboard.showPrompt("Welches Grundstück"));
+		 */
+		pack();
 	}
 	
 	public void addChatListener(KeyAdapter k) {
@@ -303,8 +302,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	 * Redraw all the players.
 	 */
 	public void redrawPlayers() {
-		ArrayList<Player> players = Player.getPlayers();
-		for (Player p : players) {
+		for (Player p : Player.getPlayers()) {
 			drawPlayer(p);
 		}
 	}
@@ -321,45 +319,43 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	}
 	
 	public class ChatDisp implements Displayer {
-	
-	@Override
-	public synchronized void show(String s) {
-		// Call in the Event Dispatching Thread.
-		SwingUtilities.invokeLater(() -> {
-		try {
-			Document doc = chatBox.getDocument();
-			doc.insertString(doc.getLength(), s + "\n", null);
-		} catch (BadLocationException ble) {
-			;// XXX how to handle?
+		@Override
+		public synchronized void show(String s) {
+			// Call in the Event Dispatching Thread.
+			SwingUtilities.invokeLater(() -> {
+				try {
+					Document doc = chatBox.getDocument();
+					doc.insertString(doc.getLength(), s + "\n", null);
+				} catch (BadLocationException ble) {
+					;// XXX how to handle?
+				}
+			});
 		}
-		});
-	}
 	
-	@Override
-	public void reset() {
-	}
+		@Override
+		public void reset() {}
 	}
 	
 	public class PlayerDisp implements Displayer {
 	
-	@Override
-	public synchronized void show(String s) {
-		SwingUtilities.invokeLater(() -> {
-			try {
-				Document doc = playerList.getDocument();
-				doc.insertString(doc.getLength(), s + "\n", null);
-			} catch (BadLocationException ble) {
-				;// XXX how to handle?
-			}
-		});
-	}
+		@Override
+		public synchronized void show(String s) {
+			SwingUtilities.invokeLater(() -> {
+				try {
+					Document doc = playerList.getDocument();
+					doc.insertString(doc.getLength(), s + "\n", null);
+				} catch (BadLocationException ble) {
+					;// XXX how to handle?
+				}
+			});
+		}
 	
-	@Override
-	public synchronized void reset() {
-		SwingUtilities.invokeLater(() -> {
-			playerList.setDocument(new DefaultStyledDocument());
-		});
-	}
+		@Override
+		public synchronized void reset() {
+			SwingUtilities.invokeLater(() -> {
+				playerList.setDocument(new DefaultStyledDocument());
+			});
+		}
 	}
 	
 	public class PieceDisp implements Displayer {
