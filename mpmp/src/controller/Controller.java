@@ -37,7 +37,7 @@ public class Controller {
 
 	Player.reset();
 	PlotGroup.init();
-	
+
 	((ChatUpdate) Cmd.ChatUpdate.getFn()).addDisplayer(frame.chatDisp);
 	((ClientlistUpdate) Cmd.ClientlistUpdate.getFn()).addDisplayer(frame.playerDisp);
 	((ShowTransaction) Cmd.AddMoney.getFn()).addDisplayer(frame.chatDisp);
@@ -86,14 +86,14 @@ public class Controller {
 	frame.addBuyHouseListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-		//conn.send("buy-house");
+		//conn.send("add-house " + Player.getPos();
 	    }
 	});
 
 	frame.addBuyPlotListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-		//conn.send("buy-plot");
+		//conn.send("buy-plot " + Player.getPos());
 	    }
 	});
 
@@ -103,12 +103,20 @@ public class Controller {
 		conn.send("ragequit");
 	    }
 	});
-	
+
 	frame.addStartGameListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
 		conn.send("start-game");
+		frame.updateMyPlayerText(Player.search(name));
 		frame.removeStartGameButton();
+	    }
+	});
+
+	frame.addUpdatePlayerListener(new ActionListener() {
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+		frame.updateMyPlayerText(Player.search(name));
 	    }
 	});
     }
