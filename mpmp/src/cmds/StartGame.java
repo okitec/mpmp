@@ -17,7 +17,7 @@ public class StartGame implements CmdFunc {
 	public void exec(String line, Conn conn) {
 		GameState.startGame();
 		
-		ArrayList<Player> players = Player.getPlayers();
+		ArrayList<Player> players = Player.getRealPlayers();
 		Random r = new Random();
 		Player p = players.get(r.nextInt(players.size()));
 		

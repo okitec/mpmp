@@ -300,6 +300,17 @@ public class Player {
     public static ArrayList<Player> getPlayers() {
 	return players;
     }
+	
+	/**
+	 * Get the players who actually play the game. 
+	 */
+	public static ArrayList<Player> getRealPlayers() {
+		ArrayList<Player> al = new ArrayList();
+		for (Player p : players)
+			if (p.isPlayer())
+				al.add(p);
+		return al;
+	}
 
     /**
      * Decode a HTML-style RGB hex triplet (#00AABB).

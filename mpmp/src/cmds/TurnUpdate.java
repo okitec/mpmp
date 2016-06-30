@@ -19,7 +19,6 @@ public class TurnUpdate implements CmdFunc {
 		String[] args = line.split(" ");
 		int sum, pasch;
 		Player p;
-		ArrayList<Player> players  = Player.getPlayers();
 		int i;
 		
 		if (args.length < 4) {

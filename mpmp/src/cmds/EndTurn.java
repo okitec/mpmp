@@ -23,7 +23,7 @@ public class EndTurn implements CmdFunc {
 	public void exec(String line, Conn conn) {
 		//check if plot was bought, if not -> auction
 		Player last = Player.getCurrentPlayer();
-		ArrayList<Player> players = Player.getPlayers();
+		ArrayList<Player> players = Player.getRealPlayers();
 		Player next = players.get((players.indexOf(last)+1) % players.size());
 		System.out.println("next Player: " + next);
 		
