@@ -13,35 +13,36 @@ import java.util.Iterator;
  */
 public class Player {
 
-	// XXX move to a new file of constants?
-	private static final int StartCash = 30000; // XXX value
-	private static final int Wage = 4000;  // XXX value
-	private static final int IncomeTax = 4000;  // XXX value
-	private static final int ExtraTax = 2000;  // XXX value
-	public static final int UnjailFee = 1000;
-	private static Player currentPlayer;
+    // XXX move to a new file of constants?
+    private static final int StartCash = 30000; // XXX value
+    private static final int Wage = 4000;  // XXX value
+    private static final int IncomeTax = 4000;  // XXX value
+    private static final int ExtraTax = 2000;  // XXX value
+    public static final int UnjailFee = 1000;
+    private static Player currentPlayer;
 
-	public enum Mode {
-		Spectator, Player
-	}
+    public enum Mode {
 
-	/* common to spectators and players */
-	private String name;
-	private Color color;
-	private Mode mode;
-	private static ArrayList<Player> players;
+	Spectator, Player
+    }
 
-	/* only active players */
-	private HashSet<Plot> plots;
-	private HashSet<Plot> hypothecs;
-	private int cash;
-	/* actual liquid money */
-	private int hyp;
-	/* hypothec money */
-	private int pos;
-	/* 0 is start; counted clockwise */
-	private boolean inPrison;
-	private int unjails;
+    /* common to spectators and players */
+    private String name;
+    private Color color;
+    private Mode mode;
+    private static ArrayList<Player> players;
+
+    /* only active players */
+    private HashSet<Plot> plots;
+    private HashSet<Plot> hypothecs;
+    private int cash;
+    /* actual liquid money */
+    private int hyp;
+    /* hypothec money */
+    private int pos;
+    /* 0 is start; counted clockwise */
+    private boolean inPrison;
+    private int unjails;
 
     /* number of unjail cards */
     public Player(Color color, Mode mode, String name) {
@@ -51,14 +52,14 @@ public class Player {
 
 	synchronized (players) {
 	    players.add(this);
-		
-				if (mode == Mode.Player) {
-			plots = new HashSet<>();
-			hypothecs = new HashSet<>();
-			pos = 0;
-			cash = StartCash;
-			hyp = 0;
-		}
+
+	    if (mode == Mode.Player) {
+		plots = new HashSet<>();
+		hypothecs = new HashSet<>();
+		pos = 0;
+		cash = StartCash;
+		hyp = 0;
+	    }
 	}
 
 	if (mode == Mode.Player) {
@@ -89,8 +90,8 @@ public class Player {
     public String getPlots() {
 	return plots.toString();
     }
-      
-    public boolean isInJail(){
+
+    public boolean isInJail() {
 	return inPrison;
     }
 
@@ -116,14 +117,6 @@ public class Player {
 	/* Sum is often negative. Have we positive money if we add sum? */
 	if (cash + hyp + sum < 0) {
 	    return false;
-	}
-	
-	public static Player getCurrentPlayer() {
-		return currentPlayer;
-	}
-	
-	public static void setCurrentPlayer(Player p) {
-		currentPlayer = p;
 	}
 
 	cash += sum;
@@ -297,15 +290,15 @@ public class Player {
      * Reset the player table. Called on start. In the client, this is also called when a
      * clientlist-update comes in.
      */
-	public static void reset() {
-		players = new ArrayList<>();
-	}
+    public static void reset() {
+	players = new ArrayList<>();
+    }
 
     /**
      * Get the player table. XXX abstraction
      */
-	public static ArrayList<Player> getPlayers() {
-		return players;
+    public static ArrayList<Player> getPlayers() {
+	return players;
     }
 
     /**
@@ -321,6 +314,14 @@ public class Player {
 
     public static int numPlayers() {
 	return players.size();
+    }
+
+    public static Player getCurrentPlayer() {
+	return currentPlayer;
+    }
+
+    public static void setCurrentPlayer(Player p) {
+	currentPlayer = p;
     }
 
     public static String matches(String name, boolean at) {
