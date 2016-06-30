@@ -61,14 +61,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
 	private Converter converter;
 
-	public static void main(String args[]) {
-	java.awt.EventQueue.invokeLater(new Runnable() {
-		public void run() {
-			new Frame(null);
-		}
-	});
-	}
-
 	public Frame(Model m) {
 		this.m = m;
 		chatDisp = new ChatDisp();
