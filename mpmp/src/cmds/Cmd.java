@@ -32,7 +32,8 @@ public enum Cmd {
 	PlotUpdate("plot-update", new cmds.PlotUpdate()),
 	Prison("prison", new cmds.Prison()),
 	PosUpdate("pos-update", new cmds.PosUpdate()),
-	MoneyUpdate("money-update", new cmds.MoneyUpdate());
+	MoneyUpdate("money-update", new cmds.MoneyUpdate()),
+	TurnUpdate("turn-update", new cmds.TurnUpdate());
 
 	private final String s;
 	private final CmdFunc fn;
