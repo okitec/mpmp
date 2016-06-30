@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -18,6 +19,7 @@ public class Player {
 	private static final int IncomeTax = 2000;  // XXX value
 	private static final int ExtraTax = 8000;  // XXX value
 	public static final int UnjailFee = 1000;
+	private static Player currentPlayer;
 
 	public enum Mode {
 		Spectator, Player
@@ -27,7 +29,7 @@ public class Player {
 	private String name;
 	private Color color;
 	private Mode mode;
-	private static HashSet<Player> players;
+	private static ArrayList<Player> players;
 
 	/* only active players */
 	private HashSet<Plot> plots;
@@ -71,6 +73,14 @@ public class Player {
 
 	public int getPos() {
 		return pos;
+	}
+	
+	public static Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+	
+	public static void setCurrentPlayer(Player p) {
+		currentPlayer = p;
 	}
 
 	public String toString() {
@@ -269,13 +279,13 @@ public class Player {
 	 * in.
 	 */
 	public static void reset() {
-		players = new HashSet<>();
+		players = new ArrayList<>();
 	}
 
 	/**
 	 * Get the player table. XXX abstraction
 	 */
-	public static HashSet<Player> getPlayers() {
+	public static ArrayList<Player> getPlayers() {
 		return players;
 	}
 
