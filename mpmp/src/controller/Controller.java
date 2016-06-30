@@ -19,6 +19,7 @@ import cmds.Cmd;
 import cmds.ChatUpdate;
 import cmds.ClientlistUpdate;
 import cmds.Subscribe;
+import cmds.TurnUpdate;
 import main.Conn;
 import view.Frame;
 
@@ -40,6 +41,7 @@ public class Controller {
 	((ChatUpdate) Cmd.ChatUpdate.getFn()).addDisplayer(frame.chatDisp);
 	((ClientlistUpdate) Cmd.ClientlistUpdate.getFn()).addDisplayer(frame.playerDisp);
 	((ShowTransaction) Cmd.AddMoney.getFn()).addDisplayer(frame.chatDisp);
+	((TurnUpdate) Cmd.TurnUpdate.getFn()).addDisplayer(frame.chatDisp);
 	((Subscribe) Cmd.Subscribe.getFn()).addSubscribeErrer(frame);
 
 	new Thread(() -> {
