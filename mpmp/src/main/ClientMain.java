@@ -9,14 +9,17 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 
 import controller.Controller;
+import model.Card;
 
 /**
  *
  * @author oki, Leander
  */
 public class ClientMain {
-	public static void clientmain(String[] args) {
+	public static void clientmain(String[] args) throws IOException {
 		Controller c;
+
+		Card.init();
 
 		if(args.length < 5)
 			usage();

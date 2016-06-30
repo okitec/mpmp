@@ -2,7 +2,6 @@ package model;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Random;
 
 /**
@@ -31,11 +30,11 @@ public class Card {
 
 	public void run(Player p) {
 		String command;
-		/*
-		for (int i = 0; i < 2; i++) {
+
+		for (String a : actions) {
 			//split the string into command and value
-			if (actions[i].contains(" ")) {
-				String[] parts = actions[i].split(" ");
+			if (a.contains(" ")) {
+				String[] parts = a.split(" ");
 				command = parts[0];
 				String parameter = parts[1];
 				//executes the comands with the read parameters
@@ -58,7 +57,7 @@ public class Card {
 			if (command.equals("addUnjailCard")) {
 				p.addUnjailCard();
 			}
-		}*/
+		}
 	}
 
 	public static Card getRandomCard(boolean eventcards) {

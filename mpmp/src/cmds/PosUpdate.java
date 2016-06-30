@@ -36,9 +36,9 @@ public class PosUpdate implements CmdFunc {
 			conn.sendErr(ErrCode.NoSuchPlayer);
 			return;
 		}
-		
+		System.out.println("->pos-update " + pos + " " + p.getName());
 		p.teleport(pos, false);
-		d.show("");
+		d.reset();
 	}
 
 	@Override
