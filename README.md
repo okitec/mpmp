@@ -3,8 +3,9 @@ mpmp - Multiplayer Monopoly
 
 *A version of Monopoly, situated in the Weimar republic. This is a German school project.*
 
-As of now, `mpmp` doesn't fulfill its purpose, but it is a full chat client and server.
-There are lots of SVG graphics and a PNG of the game board in the subdirectories of `graphics/`.
+Many gameplay features of mpmp only exist in the server; the client doesn't provide an interface
+to all the functionality. The protocol will be redesigned slightly to cope with some plot-buying
+issues. There are lots of SVG graphics and a PNG of the game board in the subdirectories of `graphics/`.
 
 Installation
 ------------
@@ -14,14 +15,16 @@ Get hold of mpmp by cloning this repo or by downloading the .zip via GitHub.
 	git clone https://github.com/leletec/mpmp.git
 
 There are two projects: `mpmp-launcher` and `mpmp`. We use NetBeans, but there is a script
-for Plan 9's `rc` shell that can generate `mpmp.jar` and `mpmp-launcher.jar`automagically.
-Adapting it to anyother shell should be trivial.
+for Plan 9's `rc` shell that can generate `mpmp.jar` and `mpmp-launcher.jar` automagically.
+Adapting it to any other shell should be trivial. If you choose to use NetBeans, fix the
+library resolve problem `mpmp` has by adding all the jars in `lib/` to a library.
 
 How to run it
 -------------
 
-Execute the launcher to either host a game or join one. On Windows, click the jar file to
-execute it. On other systems, type:
+All parts of `mpmp` require access to the `graphics/` directory at runtime, so the jars must
+be run in the main directory. Execute the launcher to either host a game or join one. On Windows,
+click the jar file to execute it. On other systems, type:
 
 	java -jar mpmp-launcher.jar
 
@@ -34,4 +37,6 @@ or server depending on the first argument.
 What can it do?
 ---------------
 
-`mpmp` implements all the chatting functionality in client and server, but not much more.
+`mpmp` implements chatting, a scalable gameboard with player pieces being drawn scaled
+as well, and internally implements large parts of the protocol. A *proper* game flow is
+impossible at this point.
