@@ -3,6 +3,7 @@
  */
 package main;
 
+import java.io.IOException;
 import static main.ClientMain.clientmain;
 import static main.SrvMain.srvmain;
 
@@ -12,7 +13,7 @@ import static main.SrvMain.srvmain;
  * @author Leander, oki
  */
 public class Main {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		if(args.length < 1)
 			usage();
 

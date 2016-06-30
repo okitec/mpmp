@@ -3,6 +3,7 @@ package main;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import model.Card;
 
 import model.Player;
 import model.PlotGroup;
@@ -13,11 +14,12 @@ import model.PlotGroup;
  * @author Leander, oki
  */
 public class SrvMain {
-	public static void srvmain(String[] args) {
+	public static void srvmain(String[] args) throws IOException {
 		ServerSocket listener;
 		Client.reset();
 		Player.reset();
 		PlotGroup.init();
+		Card.init();
 
 		try {
 			listener = new ServerSocket(1918);
