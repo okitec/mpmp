@@ -10,7 +10,6 @@ import model.Player;
  * @author Leander
  */
 public class PosUpdate implements CmdFunc {
-
 	@Override
 	public void exec(String line, Conn conn) {
 		String[] args = line.split(" ");

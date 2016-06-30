@@ -31,6 +31,7 @@ import javax.swing.text.Document;
 import javax.swing.SwingUtilities;
 import main.ErrCode;
 import model.Model;
+import model.Player;
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
 import org.apache.batik.swing.JSVGCanvas;
 import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
@@ -111,6 +112,8 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 					System.out.println("Resized");
 					gameboard.invalidate();
 					getCurrentZoom();
+
+					redrawPlayers();
 				}
 			});
 		} catch (FontFormatException | IOException e) {
@@ -181,6 +184,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 			@Override
 			public void componentResized(ComponentEvent e) {
 				gameboard.invalidate();
+				redrawPlayers();
 			}
 		});
 	
@@ -244,13 +248,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	}
 
 	public void addStartGameListener(ActionListener al) {
-		//startGame.addActionListener(al);
-		startGame.addActionListener((ActionEvent e) -> {
-			drawPiece(Color.RED, 0);
-			drawPiece(Color.GREEN, 36);
-			drawPiece(Color.YELLOW, 17);
-			drawPiece(Color.BLUE, 20);
-		});
+		startGame.addActionListener(al);
 	}
 
 	public void removeStartGameButton() {
@@ -263,18 +261,20 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		System.exit(0);
 	}
 
-	public void drawPiece(Color c, int pos) {
+	/**
+	 *	Draw a player piece.
+	 */
+	public void drawPlayer(Player p) {
 		Graphics g;
 		double scale;
 		int rOuter = 15;
 		int rInner = 12;
 
-		pos %= model.Field.Nfields;
 		scale = gameboard.getSVGDocument().getRootElement().getCurrentScale();
 		g = gameboard.getGraphics();
 
 
-		Point pt = converter.middleRelPx(pos);
+		Point pt = converter.middleRelPx(p.getPos());
 		// 0.258: scale transform set in the gameboard SVG internally
 		pt.x *= 0.258 * scale;
 		pt.y *= 0.258 * scale;
@@ -283,8 +283,16 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
 		g.setColor(Color.BLACK);
 		g.fillOval(pt.x - rOuter, pt.y - rOuter, 2 * rOuter, 2 * rOuter);
-		g.setColor(c);
+		g.setColor(p.getColor());
 		g.fillOval(pt.x - rInner, pt.y - rInner, 2 * rInner, 2 * rInner);
+	}
+
+	/**
+	 * Redraw all the players.
+	 */
+	public void redrawPlayers() {
+		for(Player p: Player.getPlayers())
+			drawPlayer(p);
 	}
 
 	public class ChatDisp implements Displayer {
