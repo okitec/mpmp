@@ -33,7 +33,7 @@ public class EndTurn implements CmdFunc {
 			Client.broadcast("turn-update " + 0 + " " + dr.getPaschs() + " " + next.getName());
 			Client.broadcast("pos-update " + Field.Prison + " " + next.getName());
 		} else {
-			next.teleport(dr.getSum(), true);
+			next.move(dr.getSum());
 			Client.broadcast("turn-update " + dr.getSum() + " " + dr.getPaschs() + " " + next.getName());
 			Client.broadcast("pos-update " + next.getPos() + " " + next.getName());
 		}
