@@ -120,6 +120,7 @@ Anwesend: *oki*, Leander, Klaus, Daniel, Oskar, Simon
  - Oskar versucht, in einem Testprojekt Soundeffekte abzuspielen.
  - Leander, Simon und oki bringen den Client weiter, sodass er Chat senden und
    empfangen kann. Auch das Subscriben beim Programmstart wurde umgesetzt.
+ - Matthias arbeitet an einem Code zum Auslesen und verarbeiten der Gesellschafts- und Ereigniskarten.
 
 Sitzung am 13.06.2016
 ---------------------
