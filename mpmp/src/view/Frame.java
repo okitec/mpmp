@@ -29,7 +29,6 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Document;
 import javax.swing.SwingUtilities;
-import main.ErrCode;
 import model.Model;
 import model.Player;
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
@@ -39,42 +38,43 @@ import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
 import org.apache.batik.util.XMLResourceDescriptor;
 
 public class Frame extends JFrame implements Subscribe.SubscribeErrer {
+
 	public final ChatDisp chatDisp;
 	public final PlayerDisp playerDisp;
 	public final PieceDisp pieceDisp;
 	private Model m;
-	private JPanel left;
-	private JPanel chat;
-	private JPanel bottom;
-	private JPanel currentPlayer;
-	private JPanel bottomMenu;
-	private JButton updatePlayer;
-	private JButton trade;
-	private JButton buyHouse;
-	private JButton buyPlot;
-	private JButton surrender;
-	private JButton startGame;
-	private JTextField chatField;
-	private JTextPane chatBox;
-	private JTextPane playerList;
-	private JLabel LmP;
-	private JLabel LmPMoney;
-	private JLabel LmPPlots;
+	private JPanel pLeft;
+	private JPanel pChat;
+	private JPanel pBottom;
+	private JPanel pCurrentPlayer;
+	private JPanel pBottomMenu;
+	private JButton bUpdatePlayer;
+	private JButton bTrade;
+	private JButton bBuyHouse;
+	private JButton bBuyPlot;
+	private JButton bSurrender;
+	private JButton bStartGame;
+	private JTextField tChatField;
+	private JTextPane tChatBox;
+	private JTextPane tPlayerList;
+	private JLabel lmP;
+	private JLabel lmPMoney;
+	private JLabel lmPPlots;
 	private JButton bEndTurn;
 	private JSVGCanvas gameboard;
 	private org.w3c.dom.Document doc;
 	private Font fo;
 	private Player cP;
 	private Converter converter;
-	
+
 	public static void main(String args[]) {
-	java.awt.EventQueue.invokeLater(new Runnable() {
-		public void run() {
-			new Frame(null);
-		}
-	});
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new Frame(null);
+			}
+		});
 	}
-	
+
 	public Frame(Model m) {
 		this.m = m;
 		chatDisp = new ChatDisp();
@@ -103,7 +103,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 			SAXSVGDocumentFactory f = new SAXSVGDocumentFactory(parser);
 			String uri = new File("graphics/svg/gameboard.svg").toURI().toString();
 			doc = f.createDocument(uri);
-			
+
 			gameboard.setBackground(new Color(0, 0, 0, 0));
 			gameboard.setFont(fo);
 			gameboard.setDocument(doc);
@@ -111,83 +111,83 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 			gameboard.setEnableRotateInteractor(false);
 			gameboard.setEnableResetTransformInteractor(true);
 			gameboard.addGVTTreeRendererListener(new GVTTreeRendererAdapter() {
-			public void gvtRenderingPrepare(GVTTreeRendererEvent e) {
-				setTitle("MPMP - Loading...");
-			}
-			
-			public void gvtRenderingCompleted(GVTTreeRendererEvent e) {
-				setTitle("MPMP");
-				System.out.println("Resized");
-				gameboard.invalidate();
-				getCurrentZoom();
-				
-				redrawPlayers();
-			}
+				public void gvtRenderingPrepare(GVTTreeRendererEvent e) {
+					setTitle("MPMP - Loading...");
+				}
+
+				public void gvtRenderingCompleted(GVTTreeRendererEvent e) {
+					setTitle("MPMP");
+					System.out.println("Resized");
+					gameboard.invalidate();
+					getCurrentZoom();
+
+					redrawPlayers();
+				}
 			});
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}
-	
+
 		//Set all layouts
 		setLayout(new BorderLayout());
-		left = new JPanel();
-		chat = new JPanel();
-		bottom = new JPanel();
-		bottomMenu = new JPanel();
-		currentPlayer = new JPanel();
-		
-		left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
-		chat.setLayout(new BoxLayout(chat, BoxLayout.Y_AXIS));
-		bottom.setLayout(new BoxLayout(bottom, BoxLayout.X_AXIS));
-		bottomMenu.setLayout(new BoxLayout(bottomMenu, BoxLayout.Y_AXIS));
-		currentPlayer.setLayout(new BoxLayout(currentPlayer, BoxLayout.Y_AXIS));
-		
-		trade = new JButton("Tauschen");
-		buyHouse = new JButton("Haus kaufen");
-		buyPlot = new JButton("Straße kaufen");
-		surrender = new JButton("Aufgeben");
+		pLeft = new JPanel();
+		pChat = new JPanel();
+		pBottom = new JPanel();
+		pBottomMenu = new JPanel();
+		pCurrentPlayer = new JPanel();
+
+		pLeft.setLayout(new BoxLayout(pLeft, BoxLayout.Y_AXIS));
+		pChat.setLayout(new BoxLayout(pChat, BoxLayout.Y_AXIS));
+		pBottom.setLayout(new BoxLayout(pBottom, BoxLayout.X_AXIS));
+		pBottomMenu.setLayout(new BoxLayout(pBottomMenu, BoxLayout.Y_AXIS));
+		pCurrentPlayer.setLayout(new BoxLayout(pCurrentPlayer, BoxLayout.Y_AXIS));
+
+		bTrade = new JButton("Tauschen");
+		bBuyHouse = new JButton("Haus kaufen");
+		bBuyPlot = new JButton("Straße kaufen");
+		bSurrender = new JButton("Aufgeben");
 		bEndTurn = new JButton("Runde beenden");
-		startGame = new JButton("Spiel starten");
-		updatePlayer = new JButton("Update Spieler");
-		updatePlayer.setVisible(false);
-		
-		LmP = new JLabel();
-		LmPMoney = new JLabel();
-		LmPPlots = new JLabel();
-		
-		playerList = new JTextPane();
-		playerList.setEditable(false);
-		
-		chatBox = new JTextPane();
-		chatBox.setEditable(false);
-		
-		chatField = new JTextField();
-		chatField.requestFocus(true);
-		chatField.setSelectionColor(Color.pink);
-		
-		left.add(new JLabel("Spieler:"));
-		left.add(playerList);
-		chat.add(updatePlayer);
-		chat.add(startGame);
-		chat.add(chatBox);
-		chat.add(chatField);
-		chat.add(bEndTurn);
-	
+		bStartGame = new JButton("Spiel starten");
+		bUpdatePlayer = new JButton("Update Spieler");
+		bUpdatePlayer.setVisible(false);
+
+		lmP = new JLabel();
+		lmPMoney = new JLabel();
+		lmPPlots = new JLabel();
+
+		tPlayerList = new JTextPane();
+		tPlayerList.setEditable(false);
+
+		tChatBox = new JTextPane();
+		tChatBox.setEditable(false);
+
+		tChatField = new JTextField();
+		tChatField.requestFocus(true);
+		tChatField.setSelectionColor(Color.pink);
+
+		pLeft.add(new JLabel("Spieler:"));
+		pLeft.add(tPlayerList);
+		pChat.add(bUpdatePlayer);
+		pChat.add(bStartGame);
+		pChat.add(tChatBox);
+		pChat.add(tChatField);
+		pChat.add(bEndTurn);
+
 		//Real stuff cP = current Player
 		//Player cP = new Player();
-		currentPlayer.add(new JLabel("Aktueller Spieler"));
-		currentPlayer.add(LmP);
-		currentPlayer.add(LmPMoney);
-		currentPlayer.add(LmPPlots);
-		
-		bottomMenu.add(trade);
-		bottomMenu.add(buyHouse);
-		bottomMenu.add(buyPlot);
-		bottomMenu.add(surrender);
-		bottom.add(bottomMenu);
-		bottom.add(new JLabel("        "));
-		bottom.add(currentPlayer);
-		
+		pCurrentPlayer.add(new JLabel("Aktueller Spieler"));
+		pCurrentPlayer.add(lmP);
+		pCurrentPlayer.add(lmPMoney);
+		pCurrentPlayer.add(lmPPlots);
+
+		pBottomMenu.add(bTrade);
+		pBottomMenu.add(bBuyHouse);
+		pBottomMenu.add(bBuyPlot);
+		pBottomMenu.add(bSurrender);
+		pBottom.add(pBottomMenu);
+		pBottom.add(new JLabel("        "));
+		pBottom.add(pCurrentPlayer);
+
 		this.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {
@@ -195,11 +195,11 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 				redrawPlayers();
 			}
 		});
-		
+
 		add(gameboard, BorderLayout.CENTER);
-		add(left, BorderLayout.WEST);
-		add(chat, BorderLayout.EAST);
-		add(bottom, BorderLayout.SOUTH);
+		add(pLeft, BorderLayout.WEST);
+		add(pChat, BorderLayout.EAST);
+		add(pBottom, BorderLayout.SOUTH);
 		setVisible(true);
 
 		/*
@@ -208,65 +208,65 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		 */
 		pack();
 	}
-	
+
 	public void addChatListener(KeyAdapter k) {
-		chatField.addKeyListener(k);
+		tChatField.addKeyListener(k);
 	}
-	
+
 	public String getChat() {
-		String chat = chatField.getText();
-		chatField.setText("");
+		String chat = tChatField.getText();
+		tChatField.setText("");
 		return chat;
 	}
-	
+
 	public void addEndTurnListener(ActionListener al) {
 		System.out.println("Runde beendet.");
 		bEndTurn.addActionListener(al);
 	}
-	
+
 	public void addTradeListener(ActionListener al) {
 		System.out.println("Tausch.");
-		trade.addActionListener(al);
+		bTrade.addActionListener(al);
 	}
-	
+
 	public void addBuyHouseListener(ActionListener al) {
 		System.out.println("Haus gekauft.");
-		buyHouse.addActionListener(al);
+		bBuyHouse.addActionListener(al);
 	}
-	
+
 	public void addBuyPlotListener(ActionListener al) {
 		System.out.println("Grundstück gekauft.");
-		buyPlot.addActionListener(al);
+		bBuyPlot.addActionListener(al);
 	}
-	
+
 	public void addSurrenderListener(ActionListener al) {
 		System.out.println("Aufgegeben.");
-		surrender.addActionListener(al);
+		bSurrender.addActionListener(al);
 	}
-	
+
 	public void addUpdatePlayerListener(ActionListener al) {
-		updatePlayer.addActionListener(al);
+		bUpdatePlayer.addActionListener(al);
 	}
-	
+
 	public double getCurrentZoom() {
 		System.out.println("Current zoom: " + gameboard.getSVGDocument().getRootElement().getCurrentScale() + "\nCurrent rotation: " + getCurrentRotation());
 		return gameboard.getSVGDocument().getRootElement().getCurrentScale();
 	}
-	
+
 	public double getCurrentRotation() {
 		System.out.println("Current Rotation: " + gameboard.getSVGDocument().getRootElement().getZoomAndPan());
 		return gameboard.getSVGDocument().getRootElement().getZoomAndPan();
 	}
-	
+
 	public void addStartGameListener(ActionListener al) {
-		startGame.addActionListener(al);
+		bStartGame.addActionListener(al);
 	}
-	
+
 	public void removeStartGameButton() {
-		startGame.setVisible(false);
-		updatePlayer.setVisible(true);
+		bStartGame.setVisible(false);
+		bUpdatePlayer.setVisible(true);
 	}
-	
+
 	@Override
 	public void subscribeErr() {
 		JOptionPane.showMessageDialog(this, "Name taken or running game!");
@@ -281,17 +281,17 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		double scale;
 		int rOuter = 15;
 		int rInner = 12;
-	
+
 		scale = gameboard.getSVGDocument().getRootElement().getCurrentScale();
 		g = gameboard.getGraphics();
-	
+
 		Point pt = converter.middleRelPx(p.getPos());
 		// 0.258: scale transform set in the gameboard SVG internally
 		pt.x *= 0.258 * scale;
 		pt.y *= 0.258 * scale;
 		rOuter *= scale;
 		rInner *= scale;
-	
+
 		g.setColor(Color.BLACK);
 		g.fillOval(pt.x - rOuter, pt.y - rOuter, 2 * rOuter, 2 * rOuter);
 		g.setColor(p.getColor());
@@ -306,61 +306,65 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 			drawPlayer(p);
 		}
 	}
-	
+
 	public void updateMyPlayerText(Player p) {
 		if (p.isInJail()) {
-			LmP.setText(p.getName() + "(Im Gefängnis) (Farbe: " + p.getColor() + ")");
+			lmP.setText(p.getName() + "(Im Gefängnis) (Farbe: " + p.getColor() + ")");
 		} else {
-			LmP.setText(p.getName());
+			lmP.setText(p.getName());
 		}
-	
-		LmPMoney.setText("RM " + p.getMoney());
-		LmPPlots.setText("Gekaufte Grundstücke: " + p.getPlots());
+
+		lmPMoney.setText("RM " + p.getMoney());
+		lmPPlots.setText("Gekaufte Grundstücke: " + p.getPlots());
 	}
-	
+
 	public class ChatDisp implements Displayer {
+
 		@Override
 		public synchronized void show(String s) {
 			// Call in the Event Dispatching Thread.
 			SwingUtilities.invokeLater(() -> {
 				try {
-					Document doc = chatBox.getDocument();
+					Document doc = tChatBox.getDocument();
 					doc.insertString(doc.getLength(), s + "\n", null);
 				} catch (BadLocationException ble) {
 					;// XXX how to handle?
 				}
 			});
 		}
-	
+
 		@Override
-		public void reset() {}
+		public void reset() {
+		}
 	}
-	
+
 	public class PlayerDisp implements Displayer {
-	
+
 		@Override
 		public synchronized void show(String s) {
 			SwingUtilities.invokeLater(() -> {
 				try {
-					Document doc = playerList.getDocument();
+					Document doc = tPlayerList.getDocument();
 					doc.insertString(doc.getLength(), s + "\n", null);
 				} catch (BadLocationException ble) {
 					;// XXX how to handle?
 				}
 			});
 		}
-	
+
 		@Override
 		public synchronized void reset() {
 			SwingUtilities.invokeLater(() -> {
-				playerList.setDocument(new DefaultStyledDocument());
+				tPlayerList.setDocument(new DefaultStyledDocument());
 			});
 		}
 	}
-	
+
 	public class PieceDisp implements Displayer {
+
 		@Override
-		public void show(String s) {}
+		public void show(String s) {
+		}
 
 		@Override
 		public void reset() {
