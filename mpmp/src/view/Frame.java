@@ -323,8 +323,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	 * Redraw all the players.
 	 */
 	public void redrawPlayers() {
-		gameboard.validate();
-
 		for (Player p : Player.getPlayers()) {
 			drawPlayer(p);
 		}
