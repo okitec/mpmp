@@ -31,6 +31,7 @@ public class Card {
 
 	public void run(Player p) {
 		String command;
+		/*
 		for (int i = 0; i < 2; i++) {
 			//split the string into command and value
 			if (actions[i].contains(" ")) {
@@ -57,7 +58,7 @@ public class Card {
 			if (command.equals("addUnjailCard")) {
 				p.addUnjailCard();
 			}
-		}
+		}*/
 	}
 
 	public static Card getRandomCard(boolean eventcards) {

@@ -42,6 +42,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
     
     public final ChatDisp chatDisp;
     public final PlayerDisp playerDisp;
+	public final PieceDisp pieceDisp;
     private Model m;
     private JPanel left;
     private JPanel chat;
@@ -79,6 +80,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	this.m = m;
 	chatDisp = new ChatDisp();
 	playerDisp = new PlayerDisp();
+	pieceDisp = new PieceDisp();
 	converter = new Converter(304, 506);      // XXX magic: original unresized wfld, hfld
 	setMinimumSize(new Dimension(200, 200));
 	setPreferredSize(new Dimension(800, 800));
@@ -359,4 +361,16 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	    });
 	}
     }
+	
+	public class PieceDisp implements Displayer {
+		@Override
+		public void show(String s) {}
+
+		@Override
+		public void reset() {
+			SwingUtilities.invokeLater(() -> {
+				redrawPlayers();
+			});
+		}
+	}
 }

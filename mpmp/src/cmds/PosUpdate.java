@@ -4,12 +4,15 @@ import java.util.Arrays;
 import main.Conn;
 import main.ErrCode;
 import model.Player;
+import view.Displayer;
 
 /**
  * S->C
  * @author Leander
  */
 public class PosUpdate implements CmdFunc {
+	private Displayer d;
+
 	@Override
 	public void exec(String line, Conn conn) {
 		String[] args = line.split(" ");
@@ -35,11 +38,15 @@ public class PosUpdate implements CmdFunc {
 		}
 		
 		p.teleport(pos, false);
+		d.show("");
 	}
 
 	@Override
 	public void error(ErrCode err, String line, Conn conn) {
 		//TODO
 	}
-	
+
+	public void addDisplayer(Displayer d) {
+		this.d = d;
+	}
 }
