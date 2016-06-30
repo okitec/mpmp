@@ -69,6 +69,10 @@ public class Player {
 		return color;
 	}
 
+	public int getPos() {
+		return pos;
+	}
+
 	public String toString() {
 		// Convert to hex triplet without alpha value and in uppercase.
 		String col = "#" + Integer.toHexString(color.getRGB()).substring(2).toUpperCase();
@@ -266,6 +270,13 @@ public class Player {
 	 */
 	public static void reset() {
 		players = new HashSet<>();
+	}
+
+	/**
+	 * Get the player table. XXX abstraction
+	 */
+	public static HashSet<Player> getPlayers() {
+		return players;
 	}
 
 	/**
