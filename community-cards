@@ -1,16 +1,16 @@
-Du wurdest dem Verrat gegen das Vaterland beschuldigt und kommst in U-Haft. Gehe in das Gefängnis! Begib dich direkt dorthin. Gehe nicht über Los. Ziehe nicht xRm ein.|prison
-Du kommst aus dem Gefängnis frei. Diese Karte musst du behalten, bis du sie benötigst oder verkaufst.|addUnjailCard
-Du machst einen Rundflug auf der Dornier Do X das zu seiner Zeit größte jemals gebaute Flugzeug (40m Länge). Zahle 1000 RM.|addMoney -1000
-Du Erbst 4000 RM. Du musst aber einen Teil an den Staat abtreten du erhälst 3000 RM.|addMoney 3000
-Deine Kollegen mieten für eine Woche dein Waldhaus in Bayern. Du erhälst von jedem Spieler 200 RM.|collect 200
-Rückzahlung der Schulden deines Parteikumpanen Philipp Scheidemann. Du erhälst 2000 RM.|addMoney 2000
-Du bist politischer Spion. Du erhälst für deine Spionage Ergebnisse 3000 RM.|addMoney 3000 
-Zahle 500 RM für einen Opernbesuch.|addMoney -500
-Du bekommst Besuch aus dem Ausland und startest eine Rundreise. Gehe zurück zur Horst-Wessel-Strasse.|move 3
-Deine Schallplattenfirma startet voll durch. Du erhälst 2000 RM.|addMoney 2000
-Du machst eine Kulturreise. Rücke für bis zur Hindenburg-Strasse, wenn du über Los kommst ziehe 4000 RM ein.|move 34
-Du tätigst eine großzügige Spende für die Umbauten des Deutschen Nationaltheaters. Zahle 2000 RM.|addMoney -2000
+Du wurdest dem Verrat gegen das Vaterland beschuldigt und kommst in U-Haft. Gehe in das GefÃ¤ngnis! Begib dich direkt dorthin. Gehe nicht Ã¼ber Los. Ziehe nicht xRm ein.|prison
+Du kommst aus dem GefÃ¤ngnis frei. Diese Karte musst du behalten, bis du sie benÃ¶tigst oder verkaufst.|addUnjailCard
+Du machst einen Rundflug auf der Dornier Do X das zu seiner Zeit grÃ¶ÃŸte jemals gebaute Flugzeug (40m LÃ¤nge). Zahle 1000 RM.|addMoney -1000
+Du Erbst 4000 RM. Du musst aber einen Teil an den Staat abtreten du erhÃ¤ltst 3000 RM.|addMoney 3000
+Deine Kollegen mieten fÃ¼r eine Woche dein Waldhaus in Bayern. Du erhÃ¤ltst von jedem Spieler 200 RM.|collect 200
+RÃ¼ckzahlung der Schulden deines Parteikumpanen Philipp Scheidemann. Du erhÃ¤ltst 2000 RM.|addMoney 2000
+Du bist politischer Spion. Du erhÃ¤ltst fÃ¼r deine Spionage Ergebnisse 3000 RM.|addMoney 3000 
+Zahle 500 RM fÃ¼r einen Opernbesuch.|addMoney -500
+Du bekommst Besuch aus dem Ausland und startest eine Rundreise. Gehe zurÃ¼ck zur Horst-Wessel-Strasse.|move 3
+Deine Schallplattenfirma startet voll durch. Du erhÃ¤ltst 2000 RM.|addMoney 2000
+Du machst eine Kulturreise. RÃ¼cke fÃ¼r bis zur Hindenburg-Strasse, wenn du Ã¼ber Los kommst ziehe 4000 RM ein.|move 34
+Du tÃ¤tigst eine groÃŸzÃ¼gige Spende fÃ¼r die Umbauten des Deutschen Nationaltheaters. Zahle 2000 RM.|addMoney -2000
 Aufgrund der nach Reichsfinanzminister Matthias Erzbergerger benante Finanz und Steuerreform bekommst du einen Steuernachlass. Ziehe 3000 RM ein.|addMoney 3000
-Du verchartest deinen Zeppelin "Ferdinand". Du erhälst 4000 RM.|addMoney 4000
-Rücke vor bis auf Los!|move 0
-Der Rokokosaal in Weimar ist eines der beliebtesten Wahrzeichen in Weimar. Du erhälst 3000 RM.|addMoney 3000
+Du verchartest deinen Zeppelin "Ferdinand". Du erhÃ¤ltst 4000 RM.|addMoney 4000
+RÃ¼cke vor bis auf Los!|move 0
+Der Rokokosaal in Weimar ist eines der beliebtesten Wahrzeichen in Weimar. Du erhÃ¤ltst 3000 RM.|addMoney 3000
