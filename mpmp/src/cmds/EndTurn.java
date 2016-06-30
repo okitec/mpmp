@@ -24,7 +24,8 @@ public class EndTurn implements CmdFunc {
 		//check if plot was bought, if not -> auction
 		Player last = Player.getCurrentPlayer();
 		ArrayList<Player> players = Player.getPlayers();
-		Player next = players.get(players.indexOf(last)+1);
+		Player next = players.get(players.indexOf(last)+1 % players.size());
+		System.out.println("next Player: " + next);
 		
 		Diceroll dr = new Diceroll();
 		if(dr.getPaschs() >= 3) {
