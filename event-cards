@@ -1,11 +1,11 @@
-Du besuchst mehrere Vorlesungen, zahle Hörergeld 2000 RM.|addMoney 2000
-Das Eisenbahnnetz Deutschlands wird immer besser, nun kannst du dir eine Geschäftsreiße nach Berlin zur Rosenstrasse leisten.|move 31
-Rücke vor bis Bahnhof Emden-West, wen du über Los kommst ziehe 4000 RM ein.|move 5
-Du hast bei einer Lotterie der AWO gewonnen und erhältst 5000 RM.|addMoney 5000
-Deine Kunstsonderausstellung im Neues Museum Weimar ist ein Publikumsmagnet. Du erhältst 2000 RM.|addMoney 2000
-Du bist in den Hitlerputsch verwickelt. Gehe in das Gefängnis, gehe nicht über Los, zeihe nicht 4000 RM ein.|prison
+Du besuchst mehrere Vorlesungen, zahle HÃ¶rergeld 2000 RM.|addMoney 2000
+Das Eisenbahnnetz Deutschlands wird immer besser, nun kannst du dir eine GeschÃ¤ftsreise nach Berlin zur Rosenstrasse leisten.|move 31
+RÃ¼cke vor bis Bahnhof Emden-West, wen du Ã¼ber Los kommst ziehe 4000 RM ein.|move 5
+Du hast bei einer Lotterie der AWO gewonnen und erhÃ¤ltst 5000 RM.|addMoney 5000
+Deine Kunstsonderausstellung im Neuen Museum Weimar ist ein Publikumsmagnet. Du erhÃ¤ltst 2000 RM.|addMoney 2000
+Du bist in den Hitlerputsch verwickelt. Gehe in das GefÃ¤ngnis, gehe nicht Ã¼ber Los, ziehe nicht 4000 RM ein.|prison
 Heute wurde die Republik in Weimar ausgerufen. Ziehe 2000 RM zu deinen Gunsten ein.|addMoney 2000
 Du musst Reparationszahlungen leisten. Zahle 2000 RM.|addMoney -2000
-Rücke vor bis Philosophenweg. Wenn du über Los kommst ziehe 4000 RM ein.|move 27
+RÃ¼cke vor bis Philosophenweg. Wenn du Ã¼ber Los kommst ziehe 4000 RM ein.|move 27
 Deine Scheune muss erneuert werden zahle 2000 RM|addMoney -2000
-Du hast in der Weltwirtschaftskrise dein ganzes Vermögen verloren und kannst deine Schulden nicht begleichen. Gehe in das Gefängnis. Begib dich direkt dorthin. Gehe nicht über Los. Ziehe nicht 4000 RM ein.|prison
+Du hast in der Weltwirtschaftskrise dein ganzes VermÃ¶gen verloren und kannst deine Schulden nicht begleichen. Gehe in das GefÃ¤ngnis. Begib dich direkt dorthin. Gehe nicht Ã¼ber Los. Ziehe nicht 4000 RM ein.|prison
