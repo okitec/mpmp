@@ -36,7 +36,7 @@ public class Controller {
 
 	Player.reset();
 	PlotGroup.init();
-	
+
 	((ChatUpdate) Cmd.ChatUpdate.getFn()).addDisplayer(frame.chatDisp);
 	((ClientlistUpdate) Cmd.ClientlistUpdate.getFn()).addDisplayer(frame.playerDisp);
 	((ShowTransaction) Cmd.AddMoney.getFn()).addDisplayer(frame.chatDisp);
@@ -101,12 +101,20 @@ public class Controller {
 		conn.send("ragequit");
 	    }
 	});
-	
+
 	frame.addStartGameListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
 		conn.send("start-game");
+		frame.updatePlayerText(Player.search(name));
 		frame.removeStartGameButton();
+	    }
+	});
+
+	frame.addUpdatePlayerListener(new ActionListener() {
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+		frame.updatePlayerText(Player.search(name));
 	    }
 	});
     }
