@@ -57,9 +57,9 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
     private JTextField chatField;
     private JTextPane chatBox;
     private JTextPane playerList;
-    private JLabel LcP;
-    private JLabel LcPMoney;
-    private JLabel LcPPlots;
+    private JLabel LmP;
+    private JLabel LmPMoney;
+    private JLabel LmPPlots;
     private JButton bEndTurn;
     private JSVGCanvas gameboard;
     private org.w3c.dom.Document doc;
@@ -149,9 +149,9 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	updatePlayer = new JButton("Update Spieler");
 	updatePlayer.setVisible(false);
 	
-	LcP = new JLabel();
-	LcPMoney = new JLabel();
-	LcPPlots = new JLabel();
+	LmP = new JLabel();
+	LmPMoney = new JLabel();
+	LmPPlots = new JLabel();
 	
 	playerList = new JTextPane();
 	playerList.setEditable(false);
@@ -176,9 +176,9 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	//Real stuff cP = current Player
 	//Player cP = new Player();
 	currentPlayer.add(new JLabel("Aktueller Spieler"));
-	currentPlayer.add(LcP);
-	currentPlayer.add(LcPMoney);
-	currentPlayer.add(LcPPlots);
+	currentPlayer.add(LmP);
+	currentPlayer.add(LmPMoney);
+	currentPlayer.add(LmPPlots);
 	
 	bottomMenu.add(trade);
 	bottomMenu.add(buyHouse);
@@ -307,15 +307,15 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	}
     }
     
-    public void updatePlayerText(Player p) {
+    public void updateMyPlayerText(Player p) {
 	if (p.isInJail()) {
-	    LcP.setText(p.getName() + "(Im Gefängnis) (Farbe: " + p.getColor() + ")");
+	    LmP.setText(p.getName() + "(Im Gefängnis) (Farbe: " + p.getColor() + ")");
 	} else {
-	    LcP.setText(p.getName());
+	    LmP.setText(p.getName());
 	}
 	
-	LcPMoney.setText("RM " + p.getMoney());
-	LcPPlots.setText("Gekaufte Grundstücke: " + p.getPlots());
+	LmPMoney.setText("RM " + p.getMoney());
+	LmPPlots.setText("Gekaufte Grundstücke: " + p.getPlots());
     }
     
     public class ChatDisp implements Displayer {

@@ -80,7 +80,7 @@ public class Player {
     public String getPlots() {
 	return plots.toString();
     }
-    
+      
     public boolean isInJail(){
 	return inPrison;
     }

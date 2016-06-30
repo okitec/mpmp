@@ -84,14 +84,14 @@ public class Controller {
 	frame.addBuyHouseListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-		//conn.send("buy-house");
+		//conn.send("add-house " + Player.getPos();
 	    }
 	});
 
 	frame.addBuyPlotListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-		//conn.send("buy-plot");
+		//conn.send("buy-plot " + Player.getPos());
 	    }
 	});
 
@@ -106,7 +106,7 @@ public class Controller {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
 		conn.send("start-game");
-		frame.updatePlayerText(Player.search(name));
+		frame.updateMyPlayerText(Player.search(name));
 		frame.removeStartGameButton();
 	    }
 	});
@@ -114,7 +114,7 @@ public class Controller {
 	frame.addUpdatePlayerListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-		frame.updatePlayerText(Player.search(name));
+		frame.updateMyPlayerText(Player.search(name));
 	    }
 	});
     }
