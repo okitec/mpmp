@@ -8,6 +8,11 @@
 		return pos2xypx[pos];
 	}
 
+	public Point middleRelPx(int pos) {
+		Point p = cornerRelPx(pos);
+		return new Point((int) p.getX() + wfld/2, (int) p.getY() + hfld/2);
+	}
+
 	/**
 	 * mkpt takes a field in the left-handed coordinate system where (0|0) is at free parking
 	 * and returns the pixel of the upper left corner of the field relative to the gameboard origin. 
