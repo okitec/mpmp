@@ -1,18 +1,21 @@
 package view;
 
 import cmds.Subscribe;
-import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.ScrollPane;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
-import java.awt.Graphics;
-import java.awt.Point;
+import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -23,15 +26,18 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Document;
-import javax.swing.SwingUtilities;
 import model.Model;
 import model.Player;
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
+import org.apache.batik.bridge.UpdateManagerEvent;
+import org.apache.batik.bridge.UpdateManagerListener;
 import org.apache.batik.swing.JSVGCanvas;
 import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
@@ -61,11 +67,13 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	private JLabel lmPMoney;
 	private JLabel lmPPlots;
 	private JButton bEndTurn;
+	private ScrollPane sP;
 	private JSVGCanvas gameboard;
 	private org.w3c.dom.Document doc;
 	private Font fo;
 	private Player cP;
 	private Converter converter;
+	private Graphics g;
 
 	public static void main(String args[]) {
 		java.awt.EventQueue.invokeLater(new Runnable() {
@@ -110,6 +118,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 			gameboard.setRecenterOnResize(false);
 			gameboard.setEnableRotateInteractor(false);
 			gameboard.setEnableResetTransformInteractor(true);
+
 			gameboard.addGVTTreeRendererListener(new GVTTreeRendererAdapter() {
 				public void gvtRenderingPrepare(GVTTreeRendererEvent e) {
 					setTitle("MPMP - Loading...");
@@ -119,8 +128,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 					setTitle("MPMP");
 					System.out.println("Resized");
 					gameboard.invalidate();
-					getCurrentZoom();
-
+					System.out.println(gameboard.getComponents());
 					redrawPlayers();
 				}
 			});
@@ -160,6 +168,17 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
 		tChatBox = new JTextPane();
 		tChatBox.setEditable(false);
+		tChatBox.setMaximumSize(new Dimension(300, 500));
+		sP = new ScrollPane();
+		sP.setMaximumSize(new Dimension(300, 500));
+		sP.setSize(300, 500);
+		//http://stackoverflow.com/questions/2483572/making-a-jscrollpane-automatically-scroll-all-the-way-down
+		/*sP.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+			public void adjustmentValueChanged(AdjustmentEvent e) {
+				e.getAdjustable().setValue(e.getAdjustable().getMaximum());
+			}
+		});*/
+		sP.add(tChatBox);
 
 		tChatField = new JTextField();
 		tChatField.requestFocus(true);
@@ -169,7 +188,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		pLeft.add(tPlayerList);
 		pChat.add(bUpdatePlayer);
 		pChat.add(bStartGame);
-		pChat.add(tChatBox);
+		pChat.add(sP);
 		pChat.add(tChatField);
 		pChat.add(bEndTurn);
 
@@ -277,11 +296,11 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	 * Draw a player piece.
 	 */
 	public void drawPlayer(Player p) {
-		Graphics g;
 		double scale;
 		int rOuter = 15;
 		int rInner = 12;
 
+		AffineTransform aT = gameboard.getViewBoxTransform();
 		scale = gameboard.getSVGDocument().getRootElement().getCurrentScale();
 		g = gameboard.getGraphics();
 
@@ -289,6 +308,8 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		// 0.258: scale transform set in the gameboard SVG internally
 		pt.x *= 0.258 * scale;
 		pt.y *= 0.258 * scale;
+		pt.x += aT.getTranslateX();
+		pt.y += aT.getTranslateY();
 		rOuter *= scale;
 		rInner *= scale;
 
@@ -302,6 +323,8 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	 * Redraw all the players.
 	 */
 	public void redrawPlayers() {
+		gameboard.validate();
+
 		for (Player p : Player.getPlayers()) {
 			drawPlayer(p);
 		}
@@ -311,6 +334,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		if (p.isInJail()) {
 			lmP.setText(p.getName() + "(Im Gefängnis) (Farbe: " + p.getColor() + ")");
 		} else {
+			lmP.setForeground(p.getColor());
 			lmP.setText(p.getName());
 		}
 
