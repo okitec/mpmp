@@ -10,8 +10,6 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.ScrollPane;
 import java.awt.event.ActionListener;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
@@ -33,6 +31,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Document;
+import model.Gameboard;
 import model.Model;
 import model.Player;
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
@@ -68,8 +67,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	private JLabel lmPPlots;
 	private JButton bEndTurn;
 	private ScrollPane sP;
-	private JSVGCanvas gameboard;
-	private org.w3c.dom.Document doc;
+	private Gameboard gameboard;
 	private Font fo;
 	private Player cP;
 	private Converter converter;
@@ -101,40 +99,28 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		setTitle("MPMP");
 		setResizable(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gameboard = new JSVGCanvas();
+		gameboard = new Gameboard(this);
 
 		//Canvas-Stuff
 		try {
 			setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("graphics/background.png")))));
-			fo = Font.createFont(Font.TRUETYPE_FONT, new File("graphics/font/SourceSansPro-Light.ttf"));
-			String parser = XMLResourceDescriptor.getXMLParserClassName();
-			SAXSVGDocumentFactory f = new SAXSVGDocumentFactory(parser);
-			String uri = new File("graphics/svg/gameboard.svg").toURI().toString();
-			doc = f.createDocument(uri);
-
-			gameboard.setBackground(new Color(0, 0, 0, 0));
-			gameboard.setFont(fo);
-			gameboard.setDocument(doc);
-			gameboard.setRecenterOnResize(false);
-			gameboard.setEnableRotateInteractor(false);
-			gameboard.setEnableResetTransformInteractor(true);
-
-			gameboard.addGVTTreeRendererListener(new GVTTreeRendererAdapter() {
-				public void gvtRenderingPrepare(GVTTreeRendererEvent e) {
-					setTitle("MPMP - Loading...");
-				}
-
-				public void gvtRenderingCompleted(GVTTreeRendererEvent e) {
-					setTitle("MPMP");
-					System.out.println("Resized");
-					gameboard.invalidate();
-					System.out.println(gameboard.getComponents());
-					redrawPlayers();
-				}
-			});
-		} catch (FontFormatException | IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		gameboard.addGVTTreeRendererListener(new GVTTreeRendererAdapter() {
+			public void gvtRenderingPrepare(GVTTreeRendererEvent e) {
+				setTitle("MPMP - Loading...");
+			}
+
+			public void gvtRenderingCompleted(GVTTreeRendererEvent e) {
+				setTitle("MPMP");
+				System.out.println("Resized");
+				gameboard.invalidate();
+				System.out.println(gameboard.getComponents());
+				redrawPlayers();
+			}
+		});
 
 		//Set all layouts
 		setLayout(new BorderLayout());
