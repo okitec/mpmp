@@ -67,7 +67,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	private JLabel lmPPlots;
 	private JButton bEndTurn;
 	private ScrollPane sP;
-	private Gameboard gameboard;
+	private JSVGCanvas gameboard;
 	private Font fo;
 	private Player cP;
 	private Converter converter;
@@ -105,6 +105,24 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		try {
 			setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("graphics/background.png")))));
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+				try {
+			Font fnt = Font.createFont(Font.TRUETYPE_FONT, new File("graphics/font/SourceSansPro-Light.ttf"));
+			setFont(fnt);
+
+			String parser = XMLResourceDescriptor.getXMLParserClassName();
+			SAXSVGDocumentFactory SVGDF = new SAXSVGDocumentFactory(parser);
+			org.w3c.dom.Document doc = SVGDF.createDocument(new File("graphics/svg/gameboard.svg").toURI().toString());
+			gameboard.setDocument(doc);
+
+			gameboard.setBackground(new Color(0, 0, 0, 0));
+			gameboard.setRecenterOnResize(false);
+			gameboard.setEnableRotateInteractor(false);
+			gameboard.setEnableResetTransformInteractor(true);
+
+		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}
 
@@ -282,6 +300,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	 * Draw a player piece.
 	 */
 	public void drawPlayer(Player p) {
+		gameboard.repaint();
 		double scale;
 		int rOuter = 15;
 		int rInner = 12;

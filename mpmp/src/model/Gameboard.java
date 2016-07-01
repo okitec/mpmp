@@ -24,7 +24,7 @@ public class Gameboard extends JSVGCanvas {
 
 			String parser = XMLResourceDescriptor.getXMLParserClassName();
 			SAXSVGDocumentFactory SVGDF = new SAXSVGDocumentFactory(parser);
-			doc = SVGDF.createDocument(new File("graphics/svg/gameboard.svg").toURI().toString());
+			org.w3c.dom.Document doc = SVGDF.createDocument(new File("graphics/svg/gameboard.svg").toURI().toString());
 			setDocument(doc);
 
 			setBackground(new Color(0, 0, 0, 0));
@@ -39,9 +39,6 @@ public class Gameboard extends JSVGCanvas {
 
 	@Override
 	public void paint(Graphics grphcs) {
-		//invalidate();
-		//validate();
-		repaint();
 		super.paint(grphcs);
 		f.redrawPlayers();
 	}
