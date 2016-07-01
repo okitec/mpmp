@@ -39,8 +39,8 @@ public class Gameboard extends JSVGCanvas {
 
 	@Override
 	public void paint(Graphics grphcs) {
-		invalidate();
-		validate();
+		//invalidate();
+		//validate();
 		repaint();
 		super.paint(grphcs);
 		f.redrawPlayers();
