@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
-import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -31,7 +30,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Document;
-import model.Gameboard;
 import model.Model;
 import model.Player;
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
@@ -43,7 +41,6 @@ import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
 import org.apache.batik.util.XMLResourceDescriptor;
 
 public class Frame extends JFrame implements Subscribe.SubscribeErrer {
-
 	public final ChatDisp chatDisp;
 	public final PlayerDisp playerDisp;
 	public final PieceDisp pieceDisp;
@@ -67,11 +64,9 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	private JLabel lmPPlots;
 	private JButton bEndTurn;
 	private ScrollPane sP;
-	private JSVGCanvas gameboard;
+	private Gameboard gameboard;
 	private Font fo;
 	private Player cP;
-	private Converter converter;
-	private Graphics g;
 
 	public static void main(String args[]) {
 		java.awt.EventQueue.invokeLater(new Runnable() {
@@ -86,7 +81,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		chatDisp = new ChatDisp();
 		playerDisp = new PlayerDisp();
 		pieceDisp = new PieceDisp();
-		converter = new Converter(304, 506);	  // XXX magic: original unresized wfld, hfld
 		setMinimumSize(new Dimension(800, 800));
 		setPreferredSize(new Dimension(1920, 1080));
 		createFrame();
@@ -108,7 +102,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 			e.printStackTrace();
 		}
 		
-				try {
+		try {
 			Font fnt = Font.createFont(Font.TRUETYPE_FONT, new File("graphics/font/SourceSansPro-Light.ttf"));
 			setFont(fnt);
 
@@ -134,9 +128,8 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 			public void gvtRenderingCompleted(GVTTreeRendererEvent e) {
 				setTitle("MPMP");
 				System.out.println("Resized");
-				gameboard.invalidate();
 				System.out.println(gameboard.getComponents());
-				redrawPlayers();
+				gameboard.repaint();
 			}
 		});
 
@@ -214,8 +207,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		this.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {
-				gameboard.invalidate();
-				redrawPlayers();
+				gameboard.repaint();
 			}
 		});
 
@@ -296,43 +288,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		System.exit(0);
 	}
 
-	/**
-	 * Draw a player piece.
-	 */
-	public void drawPlayer(Player p) {
-		gameboard.repaint();
-		double scale;
-		int rOuter = 15;
-		int rInner = 12;
-
-		AffineTransform aT = gameboard.getViewBoxTransform();
-		scale = gameboard.getSVGDocument().getRootElement().getCurrentScale();
-		g = gameboard.getGraphics();
-
-		Point pt = converter.middleRelPx(p.getPos());
-		// 0.258: scale transform set in the gameboard SVG internally
-		pt.x *= 0.258 * scale;
-		pt.y *= 0.258 * scale;
-		pt.x += aT.getTranslateX();
-		pt.y += aT.getTranslateY();
-		rOuter *= scale;
-		rInner *= scale;
-
-		g.setColor(Color.BLACK);
-		g.fillOval(pt.x - rOuter, pt.y - rOuter, 2 * rOuter, 2 * rOuter);
-		g.setColor(p.getColor());
-		g.fillOval(pt.x - rInner, pt.y - rInner, 2 * rInner, 2 * rInner);
-	}
-
-	/**
-	 * Redraw all the players.
-	 */
-	public void redrawPlayers() {
-		for (Player p : Player.getRealPlayers()) {
-			drawPlayer(p);
-		}
-	}
-
 	public void updateMyPlayerText(Player p) {
 		if (p.isInJail()) {
 			lmP.setText(p.getName() + "(Im Gefängnis) (Farbe: " + p.getColor() + ")");
@@ -396,7 +351,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		@Override
 		public void reset() {
 			SwingUtilities.invokeLater(() -> {
-				redrawPlayers();
+				gameboard.repaint();
 			});
 		}
 	}
