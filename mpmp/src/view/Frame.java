@@ -41,6 +41,7 @@ import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
 import org.apache.batik.util.XMLResourceDescriptor;
 
 public class Frame extends JFrame implements Subscribe.SubscribeErrer {
+
 	public final ChatDisp chatDisp;
 	public final PlayerDisp playerDisp;
 	public final PieceDisp pieceDisp;
@@ -56,6 +57,9 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	private JButton bBuyPlot;
 	private JButton bSurrender;
 	private JButton bStartGame;
+	private JButton bPayPrison;
+	private JButton bUsePrisonLeave;
+	private JButton bClearChat;
 	private JTextField tChatField;
 	private JTextPane tChatBox;
 	private JTextPane tPlayerList;
@@ -65,17 +69,16 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	private JButton bEndTurn;
 	private ScrollPane sP;
 	private Gameboard gameboard;
-	private Font fo;
-	private Player cP;
 
+	/*
 	public static void main(String args[]) {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				new Frame(null);
 			}
 		});
-	}
-
+	}	
+	 */
 	public Frame(Model m) {
 		this.m = m;
 		chatDisp = new ChatDisp();
@@ -83,6 +86,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		pieceDisp = new PieceDisp();
 		setMinimumSize(new Dimension(800, 800));
 		setPreferredSize(new Dimension(1920, 1080));
+		setBackground(new Color(247, 247, 124));
 		createFrame();
 	}
 
@@ -95,43 +99,12 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameboard = new Gameboard(this);
 
-		//Canvas-Stuff
+		//Set background
 		try {
 			setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("graphics/background.png")))));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		try {
-			Font fnt = Font.createFont(Font.TRUETYPE_FONT, new File("graphics/font/SourceSansPro-Light.ttf"));
-			setFont(fnt);
-
-			String parser = XMLResourceDescriptor.getXMLParserClassName();
-			SAXSVGDocumentFactory SVGDF = new SAXSVGDocumentFactory(parser);
-			org.w3c.dom.Document doc = SVGDF.createDocument(new File("graphics/svg/gameboard.svg").toURI().toString());
-			gameboard.setDocument(doc);
-
-			gameboard.setBackground(new Color(0, 0, 0, 0));
-			gameboard.setRecenterOnResize(false);
-			gameboard.setEnableRotateInteractor(false);
-			gameboard.setEnableResetTransformInteractor(true);
-
-		} catch (FontFormatException | IOException e) {
-			e.printStackTrace();
-		}
-
-		gameboard.addGVTTreeRendererListener(new GVTTreeRendererAdapter() {
-			public void gvtRenderingPrepare(GVTTreeRendererEvent e) {
-				setTitle("MPMP - Loading...");
-			}
-
-			public void gvtRenderingCompleted(GVTTreeRendererEvent e) {
-				setTitle("MPMP");
-				System.out.println("Resized");
-				System.out.println(gameboard.getComponents());
-				gameboard.repaint();
-			}
-		});
 
 		//Set all layouts
 		setLayout(new BorderLayout());
@@ -153,45 +126,46 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		bSurrender = new JButton("Aufgeben");
 		bEndTurn = new JButton("Runde beenden");
 		bStartGame = new JButton("Spiel starten");
+		bClearChat = new JButton("Chat leeren");
+		bPayPrison = new JButton("Aus dem Gefängnis freikaufen");
+		bUsePrisonLeave = new JButton("Benutze Gefängnis-Frei-Karte");
 		bUpdatePlayer = new JButton("Update Spieler");
 		bUpdatePlayer.setVisible(false);
 
-		lmP = new JLabel();
-		lmPMoney = new JLabel();
-		lmPPlots = new JLabel();
+		lmP = new JLabel("Kein Spieler");
+		lmPMoney = new JLabel("RM 0");
+		lmPPlots = new JLabel("Keine Grundstücke");
 
 		tPlayerList = new JTextPane();
 		tPlayerList.setEditable(false);
+		tPlayerList.setSize(new Dimension(200, 500));
 
 		tChatBox = new JTextPane();
 		tChatBox.setEditable(false);
+		tChatBox.setSize(300, 500);
 		tChatBox.setMaximumSize(new Dimension(300, 500));
+
 		sP = new ScrollPane();
 		sP.setMaximumSize(new Dimension(300, 500));
 		sP.setSize(300, 500);
-		//http://stackoverflow.com/questions/2483572/making-a-jscrollpane-automatically-scroll-all-the-way-down
-		/*sP.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
-			public void adjustmentValueChanged(AdjustmentEvent e) {
-				e.getAdjustable().setValue(e.getAdjustable().getMaximum());
-			}
-		});*/
 		sP.add(tChatBox);
 
 		tChatField = new JTextField();
 		tChatField.requestFocus(true);
 		tChatField.setSelectionColor(Color.pink);
 
-		pLeft.add(new JLabel("Spieler:"));
+		pLeft.add(new JLabel("Alle Spieler:"));
 		pLeft.add(tPlayerList);
+		pLeft.add(bPayPrison);
+		pLeft.add(bUsePrisonLeave);
+		
 		pChat.add(bUpdatePlayer);
 		pChat.add(bStartGame);
 		pChat.add(sP);
 		pChat.add(tChatField);
 		pChat.add(bEndTurn);
 
-		//Real stuff cP = current Player
-		//Player cP = new Player();
-		pCurrentPlayer.add(new JLabel("Aktueller Spieler"));
+		pCurrentPlayer.add(new JLabel("Spieler"));
 		pCurrentPlayer.add(lmP);
 		pCurrentPlayer.add(lmPMoney);
 		pCurrentPlayer.add(lmPPlots);
@@ -200,8 +174,10 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		pBottomMenu.add(bBuyHouse);
 		pBottomMenu.add(bBuyPlot);
 		pBottomMenu.add(bSurrender);
+		pBottomMenu.add(bPayPrison);
+		pBottomMenu.add(bUsePrisonLeave);
+
 		pBottom.add(pBottomMenu);
-		pBottom.add(new JLabel("        "));
 		pBottom.add(pCurrentPlayer);
 
 		this.addComponentListener(new ComponentAdapter() {
@@ -215,8 +191,8 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		add(pLeft, BorderLayout.WEST);
 		add(pChat, BorderLayout.EAST);
 		add(pBottom, BorderLayout.SOUTH);
-		setVisible(true);
 
+		setVisible(true);
 		/*
 		 System.out.println(gameboard.showPrompt("Welcher Spieler"));
 		 System.out.println(gameboard.showPrompt("Welches Grundstück"));
@@ -260,21 +236,28 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	}
 
 	public void addUpdatePlayerListener(ActionListener al) {
+		System.out.println("Player updated.");
 		bUpdatePlayer.addActionListener(al);
 	}
 
-	public double getCurrentZoom() {
-		System.out.println("Current zoom: " + gameboard.getSVGDocument().getRootElement().getCurrentScale() + "\nCurrent rotation: " + getCurrentRotation());
-		return gameboard.getSVGDocument().getRootElement().getCurrentScale();
+	public void addPayPrisonListener(ActionListener al) {
+		System.out.println("Aus dem Gefängnis freigekauft");
+		bPayPrison.addActionListener(al);
 	}
 
-	public double getCurrentRotation() {
-		System.out.println("Current Rotation: " + gameboard.getSVGDocument().getRootElement().getZoomAndPan());
-		return gameboard.getSVGDocument().getRootElement().getZoomAndPan();
+	public void addUsePrisonLeaveListener(ActionListener al) {
+		System.out.println("Gefängnis-Frei-Karte benutzt.");
+		bUsePrisonLeave.addActionListener(al);
 	}
 
 	public void addStartGameListener(ActionListener al) {
+		System.out.println("Spiel gestartet.");
 		bStartGame.addActionListener(al);
+	}
+	
+	public void addClearChatListener(ActionListener al) {
+		System.out.println("Chat geleert.");
+		bClearChat.addActionListener(al);
 	}
 
 	public void removeStartGameButton() {
@@ -289,13 +272,15 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	}
 
 	public void updateMyPlayerText(Player p) {
-		if (p.isInJail()) {
-			lmP.setText(p.getName() + "(Im Gefängnis) (Farbe: " + p.getColor() + ")");
+		if (p.inPrison) {
+			lmP.setText(p.getName() + "(Im Gefängnis)");
 		} else {
-			lmP.setForeground(p.getColor());
 			lmP.setText(p.getName());
 		}
-
+		
+		lmP.setForeground(p.getColor());
+		bUsePrisonLeave.setVisible(p.isInJail());
+		bPayPrison.setVisible(p.isInJail());
 		lmPMoney.setText("RM " + p.getMoney());
 		lmPPlots.setText("Gekaufte Grundstücke: " + p.getPlots());
 	}
@@ -317,6 +302,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
 		@Override
 		public void reset() {
+			tChatBox.setText("");
 		}
 	}
 
