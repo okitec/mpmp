@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cmds;
 
 import java.util.ArrayList;
@@ -21,14 +16,18 @@ public class EndTurn implements CmdFunc {
 
 	@Override
 	public void exec(String line, Conn conn) {
-		//check if plot was bought, if not -> auction
+		// XXX check if plot was bought, if not -> auction
+
 		Player last = Player.getCurrentPlayer();
 		ArrayList<Player> players = Player.getRealPlayers();
 		Player next = players.get((players.indexOf(last)+1) % players.size());
+
 		
+
 		Diceroll dr = new Diceroll();
 		if(dr.getPaschs() >= 3) {
 			next.prison(true);
+			conn.send("prison enter");
 			Client.broadcast("turn-update " + 0 + " " + dr.getPaschs() + " " + next.getName());
 			Client.broadcast("pos-update " + Field.Prison + " " + next.getName());
 		} else {
