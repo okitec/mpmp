@@ -413,7 +413,6 @@ Code | Beschreibung
  **2yz** | permanentes Fehlschlagen; der Befehl kann nie funktionieren
  **20z** | allgemeiner Fehler, kann in verschiedenen Bereichen auftreten
  201 | unerwartetes End-of-File
- 
  **21z** | Beitreten und Clientlist-Updates
  211 | gewählter Name bereits vergeben
  212 | `clientlist-update` mit falscher Syntax
