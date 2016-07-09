@@ -13,9 +13,9 @@ Konvention immer aus Kleinbuchstaben und Bindestrichen (`-`) besteht, z.B. `chat
 
 Der momentan verwendete Port ist 1918.
 
-Adresse des Testservers: `leander3.ddns.net` (betrieben von @leletec)
-Der Server läuft nicht immer, sondern auf Wunsch. Die Firewall der Schule erlaubt
-keinen Zugriff, also werden wir in der Schule sowieso lokale Server laufen lassen.
+Adresse eines Testservers: `leander3.ddns.net` (betrieben von @leletec)
+Falls er läuft, ist er nicht auf der aktuellsten Version, weil oki noch kein
+Skript zum automatischen Deployen geschrieben hat.
 
 Paketübersicht
 --------------
@@ -23,32 +23,57 @@ Paketübersicht
 
 ### Client → Server
 
- - Beitreten
- - Chateingabe senden
- - Flüstern senden
- - Disconnect
- - Aufgeben
- - Spielhandlung ausführen
-    * Tauschen
-    * Straße kaufen
-    * Haus kaufen
-    * Runde beenden
-    * Karte einsetzen (Gefängnisfrei-Karte)
-	
+Pakete vom Client zum Server informieren diesen über Aktionen des Clients. Sie
+werden häufig dann gesendet, wenn der User auf der GUI Buttons o.ä. betätigt.
+
+#### Nicht-Gameplay
+
+Befehl       | Beschreibung
+-------------|-------------
+`chat`       | Chatmeldung
+`disconnect` | "Offizielle" Trennung der Verbindung
+`subscribe`  | Client registriert Namen, Farbe und Spielmodus
+`whisper`    | Client sendet private Nachricht an einen anderen Spieler oder Zuschauer
+
+#### Gameplay
+
+Befehl       | Beschreibung
+-------------|-------------
+`add-house`  | Spieler kauft Haus
+`buy-plot`   | Spieler kauft Grundstück
+`end-turn`   | Spieler beendet seine Runde
+`hypothec`   | Spieler belastet ein Grundstück hypothekarisch oder hebt Hypothek auf
+`make-offer` | Spieler macht einen Vorschlag in einer Auktion
+`ragequit`   | Spieler gibt auf und wird Zuschauer
+`rm-house`   | Spieler verkauft Haus
+`start-game` | Spieler erzwingt Spielbeginn
+`unjail`     | Spieler benutzt Geld oder Karte, um freizukommen
+
 ### Server → Client
 
- - Spielbeginn
- - neuen Chat broadcasten
- - Fehlermeldungen bei unerlaubter Handlung
- - Disconnect (mit Grund, z.B. Kick)
- - Ereignis- und Gemeinschaftskarten
- - Update des Spiels
-    * Bewegung einer Spielfigur
-    * "Wieder am Zug"
- - Geld bekommen
-    * Mieten
-    * Karten (s. oben)
-    * Gehalt (Überqueren des Startes)
+Der Server hält das autorative Model, d.h. der Server hat in Gameplayfragen immer recht.
+Die Clients cachen dieses Model einfach nur; die meisten Pakete vom Server zum Client
+dienen dazu, alle Clients auf dem aktuellen Stand zu halten. Sie `*-update`-Pakete werden
+an alle Clients gesendet.
+
+#### Nicht-Gameplay
+
+Befehl              | Beschreibung
+--------------------|-------------
+`chat-update`       | Chatmeldung
+`clientlist-update` | Spielerliste: echte Spieler und Zuschauer
+
+#### Gameplay
+
+Befehl              | Beschreibung
+--------------------|-------------
+`auction-plot`      | Ersteigerung eines Grundstücks
+`money-update`      | Änderung am Vermögen eines Spielers
+`plot-update`       | Änderung am Besitztum, Häuserzahl, Hypothekenstatus
+`pos-update`        | Positionsänderung
+`prison`            | Spieler kommt ins Gefängnis oder wieder raus
+`show-transaction`  | Grund und Höhe einer Transaktion
+`turn-update`       | Neue Runde: nächster Spieler und Würfelergebnis wird gesendet
 
 Chat
 ----
