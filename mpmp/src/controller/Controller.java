@@ -19,6 +19,7 @@ import cmds.Cmd;
 import cmds.ChatUpdate;
 import cmds.ClientlistUpdate;
 import cmds.PosUpdate;
+import cmds.Prison;
 import cmds.Subscribe;
 import cmds.TurnUpdate;
 import main.Conn;
@@ -45,6 +46,7 @@ public class Controller {
 		((TurnUpdate) Cmd.TurnUpdate.getFn()).addDisplayer(frame.chatDisp);
 		((PosUpdate) Cmd.PosUpdate.getFn()).addDisplayer(frame.pieceDisp);
 		((Subscribe) Cmd.Subscribe.getFn()).addSubscribeErrer(frame);
+		((Prison) Cmd.Prison.getFn()).addDisplayer(frame.chatDisp);
 
 		new Thread(() -> {
 			try {
