@@ -40,7 +40,7 @@ public class Player {
 	/* hypothec money */
 	private int pos;
 	/* 0 is start; counted clockwise */
-	private boolean inPrison;
+	public boolean inPrison;
 	private int unjails;
 
 	/* number of unjail cards */

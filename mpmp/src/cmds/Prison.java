@@ -9,6 +9,7 @@ import view.Displayer;
 
 /**
  * S->C
+ *
  * @author Leander
  */
 public class Prison implements CmdFunc {
@@ -18,18 +19,18 @@ public class Prison implements CmdFunc {
 	public void exec(String line, Conn conn) {
 		String[] args = line.split(" ");
 		Player p;
-		
+
 		if (args.length < 3) {
 			conn.sendErr(ErrCode.Usage, "prison <enter|leave> <Spieler>");
 			return;
 		}
-		
+
 		p = Player.search(String.join(" ", Arrays.copyOfRange(args, 2, args.length)));
 		if (p == null) {
 			conn.sendErr(ErrCode.NoSuchPlayer);
 			return;
 		}
-		
+
 		switch (args[1]) {
 		case "enter":
 			p.prison(true);
@@ -52,5 +53,5 @@ public class Prison implements CmdFunc {
 
 	public void addDisplayer(Displayer d) {
 		this.d = d;
-	}	
+	}
 }

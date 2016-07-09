@@ -17,12 +17,15 @@ public class EndTurn implements CmdFunc {
 	@Override
 	public void exec(String line, Conn conn) {
 		// XXX check if plot was bought, if not -> auction
+		Client c = (Client) conn;
 
 		Player last = Player.getCurrentPlayer();
 		ArrayList<Player> players = Player.getRealPlayers();
 		Player next = players.get((players.indexOf(last)+1) % players.size());
 
-		
+		// Only current player can end their turn.
+		if(!c.getName().equals(last.getName()))
+			return;
 
 		Diceroll dr = new Diceroll();
 		if(dr.getPaschs() >= 3) {

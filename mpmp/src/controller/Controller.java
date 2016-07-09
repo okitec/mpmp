@@ -22,6 +22,8 @@ import cmds.PosUpdate;
 import cmds.Prison;
 import cmds.Subscribe;
 import cmds.TurnUpdate;
+import java.util.Timer;
+import java.util.TimerTask;
 import main.Conn;
 import view.Frame;
 
@@ -32,10 +34,15 @@ import view.Frame;
  */
 public class Controller {
 
+	Frame frame;
+	Timer t;
+	String name;
+
 	public Controller(String addr, int port, String mode, String color, String name) throws UnknownHostException, IOException {
 		Model m = new Model();
-		Frame frame = new Frame(m);
+		frame = new Frame(m);
 		Conn conn = new Conn(new Socket(addr, port));
+		this.name = name;
 
 		Player.reset();
 		PlotGroup.init();
@@ -58,6 +65,10 @@ public class Controller {
 
 		conn.send("subscribe " + mode + " " + color + " " + name);
 
+		//http://stackoverflow.com/questions/5844794/java-timertick-event-for-game-loop
+		t = new Timer();
+		t.schedule(new TimerTick(), 1000);
+
 		frame.addChatListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent ke) {
@@ -77,27 +88,6 @@ public class Controller {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				conn.send("end-turn");
-			}
-		});
-
-		frame.addTradeListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//conn.send("trade");
-			}
-		});
-
-		frame.addBuyHouseListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//conn.send("add-house " + Player.getPos();
-			}
-		});
-
-		frame.addBuyPlotListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//conn.send("buy-plot " + Player.getPos());
 			}
 		});
 
@@ -123,5 +113,56 @@ public class Controller {
 				frame.updateMyPlayerText(Player.search(name));
 			}
 		});
+
+		frame.addTradeListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//conn.send("trade");
+			}
+		});
+
+		frame.addBuyHouseListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//conn.send("add-house " + Player.getPos();
+			}
+		});
+
+		frame.addBuyPlotListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//conn.send("buy-plot " + Player.getPos());
+			}
+		});
+
+		frame.addPayPrisonListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//conn.send("pay-prison");
+			}
+		});
+
+		frame.addUsePrisonLeaveListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//conn.send("use-prisoncard");
+			}
+		});
+
+		frame.addClearChatListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.chatDisp.reset();
+			}
+		});
 	}
+
+	public class TimerTick extends TimerTask {
+
+		@Override
+		public void run() {
+			frame.updateMyPlayerText(Player.search(name));
+		}
+	}
+
 }

@@ -13,27 +13,26 @@ import org.apache.batik.swing.JSVGCanvas;
 import org.apache.batik.util.XMLResourceDescriptor;
 
 import model.Player;
-
+import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
+import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
 
 /**
  * The gameboard holds the gameboard SVG and draws the players upon it.
  */
 public class Gameboard extends JSVGCanvas {
+
 	private Frame f;
-	private org.w3c.dom.Document doc;
 	private Converter converter;
 
 	public Gameboard(Frame f) {
 		this.f = f;
 		converter = new Converter(304, 506);	  // XXX magic: original unresized wfld, hfld
-		try {
-			Font fnt = Font.createFont(Font.TRUETYPE_FONT, new File("graphics/font/SourceSansPro-Light.ttf"));
-			setFont(fnt);
 
+		try {
+			setFont(Font.createFont(Font.TRUETYPE_FONT, new File("graphics/font/SourceSansPro-Light.ttf")));
 			String parser = XMLResourceDescriptor.getXMLParserClassName();
 			SAXSVGDocumentFactory SVGDF = new SAXSVGDocumentFactory(parser);
-			org.w3c.dom.Document doc = SVGDF.createDocument(new File("graphics/svg/gameboard.svg").toURI().toString());
-			setDocument(doc);
+			setDocument(SVGDF.createDocument(new File("graphics/svg/gameboard.svg").toURI().toString()));
 
 			setBackground(new Color(0, 0, 0, 0));
 			setRecenterOnResize(false);
@@ -43,6 +42,19 @@ public class Gameboard extends JSVGCanvas {
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}
+
+		addGVTTreeRendererListener(new GVTTreeRendererAdapter() {
+			public void gvtRenderingPrepare(GVTTreeRendererEvent e) {
+				f.setTitle("MPMP - Loading...");
+			}
+
+			public void gvtRenderingCompleted(GVTTreeRendererEvent e) {
+				f.setTitle("MPMP");
+				System.out.println("Resized");
+				paintComponent(getGraphics());
+				repaint();
+			}
+		});
 	}
 
 	@Override
@@ -78,5 +90,13 @@ public class Gameboard extends JSVGCanvas {
 		g.fillOval(pt.x - rOuter, pt.y - rOuter, 2 * rOuter, 2 * rOuter);
 		g.setColor(p.getColor());
 		g.fillOval(pt.x - rInner, pt.y - rInner, 2 * rInner, 2 * rInner);
+	}
+
+	public double getCurrentZoom() {
+		return getSVGDocument().getRootElement().getCurrentScale();
+	}
+
+	public double getCurrentRotation() {
+		return getSVGDocument().getRootElement().getZoomAndPan();
 	}
 }
