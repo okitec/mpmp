@@ -53,6 +53,7 @@ public class Gameboard extends JSVGCanvas {
 				System.out.println("Resized");
 				paintComponent(getGraphics());
 				repaint();
+				
 			}
 		});
 	}

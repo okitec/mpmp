@@ -70,7 +70,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	private ScrollPane sP;
 	private Gameboard gameboard;
 
-	/*
 	public static void main(String args[]) {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -78,7 +77,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 			}
 		});
 	}	
-	 */
 	public Frame(Model m) {
 		this.m = m;
 		chatDisp = new ChatDisp();
@@ -86,8 +84,8 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		pieceDisp = new PieceDisp();
 		setMinimumSize(new Dimension(800, 800));
 		setPreferredSize(new Dimension(1920, 1080));
-		setBackground(new Color(247, 247, 124));
 		createFrame();
+		setBackground(new Color(247, 247, 124));
 	}
 
 	/**
@@ -158,12 +156,13 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		pLeft.add(tPlayerList);
 		pLeft.add(bPayPrison);
 		pLeft.add(bUsePrisonLeave);
-		
+
 		pChat.add(bUpdatePlayer);
 		pChat.add(bStartGame);
 		pChat.add(sP);
 		pChat.add(tChatField);
 		pChat.add(bEndTurn);
+		pChat.add(bClearChat);
 
 		pCurrentPlayer.add(new JLabel("Spieler"));
 		pCurrentPlayer.add(lmP);
@@ -254,7 +253,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		System.out.println("Spiel gestartet.");
 		bStartGame.addActionListener(al);
 	}
-	
+
 	public void addClearChatListener(ActionListener al) {
 		System.out.println("Chat geleert.");
 		bClearChat.addActionListener(al);
@@ -272,17 +271,19 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	}
 
 	public void updateMyPlayerText(Player p) {
-		if (p.inPrison) {
-			lmP.setText(p.getName() + "(Im Gefängnis)");
-		} else {
-			lmP.setText(p.getName());
+		if (p != null) {
+			if (p.inPrison) {
+				lmP.setText(p.getName() + "(Im Gefängnis)");
+			} else {
+				lmP.setText(p.getName());
+			}
+
+			lmP.setForeground(p.getColor());
+			bUsePrisonLeave.setVisible(p.isInJail());
+			bPayPrison.setVisible(p.isInJail());
+			lmPMoney.setText("RM " + p.getMoney());
+			lmPPlots.setText("Gekaufte Grundstücke: " + p.getPlots());
 		}
-		
-		lmP.setForeground(p.getColor());
-		bUsePrisonLeave.setVisible(p.isInJail());
-		bPayPrison.setVisible(p.isInJail());
-		lmPMoney.setText("RM " + p.getMoney());
-		lmPPlots.setText("Gekaufte Grundstücke: " + p.getPlots());
 	}
 
 	public class ChatDisp implements Displayer {
