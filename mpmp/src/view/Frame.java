@@ -70,7 +70,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	private ScrollPane sP;
 	private Gameboard gameboard;
 
-	/*
 	public static void main(String args[]) {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -78,7 +77,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 			}
 		});
 	}	
-	 */
 	public Frame(Model m) {
 		this.m = m;
 		chatDisp = new ChatDisp();
@@ -86,8 +84,8 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		pieceDisp = new PieceDisp();
 		setMinimumSize(new Dimension(800, 800));
 		setPreferredSize(new Dimension(1920, 1080));
-		setBackground(new Color(247, 247, 124));
 		createFrame();
+		setBackground(new Color(247, 247, 124));
 	}
 
 	/**

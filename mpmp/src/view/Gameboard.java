@@ -24,9 +24,6 @@ public class Gameboard extends JSVGCanvas {
 	private Frame f;
 	private Converter converter;
 
-	public void setDocument(){
-	}
-	
 	public Gameboard(Frame f) {
 		this.f = f;
 		converter = new Converter(304, 506);	  // XXX magic: original unresized wfld, hfld
@@ -56,6 +53,7 @@ public class Gameboard extends JSVGCanvas {
 				System.out.println("Resized");
 				paintComponent(getGraphics());
 				repaint();
+				
 			}
 		});
 	}
