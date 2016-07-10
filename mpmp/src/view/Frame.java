@@ -346,11 +346,15 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
 	public class PlayerDisp implements Displayer {
 
+		/**
+		 * Take a Player and display it in the player list.
+		 */
 		@Override
 		public synchronized void show(Object... args) {
-			String s = (String) args[0];
+			final Player p = (Player) args[0]; 
+
 			SwingUtilities.invokeLater(() -> {
-				append(tPlayerList, s, Color.BLACK, true);
+				append(tPlayerList, "" + p, p.getColor(), true);
 			});
 		}
 
