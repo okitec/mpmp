@@ -319,13 +319,22 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
 	public class ChatDisp implements Displayer {
 
+		/**
+		 * Take a string and an optional color and display it in the chat box.
+		 */
 		@Override
 		public synchronized void show(Object... args) {
 			String s = (String) args[0];
+			final Color col;
+
+			if(args.length == 2)
+				col = (Color) args[1];
+			else
+				col = Color.BLACK;
 
 			// Call in the Event Dispatching Thread.
 			SwingUtilities.invokeLater(() -> {
-				append(tChatBox, s, Color.BLACK, false);
+				append(tChatBox, s, col, false);
 			});
 		}
 

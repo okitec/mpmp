@@ -2,6 +2,7 @@ package cmds;
 
 import main.Conn;
 import main.ErrCode;
+import model.Player;
 import view.Displayer;
 
 /**
@@ -13,7 +14,10 @@ public class ChatUpdate implements CmdFunc {
 	@Override
 	public void exec(String line, Conn conn) {
 		String message = line.substring(12);
-		d.show(message);
+		String name = message.substring(message.indexOf('(') + 1, message.indexOf(')'));
+		Player sender = Player.search(name);
+
+		d.show(message, sender.getColor());
 		conn.sendOK();
 	}
 
