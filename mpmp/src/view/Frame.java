@@ -76,7 +76,8 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 				new Frame(null);
 			}
 		});
-	}	
+	}
+	
 	public Frame(Model m) {
 		this.m = m;
 		chatDisp = new ChatDisp();
@@ -289,7 +290,9 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	public class ChatDisp implements Displayer {
 
 		@Override
-		public synchronized void show(String s) {
+		public synchronized void show(Object... args) {
+			String s = (String) args[0];
+
 			// Call in the Event Dispatching Thread.
 			SwingUtilities.invokeLater(() -> {
 				try {
@@ -310,7 +313,8 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	public class PlayerDisp implements Displayer {
 
 		@Override
-		public synchronized void show(String s) {
+		public synchronized void show(Object... args) {
+			String s = (String) args[0];
 			SwingUtilities.invokeLater(() -> {
 				try {
 					Document doc = tPlayerList.getDocument();
@@ -332,7 +336,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	public class PieceDisp implements Displayer {
 
 		@Override
-		public void show(String s) {
+		public void show(Object... args) {
 		}
 
 		@Override
