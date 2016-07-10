@@ -1,0 +1,11 @@
+#!/usr/local/plan9/bin/rc
+# imports: generate list of inter-source imports for mpmp codebase
+# output: user-package user-class imp imported-package imported-class
+
+# bloated alternative (grep -r is as stupid as cat -v)
+# grep -r -E '(import|package) +(view|cmds|controller|model|main)' ../mpmp/src \
+
+9 grep '(import|package) +(view|cmds|controller|model|main)' `{du -a ../mpmp/src | awk '{print $2}' | grep \.java } \
+| awk 'BEGIN{FS=":"} {sub(/.*\//, "", $1); sub(/\.java/, "", $1); print $1, $2}' \
+| awk -f imports.awk \
+| awk 'NF > 0 {sub(/\./, " "); printf "%-10s %16s imp %-10s %16s\n", $1, $2, $3, $4}'
