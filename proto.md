@@ -11,44 +11,71 @@ falls der Request erlaubt und erfolgreich war, wird mit `+JAWOHL`, ansonsten mit
 `-NEIN` geantwortet. Ein Paket beginnt mit dem auszuführenden Befehl, der per
 Konvention immer aus Kleinbuchstaben und Bindestrichen (`-`) besteht, z.B. `chat-update`.
 
-Der momentan verwendete Port ist 1918.
+Der momentan verwendete Port ist `1918`.
 
-Adresse des Testservers: `leander3.ddns.net` (betrieben von @leletec)
-Der Server läuft nicht immer, sondern auf Wunsch. Die Firewall der Schule erlaubt
-keinen Zugriff, also werden wir in der Schule sowieso lokale Server laufen lassen.
+Adresse eines Testservers: `leander3.ddns.net` (betrieben von @leletec)
+Falls er läuft, ist er nicht auf der aktuellsten Version, weil oki noch kein
+Skript zum automatischen Deployen geschrieben hat.
 
 Paketübersicht
---------------
-
+==============
 
 ### Client → Server
 
- - Beitreten
- - Chateingabe senden
- - Flüstern senden
- - Disconnect
- - Aufgeben
- - Spielhandlung ausführen
-    * Tauschen
-    * Straße kaufen
-    * Haus kaufen
-    * Runde beenden
-    * Karte einsetzen (Gefängnisfrei-Karte)
-	
+Pakete vom Client zum Server informieren diesen über Aktionen des Clients. Sie
+werden häufig dann gesendet, wenn der User auf der GUI Buttons o.ä. betätigt.
+
+##### Nicht-Gameplay
+
+Befehl       | Beschreibung
+-------------|-------------
+`chat`       | Chatmeldung
+`disconnect` | "Offizielle" Trennung der Verbindung
+`subscribe`  | Client registriert Namen, Farbe und Spielmodus
+`whisper`    | Client sendet private Nachricht an einen anderen Spieler oder Zuschauer
+
+##### Gameplay
+
+Befehl       | Beschreibung
+-------------|-------------
+`add-house`  | Spieler kauft Haus
+`buy-plot`   | Spieler kauft Grundstück
+`end-turn`   | Spieler beendet seine Runde
+`hypothec`   | Spieler belastet ein Grundstück hypothekarisch oder hebt Hypothek auf
+`make-offer` | Spieler macht einen Vorschlag in einer Auktion
+`ragequit`   | Spieler gibt auf und wird Zuschauer
+`rm-house`   | Spieler verkauft Haus
+`start-game` | Spieler erzwingt Spielbeginn
+`unjail`     | Spieler benutzt Geld oder Karte, um freizukommen
+
 ### Server → Client
 
- - Spielbeginn
- - neuen Chat broadcasten
- - Fehlermeldungen bei unerlaubter Handlung
- - Disconnect (mit Grund, z.B. Kick)
- - Ereignis- und Gemeinschaftskarten
- - Update des Spiels
-    * Bewegung einer Spielfigur
-    * "Wieder am Zug"
- - Geld bekommen
-    * Mieten
-    * Karten (s. oben)
-    * Gehalt (Überqueren des Startes)
+Der Server hält das autorative Model, d.h. der Server hat in Gameplayfragen immer recht.
+Die Clients cachen dieses Model einfach nur; die meisten Pakete vom Server zum Client
+dienen dazu, alle Clients auf dem aktuellen Stand zu halten. Sie `*-update`-Pakete werden
+an alle Clients gesendet.
+
+##### Nicht-Gameplay
+
+Befehl              | Beschreibung
+--------------------|-------------
+`chat-update`       | Chatmeldung
+`clientlist-update` | Spielerliste: echte Spieler und Zuschauer
+
+##### Gameplay
+
+Befehl              | Beschreibung
+--------------------|-------------
+`auction-plot`      | Ersteigerung eines Grundstücks
+`money-update`      | Änderung am Vermögen eines Spielers
+`plot-update`       | Änderung am Besitztum, Häuserzahl, Hypothekenstatus
+`pos-update`        | Positionsänderung
+`prison`            | Spieler kommt ins Gefängnis oder wieder raus
+`show-transaction`  | Grund und Höhe einer Transaktion
+`turn-update`       | Neue Runde: nächster Spieler und Würfelergebnis wird gesendet
+
+Detaildokumentation
+===================
 
 Chat
 ----
@@ -93,7 +120,7 @@ Beitreten
 		C: <Öffnen der Verbindung>
 		S: <Willkommensbotschaft>
 		C: subscribe <spectator|player> <Farbe> <Name>
-		S: -JAWOHL
+		S: +JAWOHL
 		oder
 		S: -NEIN Name already taken!
 		S: -NEIN The admin barred you from entering the game.
@@ -141,10 +168,9 @@ Spieler- bzw. Clientliste
 
 ##### Beschreibung
 
-Zu Beginn des Spiels und nach einem Subscribe sendet der Server an alle Clients die
-Spielerliste inklusive der Farben und des Gamemodes (siehe Subscribe). Die Farben
-sind RGB-Hextriplets wie z.B. `#FFA500`. Falls man nur ein Zuschauer ist, ist die
-Farbe irrelevant.
+Nach einem Subscribe sendet der Server an alle Clients die Spielerliste inklusive
+der Farben und des Gamemodes (siehe Subscribe). Die Farben sind RGB-Hextriplets wie
+z.B. `#FFA500`. Falls man nur ein Zuschauer ist, ist die Farbe irrelevant.
 
 Spielbeginn
 -----------
@@ -345,9 +371,8 @@ Ereigniskarte ziehen
 Enthalten ist nur der Text der Karte; die Aktion wird, sofern möglich, vom Server sofort
 durchgeführt. Falls man die Möglichkeit hat, statt der Aktion eine andere Karte zu ziehen
 ("Tun Sie das und das oder nehmen Sie eine Gemeinschaftskarte"), returnt der Client mit
-einem `-NEIN 133`. Fals das nicht möglich ist, beschwert sich der Server, was der Client
+einem `-NEIN 133`. Falls das nicht möglich ist, beschwert sich der Server, was der Client
 akzeptieren muss.
-
 
 Bewegung
 --------
@@ -360,7 +385,7 @@ Bewegung
 ##### Beschreibung
 
 Dieses Paket teleportiert den Spieler auf das Feld mit dieser Position. Position 0 ist das
-Los-Feld, daraufhin wird im Uhrzeigersinn gezählt. Bei jeder Bewegung wird dieses Packet
+Los-Feld, daraufhin wird im Uhrzeigersinn gezählt. Bei jeder Bewegung wird dieses Paket
 an alle gesendet.
 
 Errorhandling
@@ -388,7 +413,6 @@ Code | Beschreibung
  **2yz** | permanentes Fehlschlagen; der Befehl kann nie funktionieren
  **20z** | allgemeiner Fehler, kann in verschiedenen Bereichen auftreten
  201 | unerwartetes End-of-File
- 
  **21z** | Beitreten und Clientlist-Updates
  211 | gewählter Name bereits vergeben
  212 | `clientlist-update` mit falscher Syntax
