@@ -13,7 +13,6 @@ import java.util.Arrays;
 
 /**
  * Class Conn implements the connection to a Client or the server.
- * @author Leander, oki
  */
 public class Conn {
 	private BufferedReader in;

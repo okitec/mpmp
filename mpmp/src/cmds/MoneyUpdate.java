@@ -7,7 +7,6 @@ import model.Player;
 
 /**
  * S->C
- * @author Leander
  */
 public class MoneyUpdate implements CmdFunc {
 

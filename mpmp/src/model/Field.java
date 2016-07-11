@@ -2,8 +2,6 @@ package model;
 
 /**
  * List of special fields and number of fields in total.
- *
- * @author oki, Matthias
  */
 public class Field {
 	public static final int CommunityField1 =  2;

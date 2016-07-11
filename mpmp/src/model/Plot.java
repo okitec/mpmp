@@ -5,8 +5,6 @@ import java.util.HashSet;
 /**
  * Overclass for property you can purchase. Concretely implemented
  * by HousePlot and TrainStation.
- *
- * @author oki, Leander
  */
 public abstract class Plot {
 	private static HashSet<Plot> allplots;

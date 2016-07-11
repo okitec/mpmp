@@ -10,7 +10,6 @@ import model.Player.Mode;
 
 /**
  * subscribe C->S packet
- * @author Leander
  */
 public class Subscribe implements CmdFunc {
 	@Override

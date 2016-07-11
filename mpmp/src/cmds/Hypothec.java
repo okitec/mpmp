@@ -10,7 +10,6 @@ import view.Displayer;
 
 /**
  * C->S
- * @author Leander
  */
 public class Hypothec implements CmdFunc {
 	private Displayer d;

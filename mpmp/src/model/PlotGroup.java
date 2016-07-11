@@ -7,8 +7,6 @@ import java.util.HashSet;
  * train stations, factories, entirely special fields.
  * There is no static PlotGroup table; there are only the references
  * in the Plot.allplots table; a Plot remembers its group.
- *
- * @author oki
  */
 public class PlotGroup {
 	private static final int NoBuild = 0x01;

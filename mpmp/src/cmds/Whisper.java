@@ -7,7 +7,6 @@ import main.ErrCode;
 
 /**
  * C->S whisper packet
- * @author Leander
  */
 public class Whisper implements CmdFunc {
 	@Override

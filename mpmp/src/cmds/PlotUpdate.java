@@ -8,7 +8,6 @@ import model.Plot;
 
 /**
  * S->C
- * @author Leander
  */
 public class PlotUpdate implements CmdFunc {
 

@@ -2,8 +2,6 @@ package model;
 
 /**
  * Your ordinary plot that you can build houses on, mark as hypothec
- *
- * @author oki, Leander
  */
 public class HousePlot extends Plot {
 	public static final int MaxHouses = 5;   /* hotel counts as five houses */

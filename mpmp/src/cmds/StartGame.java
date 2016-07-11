@@ -12,7 +12,6 @@ import model.Player;
 
 /**
  * C->S
- * @author Leander
  */
 public class StartGame implements CmdFunc {
 

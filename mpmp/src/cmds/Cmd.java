@@ -6,7 +6,6 @@ import main.ErrCode;
 /**
  * Class Cmd is the table of commands, pairing the String with the associated handler
  * of type CmdFunc.
- * @author oki, Leander
  */
 public enum Cmd {
 	/* C->S */

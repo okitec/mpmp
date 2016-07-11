@@ -8,7 +8,6 @@ import view.Displayer;
 
 /**
  * S->C
- * @author Leander
  */
 public class PosUpdate implements CmdFunc {
 	private Displayer d;

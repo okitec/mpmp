@@ -10,8 +10,6 @@ import model.PlotGroup;
 
 /**
  * Main class of the server.
- *
- * @author Leander, oki
  */
 public class SrvMain {
 	public static void srvmain(String[] args) throws IOException {
