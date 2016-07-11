@@ -4,10 +4,6 @@ import cmds.Subscribe;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.ScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -23,7 +19,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
@@ -32,13 +27,6 @@ import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Document;
 import model.Model;
 import model.Player;
-import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
-import org.apache.batik.bridge.UpdateManagerEvent;
-import org.apache.batik.bridge.UpdateManagerListener;
-import org.apache.batik.swing.JSVGCanvas;
-import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
-import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
-import org.apache.batik.util.XMLResourceDescriptor;
 
 public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
