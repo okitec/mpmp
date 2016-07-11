@@ -22,21 +22,25 @@ public class StartGame implements CmdFunc {
 		
 		ArrayList<Player> players = Player.getRealPlayers();
 		Random r = new Random();
-		Player p = players.get(r.nextInt(players.size()));
-		Player next = players.get((players.indexOf(p)+1) % players.size());
 		
-		Diceroll dr = new Diceroll();
-		if(dr.getPaschs() >= 3) {
-			next.prison(true);
-			Client.broadcast("turn-update " + 0 + " " + dr.getPaschs() + " " + next.getName());
-			Client.broadcast("pos-update " + Field.Prison + " " + next.getName());
-		} else {
-			next.move(dr.getSum());
-			Client.broadcast("turn-update " + dr.getSum() + " " + dr.getPaschs() + " " + next.getName());
-			Client.broadcast("pos-update " + next.getPos() + " " + next.getName());
+		Player p = Player.search(((Client) conn).getName());
+		if (!p.isPlayer()) {
+			conn.sendErr(ErrCode.NotAPlayer);
+			return;
 		}
 
-		Player.setCurrentPlayer(next);
+		Diceroll dr = new Diceroll();
+		if(dr.getPaschs() >= 3) {
+			p.prison(true);
+			Client.broadcast("turn-update " + 0 + " " + dr.getPaschs() + " " + p.getName());
+			Client.broadcast("pos-update " + Field.Prison + " " + p.getName());
+		} else {
+			p.move(dr.getSum());
+			Client.broadcast("turn-update " + dr.getSum() + " " + dr.getPaschs() + " " + p.getName());
+			Client.broadcast("pos-update " + p.getPos() + " " + p.getName());
+		}
+
+		Player.setCurrentPlayer(players.get((players.indexOf(p)+1) % players.size()));
 		conn.sendOK();
 	}
 
