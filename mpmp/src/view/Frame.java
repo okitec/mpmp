@@ -27,9 +27,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
+import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Document;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+import javax.swing.text.StyledDocument;
 import model.Model;
 import model.Player;
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
@@ -76,7 +81,8 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 				new Frame(null);
 			}
 		});
-	}	
+	}
+	
 	public Frame(Model m) {
 		this.m = m;
 		chatDisp = new ChatDisp();
@@ -286,18 +292,49 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		}
 	}
 
+	/**
+	 * Append text to a text pane in that color and boldness.
+	 */
+	public void append(JTextPane tp, String s, Color col, boolean bold) {
+		StyleContext sc = StyleContext.getDefaultStyleContext();
+		AttributeSet as;
+		StyledDocument doc;
+		int start, end;
+
+		as = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, col);
+		as = sc.addAttribute(as, StyleConstants.Alignment, StyleConstants.ALIGN_LEFT);
+		as = sc.addAttribute(as, StyleConstants.Bold, bold);
+
+		doc = tp.getStyledDocument();
+		start = doc.getLength();
+		end = start + s.length();
+		try {
+			doc.insertString(start, s + "\n", null);
+		} catch (BadLocationException ble) {
+					;// XXX how to handle?
+		}
+
+		doc.setCharacterAttributes(start, end, as, true);
+	}
+
 	public class ChatDisp implements Displayer {
 
+		/**
+		 * Take a string and an optional color and display it in the chat box.
+		 */
 		@Override
-		public synchronized void show(String s) {
+		public synchronized void show(Object... args) {
+			String s = (String) args[0];
+			final Color col;
+
+			if(args.length == 2)
+				col = (Color) args[1];
+			else
+				col = Color.BLACK;
+
 			// Call in the Event Dispatching Thread.
 			SwingUtilities.invokeLater(() -> {
-				try {
-					Document doc = tChatBox.getDocument();
-					doc.insertString(doc.getLength(), s + "\n", null);
-				} catch (BadLocationException ble) {
-					;// XXX how to handle?
-				}
+				append(tChatBox, s, col, false);
 			});
 		}
 
@@ -309,15 +346,15 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
 	public class PlayerDisp implements Displayer {
 
+		/**
+		 * Take a Player and display it in the player list.
+		 */
 		@Override
-		public synchronized void show(String s) {
+		public synchronized void show(Object... args) {
+			final Player p = (Player) args[0]; 
+
 			SwingUtilities.invokeLater(() -> {
-				try {
-					Document doc = tPlayerList.getDocument();
-					doc.insertString(doc.getLength(), s + "\n", null);
-				} catch (BadLocationException ble) {
-					;// XXX how to handle?
-				}
+				append(tPlayerList, "" + p, p.getColor(), true);
 			});
 		}
 
@@ -332,7 +369,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	public class PieceDisp implements Displayer {
 
 		@Override
-		public void show(String s) {
+		public void show(Object... args) {
 		}
 
 		@Override
