@@ -4,10 +4,6 @@ import cmds.Subscribe;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.ScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -23,7 +19,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
@@ -37,13 +32,6 @@ import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
 import model.Model;
 import model.Player;
-import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
-import org.apache.batik.bridge.UpdateManagerEvent;
-import org.apache.batik.bridge.UpdateManagerListener;
-import org.apache.batik.swing.JSVGCanvas;
-import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
-import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
-import org.apache.batik.util.XMLResourceDescriptor;
 
 public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
@@ -115,13 +103,11 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		pLeft = new JPanel();
 		pChat = new JPanel();
 		pBottom = new JPanel();
-		pBottomMenu = new JPanel();
 		pCurrentPlayer = new JPanel();
 
 		pLeft.setLayout(new BoxLayout(pLeft, BoxLayout.Y_AXIS));
 		pChat.setLayout(new BoxLayout(pChat, BoxLayout.Y_AXIS));
 		pBottom.setLayout(new BoxLayout(pBottom, BoxLayout.X_AXIS));
-		pBottomMenu.setLayout(new BoxLayout(pBottomMenu, BoxLayout.Y_AXIS));
 		pCurrentPlayer.setLayout(new BoxLayout(pCurrentPlayer, BoxLayout.Y_AXIS));
 
 		bTrade = new JButton("Tauschen");
@@ -132,7 +118,9 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		bStartGame = new JButton("Spiel starten");
 		bClearChat = new JButton("Chat leeren");
 		bPayPrison = new JButton("Aus dem Gefängnis freikaufen");
+		bPayPrison.setVisible(false);
 		bUsePrisonLeave = new JButton("Benutze Gefängnis-Frei-Karte");
+		bUsePrisonLeave.setVisible(false);
 		bUpdatePlayer = new JButton("Update Spieler");
 		bUpdatePlayer.setVisible(false);
 
@@ -175,14 +163,12 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		pCurrentPlayer.add(lmPMoney);
 		pCurrentPlayer.add(lmPPlots);
 
-		pBottomMenu.add(bTrade);
-		pBottomMenu.add(bBuyHouse);
-		pBottomMenu.add(bBuyPlot);
-		pBottomMenu.add(bSurrender);
-		pBottomMenu.add(bPayPrison);
-		pBottomMenu.add(bUsePrisonLeave);
-
-		pBottom.add(pBottomMenu);
+		pLeft.add(bTrade);
+		pLeft.add(bBuyHouse);
+		pLeft.add(bBuyPlot);
+		pLeft.add(bSurrender);
+		pLeft.add(bPayPrison);
+		pChat.add(bUsePrisonLeave);
 		pBottom.add(pCurrentPlayer);
 
 		this.addComponentListener(new ComponentAdapter() {
@@ -193,9 +179,9 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		});
 
 		add(gameboard, BorderLayout.CENTER);
+		add(pBottom, BorderLayout.SOUTH);
 		add(pLeft, BorderLayout.WEST);
 		add(pChat, BorderLayout.EAST);
-		add(pBottom, BorderLayout.SOUTH);
 
 		setVisible(true);
 		/*
@@ -359,11 +345,12 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		}
 
 		@Override
-		public synchronized void reset() {
+		public void reset() {
 			SwingUtilities.invokeLater(() -> {
-				tPlayerList.setDocument(new DefaultStyledDocument());
+				tPlayerList.setText("");
 			});
 		}
+		
 	}
 
 	public class PieceDisp implements Displayer {
