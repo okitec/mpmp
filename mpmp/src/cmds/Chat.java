@@ -33,7 +33,7 @@ public class Chat implements cmds.CmdFunc {
 		String receiver = Player.matches(chat, true);
 		
 		if (receiver == null)
-			Client.broadcast("chat-update " + "(" + c.getName() + ") " + chat);
+			Client.broadcast("chat-update (" + c.getName() + ") " + chat);
 		else {
 			String[] s = chat.split("@" + receiver);
 			if (s.length < 2)

@@ -14,7 +14,15 @@ public class ChatUpdate implements CmdFunc {
 	@Override
 	public void exec(String line, Conn conn) {
 		String message = line.substring(12);
-		String name = message.substring(message.indexOf('(') + 1, message.indexOf(')'));
+		String name = null;
+		if (message.startsWith("("))
+			name = message.substring(1, message.indexOf(')'));
+		else if (message.startsWith("[->"))
+			name = message.substring(3, message.indexOf(']'));
+		else if (message.startsWith("["))
+			name = message.substring(1, message.indexOf(']'));
+		
+		System.out.println("name: " + name);
 		Player sender = Player.search(name);
 
 		d.show(message, sender.getColor());
