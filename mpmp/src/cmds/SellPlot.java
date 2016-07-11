@@ -10,7 +10,6 @@ import view.Displayer;
 
 /**
  * C->S
- * @author Leander
  */
 public class SellPlot implements CmdFunc {
 	private Displayer d;

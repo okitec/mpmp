@@ -9,7 +9,6 @@ import view.Displayer;
 
 /**
  * S->C
- * @author Leander
  */
 public class TurnUpdate implements CmdFunc {
 	private Displayer d;

@@ -8,8 +8,6 @@ import java.util.Iterator;
 /**
  * Player represents spectators and the actual, active players. The info stored here exists in both
  * client and server and is kept up-to-date by the clientlist-update packet.
- *
- * @author Leander, oki
  */
 public class Player {
 

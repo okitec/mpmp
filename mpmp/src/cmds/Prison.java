@@ -9,8 +9,6 @@ import view.Displayer;
 
 /**
  * S->C
- *
- * @author Leander
  */
 public class Prison implements CmdFunc {
 	private Displayer d;

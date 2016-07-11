@@ -8,7 +8,6 @@ import view.Displayer;
 
 /**
  * show-transaction S->C packet
- * @author oki
  */
 public class ShowTransaction implements CmdFunc {
 	private Displayer d;

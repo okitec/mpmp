@@ -11,7 +11,6 @@ import model.HousePlot;
 
 /**
  * C->S
- * @author Leander
  */
 public class RmHouse implements CmdFunc {
 	@Override

@@ -29,8 +29,6 @@ import view.Frame;
 
 /**
  * Controller class of the MVC model; used only by the client.
- *
- * @author Leander, oki
  */
 public class Controller {
 

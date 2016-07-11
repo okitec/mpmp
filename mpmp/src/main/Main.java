@@ -9,8 +9,6 @@ import static main.SrvMain.srvmain;
 
 /**
  * Main class of the server
- *
- * @author Leander, oki
  */
 public class Main {
 	public static void main(String[] args) throws IOException {

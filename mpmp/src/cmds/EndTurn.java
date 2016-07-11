@@ -10,7 +10,6 @@ import model.Player;
 
 /**
  * C->S
- * @author Leander
  */
 public class EndTurn implements CmdFunc {
 
@@ -19,27 +18,26 @@ public class EndTurn implements CmdFunc {
 		// XXX check if plot was bought, if not -> auction
 		Client c = (Client) conn;
 
-		Player last = Player.getCurrentPlayer();
+		Player p = Player.getCurrentPlayer();
 		ArrayList<Player> players = Player.getRealPlayers();
-		Player next = players.get((players.indexOf(last)+1) % players.size());
 
 		// Only current player can end their turn.
-		if(!c.getName().equals(last.getName()))
+		if(!c.getName().equals(p.getName()))
 			return;
 
 		Diceroll dr = new Diceroll();
 		if(dr.getPaschs() >= 3) {
-			next.prison(true);
+			p.prison(true);
 			conn.send("prison enter");
-			Client.broadcast("turn-update " + 0 + " " + dr.getPaschs() + " " + next.getName());
-			Client.broadcast("pos-update " + Field.Prison + " " + next.getName());
+			Client.broadcast("turn-update " + 0 + " " + dr.getPaschs() + " " + p.getName());
+			Client.broadcast("pos-update " + Field.Prison + " " + p.getName());
 		} else {
-			next.move(dr.getSum());
-			Client.broadcast("turn-update " + dr.getSum() + " " + dr.getPaschs() + " " + next.getName());
-			Client.broadcast("pos-update " + next.getPos() + " " + next.getName());
+			p.move(dr.getSum());
+			Client.broadcast("turn-update " + dr.getSum() + " " + dr.getPaschs() + " " + p.getName());
+			Client.broadcast("pos-update " + p.getPos() + " " + p.getName());
 		}
 
-		Player.setCurrentPlayer(next);
+		Player.setCurrentPlayer(players.get((players.indexOf(p)+1) % players.size()));
 	}
 
 	@Override

@@ -8,15 +8,13 @@ import model.Field;
  * Converter converts the position of a field to the left upper corner pixel of that field
  * relative to the gameboard. wfld and hfld are the width and height of an unrotated field
  * in pixels.
- *
- * @author oki
  */
 public class Converter {
 	private Point pos2xypx[];
 	private int hfld;
 	private int wfld;
 
-	/* generated at Thu 30 Jun 01:32:13 CEST 2016 */
+	/* generated at Mon 11 Jul 17:05:12 CEST 2016 */
 	public Converter(int wfld, int hfld) {
 		pos2xypx = new Point[Field.Nfields];
 		this.wfld = wfld;
@@ -76,7 +74,13 @@ public class Converter {
 
 	public Point middleRelPx(int pos) {
 		Point p = cornerRelPx(pos);
-		return new Point((int) p.getX() + wfld/2, (int) p.getY() + hfld/2);
+
+		if(pos > 0 && pos < 10 || pos > 20 && pos < 30)         /* top and bottom */
+			return new Point(p.x + wfld/2, p.y + hfld/2);
+		else if(pos > 10 && pos < 20 || pos > 30 && pos <= 39)  /* left and right */
+			return new Point(p.x + hfld/2, p.y + wfld/2);
+		else                                                    /* corners */
+			return new Point(p.x + hfld/2, p.y + hfld/2);
 	}
 
 	/**

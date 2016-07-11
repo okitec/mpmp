@@ -9,9 +9,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-/*
- * @author Klaus, Oskar
- */
 public class Main extends javax.swing.JFrame {
 
     private JTextField addrField;

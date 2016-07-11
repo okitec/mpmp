@@ -1,5 +1,7 @@
 package cmds;
 
+import java.awt.Color;
+
 import main.Conn;
 import main.ErrCode;
 import model.Player;
@@ -60,7 +62,7 @@ public class ClientlistUpdate implements CmdFunc {
 				return;
 			}
 
-			d.show("" + new Player(Player.parseColor(fields[0]), mode, fields[2]));
+			d.show(new Player(Player.parseColor(fields[0]), mode, fields[2]));
 		}
 
 		conn.sendOK();
