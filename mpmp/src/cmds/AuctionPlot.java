@@ -9,7 +9,6 @@ import view.Displayer;
 
 /**
  * S->C
- * @author Leander
  */
 public class AuctionPlot implements CmdFunc {
 	private Displayer d;

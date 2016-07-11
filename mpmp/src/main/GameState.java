@@ -1,9 +1,5 @@
 package main;
 
-/**
- *
- * @author Leander, oki, Klaus
- */
 public enum GameState {
 	Pregame, RunningGame;
 

@@ -10,7 +10,6 @@ import view.Displayer;
 
 /**
  * buy-plot C->S packet; see https://github.com/leletec/mpmp/blob/master/proto.md#grundstücke
- * @author Leander
  */
 public class BuyPlot implements CmdFunc {
 	private Displayer d;

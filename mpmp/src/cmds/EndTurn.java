@@ -10,7 +10,6 @@ import model.Player;
 
 /**
  * C->S
- * @author Leander
  */
 public class EndTurn implements CmdFunc {
 

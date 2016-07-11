@@ -13,8 +13,6 @@ package main;
  *		x3z  Gameplay
  *	third digit: What exactly happened?
  *		depends on the second digit
- * 
- * @author Leander
  */
 public enum ErrCode {
 	MissingMoney(131, "Insufficient money, need"),

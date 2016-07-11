@@ -10,7 +10,6 @@ import model.Player.Mode;
  * Class Client implements the connection to a Client and has static methods for
  * sending packets to all clients. No gameplay state is saved here except a reference
  * to a Player.
- * @author Leander, oki
  */
 public class Client extends Conn {
 	private static HashSet<Client> clients;

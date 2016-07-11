@@ -6,8 +6,6 @@ import java.util.Random;
 
 /**
  * Event cards.
- *
- * @author Matthias, oki
  */
 public class Card {
 

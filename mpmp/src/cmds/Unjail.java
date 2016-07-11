@@ -7,7 +7,6 @@ import model.Player;
 
 /**
  * Sets a player free by using either a unjail-card or by paying the fee.
- * @author Leander
  */
 public class Unjail implements CmdFunc{
 	@Override
