@@ -3,8 +3,8 @@ package net;
 import java.util.ArrayList;
 import java.util.Random;
 
-import main.Client;
-import main.GameState;
+import srv.Client;
+import model.GameState;
 import model.Diceroll;
 import model.Field;
 import model.Player;

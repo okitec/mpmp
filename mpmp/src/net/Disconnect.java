@@ -1,6 +1,6 @@
 package net;
 
-import main.Client;
+import srv.Client;
 
 /**
  * disconnect C->S packet

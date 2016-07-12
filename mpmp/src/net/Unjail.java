@@ -1,6 +1,6 @@
 package net;
 
-import main.Client;
+import srv.Client;
 import model.Player;
 
 /**

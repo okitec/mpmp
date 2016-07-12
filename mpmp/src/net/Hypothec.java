@@ -2,7 +2,7 @@ package net;
 
 import java.util.Arrays;
 
-import main.Client;
+import srv.Client;
 import model.Player;
 import model.Plot;
 import view.Displayer;

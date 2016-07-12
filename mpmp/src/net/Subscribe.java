@@ -2,8 +2,8 @@ package net;
 
 import java.util.Arrays;
 
-import main.Client;
-import main.GameState;
+import srv.Client;
+import model.GameState;
 import model.Player.Mode;
 
 /**

@@ -1,6 +1,6 @@
 package net;
 
-import main.Client;
+import srv.Client;
 
 /**
  * ragequit C->S: give up and become a spectator.

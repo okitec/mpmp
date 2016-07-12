@@ -1,10 +1,10 @@
-package main;
+package srv;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import model.Card;
 
+import model.Card;
 import model.Player;
 import model.PlotGroup;
 

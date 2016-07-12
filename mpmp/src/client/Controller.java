@@ -1,7 +1,7 @@
 /**
  * Controller part of the MVC model (MVC is used in the client only).
  */
-package controller;
+package client;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import model.Model;
 import model.Player;
@@ -23,8 +25,6 @@ import net.PosUpdate;
 import net.Prison;
 import net.Subscribe;
 import net.TurnUpdate;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import view.Frame;
 

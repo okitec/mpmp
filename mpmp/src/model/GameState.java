@@ -1,4 +1,4 @@
-package main;
+package model;
 
 public enum GameState {
 	Pregame, RunningGame;

@@ -1,7 +1,8 @@
 package net;
 
 import java.util.ArrayList;
-import main.Client;
+
+import srv.Client;
 import model.Diceroll;
 import model.Field;
 import model.Player;

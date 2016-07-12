@@ -4,8 +4,8 @@
 package main;
 
 import java.io.IOException;
-import static main.ClientMain.clientmain;
-import static main.SrvMain.srvmain;
+import static client.ClientMain.clientmain;
+import static srv.SrvMain.srvmain;
 
 /**
  * Main class of the server

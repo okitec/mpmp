@@ -2,7 +2,7 @@ package net;
 
 import java.util.Arrays;
 
-import main.Client;
+import srv.Client;
 
 /**
  * C->S whisper packet
