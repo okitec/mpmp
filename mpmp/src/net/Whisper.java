@@ -1,9 +1,8 @@
-package cmds;
+package net;
 
 import java.util.Arrays;
+
 import main.Client;
-import main.Conn;
-import main.ErrCode;
 
 /**
  * C->S whisper packet

@@ -1,10 +1,8 @@
-package cmds;
+package net;
 
 import java.util.Arrays;
 
-import main.Conn;
 import main.Client;
-import main.ErrCode;
 import main.GameState;
 import model.Player.Mode;
 

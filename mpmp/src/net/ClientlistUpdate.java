@@ -1,9 +1,7 @@
-package cmds;
+package net;
 
 import java.awt.Color;
 
-import main.Conn;
-import main.ErrCode;
 import model.Player;
 import view.Displayer;
 

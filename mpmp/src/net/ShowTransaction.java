@@ -1,9 +1,7 @@
-package cmds;
+package net;
 
 import java.util.Arrays;
 
-import main.Conn;
-import main.ErrCode;
 import view.Displayer;
 
 /**

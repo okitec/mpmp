@@ -1,8 +1,6 @@
-package cmds;
+package net;
 
 import main.Client;
-import main.Conn;
-import main.ErrCode;
 import model.Player;
 
 /**

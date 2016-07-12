@@ -1,14 +1,12 @@
-package cmds;
+package net;
 
-import main.Conn;
 import main.Client;
-import main.ErrCode;
 import model.Player;
 
 /**
  * chat C->S packet
  */
-public class Chat implements cmds.CmdFunc {
+public class Chat implements CmdFunc {
 	@Override
 	public void exec(String line, Conn conn) {
 		int argpos;

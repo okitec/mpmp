@@ -1,11 +1,7 @@
-package cmds;
+package net;
 
 import java.util.ArrayList;
-import java.util.Random;
 import main.Client;
-import main.Conn;
-import main.ErrCode;
-import main.GameState;
 import model.Diceroll;
 import model.Field;
 import model.Player;
@@ -13,24 +9,24 @@ import model.Player;
 /**
  * C->S
  */
-public class StartGame implements CmdFunc {
+public class EndTurn implements CmdFunc {
 
 	@Override
 	public void exec(String line, Conn conn) {
-		GameState.startGame();
-		
+		// XXX check if plot was bought, if not -> auction
+		Client c = (Client) conn;
+
+		Player p = Player.getCurrentPlayer();
 		ArrayList<Player> players = Player.getRealPlayers();
-		Random r = new Random();
-		
-		Player p = Player.search(((Client) conn).getName());
-		if (!p.isPlayer()) {
-			conn.sendErr(ErrCode.NotAPlayer);
+
+		// Only current player can end their turn.
+		if(!c.getName().equals(p.getName()))
 			return;
-		}
 
 		Diceroll dr = new Diceroll();
 		if(dr.getPaschs() >= 3) {
 			p.prison(true);
+			conn.send("prison enter");
 			Client.broadcast("turn-update " + 0 + " " + dr.getPaschs() + " " + p.getName());
 			Client.broadcast("pos-update " + Field.Prison + " " + p.getName());
 		} else {
@@ -40,10 +36,11 @@ public class StartGame implements CmdFunc {
 		}
 
 		Player.setCurrentPlayer(players.get((players.indexOf(p)+1) % players.size()));
-		conn.sendOK();
 	}
 
 	@Override
-	public void error(ErrCode err, String line, Conn conn) {}
+	public void error(ErrCode err, String line, Conn conn) {
+		//TODO
+	}
 	
 }

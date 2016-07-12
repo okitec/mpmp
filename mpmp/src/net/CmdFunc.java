@@ -1,7 +1,4 @@
-package cmds;
-
-import main.Conn;
-import main.ErrCode;
+package net;
 
 /**
  * Interface CmdFunc is implemented by all protocol command handlers.

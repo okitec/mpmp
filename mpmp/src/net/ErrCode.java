@@ -1,4 +1,4 @@
-package main;
+package net;
 
 /**
  * Error codes. (inspired by SMTP reply codes)

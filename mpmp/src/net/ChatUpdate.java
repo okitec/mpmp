@@ -1,7 +1,5 @@
-package cmds;
+package net;
 
-import main.Conn;
-import main.ErrCode;
 import model.Player;
 import view.Displayer;
 

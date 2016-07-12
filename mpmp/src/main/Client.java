@@ -3,6 +3,7 @@ package main;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.HashSet;
+
 import model.Player;
 import model.Player.Mode;
 
@@ -11,7 +12,7 @@ import model.Player.Mode;
  * sending packets to all clients. No gameplay state is saved here except a reference
  * to a Player.
  */
-public class Client extends Conn {
+public class Client extends net.Conn {
 	private static HashSet<Client> clients;
 	private Player player;
 

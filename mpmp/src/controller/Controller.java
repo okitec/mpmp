@@ -14,17 +14,18 @@ import java.awt.event.KeyEvent;
 import model.Model;
 import model.Player;
 import model.PlotGroup;
-import cmds.ShowTransaction;
-import cmds.Cmd;
-import cmds.ChatUpdate;
-import cmds.ClientlistUpdate;
-import cmds.PosUpdate;
-import cmds.Prison;
-import cmds.Subscribe;
-import cmds.TurnUpdate;
+import net.ShowTransaction;
+import net.Cmd;
+import net.Conn;
+import net.ChatUpdate;
+import net.ClientlistUpdate;
+import net.PosUpdate;
+import net.Prison;
+import net.Subscribe;
+import net.TurnUpdate;
 import java.util.Timer;
 import java.util.TimerTask;
-import main.Conn;
+
 import view.Frame;
 
 /**

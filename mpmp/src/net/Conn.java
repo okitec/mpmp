@@ -1,4 +1,4 @@
-package main;
+package net;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -7,8 +7,6 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.SocketException;
 import java.net.Socket;
-
-import cmds.Cmd;
 import java.util.Arrays;
 
 /**

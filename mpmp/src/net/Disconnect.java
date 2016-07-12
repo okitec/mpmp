@@ -1,18 +1,22 @@
-package cmds;
+package net;
 
-import main.Conn;
 import main.Client;
-import main.ErrCode;
 
 /**
- * ragequit C->S: give up and become a spectator.
+ * disconnect C->S packet
  */
-public class Ragequit implements CmdFunc {
+public class Disconnect implements CmdFunc {
 	@Override
 	public void exec(String line, Conn conn) {
 		Client c = (Client) conn;
+
+		if (c.isSubscribed())
+			c.ragequit();
+
+		// XXX relay reason message
+
 		c.sendOK();
-		c.ragequit();
+		c.disconnect();
 	}
 
 	@Override
