@@ -1,7 +1,7 @@
 Protokoll
 =========
 
-Protokollversion: 4
+Protokollversion: 5
 
 Das Protokoll ist ein simples textbasiertes Protokoll mit Ähnlichkeit zu POP3.
 Beide Seiten, Client und Server, senden unaufgefordert Pakete aus, die das
@@ -30,7 +30,6 @@ werden häufig dann gesendet, wenn der User auf der GUI Buttons o.ä. betätigt.
 Befehl       | Beschreibung
 -------------|-------------
 `chat`       | Chatmeldung
-`disconnect` | "Offizielle" Trennung der Verbindung
 `subscribe`  | Client registriert Namen, Farbe und Spielmodus
 `whisper`    | Client sendet private Nachricht an einen anderen Spieler oder Zuschauer
 
@@ -95,22 +94,6 @@ und an alle Clients mithilfe von `chat-update` sendet, inklusive dem originalen 
 sind dann gehalten, ihre Chatbox zu aktualisieren. Eine Chatnachricht hat per Konvention folgendes Aussehen:
 
 		(oki) Das ist eine Chatnachricht.
-
-Disconnect (Trennen der Verbindung)
------------------------------------
-
-##### Synopsis
-
-		C: disconnect [Grund]
-		S: +JAWOHL
-		S: <Verbindung getrennt>
-
-##### Beschreibung
-
-Ein Client kann mit `disconnect` die Verbindung schließen. Der Spieler gibt implizit auf,
-sofern er noch im Spiel ist. Es ist immer der Server, der die Verbindung trennt.
-Falls der Client die Verbindung ohne `disconnect` trennt, passiert nichts Schlimmes, jedoch
-kann man keinen Grund angeben.
 
 Beitreten
 ---------

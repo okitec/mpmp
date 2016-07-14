@@ -10,7 +10,6 @@ public enum Cmd {
 	Subscribe("subscribe", new Subscribe()),
 	Ragequit("ragequit", new Ragequit()),
 	EndTurn("end-turn", new EndTurn()),
-	Disconnect("disconnect", new Disconnect()),
 	Whisper("whisper", new Whisper()),
 	Unjail("unjail", new Unjail()),
 	BuyPlot("buy-plot", new BuyPlot()),
