@@ -59,7 +59,7 @@ an alle Clients gesendet.
 Befehl              | Beschreibung
 --------------------|-------------
 `chat-update`       | Chatmeldung
-`clientlist-update` | Spielerliste: echte Spieler und Zuschauer
+`playerlist-update` | Spielerliste: echte Spieler und Zuschauer
 
 ##### Gameplay
 
@@ -198,33 +198,33 @@ Grundstücke
 
 #### Synopsis
 
-		C: buy-plot <Name des Grundstücks>
+		C: buy-plot <Position>
 		S: +JAWOHL
 		oder
 		S: -NEIN 131 insufficient money, need <amount>
 		S: -NEIN 136 belongs to player <player>
 		S: -NEIN you are not a player
-		S: show-transaction <Preis> Buy plot <Grundstück>
+		S: show-transaction <Preis> Buy plot <Grundstücksname>
 		S: money-update ...
 		C: +JAWOHL
 
-		C: sell-plot <Name des Grundstücks> @<Käufer> <Preis>
+		C: sell-plot <Position> <Preis> <Käufer>
 		S: +JAWOHL
 		oder
 		S: -NEIN 136 belongs to player <player>
 		S: -NEIN 137 can't sell plot with houses on it
 
-		S: auction-plot <Name des Grundstücks> <Preis> <Höchstbietender>
+		S: auction-plot <Position> <Preis> <Höchstbietender>
 		C: +JAWOHL
-		C: make-offer <Name des Grundstücks> <Preis>
+		C: make-offer <Position> <Preis>
 		S: +JAWOHL
 		oder
 		C: -NEIN I don't wanna pay that much.
 
-		C: hypothec <yes|no> <Name des Grundstücks>
+		C: hypothec <yes|no> <Position>
 		S: +JAWOHL
 
-		S: plot-update <Name des Grundstücks> <Häuserzahl> <hypothec|nohypothec> <Eigentümer>
+		S: plot-update <Position> <Häuserzahl> <hypothec|nohypothec> <Eigentümer>
 		C: +JAWOHL
 
 #### Beschreibung
@@ -237,10 +237,8 @@ auf dem Grundstück dieses nicht kaufen will, wird es mit `auction-plot` und `ma
 versteigert. Ob ein Grundstück hypothekarisch belastet ist, wird mit `hypothec`
 verändert. Die Bank sendet dann entsprechende `show-transaction`s und `money-update`s.
 
-**Kleiner Hack**: Bei `sell-plot` wird deswegen ein `@` vor den Käufer gestellt, um Käufer
-und Grundstück zu unterscheiden. Natürlich könnte man auch einfach den Preis in die
-Mitte stellen. Das Tolle ist, dass die `@`-Syntax bereits verstanden wird, weil `whisper`
-diese braucht.
+Wie bei `pos-update` beschrieben, ist Feld 0 das Los-Feld, daraufhin wird im Uhrzeigersinn
+gezählt. Alle Felder werden gezählt, auch jene, die nicht gekauft werden können.
 
 
 Häuser kaufen und verkaufen
@@ -248,7 +246,7 @@ Häuser kaufen und verkaufen
 
 #### Synopsis
 
-		C: add-house <Grundstück>
+		C: add-house <Position>
 		S: +JAWOHL
 		oder
 		S: -NEIN 131 insufficient money, need <amount>
@@ -259,7 +257,7 @@ Häuser kaufen und verkaufen
 		S: money-update ...
 		C: +JAWOHL
 
-		C: rm-house <Grundstück>
+		C: rm-house <Position>
 		S: +JAWOHL
 		S: show-transaction <halber Hauserwerbspreis> sold house to bank
 		S: money-update ...
@@ -313,12 +311,10 @@ Gefängnis
 
 #### Beschreibung
 
-Der `prison`-Befehl befördert den Spieler in das Gefängnis (`prison enter`)
-oder wieder hinaus (`prison leave`). Damit wird nur der Status des Spielers visuell geändert;
-die Bewegung auf das Gefängnisfeld findet durch `pos-update` statt. Mit dem `unjail`-Befehl
-hat der Spieler die Möglichkeit, seine Gefängnis-Frei-Karte einzusetzen oder den fixen Betrag
-zu zahlen, um freizukommen. Das *passive* Freikommen durch Pasch passiert im Server und wird
-nicht durch `unjail` initiiert.
+Der `prison`-Befehl befördert den Spieler in das Gefängnis (`prison enter`) oder wieder hinaus
+(`prison leave`). Damit wird nur der Status des Spielers visuell geändert; die Bewegung auf das
+Gefängnisfeld findet durch `pos-update` statt. Mit dem `unjail`-Befehl hat der Spieler die
+Möglichkeit, seine Gefängnis-Frei-Karte einzusetzen oder den fixen Betrag zu zahlen, um freizukommen.
 
 Flüstern
 --------

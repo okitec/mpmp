@@ -24,11 +24,12 @@ public class BuyPlot implements CmdFunc {
 		}
 		
 		if (args.length < 2) {
-			conn.sendErr(ErrCode.Usage, "buy-plot <Name des Grundstücks>");
+			conn.sendErr(ErrCode.Usage, "buy-plot <Position>");
 			return;
 		}
 		
-		Plot plot = Plot.search(String.join(" ", Arrays.copyOfRange(args, 1, args.length)));
+		Plot plot = null;
+		// XXX rework plot system: we need pos-to-plot lookup! -oki
 		if (plot == null) {
 			conn.sendErr(ErrCode.NotAPlot);
 			return;
@@ -53,7 +54,8 @@ public class BuyPlot implements CmdFunc {
 
 		conn.sendOK();
 		conn.send("show-transaction " + price + " Buy plot " + plot.getName());
-		conn.send("plot-update " + plot);
+		Client.broadcast("money-update " + p.getMoney() + " " + p.getName());
+		Client.broadcast("plot-update " + plot);
 	}
 
 	@Override
