@@ -144,7 +144,7 @@ Spielerliste
 
 ##### Synopsis
 
-		S: playerlist-update <Anzahl Einträgt>
+		S: playerlist-update <Anzahl Einträge>
 		S: <Farbe>: <Gamemode>: <Name 1>
 		S: <Farbe>: <Gamemode>: <...>
 		C: +JAWOHL
@@ -282,7 +282,7 @@ Mieten und andere Geldereignisse
 		S: show-transaction <Menge> <Grund>
 		C: +JAWOHL
 
-		S: money-update <Cash> <Hypothekengeld> <Spieler>
+		S: money-update <Spieler>
 		C: +JAWOHL
 
 #### Beschreibung
@@ -293,7 +293,6 @@ Wichtige Gründe sind Mieten, Ereigniskarten, das Gehalt beim Überqueren des St
 Häuser- und Grundstückskäufe. Die eigentliche Veränderung des gespeicherten Wertes geschieht
 durch das an alle versendete `money-update`.
 
-Die Geldmenge eines Spielers wird im Folgenden mit `money-update` an alle weitergegeben.
 Die Trennung zwischen `show-transaction` und `money-update` ist nötig, da bei Ersterem
 ein Grund genannt werden muss, der den Rest der Zeile einnimmt, sodass wir den Grund
 nicht von einem Spielernamen unterscheiden könnten (wir verwenden keine Quotes).
