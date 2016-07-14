@@ -1,6 +1,5 @@
 package view;
 
-import cmds.Subscribe;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -30,6 +29,8 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
+
+import net.Subscribe;
 import model.Model;
 import model.Player;
 
