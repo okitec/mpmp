@@ -139,21 +139,24 @@ Aufgeben
 Ein Spieler kann mit `ragequit` aufgeben. Er empfängt jedoch weiterhin Updates über das
 Spiel und ist somit ein Zuschauer (*Spectator*).
 
-Spieler- bzw. Clientliste
--------------------------
+Spielerliste
+------------
 
 ##### Synopsis
 
-		S: clientlist-update <Anzahl Clients>
-		S: <Farbe>: <Gamemode>: <Name von Client 1>
+		S: playerlist-update <Anzahl Einträgt>
+		S: <Farbe>: <Gamemode>: <Name 1>
 		S: <Farbe>: <Gamemode>: <...>
 		C: +JAWOHL
 
 ##### Beschreibung
 
+Spieler sind sowohl aktive Mitspieler als auch Zuschauer, also eingentlich alle,
+die subscribt haben und einen Namen haben.
+
 Nach einem Subscribe sendet der Server an alle Clients die Spielerliste inklusive
 der Farben und des Gamemodes (siehe Subscribe). Die Farben sind RGB-Hextriplets wie
-z.B. `#FFA500`. Falls man nur ein Zuschauer ist, ist die Farbe irrelevant.
+z.B. `#FFA500`.
 
 Spielbeginn
 -----------

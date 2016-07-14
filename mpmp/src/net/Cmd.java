@@ -21,8 +21,8 @@ public enum Cmd {
 
 	/* S->C */
 	ChatUpdate("chat-update", new ChatUpdate()),
-	ClientlistUpdate("clientlist-update", new ClientlistUpdate()),
-	AddMoney("show-transaction", new ShowTransaction()),
+	PlayerlistUpdate("clientlist-update", new PlayerlistUpdate()),
+	ShowTransaction("show-transaction", new ShowTransaction()),
 	AuctionPlot("auction-plot", new AuctionPlot()),
 	PlotUpdate("plot-update", new PlotUpdate()),
 	Prison("prison", new Prison()),

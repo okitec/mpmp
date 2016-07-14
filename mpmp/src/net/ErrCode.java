@@ -35,7 +35,7 @@ public enum ErrCode {
 	Internal(302, "Unexpected Error:"),
 	EOF(303, "Unexpected EOF"),
 	Command(304, "Non-existing command:"),
-	ClientlistUpdateMissingFields(311, "Expected three fields: 'color: mode: name'"),
+	PlayerlistUpdateMissingFields(311, "Expected three fields: 'color: mode: name'"),
 	NotAPlot(333, "Not a valid plot");
 	
 	private final int code;
