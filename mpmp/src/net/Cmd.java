@@ -10,7 +10,6 @@ public enum Cmd {
 	Subscribe("subscribe", new Subscribe()),
 	Ragequit("ragequit", new Ragequit()),
 	EndTurn("end-turn", new EndTurn()),
-	Disconnect("disconnect", new Disconnect()),
 	Whisper("whisper", new Whisper()),
 	Unjail("unjail", new Unjail()),
 	BuyPlot("buy-plot", new BuyPlot()),
@@ -22,8 +21,8 @@ public enum Cmd {
 
 	/* S->C */
 	ChatUpdate("chat-update", new ChatUpdate()),
-	ClientlistUpdate("clientlist-update", new ClientlistUpdate()),
-	AddMoney("show-transaction", new ShowTransaction()),
+	PlayerlistUpdate("clientlist-update", new PlayerlistUpdate()),
+	ShowTransaction("show-transaction", new ShowTransaction()),
 	AuctionPlot("auction-plot", new AuctionPlot()),
 	PlotUpdate("plot-update", new PlotUpdate()),
 	Prison("prison", new Prison()),

@@ -5,36 +5,29 @@ import java.util.Arrays;
 import model.Player;
 
 /**
- * S->C
+ * money-update S->C
  */
 public class MoneyUpdate implements CmdFunc {
 
 	@Override
 	public void exec(String line, Conn conn) {
 		String[] args = line.split(" ");
-		int cash, hyp;
+		int money;
 		Player p;
 		
-		if (args.length < 4) {
-			conn.sendErr(ErrCode.Usage, "money-update <Cash> <Hypothekengeld> <Spieler>");
+		if (args.length < 3) {
+			conn.sendErr(ErrCode.Usage, "money-update <Geld> <Spieler>");
 			return;
 		}
 		
 		try {
-			cash = Integer.parseInt(args[1]);
+			money = Integer.parseInt(args[1]);
 		} catch (NumberFormatException nfe) {
-			conn.sendErr(ErrCode.Usage, "money-update <Cash> <Hypothekengeld> <Spieler>");
+			conn.sendErr(ErrCode.Usage, "money-update <Geld> <Spieler>");
 			return;
 		}
 		
-		try {
-			hyp = Integer.parseInt(args[2]);
-		} catch (NumberFormatException nfe) {
-			conn.sendErr(ErrCode.Usage, "money-update <Cash> <Hypothekengeld> <Spieler>");
-			return;
-		}
-		
-		p = Player.search(String.join(" ", Arrays.copyOfRange(args, 3, args.length)));
+		p = Player.search(String.join(" ", Arrays.copyOfRange(args, 2, args.length)));
 		if (p == null) {
 			conn.sendErr(ErrCode.NoSuchPlayer);
 			return;

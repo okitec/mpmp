@@ -16,7 +16,6 @@ public class Hypothec implements CmdFunc {
 	@Override
 	public void exec(String line, Conn conn) {
 		String[] args = line.split(" ");
-		String pname;
 		Plot plot;
 
 		Player p = Player.search(((Client) conn).getName());
@@ -26,17 +25,17 @@ public class Hypothec implements CmdFunc {
 		}
 
 		if (args.length < 3) {
-			conn.sendErr(ErrCode.Usage, "hypothec <yes|no> <Name des Grundstücks>");
+			conn.sendErr(ErrCode.Usage, "hypothec <yes|no> <Position>");
 			return;
 		}
 
-		pname = Plot.matches(String.join(" ", Arrays.copyOfRange(args, 2, args.length)));
-		if (pname == null) {
+		plot = null;
+		// XXX missing pos-to-plot map
+		if(plot == null) {
 			conn.sendErr(ErrCode.NotAPlot);
 			return;
 		}
 
-		plot = Plot.search(pname);
 		if (p != plot.getOwner()) {
 			conn.sendErr(ErrCode.AlreadyOwned, plot.getOwner().getName());
 			return;
@@ -56,13 +55,14 @@ public class Hypothec implements CmdFunc {
 			}
 			break;
 		default:
-			conn.sendErr(ErrCode.Usage, "hypothec <yes|no> <Name des Grundstücks>");
+			conn.sendErr(ErrCode.Usage, "hypothec <yes|no> <Position>");
 			return;
 		}
 		
 		conn.sendOK();
-		conn.send("show-transaction " + hyp + " Hypothec for plot " + plot.getName());;
-		conn.send("plot-update " + plot);
+		conn.send("show-transaction " + hyp + " Hypothec for plot " + plot.getName());
+		Client.broadcast("money-update " + p.getMoney() + " " + p.getName());
+		Client.broadcast("plot-update " + plot);
 	}
 
 	@Override

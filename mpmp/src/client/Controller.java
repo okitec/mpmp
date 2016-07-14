@@ -20,7 +20,7 @@ import net.ShowTransaction;
 import net.Cmd;
 import net.Conn;
 import net.ChatUpdate;
-import net.ClientlistUpdate;
+import net.PlayerlistUpdate;
 import net.PosUpdate;
 import net.Prison;
 import net.Subscribe;
@@ -47,8 +47,8 @@ public class Controller {
 		PlotGroup.init();
 
 		((ChatUpdate) Cmd.ChatUpdate.getFn()).addDisplayer(frame.chatDisp);
-		((ClientlistUpdate) Cmd.ClientlistUpdate.getFn()).addDisplayer(frame.playerDisp);
-		((ShowTransaction) Cmd.AddMoney.getFn()).addDisplayer(frame.chatDisp);
+		((PlayerlistUpdate) Cmd.PlayerlistUpdate.getFn()).addDisplayer(frame.playerDisp);
+		((ShowTransaction) Cmd.ShowTransaction.getFn()).addDisplayer(frame.chatDisp);
 		((TurnUpdate) Cmd.TurnUpdate.getFn()).addDisplayer(frame.chatDisp);
 		((PosUpdate) Cmd.PosUpdate.getFn()).addDisplayer(frame.pieceDisp);
 		((Subscribe) Cmd.Subscribe.getFn()).addSubscribeErrer(frame);

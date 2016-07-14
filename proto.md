@@ -1,7 +1,7 @@
 Protokoll
 =========
 
-Protokollversion: 4
+Protokollversion: 5
 
 Das Protokoll ist ein simples textbasiertes Protokoll mit Ähnlichkeit zu POP3.
 Beide Seiten, Client und Server, senden unaufgefordert Pakete aus, die das
@@ -30,7 +30,6 @@ werden häufig dann gesendet, wenn der User auf der GUI Buttons o.ä. betätigt.
 Befehl       | Beschreibung
 -------------|-------------
 `chat`       | Chatmeldung
-`disconnect` | "Offizielle" Trennung der Verbindung
 `subscribe`  | Client registriert Namen, Farbe und Spielmodus
 `whisper`    | Client sendet private Nachricht an einen anderen Spieler oder Zuschauer
 
@@ -60,7 +59,7 @@ an alle Clients gesendet.
 Befehl              | Beschreibung
 --------------------|-------------
 `chat-update`       | Chatmeldung
-`clientlist-update` | Spielerliste: echte Spieler und Zuschauer
+`playerlist-update` | Spielerliste: echte Spieler und Zuschauer
 
 ##### Gameplay
 
@@ -95,22 +94,6 @@ und an alle Clients mithilfe von `chat-update` sendet, inklusive dem originalen 
 sind dann gehalten, ihre Chatbox zu aktualisieren. Eine Chatnachricht hat per Konvention folgendes Aussehen:
 
 		(oki) Das ist eine Chatnachricht.
-
-Disconnect (Trennen der Verbindung)
------------------------------------
-
-##### Synopsis
-
-		C: disconnect [Grund]
-		S: +JAWOHL
-		S: <Verbindung getrennt>
-
-##### Beschreibung
-
-Ein Client kann mit `disconnect` die Verbindung schließen. Der Spieler gibt implizit auf,
-sofern er noch im Spiel ist. Es ist immer der Server, der die Verbindung trennt.
-Falls der Client die Verbindung ohne `disconnect` trennt, passiert nichts Schlimmes, jedoch
-kann man keinen Grund angeben.
 
 Beitreten
 ---------
@@ -156,21 +139,24 @@ Aufgeben
 Ein Spieler kann mit `ragequit` aufgeben. Er empfängt jedoch weiterhin Updates über das
 Spiel und ist somit ein Zuschauer (*Spectator*).
 
-Spieler- bzw. Clientliste
--------------------------
+Spielerliste
+------------
 
 ##### Synopsis
 
-		S: clientlist-update <Anzahl Clients>
-		S: <Farbe>: <Gamemode>: <Name von Client 1>
+		S: playerlist-update <Anzahl Einträge>
+		S: <Farbe>: <Gamemode>: <Name 1>
 		S: <Farbe>: <Gamemode>: <...>
 		C: +JAWOHL
 
 ##### Beschreibung
 
+Spieler sind sowohl aktive Mitspieler als auch Zuschauer, also eingentlich alle,
+die subscribt haben und einen Namen haben.
+
 Nach einem Subscribe sendet der Server an alle Clients die Spielerliste inklusive
 der Farben und des Gamemodes (siehe Subscribe). Die Farben sind RGB-Hextriplets wie
-z.B. `#FFA500`. Falls man nur ein Zuschauer ist, ist die Farbe irrelevant.
+z.B. `#FFA500`.
 
 Spielbeginn
 -----------
@@ -212,33 +198,33 @@ Grundstücke
 
 #### Synopsis
 
-		C: buy-plot <Name des Grundstücks>
+		C: buy-plot <Position>
 		S: +JAWOHL
 		oder
 		S: -NEIN 131 insufficient money, need <amount>
 		S: -NEIN 136 belongs to player <player>
 		S: -NEIN you are not a player
-		S: show-transaction <Preis> Buy plot <Grundstück>
+		S: show-transaction <Preis> Buy plot <Grundstücksname>
 		S: money-update ...
 		C: +JAWOHL
 
-		C: sell-plot <Name des Grundstücks> @<Käufer> <Preis>
+		C: sell-plot <Position> <Preis> <Käufer>
 		S: +JAWOHL
 		oder
 		S: -NEIN 136 belongs to player <player>
 		S: -NEIN 137 can't sell plot with houses on it
 
-		S: auction-plot <Name des Grundstücks> <Preis> <Höchstbietender>
+		S: auction-plot <Position> <Preis> <Höchstbietender>
 		C: +JAWOHL
-		C: make-offer <Name des Grundstücks> <Preis>
+		C: make-offer <Position> <Preis>
 		S: +JAWOHL
 		oder
 		C: -NEIN I don't wanna pay that much.
 
-		C: hypothec <yes|no> <Name des Grundstücks>
+		C: hypothec <yes|no> <Position>
 		S: +JAWOHL
 
-		S: plot-update <Name des Grundstücks> <Häuserzahl> <hypothec|nohypothec> <Eigentümer>
+		S: plot-update <Position> <Häuserzahl> <hypothec|nohypothec> <Eigentümer>
 		C: +JAWOHL
 
 #### Beschreibung
@@ -251,10 +237,8 @@ auf dem Grundstück dieses nicht kaufen will, wird es mit `auction-plot` und `ma
 versteigert. Ob ein Grundstück hypothekarisch belastet ist, wird mit `hypothec`
 verändert. Die Bank sendet dann entsprechende `show-transaction`s und `money-update`s.
 
-**Kleiner Hack**: Bei `sell-plot` wird deswegen ein `@` vor den Käufer gestellt, um Käufer
-und Grundstück zu unterscheiden. Natürlich könnte man auch einfach den Preis in die
-Mitte stellen. Das Tolle ist, dass die `@`-Syntax bereits verstanden wird, weil `whisper`
-diese braucht.
+Wie bei `pos-update` beschrieben, ist Feld 0 das Los-Feld, daraufhin wird im Uhrzeigersinn
+gezählt. Alle Felder werden gezählt, auch jene, die nicht gekauft werden können.
 
 
 Häuser kaufen und verkaufen
@@ -262,7 +246,7 @@ Häuser kaufen und verkaufen
 
 #### Synopsis
 
-		C: add-house <Grundstück>
+		C: add-house <Position>
 		S: +JAWOHL
 		oder
 		S: -NEIN 131 insufficient money, need <amount>
@@ -273,7 +257,7 @@ Häuser kaufen und verkaufen
 		S: money-update ...
 		C: +JAWOHL
 
-		C: rm-house <Grundstück>
+		C: rm-house <Position>
 		S: +JAWOHL
 		S: show-transaction <halber Hauserwerbspreis> sold house to bank
 		S: money-update ...
@@ -296,7 +280,7 @@ Mieten und andere Geldereignisse
 		S: show-transaction <Menge> <Grund>
 		C: +JAWOHL
 
-		S: money-update <Cash> <Hypothekengeld> <Spieler>
+		S: money-update <Spieler>
 		C: +JAWOHL
 
 #### Beschreibung
@@ -307,7 +291,6 @@ Wichtige Gründe sind Mieten, Ereigniskarten, das Gehalt beim Überqueren des St
 Häuser- und Grundstückskäufe. Die eigentliche Veränderung des gespeicherten Wertes geschieht
 durch das an alle versendete `money-update`.
 
-Die Geldmenge eines Spielers wird im Folgenden mit `money-update` an alle weitergegeben.
 Die Trennung zwischen `show-transaction` und `money-update` ist nötig, da bei Ersterem
 ein Grund genannt werden muss, der den Rest der Zeile einnimmt, sodass wir den Grund
 nicht von einem Spielernamen unterscheiden könnten (wir verwenden keine Quotes).
@@ -328,12 +311,10 @@ Gefängnis
 
 #### Beschreibung
 
-Der `prison`-Befehl befördert den Spieler in das Gefängnis (`prison enter`)
-oder wieder hinaus (`prison leave`). Damit wird nur der Status des Spielers visuell geändert;
-die Bewegung auf das Gefängnisfeld findet durch `pos-update` statt. Mit dem `unjail`-Befehl
-hat der Spieler die Möglichkeit, seine Gefängnis-Frei-Karte einzusetzen oder den fixen Betrag
-zu zahlen, um freizukommen. Das *passive* Freikommen durch Pasch passiert im Server und wird
-nicht durch `unjail` initiiert.
+Der `prison`-Befehl befördert den Spieler in das Gefängnis (`prison enter`) oder wieder hinaus
+(`prison leave`). Damit wird nur der Status des Spielers visuell geändert; die Bewegung auf das
+Gefängnisfeld findet durch `pos-update` statt. Mit dem `unjail`-Befehl hat der Spieler die
+Möglichkeit, seine Gefängnis-Frei-Karte einzusetzen oder den fixen Betrag zu zahlen, um freizukommen.
 
 Flüstern
 --------
