@@ -399,11 +399,10 @@ Code | Beschreibung
  **2yz** | permanentes Fehlschlagen; der Befehl kann nie funktionieren
  **20z** | allgemeiner Fehler, kann in verschiedenen Bereichen auftreten
  201 | unerwartetes End-of-File
- **21z** | Beitreten und Clientlist-Updates
+ **21z** | Beitreten
  211 | gewählter Name bereits vergeben
- 212 | `clientlist-update` mit falscher Syntax
- 213 | `clientlist-update` mit falschen Listenzeilen
- 214 | `subscribe` mit falscher Syntax
+ 212 | Bereits laufendes Spiel
+ 213 | Spiel wurde noch **nicht** gestartet
  215 | Spieler existiert nicht
  **22z** | Chatten, Flüstern
  221 | nicht subscribter Client will chatten

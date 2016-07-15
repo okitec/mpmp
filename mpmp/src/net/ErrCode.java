@@ -19,7 +19,7 @@ public enum ErrCode {
 	MissingUnjailCard(132, "Missing unjail card"),
 	NewEventCard(133, "pls giv me new eventcart"),
 	NewEventCardImpossible(134, "Taking new eventcard not allowed"),
-	UnbalancedColor(135, "Your houses are to unbalanced for that plot group"), //XXX Say what color?
+	UnbalancedColor(135, "Houses too unbalanced in plot group"), //XXX Say what color?
 	AlreadyOwned(136, "Owned by"),
 	PlotWithHouse(137, "Can't sell a plot with houses on it"),
 	TooManyHouses(138, "Already fully upgraded"),
@@ -27,6 +27,7 @@ public enum ErrCode {
 
 	NameTaken(211, "Name already taken"),
 	GameRunning(212, "Game already running"),
+	GameNotRunning(213, "Game not running"),
 	NoSuchPlayer(215, "This player does not exist"),
 	NotSubscribed(221, "You are not subscribed"),
 	NotAPlayer(232, "You are not a player"),

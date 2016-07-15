@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import srv.Client;
 import model.Diceroll;
 import model.Field;
+import model.GameState;
 import model.Player;
 
 /**
@@ -16,9 +17,15 @@ public class EndTurn implements CmdFunc {
 	public void exec(String line, Conn conn) {
 		// XXX check if plot was bought, if not -> auction
 		Client c = (Client) conn;
+		Player p;
+		ArrayList<Player> players;
 
-		Player p = Player.getCurrentPlayer();
-		ArrayList<Player> players = Player.getRealPlayers();
+		if(!GameState.running()) {
+			conn.sendErr(ErrCode.GameNotRunning);
+			return;
+		}
+
+		p = Player.getCurrentPlayer();
 
 		// Only current player can end their turn.
 		if(!c.getName().equals(p.getName()))
@@ -36,6 +43,7 @@ public class EndTurn implements CmdFunc {
 			Client.broadcast("pos-update " + p.getPos() + " " + p.getName());
 		}
 
+		players = Player.getRealPlayers();
 		Player.setCurrentPlayer(players.get((players.indexOf(p)+1) % players.size()));
 	}
 
