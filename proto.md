@@ -71,6 +71,7 @@ Befehl              | Beschreibung
 `pos-update`        | Positionsänderung
 `prison`            | Spieler kommt ins Gefängnis oder wieder raus
 `show-transaction`  | Grund und Höhe einer Transaktion
+`start-update`      | Teilt Clients mit, dass das Spiel startet
 `turn-update`       | Neue Runde: nächster Spieler und Würfelergebnis wird gesendet
 
 Detaildokumentation
@@ -166,10 +167,14 @@ Spielbeginn
 		C: start-game
 		S: +JAWOHL
 
+		S: start-update
+		C: +JAWOHL
+
 ##### Beschreibung
 
-Ein Client, der das Spiel beginnen will, sendet dieses Paket. Momentan sind keine
-Restriktionen eingebaut: jeder kann das Spiel starten.
+Ein Client, der das Spiel beginnen will, sendet  `start-game`, woraufhin der Server an
+alle das `start-update`-Paket sendet. Momentan sind keine Restriktionen eingebaut: jeder
+kann das Spiel starten.
 
 Rundenende und -anfang
 ----------------------
