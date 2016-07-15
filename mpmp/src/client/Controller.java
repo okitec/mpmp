@@ -12,6 +12,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Timer;
 import java.util.TimerTask;
+import model.GameState;
 
 import model.Model;
 import model.Player;
@@ -83,13 +84,6 @@ public class Controller {
 			}
 		});
 
-		frame.addEndTurnListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				conn.send("end-turn");
-			}
-		});
-
 		frame.addSurrenderListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -97,12 +91,17 @@ public class Controller {
 			}
 		});
 
-		frame.addStartGameListener(new ActionListener() {
+		frame.addEndTurnListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				conn.send("start-game");
-				frame.updateMyPlayerText(Player.search(name));
-				frame.removeStartGameButton();
+				if (GameState.running()) {
+					conn.send("end-turn");
+				} else {
+					conn.send("start-game");
+					GameState.startGame();
+					frame.updateMyPlayerText(Player.search(name));
+					frame.startGame();
+				}
 			}
 		});
 

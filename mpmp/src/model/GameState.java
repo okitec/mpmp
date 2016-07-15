@@ -7,11 +7,10 @@ public enum GameState {
 
 	public static void startGame() {
 		state = RunningGame;
+		System.out.println("The game is now running");
 	}
 
 	public static boolean running() {
-		if (state == RunningGame)
-			return true;
-		return false;
+		return state == RunningGame;
 	}
 }

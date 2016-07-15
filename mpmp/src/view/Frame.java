@@ -50,7 +50,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	private JButton bBuyHouse;
 	private JButton bBuyPlot;
 	private JButton bSurrender;
-	private JButton bStartGame;
 	private JButton bPayPrison;
 	private JButton bUsePrisonLeave;
 	private JButton bClearChat;
@@ -115,8 +114,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		bBuyHouse = new JButton("Haus kaufen");
 		bBuyPlot = new JButton("Straße kaufen");
 		bSurrender = new JButton("Aufgeben");
-		bEndTurn = new JButton("Runde beenden");
-		bStartGame = new JButton("Spiel starten");
+		bEndTurn = new JButton("Spiel starten");
 		bClearChat = new JButton("Chat leeren");
 		bPayPrison = new JButton("Aus dem Gefängnis freikaufen");
 		bPayPrison.setVisible(false);
@@ -153,7 +151,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		pLeft.add(bUsePrisonLeave);
 
 		pChat.add(bUpdatePlayer);
-		pChat.add(bStartGame);
 		pChat.add(sP);
 		pChat.add(tChatField);
 		pChat.add(bEndTurn);
@@ -242,18 +239,13 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		bUsePrisonLeave.addActionListener(al);
 	}
 
-	public void addStartGameListener(ActionListener al) {
-		System.out.println("Spiel gestartet.");
-		bStartGame.addActionListener(al);
-	}
-
 	public void addClearChatListener(ActionListener al) {
 		System.out.println("Chat geleert.");
 		bClearChat.addActionListener(al);
 	}
 
-	public void removeStartGameButton() {
-		bStartGame.setVisible(false);
+	public void startGame() {
+		bEndTurn.setText("Runde beenden");
 		bUpdatePlayer.setVisible(true);
 	}
 
