@@ -23,8 +23,6 @@ import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultStyledDocument;
-import javax.swing.text.Document;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
@@ -39,6 +37,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	public final ChatDisp chatDisp;
 	public final PlayerDisp playerDisp;
 	public final PieceDisp pieceDisp;
+	public final StartDisp startDisp;
 	private Model m;
 	private JPanel pLeft;
 	private JPanel pChat;
@@ -50,7 +49,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	private JButton bBuyHouse;
 	private JButton bBuyPlot;
 	private JButton bSurrender;
-	private JButton bStartGame;
 	private JButton bPayPrison;
 	private JButton bUsePrisonLeave;
 	private JButton bClearChat;
@@ -77,6 +75,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		chatDisp = new ChatDisp();
 		playerDisp = new PlayerDisp();
 		pieceDisp = new PieceDisp();
+		startDisp = new StartDisp();
 		setMinimumSize(new Dimension(800, 800));
 		setPreferredSize(new Dimension(1920, 1080));
 		createFrame();
@@ -115,8 +114,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		bBuyHouse = new JButton("Haus kaufen");
 		bBuyPlot = new JButton("Straße kaufen");
 		bSurrender = new JButton("Aufgeben");
-		bEndTurn = new JButton("Runde beenden");
-		bStartGame = new JButton("Spiel starten");
+		bEndTurn = new JButton("Spiel starten");
 		bClearChat = new JButton("Chat leeren");
 		bPayPrison = new JButton("Aus dem Gefängnis freikaufen");
 		bPayPrison.setVisible(false);
@@ -153,7 +151,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		pLeft.add(bUsePrisonLeave);
 
 		pChat.add(bUpdatePlayer);
-		pChat.add(bStartGame);
 		pChat.add(sP);
 		pChat.add(tChatField);
 		pChat.add(bEndTurn);
@@ -203,57 +200,43 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	}
 
 	public void addEndTurnListener(ActionListener al) {
-		System.out.println("Runde beendet.");
 		bEndTurn.addActionListener(al);
 	}
 
 	public void addTradeListener(ActionListener al) {
-		System.out.println("Tausch.");
 		bTrade.addActionListener(al);
 	}
 
 	public void addBuyHouseListener(ActionListener al) {
-		System.out.println("Haus gekauft.");
 		bBuyHouse.addActionListener(al);
 	}
 
 	public void addBuyPlotListener(ActionListener al) {
-		System.out.println("Grundstück gekauft.");
 		bBuyPlot.addActionListener(al);
 	}
 
 	public void addSurrenderListener(ActionListener al) {
-		System.out.println("Aufgegeben.");
 		bSurrender.addActionListener(al);
 	}
 
 	public void addUpdatePlayerListener(ActionListener al) {
-		System.out.println("Player updated.");
 		bUpdatePlayer.addActionListener(al);
 	}
 
 	public void addPayPrisonListener(ActionListener al) {
-		System.out.println("Aus dem Gefängnis freigekauft");
 		bPayPrison.addActionListener(al);
 	}
 
 	public void addUsePrisonLeaveListener(ActionListener al) {
-		System.out.println("Gefängnis-Frei-Karte benutzt.");
 		bUsePrisonLeave.addActionListener(al);
 	}
 
-	public void addStartGameListener(ActionListener al) {
-		System.out.println("Spiel gestartet.");
-		bStartGame.addActionListener(al);
-	}
-
 	public void addClearChatListener(ActionListener al) {
-		System.out.println("Chat geleert.");
 		bClearChat.addActionListener(al);
 	}
 
-	public void removeStartGameButton() {
-		bStartGame.setVisible(false);
+	public void startGame() {
+		bEndTurn.setText("Runde beenden");
 		bUpdatePlayer.setVisible(true);
 	}
 
@@ -365,6 +348,20 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 			SwingUtilities.invokeLater(() -> {
 				gameboard.repaint();
 			});
+		}
+	}
+	
+	public class StartDisp implements Displayer {
+
+		@Override
+		public void show(Object... args) {}
+
+		/**
+		 * 'Changes' the StartGame button to a EndTurn button
+		 */
+		@Override
+		public void reset() {
+			startGame();
 		}
 	}
 }

@@ -28,7 +28,8 @@ public enum Cmd {
 	Prison("prison", new Prison()),
 	PosUpdate("pos-update", new PosUpdate()),
 	MoneyUpdate("money-update", new MoneyUpdate()),
-	TurnUpdate("turn-update", new TurnUpdate());
+	TurnUpdate("turn-update", new TurnUpdate()),
+	StartUpdate("start-update", new StartUpdate());
 
 	private final String s;
 	private final CmdFunc fn;
