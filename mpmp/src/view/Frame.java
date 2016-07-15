@@ -23,8 +23,6 @@ import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultStyledDocument;
-import javax.swing.text.Document;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
@@ -39,6 +37,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	public final ChatDisp chatDisp;
 	public final PlayerDisp playerDisp;
 	public final PieceDisp pieceDisp;
+	public final StartDisp startDisp;
 	private Model m;
 	private JPanel pLeft;
 	private JPanel pChat;
@@ -76,6 +75,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		chatDisp = new ChatDisp();
 		playerDisp = new PlayerDisp();
 		pieceDisp = new PieceDisp();
+		startDisp = new StartDisp();
 		setMinimumSize(new Dimension(800, 800));
 		setPreferredSize(new Dimension(1920, 1080));
 		createFrame();
@@ -236,6 +236,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	}
 
 	public void startGame() {
+		bEndTurn.setText("Runde beenden");
 		bUpdatePlayer.setVisible(true);
 	}
 
@@ -347,6 +348,20 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 			SwingUtilities.invokeLater(() -> {
 				gameboard.repaint();
 			});
+		}
+	}
+	
+	public class StartDisp implements Displayer {
+
+		@Override
+		public void show(Object... args) {}
+
+		/**
+		 * 'Changes' the StartGame button to a EndTurn button
+		 */
+		@Override
+		public void reset() {
+			startGame();
 		}
 	}
 }

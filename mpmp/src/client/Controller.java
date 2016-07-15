@@ -24,6 +24,7 @@ import net.ChatUpdate;
 import net.PlayerlistUpdate;
 import net.PosUpdate;
 import net.Prison;
+import net.StartUpdate;
 import net.Subscribe;
 import net.TurnUpdate;
 
@@ -54,6 +55,7 @@ public class Controller {
 		((PosUpdate) Cmd.PosUpdate.getFn()).addDisplayer(frame.pieceDisp);
 		((Subscribe) Cmd.Subscribe.getFn()).addSubscribeErrer(frame);
 		((Prison) Cmd.Prison.getFn()).addDisplayer(frame.chatDisp);
+		((StartUpdate) Cmd.StartUpdate.getFn()).addDisplayer(frame.startDisp);
 
 		new Thread(() -> {
 			try {
@@ -100,7 +102,6 @@ public class Controller {
 					conn.send("start-game");
 					GameState.startGame();
 					frame.updateMyPlayerText(Player.search(name));
-					frame.startGame();
 				}
 			}
 		});
