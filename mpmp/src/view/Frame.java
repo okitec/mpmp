@@ -200,52 +200,42 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	}
 
 	public void addEndTurnListener(ActionListener al) {
-		System.out.println("Runde beendet.");
 		bEndTurn.addActionListener(al);
 	}
 
 	public void addTradeListener(ActionListener al) {
-		System.out.println("Tausch.");
 		bTrade.addActionListener(al);
 	}
 
 	public void addBuyHouseListener(ActionListener al) {
-		System.out.println("Haus gekauft.");
 		bBuyHouse.addActionListener(al);
 	}
 
 	public void addBuyPlotListener(ActionListener al) {
-		System.out.println("Grundstück gekauft.");
 		bBuyPlot.addActionListener(al);
 	}
 
 	public void addSurrenderListener(ActionListener al) {
-		System.out.println("Aufgegeben.");
 		bSurrender.addActionListener(al);
 	}
 
 	public void addUpdatePlayerListener(ActionListener al) {
-		System.out.println("Player updated.");
 		bUpdatePlayer.addActionListener(al);
 	}
 
 	public void addPayPrisonListener(ActionListener al) {
-		System.out.println("Aus dem Gefängnis freigekauft");
 		bPayPrison.addActionListener(al);
 	}
 
 	public void addUsePrisonLeaveListener(ActionListener al) {
-		System.out.println("Gefängnis-Frei-Karte benutzt.");
 		bUsePrisonLeave.addActionListener(al);
 	}
 
 	public void addClearChatListener(ActionListener al) {
-		System.out.println("Chat geleert.");
 		bClearChat.addActionListener(al);
 	}
 
 	public void startGame() {
-		bEndTurn.setText("Runde beenden");
 		bUpdatePlayer.setVisible(true);
 	}
 
