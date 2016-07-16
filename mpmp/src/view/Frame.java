@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.ScrollPane;
 import java.awt.event.ActionListener;
@@ -119,11 +120,26 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		bEndTurn = new JButton("Spiel starten");
 		bClearChat = new JButton("Chat leeren");
 		bPayPrison = new JButton("Aus dem Gefängnis freikaufen");
-		bPayPrison.setVisible(false);
 		bUsePrisonLeave = new JButton("Benutze Gefängnis-Frei-Karte");
-		bUsePrisonLeave.setVisible(false);
 		bUpdatePlayer = new JButton("Update Spieler");
+
+		/* Left-side buttons should neatly fill the space. */
+		bTrade.setAlignmentX(Component.CENTER_ALIGNMENT);
+		bBuyHouse.setAlignmentX(Component.CENTER_ALIGNMENT);
+		bBuyPlot.setAlignmentX(Component.CENTER_ALIGNMENT);
+		bSurrender.setAlignmentX(Component.CENTER_ALIGNMENT);
+		bPayPrison.setAlignmentX(Component.CENTER_ALIGNMENT);
+		bUsePrisonLeave.setAlignmentX(Component.CENTER_ALIGNMENT);
+		bTrade.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		bBuyHouse.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		bBuyPlot.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		bSurrender.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		bPayPrison.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		bUsePrisonLeave.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+
 		bUpdatePlayer.setVisible(false);
+		bPayPrison.setVisible(false);
+		bUsePrisonLeave.setVisible(false);
 
 		lmyPlayer = new JLabel("Kein Spieler");
 		lmyPlayerMoney = new JLabel("RM 0");
