@@ -166,6 +166,8 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
 		pBelowChat.add(bClearChat);
 		pBelowChat.add(bEndTurn);
+		tChatField.setMinimumSize(new Dimension(300, 40));
+		tChatField.setMaximumSize(new Dimension(300, 60));
 
 		pChat.add(spChatBox);
 		pChat.add(tChatField);
