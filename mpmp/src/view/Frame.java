@@ -245,6 +245,10 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		JOptionPane.showMessageDialog(this, "Name taken or running game!");
 		System.exit(0);
 	}
+	
+	public String showDialog(String msg){
+		return gameboard.showPrompt(msg);
+	}
 
 	public void updateMyPlayerText(Player p) {
 		if (p != null) {
