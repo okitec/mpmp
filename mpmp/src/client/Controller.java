@@ -75,12 +75,10 @@ public class Controller {
 			@Override
 			public void keyPressed(KeyEvent ke) {
 				if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-					// XXX add scrolling to the chat box
 					String line = frame.getChat();
-					System.out.println("Chatline = " + line);
-					if (line.length() == 0) {
+					if (line.length() == 0)
 						return;
-					}
+
 					conn.send("chat " + line);
 				}
 			}
@@ -100,7 +98,6 @@ public class Controller {
 					conn.send("end-turn");
 				} else {
 					conn.send("start-game");
-					GameState.startGame();
 					frame.updateMyPlayerText(Player.search(name));
 				}
 			}
@@ -118,14 +115,13 @@ public class Controller {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(frame.showDialog("Welcher Spieler"));
 				System.out.println(frame.showDialog("Welches Grundstück"));
-				//conn.send("trade");
 			}
 		});
 
 		frame.addBuyHouseListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//conn.send("add-house " + Player.getPos();
+				//conn.send("add-house " + Player.getPos());
 			}
 		});
 
@@ -139,14 +135,14 @@ public class Controller {
 		frame.addPayPrisonListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//conn.send("pay-prison");
+				conn.send("unjail money");
 			}
 		});
 
 		frame.addUsePrisonLeaveListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//conn.send("use-prisoncard");
+				conn.send("unjail card");
 			}
 		});
 
