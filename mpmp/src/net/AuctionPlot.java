@@ -4,68 +4,53 @@ import java.util.Arrays;
 
 import model.Player;
 import model.Plot;
-import view.Displayer;
 
 /**
- * S->C
+ * auction-plot S->C
  */
 public class AuctionPlot implements CmdFunc {
-	private Displayer d;
 
 	@Override
 	public void exec(String line, Conn conn) {
-		int price, delim = -1;
+		int price, pos;
 		String[] args = line.split(" ");
-		String pname, bname;
+		String bname;
 		Plot plot;
 		Player bidder;
-		
+
 		if (args.length < 4) {
-			conn.sendErr(ErrCode.Usage, "auction-plot <Name des Grundstücks> <Preis> <Höchstbietender>");
+			conn.sendErr(ErrCode.Usage, "auction-plot <Position> <Preis> <Höchstbietender>");
+			return;
+		}
+
+		try {
+			pos = Integer.parseInt(args[1]);		
+			price = Integer.parseInt(args[2]);
+		} catch (NumberFormatException nfe) {
+			conn.sendErr(ErrCode.Internal, "not a number");
 			return;
 		}
 		
-		for (int i = 0; i < args.length; i++) 
-			if (args[i].matches("[0-9]+")) 
-				try {
-					price = Integer.parseInt(args[i]);
-					delim = i;
-					break;
-				} catch (NumberFormatException nfe) {
-					conn.sendErr(ErrCode.Internal, "'" + args[i] + "' is not a number");
-					return;
-				}
-
-		if (delim == -1) {
-			conn.sendErr(ErrCode.Usage, "auction-plot <Name des Grundstücks> <Preis> <Höchstbietender>");
-			return;
-		}
-
-		pname = Plot.matches(String.join(" ", Arrays.copyOfRange(args, 1, delim--)));
-		bname = Player.matches(String.join(" ", Arrays.copyOfRange(args, delim++, args.length)), false);
-
-		if (pname == null) {
-			conn.sendErr(ErrCode.NotAPlot);
-			return;
-		}
+		bname = Player.matches(String.join(" ", Arrays.copyOfRange(args, 3, args.length)), false);
 		
 		if (bname == null) {
 			conn.sendErr(ErrCode.NoSuchPlayer);
 			return;
 		}
 
-		plot = Plot.search(pname);
+		plot = null;
+		// XXX missing pos-to-plot map
+		if (plot == null) {
+			conn.sendErr(ErrCode.NotAPlot);
+			return;
+		}
 		bidder = Player.search(bname);
 		
-		
+		// XXX continue
 	}
 
 	@Override
 	public void error(ErrCode err, String line, Conn conn) {
 		//TODO
-	}
-	
-	public void addDisplayer(Displayer d) {
-		this.d = d;
 	}
 }

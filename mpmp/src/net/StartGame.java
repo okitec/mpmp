@@ -39,6 +39,9 @@ public class StartGame implements CmdFunc {
 		}
 
 		Player.setCurrentPlayer(players.get((players.indexOf(p)+1) % players.size()));
+		
+		Client.broadcast("start-update");
+		
 		conn.sendOK();
 	}
 

@@ -12,6 +12,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Timer;
 import java.util.TimerTask;
+import model.GameState;
 
 import model.Model;
 import model.Player;
@@ -20,9 +21,10 @@ import net.ShowTransaction;
 import net.Cmd;
 import net.Conn;
 import net.ChatUpdate;
-import net.ClientlistUpdate;
+import net.PlayerlistUpdate;
 import net.PosUpdate;
 import net.Prison;
+import net.StartUpdate;
 import net.Subscribe;
 import net.TurnUpdate;
 
@@ -47,12 +49,13 @@ public class Controller {
 		PlotGroup.init();
 
 		((ChatUpdate) Cmd.ChatUpdate.getFn()).addDisplayer(frame.chatDisp);
-		((ClientlistUpdate) Cmd.ClientlistUpdate.getFn()).addDisplayer(frame.playerDisp);
-		((ShowTransaction) Cmd.AddMoney.getFn()).addDisplayer(frame.chatDisp);
+		((PlayerlistUpdate) Cmd.PlayerlistUpdate.getFn()).addDisplayer(frame.playerDisp);
+		((ShowTransaction) Cmd.ShowTransaction.getFn()).addDisplayer(frame.chatDisp);
 		((TurnUpdate) Cmd.TurnUpdate.getFn()).addDisplayer(frame.chatDisp);
 		((PosUpdate) Cmd.PosUpdate.getFn()).addDisplayer(frame.pieceDisp);
 		((Subscribe) Cmd.Subscribe.getFn()).addSubscribeErrer(frame);
 		((Prison) Cmd.Prison.getFn()).addDisplayer(frame.chatDisp);
+		((StartUpdate) Cmd.StartUpdate.getFn()).addDisplayer(frame.startDisp);
 
 		new Thread(() -> {
 			try {
@@ -83,13 +86,6 @@ public class Controller {
 			}
 		});
 
-		frame.addEndTurnListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				conn.send("end-turn");
-			}
-		});
-
 		frame.addSurrenderListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -97,12 +93,16 @@ public class Controller {
 			}
 		});
 
-		frame.addStartGameListener(new ActionListener() {
+		frame.addEndTurnListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				conn.send("start-game");
-				frame.updateMyPlayerText(Player.search(name));
-				frame.removeStartGameButton();
+				if (GameState.running()) {
+					conn.send("end-turn");
+				} else {
+					conn.send("start-game");
+					GameState.startGame();
+					frame.updateMyPlayerText(Player.search(name));
+				}
 			}
 		});
 
