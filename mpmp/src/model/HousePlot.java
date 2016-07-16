@@ -7,18 +7,18 @@ public class HousePlot extends Plot {
 	public static final int MaxHouses = 5;   /* hotel counts as five houses */
 
 	private final int rent[];         /* six entries: plot alone, with one house, two houses, ..., hotel */
-	private final int housePrices[];
+	private final int housePrice;
 	private int houses;
 
-	public HousePlot(PlotGroup group, String name, int price, int[] rent, int[] housePrices) {
+	public HousePlot(PlotGroup group, String name, int price, int[] rent, int housePrice) {
 		super(group, name, price);
 
 		this.rent = rent;
-		this.housePrices = housePrices;
+		this.housePrice = housePrice;
 	}
 	
-	public int getHousePrice(int houses) {
-		return housePrices[houses];
+	public int getHousePrice() {
+		return housePrice;
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class HousePlot extends Plot {
 		if(group.canAddHouse(owner, this) != 1)
 			return group.canAddHouse(owner, this);
 
-		if(!owner.addMoney(-housePrices[houses])) {
+		if(!owner.addMoney(-housePrice)) {
 			return -4;
 		}
 		
@@ -63,7 +63,7 @@ public class HousePlot extends Plot {
 		if(!group.canRmHouse(owner, this))
 			return -2;
 
-		owner.addMoney(housePrices[houses]/2);
+		owner.addMoney(housePrice/2);
 		return 1;
 	}
 

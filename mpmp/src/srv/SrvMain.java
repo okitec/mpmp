@@ -16,7 +16,6 @@ public class SrvMain {
 		ServerSocket listener;
 		Client.reset();
 		Player.reset();
-		PlotGroup.init();
 		Card.init();
 
 		try {

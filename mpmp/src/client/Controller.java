@@ -46,7 +46,6 @@ public class Controller {
 		this.name = name;
 
 		Player.reset();
-		PlotGroup.init();
 
 		((ChatUpdate) Cmd.ChatUpdate.getFn()).addDisplayer(frame.chatDisp);
 		((PlayerlistUpdate) Cmd.PlayerlistUpdate.getFn()).addDisplayer(frame.playerDisp);
