@@ -1,5 +1,6 @@
 package net;
 
+import model.GameState;
 import view.Displayer;
 
 public class StartUpdate implements CmdFunc {
@@ -7,6 +8,7 @@ public class StartUpdate implements CmdFunc {
 
 	@Override
 	public void exec(String line, Conn conn) {
+		GameState.startGame();
 		d.reset();
 	}
 
