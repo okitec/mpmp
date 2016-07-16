@@ -34,7 +34,7 @@ public class Diceroll {
 		int rolls[] = new int[Ndice];
 
 		for(int i = 0; i < Ndice; i++)
-			rolls[i] = r.nextInt(Nfaces+1) + 1;  /* between 1 and Nfaces */
+			rolls[i] = r.nextInt(Nfaces) + 1;  /* between 1 and Nfaces */
 
 		/* check for pasches (whether all rolls are the same) */
 		int r0 = rolls[0];
