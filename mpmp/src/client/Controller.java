@@ -116,6 +116,8 @@ public class Controller {
 		frame.addTradeListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println(frame.showDialog("Welcher Spieler"));
+				System.out.println(frame.showDialog("Welches Grundstück"));
 				//conn.send("trade");
 			}
 		});
