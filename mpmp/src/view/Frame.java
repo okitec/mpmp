@@ -43,7 +43,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	private JPanel pChat;
 	private JPanel pBottom;
 	private JPanel pCurrentPlayer;
-	private JPanel pBottomMenu;
+	private JPanel pChatSeperat;
 	private JButton bUpdatePlayer;
 	private JButton bTrade;
 	private JButton bBuyHouse;
@@ -69,7 +69,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 			}
 		});
 	}
-	
+
 	public Frame(Model m) {
 		this.m = m;
 		chatDisp = new ChatDisp();
@@ -104,11 +104,13 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		pChat = new JPanel();
 		pBottom = new JPanel();
 		pCurrentPlayer = new JPanel();
+		pChatSeperat = new JPanel();
 
 		pLeft.setLayout(new BoxLayout(pLeft, BoxLayout.Y_AXIS));
 		pChat.setLayout(new BoxLayout(pChat, BoxLayout.Y_AXIS));
 		pBottom.setLayout(new BoxLayout(pBottom, BoxLayout.X_AXIS));
 		pCurrentPlayer.setLayout(new BoxLayout(pCurrentPlayer, BoxLayout.Y_AXIS));
+		pChatSeperat.setLayout(new BoxLayout(pChatSeperat, BoxLayout.X_AXIS));
 
 		bTrade = new JButton("Tauschen");
 		bBuyHouse = new JButton("Haus kaufen");
@@ -150,11 +152,13 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		pLeft.add(bPayPrison);
 		pLeft.add(bUsePrisonLeave);
 
-		pChat.add(bUpdatePlayer);
+		pChatSeperat.add(bClearChat);
+		pChatSeperat.add(bEndTurn);
+
 		pChat.add(sP);
 		pChat.add(tChatField);
-		pChat.add(bEndTurn);
-		pChat.add(bClearChat);
+		pChat.add(pChatSeperat);
+		pChat.add(bUpdatePlayer);
 
 		pCurrentPlayer.add(new JLabel("Spieler"));
 		pCurrentPlayer.add(lmP);
@@ -182,10 +186,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		add(pChat, BorderLayout.EAST);
 
 		setVisible(true);
-		/*
-		 System.out.println(gameboard.showPrompt("Welcher Spieler"));
-		 System.out.println(gameboard.showPrompt("Welches Grundstück"));
-		 */
 		pack();
 	}
 
@@ -281,7 +281,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		try {
 			doc.insertString(start, s + "\n", null);
 		} catch (BadLocationException ble) {
-					;// XXX how to handle?
+			;// XXX how to handle?
 		}
 
 		doc.setCharacterAttributes(start, end, as, true);
@@ -297,10 +297,11 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 			String s = (String) args[0];
 			final Color col;
 
-			if(args.length == 2)
+			if (args.length == 2) {
 				col = (Color) args[1];
-			else
+			} else {
 				col = Color.BLACK;
+			}
 
 			// Call in the Event Dispatching Thread.
 			SwingUtilities.invokeLater(() -> {
@@ -321,7 +322,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		 */
 		@Override
 		public synchronized void show(Object... args) {
-			final Player p = (Player) args[0]; 
+			final Player p = (Player) args[0];
 
 			SwingUtilities.invokeLater(() -> {
 				append(tPlayerList, "" + p, p.getColor(), true);
@@ -334,7 +335,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 				tPlayerList.setText("");
 			});
 		}
-		
+
 	}
 
 	public class PieceDisp implements Displayer {
@@ -350,11 +351,12 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 			});
 		}
 	}
-	
+
 	public class StartDisp implements Displayer {
 
 		@Override
-		public void show(Object... args) {}
+		public void show(Object... args) {
+		}
 
 		/**
 		 * 'Changes' the StartGame button to a EndTurn button
