@@ -43,7 +43,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	private JPanel pChat;
 	private JPanel pBottom;
 	private JPanel pCurrentPlayer;
-	private JPanel pChatSeperat;
+	private JPanel pBelowChat;
 	private JButton bUpdatePlayer;
 	private JButton bTrade;
 	private JButton bBuyHouse;
@@ -55,11 +55,11 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	private JTextField tChatField;
 	private JTextPane tChatBox;
 	private JTextPane tPlayerList;
-	private JLabel lmP;
-	private JLabel lmPMoney;
-	private JLabel lmPPlots;
+	private JLabel lmyPlayer;
+	private JLabel lmyPlayerMoney;
+	private JLabel lmyPlayerPlots;
 	private JButton bEndTurn;
-	private ScrollPane sP;
+	private ScrollPane spChatBox;
 	private Gameboard gameboard;
 
 	public static void main(String args[]) {
@@ -104,13 +104,13 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		pChat = new JPanel();
 		pBottom = new JPanel();
 		pCurrentPlayer = new JPanel();
-		pChatSeperat = new JPanel();
+		pBelowChat = new JPanel();
 
 		pLeft.setLayout(new BoxLayout(pLeft, BoxLayout.Y_AXIS));
 		pChat.setLayout(new BoxLayout(pChat, BoxLayout.Y_AXIS));
 		pBottom.setLayout(new BoxLayout(pBottom, BoxLayout.X_AXIS));
 		pCurrentPlayer.setLayout(new BoxLayout(pCurrentPlayer, BoxLayout.Y_AXIS));
-		pChatSeperat.setLayout(new BoxLayout(pChatSeperat, BoxLayout.X_AXIS));
+		pBelowChat.setLayout(new BoxLayout(pBelowChat, BoxLayout.X_AXIS));
 
 		bTrade = new JButton("Tauschen");
 		bBuyHouse = new JButton("Haus kaufen");
@@ -125,45 +125,41 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		bUpdatePlayer = new JButton("Update Spieler");
 		bUpdatePlayer.setVisible(false);
 
-		lmP = new JLabel("Kein Spieler");
-		lmPMoney = new JLabel("RM 0");
-		lmPPlots = new JLabel("Keine Grundstücke");
+		lmyPlayer = new JLabel("Kein Spieler");
+		lmyPlayerMoney = new JLabel("RM 0");
+		lmyPlayerPlots = new JLabel("Keine Grundstücke");
 
 		tPlayerList = new JTextPane();
 		tPlayerList.setEditable(false);
-		tPlayerList.setSize(new Dimension(200, 500));
 
 		tChatBox = new JTextPane();
 		tChatBox.setEditable(false);
-		tChatBox.setSize(300, 500);
-		tChatBox.setMaximumSize(new Dimension(300, 500));
-
-		sP = new ScrollPane();
-		sP.setMaximumSize(new Dimension(300, 500));
-		sP.setSize(300, 500);
-		sP.add(tChatBox);
+		spChatBox = new ScrollPane();
+		spChatBox.add(tChatBox);
 
 		tChatField = new JTextField();
 		tChatField.requestFocus(true);
 		tChatField.setSelectionColor(Color.pink);
+		tChatField.setMinimumSize(new Dimension(300, 40));
+		tChatField.setMaximumSize(new Dimension(300, 60));
 
 		pLeft.add(new JLabel("Alle Spieler:"));
 		pLeft.add(tPlayerList);
 		pLeft.add(bPayPrison);
 		pLeft.add(bUsePrisonLeave);
 
-		pChatSeperat.add(bClearChat);
-		pChatSeperat.add(bEndTurn);
+		pBelowChat.add(bClearChat);
+		pBelowChat.add(bEndTurn);
 
-		pChat.add(sP);
+		pChat.add(spChatBox);
 		pChat.add(tChatField);
-		pChat.add(pChatSeperat);
+		pChat.add(pBelowChat);
 		pChat.add(bUpdatePlayer);
 
 		pCurrentPlayer.add(new JLabel("Spieler"));
-		pCurrentPlayer.add(lmP);
-		pCurrentPlayer.add(lmPMoney);
-		pCurrentPlayer.add(lmPPlots);
+		pCurrentPlayer.add(lmyPlayer);
+		pCurrentPlayer.add(lmyPlayerMoney);
+		pCurrentPlayer.add(lmyPlayerPlots);
 
 		pLeft.add(bTrade);
 		pLeft.add(bBuyHouse);
@@ -252,17 +248,23 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
 	public void updateMyPlayerText(Player p) {
 		if (p != null) {
-			if (p.inPrison) {
-				lmP.setText(p.getName() + "(Im Gefängnis)");
+			if (p.isInJail()) {
+				lmyPlayer.setText(p.getName() + "(Im Gefängnis)");
 			} else {
-				lmP.setText(p.getName());
+				lmyPlayer.setText(p.getName());
 			}
 
-			lmP.setForeground(p.getColor());
-			bUsePrisonLeave.setVisible(p.isInJail());
-			bPayPrison.setVisible(p.isInJail());
-			lmPMoney.setText("RM " + p.getMoney());
-			lmPPlots.setText("Gekaufte Grundstücke: " + p.getPlots());
+			lmyPlayer.setForeground(p.getColor());
+			lmyPlayerMoney.setText("RM " + p.getMoney());
+			lmyPlayerPlots.setText("Gekaufte Grundstücke: " + p.getPlots());
+
+			if(p.isInJail()) {
+				bUsePrisonLeave.setVisible(true);
+				bPayPrison.setVisible(true);
+			} else {
+				bUsePrisonLeave.setVisible(false);
+				bPayPrison.setVisible(false);
+			}
 		}
 	}
 
