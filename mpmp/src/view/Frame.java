@@ -77,6 +77,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		playerDisp = new PlayerDisp();
 		pieceDisp = new PieceDisp();
 		startDisp = new StartDisp();
+		gameboard = new Gameboard(this, m);
 		setMinimumSize(new Dimension(800, 800));
 		setPreferredSize(new Dimension(1920, 1080));
 		createFrame();
@@ -90,7 +91,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		setTitle("MPMP");
 		setResizable(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gameboard = new Gameboard(this);
 
 		//Set background
 		try {
