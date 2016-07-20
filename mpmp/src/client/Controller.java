@@ -16,6 +16,7 @@ import model.GameState;
 
 import model.Model;
 import model.Player;
+import model.Plot;
 import model.PlotGroup;
 import net.ShowTransaction;
 import net.Cmd;
@@ -28,33 +29,42 @@ import net.StartUpdate;
 import net.Subscribe;
 import net.TurnUpdate;
 
+import net.MoneyUpdate.MoneyUpdater;
+import net.PosUpdate.PosUpdater;
+import net.TurnUpdate.TurnUpdater;
+
 import view.Frame;
 
 /**
  * Controller class of the MVC model; used only by the client.
  */
-public class Controller {
+public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater {
 
 	Frame frame;
 	Timer t;
-	String name;
+	String name; /* player name */
+	Model m;
 
 	public Controller(String addr, int port, String mode, String color, String name) throws UnknownHostException, IOException {
-		Model m = new Model();
-		frame = new Frame(m);
 		Conn conn = new Conn(new Socket(addr, port));
 		this.name = name;
 
 		Player.reset();
+		Model.init();
+		m = new Model();
+		frame = new Frame(m);
 
+		/* Please insert alphabetically. -oki */
 		((ChatUpdate) Cmd.ChatUpdate.getFn()).addDisplayer(frame.chatDisp);
+		((MoneyUpdate) Cmd.MoneyUpdate.getFn()).addMoneyUpdater(this);
 		((PlayerlistUpdate) Cmd.PlayerlistUpdate.getFn()).addDisplayer(frame.playerDisp);
-		((ShowTransaction) Cmd.ShowTransaction.getFn()).addDisplayer(frame.chatDisp);
-		((TurnUpdate) Cmd.TurnUpdate.getFn()).addDisplayer(frame.chatDisp);
 		((PosUpdate) Cmd.PosUpdate.getFn()).addDisplayer(frame.pieceDisp);
-		((Subscribe) Cmd.Subscribe.getFn()).addSubscribeErrer(frame);
+		((PosUpdate) Cmd.PosUpdate.getFn()).addPosUpdater(this);
 		((Prison) Cmd.Prison.getFn()).addDisplayer(frame.chatDisp);
+		((ShowTransaction) Cmd.ShowTransaction.getFn()).addDisplayer(frame.chatDisp);
 		((StartUpdate) Cmd.StartUpdate.getFn()).addDisplayer(frame.startDisp);
+		((Subscribe) Cmd.Subscribe.getFn()).addSubscribeErrer(frame);
+		((TurnUpdate) Cmd.TurnUpdate.getFn()).addDisplayer(frame.chatDisp);
 
 		new Thread(() -> {
 			try {
@@ -152,6 +162,51 @@ public class Controller {
 			}
 		});
 	}
+
+	/* S->C UPDATES */
+
+	public void moneyUpdate(int amount, String name) {
+		Player p = m.getPlayer(name);
+		if(p == null)
+			return;
+
+		p.setMoney(amount);
+	}
+
+	public void plotUpdate(int pos, int houses, boolean hypothec, String ownername) {
+		Plot plot; 
+		Player owner;
+
+		plot = m.getPlot(pos);
+		if(plot == null)
+			return;
+
+		owner = m.getPlayer(ownername);
+		if(owner == null)
+			return;
+
+		plot.setHouses(houses);
+		plot.hypothec(hypothec);
+		plot.setOwner(owner);
+	}
+
+	public void posUpdate(int pos, String name) {
+		Player p = m.getPlayer(name);
+		if(p == null)
+			return;
+
+		p.setPos(pos);
+	}
+
+	public void turnUpdate(int roll, int paschs, String cpname) {
+		m.setCurrentPlayer(m.getPlayer(cpname));
+	}
+
+	public void startUpdate() {
+		GameState.startGame();
+	}
+
+	/* KLAUS'S THINGSIES */
 
 	public class TimerTick extends TimerTask {
 

@@ -11,12 +11,13 @@ import view.Displayer;
  */
 public class TurnUpdate implements CmdFunc {
 	private Displayer d;
+	private TurnUpdater tu;
 
 	@Override
 	public void exec(String line, Conn conn) {
 		String[] args = line.split(" ");
 		int sum, pasch;
-		Player p;
+		String cpname;
 		int i;
 		
 		if (args.length < 4) {
@@ -32,15 +33,9 @@ public class TurnUpdate implements CmdFunc {
 			return;
 		}
 		
-		p = Player.search(String.join(" ", Arrays.copyOfRange(args, 3, args.length)));
-		if (p == null) {
-			conn.sendErr(ErrCode.NoSuchPlayer);
-			return;
-		}
-		
+		cpname = String.join(" ", Arrays.copyOfRange(args, 3, args.length));
+		tu.turnUpdate(sum, pasch, cpname);
 		d.show("Gesamtwürfelsumme: " + sum + "; Anzahl Paschs: " + pasch);
-		Player.setCurrentPlayer(p);
-		
 		conn.sendOK();
 	}
 
@@ -51,5 +46,13 @@ public class TurnUpdate implements CmdFunc {
 	
 	public void addDisplayer(Displayer d) {
 		this.d = d;
+	}
+
+	public interface TurnUpdater {
+		public void turnUpdate(int roll, int paschs, String cpname);
+	}
+
+	public void adfdTurnUpdater(TurnUpdater tu) {
+		this.tu = tu;
 	}
 }
