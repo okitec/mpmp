@@ -36,6 +36,9 @@ public abstract class Plot {
 		return 0;
 	}
 
+	public void setHouses(int houses) {
+	}
+
 	public int getPrice() {
 		return price;
 	}
@@ -63,6 +66,10 @@ public abstract class Plot {
 
 	public Player getOwner() {
 		return owner;
+	}
+
+	public void setOwner(Player owner) {
+		this.owner = owner;
 	}
 
 	/**

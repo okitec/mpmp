@@ -27,6 +27,12 @@ public class HousePlot extends Plot {
 	}
 
 	@Override
+	public void setHouses(int houses) {
+		if(houses <= MaxHouses)
+			this.houses = houses;
+	}
+
+	@Override
 	public boolean canSell() {
 		if(houses > 0)
 			return false;
