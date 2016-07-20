@@ -7,12 +7,13 @@ import java.util.Iterator;
 
 /**
  * Player represents spectators and the actual, active players. The info stored here exists in both
- * client and server and is kept up-to-date by the clientlist-update packet.
+ * client and server and is kept up-to-date by the clientlist-update packet and others.
+ * XXX HUGE MESS AT THE MOMENT (probably the ugliest code) -oki
  */
 public class Player {
 
 	// XXX move to a new file of constants?
-	private static final int StartCash = 30000; // XXX value
+	private static final int StartMoney = 30000; // XXX value
 	private static final int Wage = 4000;  // XXX value
 	private static final int IncomeTax = 4000;  // XXX value
 	private static final int ExtraTax = 2000;  // XXX value
@@ -27,18 +28,15 @@ public class Player {
 	private String name;
 	private Color color;
 	private Mode mode;
-	private static ArrayList<Player> players;
+	private static ArrayList<Player> subscribed; /* players and spectators */
 
 	/* only active players */
 	private HashSet<Plot> plots;
 	private HashSet<Plot> hypothecs;
-	private int cash;
-	/* actual liquid money */
-	private int hyp;
-	/* hypothec money */
+	private int money; /* actual liquid money */
 	private int pos;
 	/* 0 is start; counted clockwise */
-	public boolean inPrison;
+	private boolean inPrison;
 	private int unjails;
 
 	/* number of unjail cards */
@@ -47,24 +45,15 @@ public class Player {
 		this.color = color;
 		this.mode = mode;
 
-		synchronized (players) {
-			players.add(this);
-
-			if (mode == Mode.Player) {
-				plots = new HashSet<>();
-				hypothecs = new HashSet<>();
-				pos = 0;
-				cash = StartCash;
-				hyp = 0;
-			}
+		synchronized (subscribed) {
+			subscribed.add(this);
 		}
 
 		if (mode == Mode.Player) {
 			plots = new HashSet<>();
 			hypothecs = new HashSet<>();
 			pos = 0;
-			cash = StartCash;
-			hyp = 0;
+			money = StartMoney;
 		}
 	}
 
@@ -80,8 +69,16 @@ public class Player {
 		return pos;
 	}
 
+	public void setPos(int pos) {
+		this.pos = pos;
+	}
+
 	public int getMoney() {
-		return cash;
+		return money;
+	}
+
+	public void setMoney(int money) {
+		this.money = money;
 	}
 
 	public String getPlots() {
@@ -99,8 +96,8 @@ public class Player {
 	}
 
 	public void remove() {
-		synchronized (players) {
-			players.remove(this);
+		synchronized (subscribed) {
+			subscribed.remove(this);
 		}
 	}
 
@@ -112,19 +109,11 @@ public class Player {
 		// XXX simply allow negative money instead of returning right here might be better. -oki
 
 		/* Sum is often negative. Have we positive money if we add sum? */
-		if (cash + hyp + sum < 0) {
+		if (money + sum < 0) {
 			return false;
 		}
 
-		cash += sum;
-
-		/* cash exhausted; change to hypothecs instead */
-		if (cash < 0) {
-			hyp += cash;
-			/* cash is negative */
-			cash = 0;
-		}
-
+		money += sum;
 		return true;
 	}
 
@@ -139,14 +128,14 @@ public class Player {
 		}
 
 		total = 0;
-		for (Player p : players) {
+		for (Player p : subscribed) {
 			if (p.addMoney(-sum) == false) {
 				continue; // XXX eh, what to do (loaning is not implemented)
 			}
 			total += sum;
 		}
 
-		cash += total;
+		money += total;
 	}
 
 	/**
@@ -158,10 +147,10 @@ public class Player {
 				return;
 			}
 			hypothecs.add(p);
-			hyp += p.hypothec(true);
+			money += p.hypothec(true);
 		} else {
 			hypothecs.remove(p);
-			hyp -= p.hypothec(false);
+			money -= p.hypothec(false);
 		}
 	}
 
@@ -284,31 +273,18 @@ public class Player {
 
 	/* STATIC */
 	/**
-	 * Reset the player table. Called on start. In the client, this is also called when a
+	 * Reset the subscribed table. Called on start. In the client, this is also called when a
 	 * clientlist-update comes in.
 	 */
 	public static void reset() {
-		players = new ArrayList<>();
+		subscribed = new ArrayList<>();
 	}
 
 	/**
-	 * Get the player table. XXX abstraction
+	 * Get the subscribed table. XXX abstraction
 	 */
-	public static ArrayList<Player> getPlayers() {
-		return players;
-	}
-
-	/**
-	 * Get the players who actually play the game.
-	 */
-	public static ArrayList<Player> getRealPlayers() {
-		ArrayList<Player> al = new ArrayList();
-		for (Player p : players) {
-			if (p.isPlayer()) {
-				al.add(p);
-			}
-		}
-		return al;
+	public static ArrayList<Player> getSubscribed() {
+		return subscribed;
 	}
 
 	/**
@@ -323,40 +299,21 @@ public class Player {
 	}
 
 	public static int numPlayers() {
-		return players.size();
-	}
-
-	public static Player getCurrentPlayer() {
-		return currentPlayer;
-	}
-
-	public static void setCurrentPlayer(Player p) {
-		currentPlayer = p;
+		return subscribed.size();
 	}
 
 	public static String matches(String name, boolean at) {
-		Iterator i = players.iterator();
-		String bestMatch = "";
-		while (i.hasNext()) {
-			Player p = (Player) i.next();
-			String pname = p.getName();
-			if (at) {
-				if (name.matches("@" + pname + "(.*)") && pname.length() > bestMatch.length()) {
-					bestMatch = pname;
-				}
-			} else if (name.matches(pname + "(.*)") && pname.length() > bestMatch.length()) {
-				bestMatch = pname;
-			}
+		String best = "";
 
-		}
-		if (bestMatch.equals("")) {
-			return null;
-		}
-		return bestMatch;
+		for (Player p : subscribed)
+			if (name.matches(((at)?"@":"") + p.name + "(.*)") && p.name.length() > best.length())
+				best = p.name;
+
+		return best;
 	}
 
 	public static Player search(String name) {
-		for (Player p : players) {
+		for (Player p : subscribed) {
 			if (name.equals(p.getName())) {
 				return p;
 			}
