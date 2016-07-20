@@ -5,11 +5,10 @@ import java.util.ArrayList;
 import srv.Client;
 import model.Diceroll;
 import model.Field;
-import model.GameState;
 import model.Player;
 
 /**
- * C->S
+ * end-turn C->S
  */
 public class EndTurn implements CmdFunc {
 
@@ -20,6 +19,7 @@ public class EndTurn implements CmdFunc {
 		Player p;
 		ArrayList<Player> players;
 
+		/*
 		if(!GameState.running()) {
 			conn.sendErr(ErrCode.GameNotRunning);
 			return;
@@ -45,6 +45,7 @@ public class EndTurn implements CmdFunc {
 
 		players = Player.getRealPlayers();
 		Player.setCurrentPlayer(players.get((players.indexOf(p)+1) % players.size()));
+		*/
 	}
 
 	@Override

@@ -12,7 +12,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Timer;
 import java.util.TimerTask;
-import model.GameState;
 
 import model.Model;
 import model.Player;
@@ -22,6 +21,7 @@ import net.ShowTransaction;
 import net.Cmd;
 import net.Conn;
 import net.ChatUpdate;
+import net.MoneyUpdate;
 import net.PlayerlistUpdate;
 import net.PosUpdate;
 import net.Prison;
@@ -103,7 +103,7 @@ public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater {
 		frame.addEndTurnListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (GameState.running()) {
+				if (m.running()) {
 					conn.send("end-turn");
 				} else {
 					conn.send("start-game");
@@ -203,7 +203,7 @@ public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater {
 	}
 
 	public void startUpdate() {
-		GameState.startGame();
+		m.startGame();
 	}
 
 	/* KLAUS'S THINGSIES */

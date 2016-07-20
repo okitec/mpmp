@@ -4,20 +4,19 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import srv.Client;
-import model.GameState;
 import model.Diceroll;
 import model.Field;
 import model.Player;
 
 /**
- * C->S
+ * start-game C->S
  */
 public class StartGame implements CmdFunc {
 
 	@Override
 	public void exec(String line, Conn conn) {
+		/*
 		GameState.startGame();
-		
 		ArrayList<Player> players = Player.getRealPlayers();
 		Random r = new Random();
 		
@@ -43,6 +42,7 @@ public class StartGame implements CmdFunc {
 		Client.broadcast("start-update");
 		
 		conn.sendOK();
+		*/
 	}
 
 	@Override

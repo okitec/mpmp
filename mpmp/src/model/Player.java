@@ -82,7 +82,9 @@ public class Player {
 	}
 
 	public String getPlots() {
-		return plots.toString();
+		if(mode == Mode.Player)
+			return plots.toString();
+		return "";
 	}
 
 	public boolean isInJail() {

@@ -12,6 +12,12 @@ import java.util.Map;
  * The game logic resides only in the server parts.
  */
 public class Model {
+	public enum GameState {
+		Pregame, Running;
+	}
+
+	private GameState gs;
+
 	private Map<String, Player> players;    /* players, no spectators */
 	private Player currentPlayer;
 
@@ -26,6 +32,9 @@ public class Model {
 	}
 
 	public void addPlayer(Player p) {
+		if(gs == GameState.Running)
+			return;
+
 		players.put(p.getName(), p);
 	}
 
@@ -47,6 +56,14 @@ public class Model {
 	public Plot getPlot(int pos) {
 		pos %= Field.Nfields;
 		return plots.get(new Integer(pos));
+	}
+
+	public boolean running() {
+		return gs == GameState.Running;
+	}
+
+	public void startGame() {
+		gs = GameState.Running;
 	}
 
 	/* STATIC */
