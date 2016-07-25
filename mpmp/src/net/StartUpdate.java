@@ -8,7 +8,7 @@ public class StartUpdate implements CmdFunc {
 
 	@Override
 	public void exec(String line, Conn conn) {
-		su.startGame();
+		su.startUpdate();
 		d.reset();
 	}
 
@@ -20,7 +20,7 @@ public class StartUpdate implements CmdFunc {
 	}
 
 	public interface StartUpdater {
-		public void startGame();
+		public void startUpdate();
 	}
 
 	public void addStartUpdater(StartUpdater su) {

@@ -31,14 +31,16 @@ import net.TurnUpdate;
 
 import net.MoneyUpdate.MoneyUpdater;
 import net.PosUpdate.PosUpdater;
+import net.Prison.PrisonUpdater;
 import net.TurnUpdate.TurnUpdater;
+import net.StartUpdate.StartUpdater;
 
 import view.Frame;
 
 /**
  * Controller class of the MVC model; used only by the client.
  */
-public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater {
+public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater {
 
 	Frame frame;
 	Timer t;
@@ -61,10 +63,13 @@ public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater {
 		((PosUpdate) Cmd.PosUpdate.getFn()).addDisplayer(frame.pieceDisp);
 		((PosUpdate) Cmd.PosUpdate.getFn()).addPosUpdater(this);
 		((Prison) Cmd.Prison.getFn()).addDisplayer(frame.chatDisp);
+		((Prison) Cmd.Prison.getFn()).addPrisonUpdater(this);	
 		((ShowTransaction) Cmd.ShowTransaction.getFn()).addDisplayer(frame.chatDisp);
 		((StartUpdate) Cmd.StartUpdate.getFn()).addDisplayer(frame.startDisp);
+		((StartUpdate) Cmd.StartUpdate.getFn()).addStartUpdater(this);
 		((Subscribe) Cmd.Subscribe.getFn()).addSubscribeErrer(frame);
 		((TurnUpdate) Cmd.TurnUpdate.getFn()).addDisplayer(frame.chatDisp);
+		((TurnUpdate) Cmd.TurnUpdate.getFn()).addTurnUpdater(this);
 
 		new Thread(() -> {
 			try {
@@ -204,6 +209,14 @@ public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater {
 
 	public void startUpdate() {
 		m.startGame();
+	}
+
+	public void prisonUpdate(boolean enter, String name) {
+		Player p = m.getPlayer(name);
+		if(p == null)
+			return; // XXX return error to allow for no-such-player error
+
+		p.setPrison(enter);
 	}
 
 	/* KLAUS'S THINGSIES */

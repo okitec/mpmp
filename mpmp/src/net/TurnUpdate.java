@@ -52,7 +52,7 @@ public class TurnUpdate implements CmdFunc {
 		public void turnUpdate(int roll, int paschs, String cpname);
 	}
 
-	public void adfdTurnUpdater(TurnUpdater tu) {
+	public void addTurnUpdater(TurnUpdater tu) {
 		this.tu = tu;
 	}
 }

@@ -29,7 +29,7 @@ public class Chat implements CmdFunc {
 		chat = line.substring(argpos);
 		
 		String receiver = Player.matches(chat, true);
-		
+
 		if (receiver == null)
 			Client.broadcast("chat-update (" + c.getName() + ") " + chat);
 		else {

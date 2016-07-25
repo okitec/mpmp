@@ -51,7 +51,8 @@ public class HousePlot extends Plot {
 		if(group.canAddHouse(owner, this) != 1)
 			return group.canAddHouse(owner, this);
 
-		if(!owner.addMoney(-housePrice)) {
+		if(SrvModel.self.getSrvPlayer(owner).addMoney(-housePrice) < 0) {
+			SrvModel.self.getSrvPlayer(owner).addMoney(housePrice);
 			return -4;
 		}
 		
@@ -69,7 +70,7 @@ public class HousePlot extends Plot {
 		if(!group.canRmHouse(owner, this))
 			return -2;
 
-		owner.addMoney(housePrice/2);
+		SrvModel.self.getSrvPlayer(owner).addMoney(housePrice/2);
 		return 1;
 	}
 
@@ -77,7 +78,7 @@ public class HousePlot extends Plot {
 	 * Make the visitor PAY for staying on our lands! Mwahahah
 	 */
 	@Override
-	public int payRent(Player visitor) {
+	public int payRent(SrvPlayer visitor) {
 		int r = rent[houses];
 
 		if(hypothec)

@@ -38,12 +38,20 @@ public class Model {
 		players.put(p.getName(), p);
 	}
 
+	public void rmPlayer(Player p) {
+		players.remove(p.getName());
+	}
+
 	public Player getPlayer(String name) {
 		return players.get(name);
 	}
 
 	public Iterable<Player> getPlayers() {
 		return players.values();
+	}
+
+	public Player getCurrentPlayer() {
+		return currentPlayer;
 	}
 
 	/**

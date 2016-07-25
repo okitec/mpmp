@@ -20,7 +20,7 @@ public class Card {
 		actions = code.split(";");
 	}
 
-	public void run(Player p) {
+	public void run(SrvPlayer sp) {
 		String[] args;
 
 		for (String a : actions) {
@@ -30,21 +30,21 @@ public class Card {
 				switch(args[0]) {
 				/* one argument */
 				case "move": // XXX misleading; should be 'teleport'
-					p.teleport(Integer.parseInt(args[1]), true);
+					sp.teleport(Integer.parseInt(args[1]), true);
 					break;
 				case "collect":
-					p.collect(Integer.parseInt(args[1]));
+					sp.collect(Integer.parseInt(args[1]));
 					break;
 				case "addMoney":
-					p.addMoney(Integer.parseInt(args[1]));
+					sp.addMoney(Integer.parseInt(args[1]));
 					break;
 	
 				/* no argument */
 				case "prison":
-					p.prison(true);
+					sp.prison(true);
 					break;
 				case "addUnjailCard":
-					p.addUnjailCard();
+					sp.addUnjailCard();
 					break;
 				default:
 					System.err.println("card: bad command '" + args[0] + "'");

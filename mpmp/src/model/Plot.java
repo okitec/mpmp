@@ -48,19 +48,19 @@ public abstract class Plot {
 		return ""  + name + " " + getHouses() + " " + hyp + " " + owner.getName();
 	} 
 
-	public boolean buy(Player buyer) {
+	public boolean buy(SrvPlayer buyer) {
 		if(owner != null)
 			return false;
 
-		owner = buyer;
+		owner = buyer.p;
 		return true;
 	}
 
-	public boolean resell(Player buyer) {
+	public boolean resell(SrvPlayer buyer) {
 		if (owner == null)
 			return false;
 		
-		owner = buyer;
+		owner = buyer.p;
 		return true;
 	}
 
@@ -75,7 +75,7 @@ public abstract class Plot {
 	/**
 	 * Makes the visitor PAY for staying on our lands! Mwahahah
 	 */
-	public abstract int payRent(Player visitor);
+	public abstract int payRent(SrvPlayer visitor);
 
 	/**
 	 * @return true if this plot acts as a hypothec.

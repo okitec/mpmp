@@ -2,38 +2,35 @@ package net;
 
 import java.util.Arrays;
 
-import model.Player;
 import view.Displayer;
 
 /**
- * S->C
+ * prison S->C
+ * XXX rename to PrisonUpdate
  */
 public class Prison implements CmdFunc {
+	private PrisonUpdater pu;
 	private Displayer d;
 
 	@Override
 	public void exec(String line, Conn conn) {
 		String[] args = line.split(" ");
-		Player p;
+		String name;
 
 		if (args.length < 3) {
 			conn.sendErr(ErrCode.Usage, "prison <enter|leave> <Spieler>");
 			return;
 		}
 
-		p = Player.search(String.join(" ", Arrays.copyOfRange(args, 2, args.length)));
-		if (p == null) {
-			conn.sendErr(ErrCode.NoSuchPlayer);
-			return;
-		}
+		name = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
 
 		switch (args[1]) {
 		case "enter":
-			p.prison(true);
+			pu.prisonUpdate(true, name);
 			d.show("Sie gehen in das Gefängnis...");
 			break;
 		case "leave":
-			p.prison(false);
+			pu.prisonUpdate(false, name);
 			d.show("Sie dürfen das Gefängnis verlassen...");
 			break;
 		default:
@@ -49,5 +46,13 @@ public class Prison implements CmdFunc {
 
 	public void addDisplayer(Displayer d) {
 		this.d = d;
+	}
+
+	public interface PrisonUpdater {
+		public void prisonUpdate(boolean enter, String name);
+	}
+
+	public void addPrisonUpdater(PrisonUpdater pu) {
+		this.pu = pu;
 	}
 }

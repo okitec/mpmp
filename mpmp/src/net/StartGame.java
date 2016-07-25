@@ -1,12 +1,13 @@
 package net;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import srv.Client;
 import model.Diceroll;
 import model.Field;
 import model.Player;
+import model.SrvModel;
+import model.SrvPlayer;
 
 /**
  * start-game C->S
@@ -15,34 +16,33 @@ public class StartGame implements CmdFunc {
 
 	@Override
 	public void exec(String line, Conn conn) {
-		/*
-		GameState.startGame();
-		ArrayList<Player> players = Player.getRealPlayers();
-		Random r = new Random();
+		SrvModel sm = SrvModel.self;
+		ArrayList<SrvPlayer> players = sm.getSrvPlayers();
+		SrvPlayer sp;
+
+		sm.m.startGame();
 		
-		Player p = Player.search(((Client) conn).getName());
-		if (!p.isPlayer()) {
+		sp = sm.getSrvPlayer(((Client) conn).getName());
+		if (sp == null) {
 			conn.sendErr(ErrCode.NotAPlayer);
 			return;
 		}
 
 		Diceroll dr = new Diceroll();
 		if(dr.getPaschs() >= 3) {
-			p.prison(true);
-			Client.broadcast("turn-update " + 0 + " " + dr.getPaschs() + " " + p.getName());
-			Client.broadcast("pos-update " + Field.Prison + " " + p.getName());
+			sp.prison(true);
+			Client.broadcast("turn-update " + 0 + " " + dr.getPaschs() + " " + sp.p.getName());
+			Client.broadcast("pos-update " + Field.Prison + " " + sp.p.getName());
 		} else {
-			p.move(dr.getSum());
-			Client.broadcast("turn-update " + dr.getSum() + " " + dr.getPaschs() + " " + p.getName());
-			Client.broadcast("pos-update " + p.getPos() + " " + p.getName());
+			sp.move(dr.getSum());
+			Client.broadcast("turn-update " + dr.getSum() + " " + dr.getPaschs() + " " + sp.p.getName());
+			Client.broadcast("pos-update " + sp.p.getPos() + " " + sp.p.getName());
 		}
 
-		Player.setCurrentPlayer(players.get((players.indexOf(p)+1) % players.size()));
+		sm.m.setCurrentPlayer(players.get((players.indexOf(sp)+1) % players.size()).p);
 		
 		Client.broadcast("start-update");
-		
 		conn.sendOK();
-		*/
 	}
 
 	@Override

@@ -5,31 +5,34 @@ import java.util.Arrays;
 import srv.Client;
 import model.Player;
 import model.Plot;
+import model.SrvModel;
+import model.SrvPlayer;
 import view.Displayer;
 
 /**
  * buy-plot C->S packet; see https://github.com/leletec/mpmp/blob/master/proto.md#grundstücke
  */
 public class BuyPlot implements CmdFunc {
-	private Displayer d;
 	
 	@Override
 	public void exec(String line, Conn conn) {
 		String[] args = line.split(" ");
-		
-		Player p = Player.search(((Client) conn).getName());
-		if (!p.isPlayer()) {
-			conn.sendErr(ErrCode.NotAPlayer);
-			return;
-		}
-		
+		SrvModel sm = SrvModel.self;
+		SrvPlayer sp;
+		Plot plot;
+
 		if (args.length < 2) {
 			conn.sendErr(ErrCode.Usage, "buy-plot <Position>");
 			return;
 		}
+
+		sp = sm.getSrvPlayer(((Client) conn).getName());
+		if (sp == null) {
+			conn.sendErr(ErrCode.NotAPlayer);
+			return;
+		}
 		
-		Plot plot = null;
-		// XXX rework plot system: we need pos-to-plot lookup! -oki
+		plot = sm.m.getPlot(Integer.parseInt(args[1]));
 		if (plot == null) {
 			conn.sendErr(ErrCode.NotAPlot);
 			return;
@@ -41,29 +44,26 @@ public class BuyPlot implements CmdFunc {
 		}
 		
 		int price = plot.getPrice();
-		if (!p.addMoney(-price)) {
+		if (sp.addMoney(-price) < 0) {
+			sp.addMoney(price);
 			conn.sendErr(ErrCode.MissingMoney, "" + price);
 			return;
 		}
 		
-		if (!plot.buy(p)) {
+		if (!plot.buy(sp)) {
 			conn.sendErr(ErrCode.Internal, "somebody bought it before you");
-			p.addMoney(price);
+			sp.addMoney(price);
 			return;
 		}
 
 		conn.sendOK();
 		conn.send("show-transaction " + price + " Buy plot " + plot.getName());
-		Client.broadcast("money-update " + p.getMoney() + " " + p.getName());
+		Client.broadcast("money-update " + sp.p.getMoney() + " " + sp.p.getName());
 		Client.broadcast("plot-update " + plot);
 	}
 
 	@Override
 	public void error(ErrCode err, String line, Conn conn) {
 		//TODO
-	}
-	
-	public void addDisplayer(Displayer d) {
-		this.d = d;
 	}
 }

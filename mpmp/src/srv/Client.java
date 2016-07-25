@@ -6,6 +6,8 @@ import java.util.HashSet;
 
 import model.Player;
 import model.Player.Mode;
+import model.SrvModel;
+import model.SrvPlayer;
 
 /**
  * Class Client implements the connection to a Client and has static methods for
@@ -29,7 +31,7 @@ public class Client extends net.Conn {
 	 * @return false on failure (name already used or nil), true otherwise
 	 */
 	public boolean subscribe(String color, Mode mode, String name) {
-		/* remove old Player from player list */
+		/* remove old Player from subscribed list */
 		if(player != null)
 			player.remove();
 
@@ -42,6 +44,9 @@ public class Client extends net.Conn {
 
 
 		player = new Player(Player.parseColor(color), mode, name);
+		if(mode == Player.Mode.Player)
+			SrvModel.self.addSrvPlayer(new SrvPlayer(player));
+
 		return true;
 	}
 
@@ -49,10 +54,22 @@ public class Client extends net.Conn {
 	 * Give up, auction everything, become a spectator.
 	 */
 	public void ragequit() {
+		SrvModel sm = SrvModel.self;
+		SrvPlayer sp;
+
 		if(player == null)
 			return;
 
-		player.ragequit();
+		/* Is active player? Then give up and remove from all player lists. */
+		sp = sm.getSrvPlayer(player);
+		if(sp != null) {
+			sp.ragequit();
+			sm.rmSrvPlayer(sp);
+			sm.m.rmPlayer(player);
+		}
+
+		/* Remove from player+spectator list and re-add as spectator. */
+		player.remove();
 		player = new Player(player.getColor(), Player.Mode.Spectator, player.getName());
 		listClients();
 	}
