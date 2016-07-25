@@ -31,18 +31,19 @@ import net.Subscribe;
 import net.TurnUpdate;
 
 import net.MoneyUpdate.MoneyUpdater;
+import net.PlayerlistUpdate.PlayerlistUpdater;
+import net.PlotUpdate.PlotUpdater;
 import net.PosUpdate.PosUpdater;
 import net.Prison.PrisonUpdater;
-import net.TurnUpdate.TurnUpdater;
 import net.StartUpdate.StartUpdater;
-import net.PlotUpdate.PlotUpdater;
+import net.TurnUpdate.TurnUpdater;
 
 import view.Frame;
 
 /**
  * Controller class of the MVC model; used only by the client.
  */
-public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, PlotUpdater {
+public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, PlotUpdater, PlayerlistUpdater {
 
 	Frame frame;
 	Timer t;
@@ -61,7 +62,7 @@ public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater, Prison
 		/* Please insert alphabetically. -oki */
 		((ChatUpdate) Cmd.ChatUpdate.getFn()).addDisplayer(frame.chatDisp);
 		((MoneyUpdate) Cmd.MoneyUpdate.getFn()).addMoneyUpdater(this);
-		((PlayerlistUpdate) Cmd.PlayerlistUpdate.getFn()).addDisplayer(frame.playerDisp);
+		((PlayerlistUpdate) Cmd.PlayerlistUpdate.getFn()).addPlayerlistUpdater(this);
 		((PlotUpdate) Cmd.PlotUpdate.getFn()).addPlotUpdater(this);
 		((PosUpdate) Cmd.PosUpdate.getFn()).addDisplayer(frame.pieceDisp);
 		((PosUpdate) Cmd.PosUpdate.getFn()).addPosUpdater(this);
@@ -222,6 +223,30 @@ public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater, Prison
 			return; // XXX return error to allow for no-such-player error
 
 		p.setPrison(enter);
+	}
+
+	public void playerlistAdd(String col, String mode, String name) {
+		Player.Mode md;
+		Player p;
+
+		switch(mode.toLowerCase()) {
+			default:
+			case "spectator":
+				md = Player.Mode.Spectator;
+				break;
+			case "player":
+				md = Player.Mode.Player;
+				break;
+		}
+
+		p = new Player(Player.parseColor(col), md, name);
+		m.addPlayer(p);
+		frame.playerDisp.show(p);
+	}
+
+	public void playerlistReset() {
+		frame.playerDisp.reset();
+		m.resetPlayers();
 	}
 
 	/* KLAUS'S THINGSIES */

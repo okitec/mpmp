@@ -9,7 +9,7 @@ import view.Displayer;
  * playerlist-update S->C packet.
  */
 public class PlayerlistUpdate implements CmdFunc {
-	private Displayer d;
+	private PlayerlistUpdater plu;
 
 	@Override
 	public void exec(String line, Conn conn) {
@@ -29,8 +29,8 @@ public class PlayerlistUpdate implements CmdFunc {
 			return;
 		}
 
-		d.reset();
-		Player.reset();
+		Player.reset();         /* reset subscriber list */
+		plu.playerlistReset();  /* reset subsriber list and model's player list */
 		while(nclients --> 0) {
 			String s;
 			String fields[];
@@ -48,19 +48,7 @@ public class PlayerlistUpdate implements CmdFunc {
 				return;
 			}
 
-			switch(fields[1].toLowerCase()) {
-			case "spectator":
-				mode = Player.Mode.Spectator;
-				break;
-			case "player":
-				mode = Player.Mode.Player;
-				break;
-			default:
-				conn.sendErr(ErrCode.Internal, "bad gamemode '" + fields[1] + "'");
-				return;
-			}
-
-			d.show(new Player(Player.parseColor(fields[0]), mode, fields[2]));
+			plu.playerlistAdd(fields[0], fields[1], fields[2]);
 		}
 
 		conn.sendOK();
@@ -70,8 +58,13 @@ public class PlayerlistUpdate implements CmdFunc {
 	public void error(ErrCode err, String line, Conn conn) {
 		System.err.println("Can't happen: " + err.getMessage());
 	}
-	
-	public void addDisplayer(Displayer d) {
-		this.d = d;
+
+	public interface PlayerlistUpdater {
+		public void playerlistAdd(String col, String mode, String name);
+		public void playerlistReset();
+	}
+
+	public void addPlayerlistUpdater(PlayerlistUpdater plu) {
+		this.plu = plu;
 	}
 }

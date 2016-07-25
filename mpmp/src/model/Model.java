@@ -42,6 +42,10 @@ public class Model {
 		players.remove(p.getName());
 	}
 
+	public void resetPlayers() {
+		players = new HashMap<>();
+	}
+
 	public Player getPlayer(String name) {
 		return players.get(name);
 	}
