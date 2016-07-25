@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import srv.Client;
 import model.Player.Mode;
+import model.SrvModel;
 
 /**
  * subscribe C->S packet
@@ -16,12 +17,10 @@ public class Subscribe implements CmdFunc {
 		Client c = (Client) conn;
 		Mode mode; 
 
-		/*
-		if (GameState.running()) {
+		if (SrvModel.self.m.running()) {
 			conn.sendErr(ErrCode.GameRunning);
 			return;
 		}
-		*/
 
 		args = line.split(" ");
 		if (args.length < 4) {
