@@ -23,6 +23,7 @@ import net.Conn;
 import net.ChatUpdate;
 import net.MoneyUpdate;
 import net.PlayerlistUpdate;
+import net.PlotUpdate;
 import net.PosUpdate;
 import net.Prison;
 import net.StartUpdate;
@@ -34,13 +35,14 @@ import net.PosUpdate.PosUpdater;
 import net.Prison.PrisonUpdater;
 import net.TurnUpdate.TurnUpdater;
 import net.StartUpdate.StartUpdater;
+import net.PlotUpdate.PlotUpdater;
 
 import view.Frame;
 
 /**
  * Controller class of the MVC model; used only by the client.
  */
-public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater {
+public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, PlotUpdater {
 
 	Frame frame;
 	Timer t;
@@ -60,6 +62,7 @@ public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater, Prison
 		((ChatUpdate) Cmd.ChatUpdate.getFn()).addDisplayer(frame.chatDisp);
 		((MoneyUpdate) Cmd.MoneyUpdate.getFn()).addMoneyUpdater(this);
 		((PlayerlistUpdate) Cmd.PlayerlistUpdate.getFn()).addDisplayer(frame.playerDisp);
+		((PlotUpdate) Cmd.PlotUpdate.getFn()).addPlotUpdater(this);
 		((PosUpdate) Cmd.PosUpdate.getFn()).addDisplayer(frame.pieceDisp);
 		((PosUpdate) Cmd.PosUpdate.getFn()).addPosUpdater(this);
 		((Prison) Cmd.Prison.getFn()).addDisplayer(frame.chatDisp);
@@ -178,7 +181,7 @@ public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater, Prison
 		p.setMoney(amount);
 	}
 
-	public void plotUpdate(int pos, int houses, boolean hypothec, String ownername) {
+	public void plotUpdate(int pos, int houses, boolean hyp, String ownername) {
 		Plot plot; 
 		Player owner;
 
@@ -191,8 +194,10 @@ public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater, Prison
 			return;
 
 		plot.setHouses(houses);
-		plot.hypothec(hypothec);
+		plot.hypothec(hyp);     // XXX inconsistent
 		plot.setOwner(owner);
+
+		frame.chatDisp.show("<game> plot update: " + plot);
 	}
 
 	public void posUpdate(int pos, String name) {

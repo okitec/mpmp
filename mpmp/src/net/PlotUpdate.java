@@ -2,20 +2,17 @@ package net;
 
 import java.util.Arrays;
 
-import model.Player;
-import model.Plot;
-
 /**
  * plot-update S->C
  */
 public class PlotUpdate implements CmdFunc {
+	private PlotUpdater pu;
 
 	@Override
 	public void exec(String line, Conn conn) {
-		Plot plot;
 		int houses, pos;
 		boolean hyp;
-		Player owner;
+		String ownername;
 		String[] args = line.split(" ");
 		
 		if (args.length < 5) {
@@ -31,34 +28,29 @@ public class PlotUpdate implements CmdFunc {
 			return;
 		}
 		
-		plot = null;
-		// XXX missing pos-to-plot map
-		if (plot == null) {
-			conn.sendErr(ErrCode.NotAPlot);
-			return;
-		}
-		
 		if (args[3].equals("hypothec")) {
 			hyp = true;
 		} else if (args[3].equals("nohypothec")) {
 			hyp = false;
 		} else {
-			conn.sendErr(ErrCode.Usage, "plot-update <Name des Grundstücks> <Häuserzahl> <hypothec|nohypothec> <Eigentümer>");
+			conn.sendErr(ErrCode.Usage, "plot-update <Position> <Häuserzahl> <hypothec|nohypothec> <Eigentümer>");
 			return;
 		}
-		
-		owner = Player.search(Player.matches(String.join(" ", Arrays.copyOfRange(args, 4, args.length)), false));
-		if (owner == null) {
-			conn.sendErr(ErrCode.NoSuchPlayer);
-			return;
-		}
-		
-		// XXX Do something with that information.
+	
+		ownername = String.join(" ", Arrays.copyOfRange(args, 4, args.length));
+		pu.plotUpdate(pos, houses, hyp, ownername);
 	}
 
 	@Override
 	public void error(ErrCode err, String line, Conn conn) {
 		//TODO
 	}
-	
+
+	public interface PlotUpdater {
+		public void plotUpdate(int pos, int houses, boolean hyp, String ownername);
+	}
+
+	public void addPlotUpdater(PlotUpdater pu) {
+		this.pu = pu;
+	}
 }
