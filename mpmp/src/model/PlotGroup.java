@@ -69,13 +69,4 @@ public class PlotGroup {
 	private void add(Plot p) {
 		plots.add(p);
 	}
-
-	/**
-	 * Initialise the Plot.allplots table.
-	 */
-	public static void init() {
-		Plot.init();
-
-		
-	}
 }

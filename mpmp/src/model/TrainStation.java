@@ -8,7 +8,7 @@ public class TrainStation extends Plot {
 	}
 
 	@Override
-	public int payRent(Player visitor) {
+	public int payRent(SrvPlayer visitor) {
 		int r;
 		int n;
 

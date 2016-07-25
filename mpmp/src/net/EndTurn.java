@@ -5,46 +5,48 @@ import java.util.ArrayList;
 import srv.Client;
 import model.Diceroll;
 import model.Field;
-import model.GameState;
 import model.Player;
+import model.SrvModel;
+import model.SrvPlayer;
 
 /**
- * C->S
+ * end-turn C->S
  */
 public class EndTurn implements CmdFunc {
 
 	@Override
 	public void exec(String line, Conn conn) {
 		// XXX check if plot was bought, if not -> auction
+		SrvModel sm = SrvModel.self;
 		Client c = (Client) conn;
-		Player p;
-		ArrayList<Player> players;
+		SrvPlayer sp;
+		ArrayList<SrvPlayer> players;
 
-		if(!GameState.running()) {
+		if(!sm.m.running()) {
 			conn.sendErr(ErrCode.GameNotRunning);
 			return;
 		}
 
-		p = Player.getCurrentPlayer();
+		sp = sm.getSrvPlayer(sm.m.getCurrentPlayer());
 
 		// Only current player can end their turn.
-		if(!c.getName().equals(p.getName()))
+		if(!c.getName().equals(sp.p.getName()))
 			return;
 
 		Diceroll dr = new Diceroll();
 		if(dr.getPaschs() >= 3) {
-			p.prison(true);
+			sp.prison(true);
 			conn.send("prison enter");
-			Client.broadcast("turn-update " + 0 + " " + dr.getPaschs() + " " + p.getName());
-			Client.broadcast("pos-update " + Field.Prison + " " + p.getName());
+			Client.broadcast("turn-update " + 0 + " " + dr.getPaschs() + " " + sp.p.getName());
+			Client.broadcast("pos-update " + Field.Prison + " " + sp.p.getName());
 		} else {
-			p.move(dr.getSum());
-			Client.broadcast("turn-update " + dr.getSum() + " " + dr.getPaschs() + " " + p.getName());
-			Client.broadcast("pos-update " + p.getPos() + " " + p.getName());
+			sp.move(dr.getSum());
+			Client.broadcast("turn-update " + dr.getSum() + " " + dr.getPaschs() + " " + sp.p.getName());
+			Client.broadcast("pos-update " + sp.p.getPos() + " " + sp.p.getName());
 		}
 
-		players = Player.getRealPlayers();
-		Player.setCurrentPlayer(players.get((players.indexOf(p)+1) % players.size()));
+		players = sm.getSrvPlayers();
+		sm.m.setCurrentPlayer(players.get((players.indexOf(sp)+1) % players.size()).p);
 	}
 
 	@Override

@@ -9,13 +9,14 @@ import view.Displayer;
  * S->C
  */
 public class PosUpdate implements CmdFunc {
+	private PosUpdater pu;
 	private Displayer d;
 
 	@Override
 	public void exec(String line, Conn conn) {
 		String[] args = line.split(" ");
 		int pos;
-		Player p;
+		String name;
 
 		if(args.length < 3) {
 			conn.sendErr(ErrCode.Usage, "pos-update <Zielposition> <Spieler>");
@@ -29,13 +30,8 @@ public class PosUpdate implements CmdFunc {
 			return;
 		}
 
-		p = Player.search(String.join(" ", Arrays.copyOfRange(args, 2, args.length)));
-		if (p == null) {
-			conn.sendErr(ErrCode.NoSuchPlayer);
-			return;
-		}
-		System.out.println("->pos-update " + pos + " " + p.getName());
-		p.teleport(pos, false);
+		name = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
+		pu.posUpdate(pos, name);
 		d.reset();
 	}
 
@@ -46,5 +42,13 @@ public class PosUpdate implements CmdFunc {
 
 	public void addDisplayer(Displayer d) {
 		this.d = d;
+	}
+
+	public interface PosUpdater {
+		public void posUpdate(int pos, String name);
+	}
+
+	public void addPosUpdater(PosUpdater pu) {
+		this.pu = pu;
 	}
 }

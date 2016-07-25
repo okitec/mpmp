@@ -3,7 +3,6 @@ package net;
 import java.util.Arrays;
 
 import srv.Client;
-import model.GameState;
 import model.Player.Mode;
 
 /**
@@ -16,12 +15,14 @@ public class Subscribe implements CmdFunc {
 		String name = null;
 		Client c = (Client) conn;
 		Mode mode; 
-		
+
+		/*
 		if (GameState.running()) {
 			conn.sendErr(ErrCode.GameRunning);
 			return;
 		}
-		
+		*/
+
 		args = line.split(" ");
 		if (args.length < 4) {
 			c.sendErr(ErrCode.Usage, "subscribe <spectator|player> #<rgb hex triplet> <Name>");

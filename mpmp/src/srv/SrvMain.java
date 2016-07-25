@@ -5,8 +5,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import model.Card;
+import model.Model;
 import model.Player;
 import model.PlotGroup;
+import model.SrvModel;
 
 /**
  * Main class of the server.
@@ -16,8 +18,9 @@ public class SrvMain {
 		ServerSocket listener;
 		Client.reset();
 		Player.reset();
-		PlotGroup.init();
-		Card.init();
+		Model.init();
+
+		SrvModel sm = new SrvModel();
 
 		try {
 			listener = new ServerSocket(1918);

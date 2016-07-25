@@ -12,6 +12,7 @@ import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
 import org.apache.batik.swing.JSVGCanvas;
 import org.apache.batik.util.XMLResourceDescriptor;
 
+import model.Model;
 import model.Player;
 import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
@@ -22,10 +23,12 @@ import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
 public class Gameboard extends JSVGCanvas {
 
 	private Frame f;
+	private Model m;
 	private Converter converter;
 
-	public Gameboard(Frame f) {
+	public Gameboard(Frame f, Model m) {
 		this.f = f;
+		this.m = m;
 		converter = new Converter(304, 506);	  // XXX magic: original unresized wfld, hfld
 
 		try {
@@ -61,7 +64,7 @@ public class Gameboard extends JSVGCanvas {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		for (Player p : Player.getRealPlayers()) {
+		for (Player p : m.getPlayers()) {
 			drawPlayer(p);
 		}
 	}
