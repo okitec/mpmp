@@ -43,16 +43,17 @@ import view.Frame;
 /**
  * Controller class of the MVC model; used only by the client.
  */
-public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, PlotUpdater, PlayerlistUpdater {
+public class Controller
+implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, PlotUpdater, PlayerlistUpdater {
 
 	Frame frame;
 	Timer t;
-	String name; /* player name */
+	String myName; /* player name of this client */
 	Model m;
 
 	public Controller(String addr, int port, String mode, String color, String name) throws UnknownHostException, IOException {
 		Conn conn = new Conn(new Socket(addr, port));
-		this.name = name;
+		this.myName = name;
 
 		Player.reset();
 		Model.init();
@@ -85,10 +86,6 @@ public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater, Prison
 
 		conn.send("subscribe " + mode + " " + color + " " + name);
 
-		//http://stackoverflow.com/questions/5844794/java-timertick-event-for-game-loop
-		t = new Timer();
-		t.schedule(new TimerTick(), 1000);
-
 		frame.addChatListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent ke) {
@@ -112,19 +109,17 @@ public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater, Prison
 		frame.addEndTurnListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (m.running()) {
+				if (m.running())
 					conn.send("end-turn");
-				} else {
+				else
 					conn.send("start-game");
-					frame.updateMyPlayerText(Player.search(name));
-				}
 			}
 		});
 
 		frame.addUpdatePlayerListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.updateMyPlayerText(Player.search(name));
+				frame.myPlayerDisp.show(Player.search(name));
 			}
 		});
 
@@ -139,14 +134,20 @@ public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater, Prison
 		frame.addBuyHouseListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//conn.send("add-house " + Player.getPos());
+				Player p = m.getPlayer(myName);
+				// XXX this is a UX nightmare
+				int plotpos = Integer.parseInt(frame.showDialog("Grundstücksnummer pls"));
+				conn.send("add-house " + plotpos);
+				// XXX show answer by handling error in AddHouse
 			}
 		});
 
 		frame.addBuyPlotListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//conn.send("buy-plot " + Player.getPos());
+				Player p = m.getPlayer(myName);
+				conn.send("buy-plot " + p.getPos() + " " + p.getName());
+				// XXX show answer by handling error in BuyPlot
 			}
 		});
 
@@ -154,6 +155,7 @@ public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater, Prison
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				conn.send("unjail money");
+				// XXX show answer by handling error in Unjail
 			}
 		});
 
@@ -161,6 +163,7 @@ public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater, Prison
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				conn.send("unjail card");
+				// XXX show answer by handling error in Unjail
 			}
 		});
 
@@ -180,6 +183,7 @@ public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater, Prison
 			return;
 
 		p.setMoney(amount);
+		frame.myPlayerDisp.show(m.getPlayer(myName));
 	}
 
 	public void plotUpdate(int pos, int houses, boolean hyp, String ownername) {
@@ -199,6 +203,7 @@ public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater, Prison
 		plot.setOwner(owner);
 
 		frame.chatDisp.show("<game> plot update: " + plot);
+		frame.myPlayerDisp.show(m.getPlayer(myName));
 	}
 
 	public void posUpdate(int pos, String name) {
@@ -207,10 +212,12 @@ public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater, Prison
 			return;
 
 		p.setPos(pos);
+		frame.myPlayerDisp.show(m.getPlayer(myName));
 	}
 
 	public void turnUpdate(int roll, int paschs, String cpname) {
 		m.setCurrentPlayer(m.getPlayer(cpname));
+		frame.myPlayerDisp.show(m.getPlayer(myName));
 	}
 
 	public void startUpdate() {
@@ -223,6 +230,7 @@ public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater, Prison
 			return; // XXX return error to allow for no-such-player error
 
 		p.setPrison(enter);
+		frame.myPlayerDisp.show(m.getPlayer(myName));
 	}
 
 	public void playerlistAdd(String col, String mode, String name) {
@@ -242,21 +250,11 @@ public class Controller implements MoneyUpdater, PosUpdater, TurnUpdater, Prison
 		p = new Player(Player.parseColor(col), md, name);
 		m.addPlayer(p);
 		frame.playerDisp.show(p);
+		frame.myPlayerDisp.show(m.getPlayer(myName));
 	}
 
 	public void playerlistReset() {
 		frame.playerDisp.reset();
 		m.resetPlayers();
 	}
-
-	/* KLAUS'S THINGSIES */
-
-	public class TimerTick extends TimerTask {
-
-		@Override
-		public void run() {
-			frame.updateMyPlayerText(Player.search(name));
-		}
-	}
-
 }

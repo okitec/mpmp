@@ -47,7 +47,6 @@ public class RmHouse implements CmdFunc {
 			return;
 		case 1:
 			conn.sendOK();
-			conn.send("show-transaction " + hp.getHousePrice()/2 + " Sell house for plot " + hp.getName());
 			conn.send("plot-update " + hp);
 			break;
 		default:

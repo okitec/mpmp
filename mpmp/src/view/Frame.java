@@ -37,6 +37,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
 	public final ChatDisp chatDisp;
 	public final PlayerDisp playerDisp;
+	public final MyPlayerDisp myPlayerDisp;
 	public final PieceDisp pieceDisp;
 	public final StartDisp startDisp;
 	private Model m;
@@ -75,6 +76,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		this.m = m;
 		chatDisp = new ChatDisp();
 		playerDisp = new PlayerDisp();
+		myPlayerDisp = new MyPlayerDisp();
 		pieceDisp = new PieceDisp();
 		startDisp = new StartDisp();
 		gameboard = new Gameboard(this, m);
@@ -119,8 +121,8 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		bSurrender = new JButton("Aufgeben");
 		bEndTurn = new JButton("Spiel starten");
 		bClearChat = new JButton("Chat leeren");
-		bPayPrison = new JButton("Aus dem Gefängnis freikaufen");
-		bUsePrisonLeave = new JButton("Benutze Gefängnis-Frei-Karte");
+		bPayPrison = new JButton("Freikaufen");
+		bUsePrisonLeave = new JButton("Freikarte nutzen");
 		bUpdatePlayer = new JButton("Update Spieler");
 
 		/* Left-side buttons should neatly fill the space. */
@@ -260,30 +262,8 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		System.exit(0);
 	}
 	
-	public String showDialog(String msg){
+	public String showDialog(String msg) {
 		return gameboard.showPrompt(msg);
-	}
-
-	public void updateMyPlayerText(Player p) {
-		if (p != null) {
-			if (p.isInJail()) {
-				lmyPlayer.setText(p.getName() + "(Im Gefängnis)");
-			} else {
-				lmyPlayer.setText(p.getName());
-			}
-
-			lmyPlayer.setForeground(p.getColor());
-			lmyPlayerMoney.setText("RM " + p.getMoney());
-			lmyPlayerPlots.setText("Gekaufte Grundstücke: " + p.getPlots());
-
-			if(p.isInJail()) {
-				bUsePrisonLeave.setVisible(true);
-				bPayPrison.setVisible(true);
-			} else {
-				bUsePrisonLeave.setVisible(false);
-				bPayPrison.setVisible(false);
-			}
-		}
 	}
 
 	/**
@@ -360,6 +340,35 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 			});
 		}
 
+	}
+
+	public class MyPlayerDisp implements Displayer {
+
+		@Override
+		public void show(Object... args) {
+			Player p = (Player) args[0];
+
+			if (p.isInJail()) {
+				lmyPlayer.setText(p.getName() + " (Im Gefängnis)");
+			} else {
+				lmyPlayer.setText(p.getName());
+			}
+
+			lmyPlayer.setForeground(p.getColor());
+			lmyPlayerMoney.setText("RM " + p.getMoney());
+			lmyPlayerPlots.setText("Gekaufte Grundstücke: " + p.getPlots());
+
+			if(p.isInJail()) {
+				bUsePrisonLeave.setVisible(true);
+				bPayPrison.setVisible(true);
+			} else {
+				bUsePrisonLeave.setVisible(false);
+				bPayPrison.setVisible(false);
+			}
+		}
+
+		@Override
+		public void reset() {}
 	}
 
 	public class PieceDisp implements Displayer {

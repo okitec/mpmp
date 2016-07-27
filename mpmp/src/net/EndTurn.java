@@ -22,6 +22,8 @@ public class EndTurn implements CmdFunc {
 		SrvPlayer sp;
 		ArrayList<SrvPlayer> players;
 
+		// XXX duplication in StartGame packet! -oki
+
 		if(!sm.m.running()) {
 			conn.sendErr(ErrCode.GameNotRunning);
 			return;
@@ -37,12 +39,10 @@ public class EndTurn implements CmdFunc {
 		if(dr.getPaschs() >= 3) {
 			sp.prison(true);
 			conn.send("prison enter");
-			Client.broadcast("turn-update " + 0 + " " + dr.getPaschs() + " " + sp.p.getName());
-			Client.broadcast("pos-update " + Field.Prison + " " + sp.p.getName());
+			Client.broadcast("turn-update " + 0 + " " + dr.getPaschs() + " " + sp.p.getName()); // XXX move to Update
 		} else {
 			sp.move(dr.getSum());
-			Client.broadcast("turn-update " + dr.getSum() + " " + dr.getPaschs() + " " + sp.p.getName());
-			Client.broadcast("pos-update " + sp.p.getPos() + " " + sp.p.getName());
+			Client.broadcast("turn-update " + dr.getSum() + " " + dr.getPaschs() + " " + sp.p.getName()); // XXX move to Update
 		}
 
 		players = sm.getSrvPlayers();

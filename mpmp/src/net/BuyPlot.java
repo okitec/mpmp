@@ -57,9 +57,7 @@ public class BuyPlot implements CmdFunc {
 		}
 
 		conn.sendOK();
-		conn.send("show-transaction " + price + " Buy plot " + plot.getName());
-		Client.broadcast("money-update " + sp.p.getMoney() + " " + sp.p.getName());
-		Client.broadcast("plot-update " + plot);
+		Client.broadcast("plot-update " + plot); // XXX add to Update
 	}
 
 	@Override

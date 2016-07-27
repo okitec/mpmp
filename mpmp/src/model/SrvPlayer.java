@@ -1,5 +1,16 @@
 package model;
 
+import srv.Update;
+
+/**
+ * Class SrvPlayer holds the game logic for players; it stores an object of type Player
+ * that is modified accordingly. Appropiate game update packets are sent by these methods,
+ * which breaks abstraction but it ensures correctness in a simple manner.
+
+ * Hold one promise:
+ * Use these methods if there is one for the purpose, instead of using the Player's setter.
+ * This way, the update packets won't be forgotten.
+ */
 public class SrvPlayer {
 	private static final int Wage = 4000;  // XXX value
 	private static final int IncomeTax = 4000;  // XXX value
@@ -49,17 +60,20 @@ public class SrvPlayer {
 		if (!p.isInJail())
 			return false;
 
-		p.setPrison(false);
+		prison(false);
 		rmUnjailCard();
 		return true;
 	}
 
 	/**
 	 * Adds or removes money from a player. Returns the amount of money the player has.
+	 *
+	 * SENDS UPDATE PACKET
 	 */
 	public int addMoney(int sum) {
 		int total = p.getMoney() + sum;
 		p.setMoney(total);
+		Update.transact(this, sum, "derp"); // XXX redesign addMoney and rename to transact -oki
 		return total;
 	}
 
@@ -116,6 +130,8 @@ public class SrvPlayer {
 	/**
 	 * Teleport the player to the position; fails if they are in prison.
 	 *
+	 * SENDS UPDATE PACKET
+	 *
 	 * @param pos index of destination (start is 0; counted clockwise)
 	 * @param passStart whether you get money if you pass start.
 	 * @return whether teleporting was possible
@@ -128,6 +144,7 @@ public class SrvPlayer {
 
 		oldpos = p.getPos();
 		p.setPos(pos);
+		Update.pos(this, pos);
 
 		/* Axiom: pos < oldpos is true if we passed the start */
 		if (passStart && pos < oldpos) {
@@ -170,14 +187,15 @@ public class SrvPlayer {
 	}
 
 	/**
+	 * SENDS UPDATE PACKET
+	 *
 	 * @param enter if true, you enter the prison; if false, you leave it.
 	 */
 	public void prison(boolean enter) {
-		if (enter) {
+		if (enter)
 			teleport(Field.Prison, false);
-			p.setPrison(true);
-		} else {
-			p.setPrison(false);
-		}
+
+		p.setPrison(enter);
+		Update.prison(this, enter);
 	}
 }
