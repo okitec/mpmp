@@ -31,12 +31,10 @@ public class StartGame implements CmdFunc {
 		Diceroll dr = new Diceroll();
 		if(dr.getPaschs() >= 3) {
 			sp.prison(true);
-			Client.broadcast("turn-update " + 0 + " " + dr.getPaschs() + " " + sp.p.getName());
-			Client.broadcast("pos-update " + Field.Prison + " " + sp.p.getName());
+			Client.broadcast("turn-update " + 0 + " " + dr.getPaschs() + " " + sp.p.getName()); // XXX add to Update
 		} else {
 			sp.move(dr.getSum());
-			Client.broadcast("turn-update " + dr.getSum() + " " + dr.getPaschs() + " " + sp.p.getName());
-			Client.broadcast("pos-update " + sp.p.getPos() + " " + sp.p.getName());
+			Client.broadcast("turn-update " + dr.getSum() + " " + dr.getPaschs() + " " + sp.p.getName()); // XXX add to Update
 		}
 
 		sm.m.setCurrentPlayer(players.get((players.indexOf(sp)+1) % players.size()).p);

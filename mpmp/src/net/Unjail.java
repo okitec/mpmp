@@ -35,16 +35,12 @@ public class Unjail implements CmdFunc {
 			if (sp.addMoney(-SrvPlayer.UnjailFee) < 0) {
 				sp.addMoney(SrvPlayer.UnjailFee);
 				conn.sendErr(ErrCode.MissingMoney);
-				conn.send("money-update " + SrvPlayer.UnjailFee + " Paid unjail fee");
-			}
-			else
+			} else
 				sp.prison(false);
 			break;
 		default:
 			conn.sendErr(ErrCode.Usage, "unjail [card|money]");
 		}
-
-		Client.broadcast("prison leave " + sp.p.getName());
 	}
 
 	@Override

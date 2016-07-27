@@ -54,8 +54,7 @@ public class AddHouse implements CmdFunc {
 			return;
 		case 1:
 			conn.sendOK();
-			conn.send("show-transaction " + hp.getHousePrice() + " Buy house for plot " + hp.getName());
-			Client.broadcast("plot-update " + hp);
+			Client.broadcast("plot-update " + hp); // XXX move to Update
 			break;
 		default:
 			conn.sendErr(ErrCode.Internal, "Unexpected error");
