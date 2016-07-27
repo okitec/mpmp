@@ -134,14 +134,20 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 		frame.addBuyHouseListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//conn.send("add-house " + Player.getPos());
+				Player p = m.getPlayer(myName);
+				// XXX this is a UX nightmare
+				int plotpos = Integer.parseInt(frame.showDialog("Grundstücksnummer pls"));
+				conn.send("add-house " + plotpos);
+				// XXX show answer by handling error in AddHouse
 			}
 		});
 
 		frame.addBuyPlotListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//conn.send("buy-plot " + Player.getPos());
+				Player p = m.getPlayer(myName);
+				conn.send("buy-plot " + p.getPos() + " " + p.getName());
+				// XXX show answer by handling error in BuyPlot
 			}
 		});
 
@@ -149,6 +155,7 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				conn.send("unjail money");
+				// XXX show answer by handling error in Unjail
 			}
 		});
 
@@ -156,6 +163,7 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				conn.send("unjail card");
+				// XXX show answer by handling error in Unjail
 			}
 		});
 
