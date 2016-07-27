@@ -121,8 +121,8 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		bSurrender = new JButton("Aufgeben");
 		bEndTurn = new JButton("Spiel starten");
 		bClearChat = new JButton("Chat leeren");
-		bPayPrison = new JButton("Aus dem Gefängnis freikaufen");
-		bUsePrisonLeave = new JButton("Benutze Gefängnis-Frei-Karte");
+		bPayPrison = new JButton("Freikaufen");
+		bUsePrisonLeave = new JButton("Freikarte nutzen");
 		bUpdatePlayer = new JButton("Update Spieler");
 
 		/* Left-side buttons should neatly fill the space. */
