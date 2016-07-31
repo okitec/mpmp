@@ -6,6 +6,7 @@ package client;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -202,7 +203,7 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 		plot.hypothec(hyp);     // XXX inconsistent
 		plot.setOwner(owner);
 
-		frame.chatDisp.show("<game> plot update: " + pos + " " + plot.getName() + " " + plot);
+		frame.chatDisp.show(plot.getName() + " " + plot, Color.RED);
 		frame.myPlayerDisp.show(m.getPlayer(myName));
 	}
 
