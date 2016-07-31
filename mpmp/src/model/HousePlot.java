@@ -81,6 +81,9 @@ public class HousePlot extends Plot {
 	public int payRent(SrvPlayer visitor) {
 		int r = rent[houses];
 
+		if(owner == null)
+			return 0;
+
 		if(hypothec)
 			return 0;
 

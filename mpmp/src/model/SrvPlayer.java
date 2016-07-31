@@ -186,7 +186,8 @@ public class SrvPlayer {
 				break;
 
 			default:
-				
+				SrvModel.self.m.getPlot(pos).payRent(this);
+				break;
 		}
 
 		return true;
