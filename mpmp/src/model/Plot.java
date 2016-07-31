@@ -7,8 +7,6 @@ import java.util.HashSet;
  * by HousePlot and TrainStation.
  */
 public abstract class Plot {
-	private static HashSet<Plot> allplots;
-
 	protected final PlotGroup group;
 	protected final String name;
 	protected final int price;
@@ -21,8 +19,6 @@ public abstract class Plot {
 		this.name = name;
 		this.price = price;
 		this.hypothecValue = price / 2;
-
-		allplots.add(this);
 	}
 
 	public String getName() {
@@ -97,37 +93,5 @@ public abstract class Plot {
 	public int hypothec(boolean addhyp) {
 		hypothec = addhyp;
 		return hypothecValue;
-	}
-
-	/**
-	 * Search for the plot of that name.
-	 */
-	public static Plot search(String name) {
-		for (Plot p : allplots)
-			if (name.equals(p.getName()))
-				return p;
-		return null;
-	}
-
-	/**
-	 * Find longest string in the input that matches one of the plot names.
-	 */
-	public static String matches(String s) {
-		String bestMatch = "";
-		for(Plot p : allplots)
-			if (s.matches(p.name + "(.*)") && p.name.length() > bestMatch.length())
-				bestMatch = p.name;
-
-		if (bestMatch.equals(""))
-			return null;
-
-		return bestMatch;
-	}
-
-	/**
-	 * Initialise allplots set. It is filled by PlotGroup.init.
-	 */
-	public static void init() {
-		allplots = new HashSet<>();
 	}
 }

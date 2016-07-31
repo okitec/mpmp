@@ -22,13 +22,11 @@ public class Model {
 	private Player currentPlayer;
 
 	private static Map<Integer, Plot> plots;
-	private static ArrayList<PlotGroup> pgroups;
+	private static ArrayList<PlotGroup> pgroups;  // XXX never filled, never used
 
 	public Model() {
 		players = new HashMap<>();
 		currentPlayer = null;
-		plots = new HashMap<>();
-		pgroups = new ArrayList<>();
 	}
 
 	public void addPlayer(Player p) {
@@ -81,6 +79,9 @@ public class Model {
 	/* STATIC */
 
 	public static void init() throws IOException {
+		plots = new HashMap<>();
+		pgroups = new ArrayList<>();
+
 		initPlots();
 		Card.init();
 	}

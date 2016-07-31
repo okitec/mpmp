@@ -3,9 +3,10 @@ package net;
 import java.util.Arrays;
 
 import srv.Client;
+import model.HousePlot;
 import model.Player;
 import model.Plot;
-import model.HousePlot;
+import model.SrvModel;
 
 /**
  * C->S
@@ -16,18 +17,19 @@ public class RmHouse implements CmdFunc {
 		HousePlot hp;
 		String[] args = line.split(" ");
 
+		if (args.length < 2) {
+			conn.sendErr(ErrCode.Usage, "rm-house <Position>");
+			return;
+		}
+
+		// XXX outdated
 		Player p = Player.search(((Client) conn).getName());
 		if (!p.isPlayer()) {
 			conn.sendErr(ErrCode.NotAPlayer);
 			return;
 		}
 
-		if (args.length < 2) {
-			conn.sendErr(ErrCode.Usage, "rm-house <Grundstück>");
-			return;
-		}
-
-		hp = (HousePlot) Plot.search(String.join(" ", Arrays.copyOfRange(args, 1, args.length)));
+		hp = (HousePlot) SrvModel.self.m.getPlot(Integer.parseInt(args[1]));
 		if (hp == null) {
 			conn.sendErr(ErrCode.NotAPlot);
 			return;
