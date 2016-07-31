@@ -20,6 +20,7 @@ public class BuyPlot implements CmdFunc {
 		SrvModel sm = SrvModel.self;
 		SrvPlayer sp;
 		Plot plot;
+		int pos;
 
 		if (args.length < 2) {
 			conn.sendErr(ErrCode.Usage, "buy-plot <Position>");
@@ -31,8 +32,9 @@ public class BuyPlot implements CmdFunc {
 			conn.sendErr(ErrCode.NotAPlayer);
 			return;
 		}
-		
-		plot = sm.m.getPlot(Integer.parseInt(args[1]));
+
+		pos = Integer.parseInt(args[1]);
+		plot = sm.m.getPlot(pos);
 		if (plot == null) {
 			conn.sendErr(ErrCode.NotAPlot);
 			return;
@@ -57,7 +59,7 @@ public class BuyPlot implements CmdFunc {
 		}
 
 		conn.sendOK();
-		Client.broadcast("plot-update " + plot); // XXX add to Update
+		Client.broadcast("plot-update " + pos + " " + plot); // XXX add to Update
 	}
 
 	@Override

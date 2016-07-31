@@ -9,8 +9,8 @@ import java.util.HashSet;
  * in the Plot.allplots table; a Plot remembers its group.
  */
 public class PlotGroup {
-	private static final int NoBuild = 0x01;
-	private static final int NoBuy   = 0x02;
+	public static final int NoBuild = 0x01;
+	public static final int NoBuy   = 0x02;
 
 	private HashSet<Plot> plots;
 	private final int attr;
@@ -66,7 +66,7 @@ public class PlotGroup {
 		return n;
 	}
 
-	private void add(Plot p) {
+	public void add(Plot p) {
 		plots.add(p);
 	}
 }

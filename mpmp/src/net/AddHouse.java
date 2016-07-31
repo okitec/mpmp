@@ -3,9 +3,10 @@ package net;
 import java.util.Arrays;
 
 import srv.Client;
+import model.HousePlot;
 import model.Player;
 import model.Plot;
-import model.HousePlot;
+import model.SrvModel;
 
 /**
  * C->S
@@ -16,19 +17,22 @@ public class AddHouse implements CmdFunc {
 		Player p;
 		HousePlot hp;
 		String[] args = line.split(" ");
+		int pos;
 
+		if (args.length < 2) {
+			conn.sendErr(ErrCode.Usage, "add-house <Position>");
+			return;
+		}
+
+		// XXX outdated
 		p = Player.search(((Client) conn).getName());
 		if (!p.isPlayer()) {
 			conn.sendErr(ErrCode.NotAPlayer);
 			return;
 		}
 
-		if (args.length < 2) {
-			conn.sendErr(ErrCode.Usage, "add-house <Grundstück>");
-			return;
-		}
-
-		hp = (HousePlot) Plot.search(String.join(" ", Arrays.copyOfRange(args, 1, args.length)));
+		pos = Integer.parseInt(args[1]);
+		hp = (HousePlot) SrvModel.self.m.getPlot(pos);
 		if (hp == null) {
 			conn.sendErr(ErrCode.NotAPlot);
 			return;
@@ -44,7 +48,7 @@ public class AddHouse implements CmdFunc {
 			conn.sendErr(ErrCode.TooManyHouses);
 			return;
 		case -2:
-			conn.sendErr(ErrCode.DontHave, "every plot of that plotgroup");
+			conn.sendErr(ErrCode.DontHave, "every plot of that plot group");
 			return;
 		case -3:
 			conn.sendErr(ErrCode.UnbalancedColor);
@@ -54,7 +58,7 @@ public class AddHouse implements CmdFunc {
 			return;
 		case 1:
 			conn.sendOK();
-			Client.broadcast("plot-update " + hp); // XXX move to Update
+			Client.broadcast("plot-update " + pos + " " + hp); // XXX move to Update
 			break;
 		default:
 			conn.sendErr(ErrCode.Internal, "Unexpected error");

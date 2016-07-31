@@ -180,7 +180,17 @@ public class SrvPlayer {
 				addMoney(-ExtraTax);
 				break;
 
+			case Field.Start:
+				/* Get double wage if you end up on the start. */
+				addMoney(Wage);
+				break;
+
+			case Field.Prison:
+				break;
+
 			default:
+				SrvModel.self.m.getPlot(pos).payRent(this);
+				break;
 		}
 
 		return true;

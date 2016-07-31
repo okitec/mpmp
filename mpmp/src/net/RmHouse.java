@@ -3,9 +3,10 @@ package net;
 import java.util.Arrays;
 
 import srv.Client;
+import model.HousePlot;
 import model.Player;
 import model.Plot;
-import model.HousePlot;
+import model.SrvModel;
 
 /**
  * C->S
@@ -15,19 +16,22 @@ public class RmHouse implements CmdFunc {
 	public void exec(String line, Conn conn) {
 		HousePlot hp;
 		String[] args = line.split(" ");
+		int pos;
 
+		if (args.length < 2) {
+			conn.sendErr(ErrCode.Usage, "rm-house <Position>");
+			return;
+		}
+
+		// XXX outdated
 		Player p = Player.search(((Client) conn).getName());
 		if (!p.isPlayer()) {
 			conn.sendErr(ErrCode.NotAPlayer);
 			return;
 		}
 
-		if (args.length < 2) {
-			conn.sendErr(ErrCode.Usage, "rm-house <Grundstück>");
-			return;
-		}
-
-		hp = (HousePlot) Plot.search(String.join(" ", Arrays.copyOfRange(args, 1, args.length)));
+		pos = Integer.parseInt(args[1]);
+		hp = (HousePlot) SrvModel.self.m.getPlot(pos);
 		if (hp == null) {
 			conn.sendErr(ErrCode.NotAPlot);
 			return;
@@ -47,7 +51,7 @@ public class RmHouse implements CmdFunc {
 			return;
 		case 1:
 			conn.sendOK();
-			conn.send("plot-update " + hp);
+			conn.send("plot-update " + pos + " " + hp);
 			break;
 		default:
 			conn.sendErr(ErrCode.Internal, "Unexpected error");

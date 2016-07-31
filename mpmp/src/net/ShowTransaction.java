@@ -1,5 +1,6 @@
 package net;
 
+import java.awt.Color;
 import java.util.Arrays;
 
 import view.Displayer;
@@ -31,7 +32,7 @@ public class ShowTransaction implements CmdFunc {
 		}
 
 		reason = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
-		d.show("show-transaction: " + amount + " " + reason);
+		d.show("show-transaction: " + amount + " " + reason, Color.RED);
 	}
 
 	@Override
