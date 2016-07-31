@@ -4,6 +4,7 @@ package model;
  * List of special fields and number of fields in total.
  */
 public class Field {
+	public static final int Start           =  0;
 	public static final int CommunityField1 =  2;
 	public static final int IncomeTax       =  4;
 	public static final int EventField1     =  7;

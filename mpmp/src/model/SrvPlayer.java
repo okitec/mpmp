@@ -180,7 +180,13 @@ public class SrvPlayer {
 				addMoney(-ExtraTax);
 				break;
 
+			case Field.Start:
+				/* Get double wage if you end up on the start. */
+				addMoney(Wage);
+				break;
+
 			default:
+				
 		}
 
 		return true;
