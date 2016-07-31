@@ -250,7 +250,10 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 		p = new Player(Player.parseColor(col), md, name);
 		m.addPlayer(p);
 		frame.playerDisp.show(p);
-		frame.myPlayerDisp.show(m.getPlayer(myName));
+
+		/* If it's yourself, display in the bottom. */
+		if(name == myName)
+			frame.myPlayerDisp.show(m.getPlayer(myName));
 	}
 
 	public void playerlistReset() {
