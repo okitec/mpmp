@@ -185,6 +185,9 @@ public class SrvPlayer {
 				addMoney(Wage);
 				break;
 
+			case Field.Prison:
+				break;
+
 			default:
 				SrvModel.self.m.getPlot(pos).payRent(this);
 				break;
