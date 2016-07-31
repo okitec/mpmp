@@ -202,7 +202,7 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 		plot.hypothec(hyp);     // XXX inconsistent
 		plot.setOwner(owner);
 
-		frame.chatDisp.show("<game> plot update: " + plot);
+		frame.chatDisp.show("<game> plot update: " + pos + " " + plot.getName() + " " + plot);
 		frame.myPlayerDisp.show(m.getPlayer(myName));
 	}
 

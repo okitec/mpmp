@@ -16,6 +16,7 @@ public class RmHouse implements CmdFunc {
 	public void exec(String line, Conn conn) {
 		HousePlot hp;
 		String[] args = line.split(" ");
+		int pos;
 
 		if (args.length < 2) {
 			conn.sendErr(ErrCode.Usage, "rm-house <Position>");
@@ -29,7 +30,8 @@ public class RmHouse implements CmdFunc {
 			return;
 		}
 
-		hp = (HousePlot) SrvModel.self.m.getPlot(Integer.parseInt(args[1]));
+		pos = Integer.parseInt(args[1]);
+		hp = (HousePlot) SrvModel.self.m.getPlot(pos);
 		if (hp == null) {
 			conn.sendErr(ErrCode.NotAPlot);
 			return;
@@ -49,7 +51,7 @@ public class RmHouse implements CmdFunc {
 			return;
 		case 1:
 			conn.sendOK();
-			conn.send("plot-update " + hp);
+			conn.send("plot-update " + pos + " " + hp);
 			break;
 		default:
 			conn.sendErr(ErrCode.Internal, "Unexpected error");

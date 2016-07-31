@@ -17,6 +17,7 @@ public class AddHouse implements CmdFunc {
 		Player p;
 		HousePlot hp;
 		String[] args = line.split(" ");
+		int pos;
 
 		if (args.length < 2) {
 			conn.sendErr(ErrCode.Usage, "add-house <Position>");
@@ -30,7 +31,8 @@ public class AddHouse implements CmdFunc {
 			return;
 		}
 
-		hp = (HousePlot) SrvModel.self.m.getPlot(Integer.parseInt(args[1]));
+		pos = Integer.parseInt(args[1]);
+		hp = (HousePlot) SrvModel.self.m.getPlot(pos);
 		if (hp == null) {
 			conn.sendErr(ErrCode.NotAPlot);
 			return;
@@ -56,7 +58,7 @@ public class AddHouse implements CmdFunc {
 			return;
 		case 1:
 			conn.sendOK();
-			Client.broadcast("plot-update " + hp); // XXX move to Update
+			Client.broadcast("plot-update " + pos + " " + hp); // XXX move to Update
 			break;
 		default:
 			conn.sendErr(ErrCode.Internal, "Unexpected error");

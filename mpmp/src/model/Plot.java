@@ -39,9 +39,10 @@ public abstract class Plot {
 		return price;
 	}
 
+	// XXX doesn't report position; buy-plot adds that manually, which is hacky.
 	public String toString() {
 		String hyp = (hypothec)? "hypothec": "nohypothec";
-		return ""  + name + " " + getHouses() + " " + hyp + " " + owner.getName();
+		return "" + getHouses() + " " + hyp + " " + owner.getName();
 	} 
 
 	public boolean buy(SrvPlayer buyer) {
