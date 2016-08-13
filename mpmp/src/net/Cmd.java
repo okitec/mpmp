@@ -29,7 +29,8 @@ public enum Cmd {
 	PosUpdate("pos-update", new PosUpdate()),
 	MoneyUpdate("money-update", new MoneyUpdate()),
 	TurnUpdate("turn-update", new TurnUpdate()),
-	StartUpdate("start-update", new StartUpdate());
+	StartUpdate("start-update", new StartUpdate()),
+	Eventcard("eventcard", new Eventcard());
 
 	private final String s;
 	private final CmdFunc fn;
