@@ -1,5 +1,6 @@
 package srv;
 
+import model.Card;
 import model.SrvPlayer;
 
 /**
@@ -20,5 +21,10 @@ public class Update {
 	public static void transact(SrvPlayer recv, int sum, String reason) {
 		Client.broadcast("money-update " + recv.p.getMoney() + " " + recv.p.getName());
 		(Client.search(recv.p.getName())).send("show-transaction " + sum + " " + reason);
+	}
+
+	/* Only sent to sp; technically not an update packet. */
+	public static void eventcard(SrvPlayer sp, Card c) {
+		(Client.search(sp.p.getName())).send("eventcard " + c);
 	}
 }

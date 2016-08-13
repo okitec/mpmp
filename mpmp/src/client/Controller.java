@@ -22,6 +22,7 @@ import net.ShowTransaction;
 import net.Cmd;
 import net.Conn;
 import net.ChatUpdate;
+import net.Eventcard;
 import net.MoneyUpdate;
 import net.PlayerlistUpdate;
 import net.PlotUpdate;
@@ -63,6 +64,7 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 
 		/* Please insert alphabetically. -oki */
 		((ChatUpdate) Cmd.ChatUpdate.getFn()).addDisplayer(frame.chatDisp);
+		((Eventcard) Cmd.Eventcard.getFn()).addDisplayer(frame.chatDisp);
 		((MoneyUpdate) Cmd.MoneyUpdate.getFn()).addMoneyUpdater(this);
 		((PlayerlistUpdate) Cmd.PlayerlistUpdate.getFn()).addPlayerlistUpdater(this);
 		((PlotUpdate) Cmd.PlotUpdate.getFn()).addPlotUpdater(this);

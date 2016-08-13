@@ -151,17 +151,22 @@ public class SrvPlayer {
 			addMoney(Wage);
 		}
 
+		Card card;
 		switch (pos) {
 			case Field.EventField1:
 			case Field.EventField2:
 			case Field.EventField3:
-				Card.getRandomCard(true).run(this);
+				card = Card.getRandomCard(true);
+				Update.eventcard(this, card);
+				card.run(this);
 				break;
 
 			case Field.CommunityField1:
 			case Field.CommunityField2:
 			case Field.CommunityField3:
-				Card.getRandomCard(false).run(this);
+				card = Card.getRandomCard(true);
+				Update.eventcard(this, card);
+				card.run(this);
 				break;
 
 			case Field.IncomeTax:
@@ -189,7 +194,11 @@ public class SrvPlayer {
 				break;
 
 			default:
-				SrvModel.self.m.getPlot(pos).payRent(this);
+				Plot plot = SrvModel.self.m.getPlot(pos);
+				if(plot == null)
+					System.out.println("unimplemented plot " + pos);
+				else
+					plot.payRent(this);
 				break;
 		}
 

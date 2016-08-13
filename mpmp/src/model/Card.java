@@ -8,7 +8,6 @@ import java.util.Random;
  * Event cards.
  */
 public class Card {
-
 	private static Random randomno;
 	private static ArrayList<Card> eventCards;
 	private static ArrayList<Card> communityCards;
@@ -54,6 +53,10 @@ public class Card {
 			}
 
 		}
+	}
+
+	public String toString() {
+		return text;
 	}
 
 	public static Card getRandomCard(boolean eventcards) {
