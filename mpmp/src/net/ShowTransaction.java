@@ -15,11 +15,11 @@ public class ShowTransaction implements CmdFunc {
 	public void exec(String line, Conn conn) {
 		String reason;
 		String args[];
+		Color col;
 		int amount;
 
 		args = line.split(" ");
 		if(args.length < 3) {
-			// XXX one syntax/usage error code should suffice -oki
 			conn.sendErr(ErrCode.Usage, "show-transaction <amount> <reason>");
 			return;
 		}
@@ -32,7 +32,13 @@ public class ShowTransaction implements CmdFunc {
 		}
 
 		reason = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
-		d.show("show-transaction: " + amount + " " + reason, Color.RED);
+
+		if(amount < 0)
+			col = Color.RED;
+		else
+			col = new Color(144, 238, 144); /* X11 Light green (#90EE90) */
+
+		d.show("show-transaction: " + amount + " " + reason, col);
 	}
 
 	@Override
