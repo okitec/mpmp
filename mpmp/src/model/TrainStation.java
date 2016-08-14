@@ -12,6 +12,9 @@ public class TrainStation extends Plot {
 		int r;
 		int n;
 
+		if(owner == null)
+			return 0;
+
 		/* Double the rent for every owned station. */
 		r = baseRent;
 		n = group.plotsOwned(owner);
