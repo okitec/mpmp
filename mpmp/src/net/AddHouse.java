@@ -39,7 +39,14 @@ public class AddHouse implements CmdFunc {
 		}
 
 		if (hp.getOwner() != p) {
-			conn.sendErr(ErrCode.AlreadyOwned, hp.getOwner().getName());
+			String oname;
+
+			if(hp.getOwner() == null)
+				oname = "none (→ not you)";
+			else
+				oname = hp.getOwner().getName();
+
+			conn.sendErr(ErrCode.AlreadyOwned, oname);
 			return;
 		}
 
