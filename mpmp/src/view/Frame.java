@@ -266,6 +266,11 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		return gameboard.showPrompt(msg);
 	}
 
+	/* Repurpose the Surrender button to quit the game. */
+	public void showQuitButton() {
+		bSurrender.setText("BEENDEN");
+	}
+
 	/**
 	 * Append text to a text pane in that color and boldness.
 	 */

@@ -106,6 +106,8 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				conn.send("ragequit");
+				frame.showQuitButton();
+				frame.addSurrenderListener((ActionEvent ev) -> {System.exit(0);});
 			}
 		});
 
