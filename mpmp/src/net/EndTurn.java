@@ -30,6 +30,8 @@ public class EndTurn implements CmdFunc {
 		}
 
 		sp = sm.getSrvPlayer(sm.m.getCurrentPlayer());
+		if(sp == null)
+			return; /* no current player! */
 
 		// Only current player can end their turn.
 		if(!c.getName().equals(sp.p.getName()))
