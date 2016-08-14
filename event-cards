@@ -6,6 +6,6 @@ Deine Kunstsonderausstellung im Neuen Museum Weimar ist ein Publikumsmagnet. Du 
 Du bist in den Hitlerputsch verwickelt. Gehe in das Gefängnis, gehe nicht über Los, ziehe nicht 4000 RM ein.|prison
 Heute wurde die Republik in Weimar ausgerufen. Ziehe 2000 RM zu deinen Gunsten ein.|addMoney 2000
 Du musst Reparationszahlungen leisten. Zahle 2000 RM.|addMoney -2000
-Rücke vor bis Philosophenweg. Wenn du über Los kommst ziehe 4000 RM ein.|move 27
+Rücke vor bis Philosophenweg. Wenn du über Los kommst ziehe 4000 RM ein.|move 21
 Deine Scheune muss erneuert werden zahle 2000 RM|addMoney -2000
 Du hast in der Weltwirtschaftskrise dein ganzes Vermögen verloren und kannst deine Schulden nicht begleichen. Gehe in das Gefängnis. Begib dich direkt dorthin. Gehe nicht über Los. Ziehe nicht 4000 RM ein.|prison
