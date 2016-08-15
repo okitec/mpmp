@@ -8,7 +8,6 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Timer;
@@ -102,80 +101,55 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 			}
 		});
 
-		frame.addSurrenderListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		frame.addSurrenderListener((ActionEvent e) -> {
 				conn.send("ragequit");
-			}
-		});
+				frame.showQuitButton();
+				frame.addSurrenderListener((ActionEvent ev) -> {System.exit(0);});
+			});
 
-		frame.addEndTurnListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		frame.addEndTurnListener((ActionEvent e) -> {
 				if (m.running())
 					conn.send("end-turn");
 				else
 					conn.send("start-game");
-			}
-		});
+			});
 
-		frame.addUpdatePlayerListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		frame.addUpdatePlayerListener((ActionEvent e) -> {
 				frame.myPlayerDisp.show(Player.search(name));
-			}
-		});
+			});
 
-		frame.addTradeListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		frame.addTradeListener((ActionEvent e) -> {
 				System.out.println(frame.showDialog("Welcher Spieler"));
 				System.out.println(frame.showDialog("Welches Grundstück"));
-			}
-		});
+			});
 
-		frame.addBuyHouseListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		frame.addBuyHouseListener((ActionEvent e) -> {
 				Player p = m.getPlayer(myName);
 				// XXX this is a UX nightmare
 				int plotpos = Integer.parseInt(frame.showDialog("Grundstücksnummer pls"));
 				conn.send("add-house " + plotpos);
 				// XXX show answer by handling error in AddHouse
-			}
-		});
+			});
 
-		frame.addBuyPlotListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		frame.addBuyPlotListener((ActionEvent e) -> {
 				Player p = m.getPlayer(myName);
 				conn.send("buy-plot " + p.getPos() + " " + p.getName());
 				// XXX show answer by handling error in BuyPlot
-			}
-		});
+			});
 
-		frame.addPayPrisonListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		frame.addPayPrisonListener((ActionEvent e) -> {
 				conn.send("unjail money");
 				// XXX show answer by handling error in Unjail
-			}
-		});
+			});
 
-		frame.addUsePrisonLeaveListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		frame.addUsePrisonLeaveListener((ActionEvent e) -> {
 				conn.send("unjail card");
 				// XXX show answer by handling error in Unjail
-			}
-		});
+			});
 
-		frame.addClearChatListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		frame.addClearChatListener((ActionEvent e) -> {
 				frame.chatDisp.reset();
-			}
-		});
+			});
 	}
 
 	/* S->C UPDATES */
