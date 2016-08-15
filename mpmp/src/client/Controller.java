@@ -119,8 +119,25 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 			});
 
 		frame.addTradeListener((ActionEvent e) -> {
-				System.out.println(frame.showDialog("Welcher Spieler"));
-				System.out.println(frame.showDialog("Welches Grundstück"));
+				String buyer;
+				int pos;
+				int amount;
+
+				try {
+					pos = Integer.parseInt(frame.showDialog("Grundstücksnummer pls"));
+					amount = Integer.parseInt(frame.showDialog("Wieviel soll's kosten?"));
+				} catch(NumberFormatException nfe) {
+					frame.chatDisp.show("Dat is keine Zahl gewesen!", Color.ORANGE);
+					return;
+				}
+
+				buyer = frame.showDialog("Wer ist der Käufer?");
+				if(m.getPlayer(buyer) == null) {
+					frame.chatDisp.show("Diesen Spieler gibt's nicht mal!", Color.ORANGE);
+					return;
+				}
+
+				conn.send("sell-plot " + pos + " " + amount + " " + buyer);
 			});
 
 		frame.addBuyHouseListener((ActionEvent e) -> {
