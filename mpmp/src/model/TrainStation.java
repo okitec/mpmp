@@ -22,6 +22,7 @@ public class TrainStation extends Plot {
 			r *= 2;
 
 		visitor.addMoney(-r);
+		SrvModel.self.getSrvPlayer(owner).addMoney(r);
 		return r;
 	}
 }
