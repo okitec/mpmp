@@ -88,6 +88,7 @@ public class HousePlot extends Plot {
 			return 0;
 
 		visitor.addMoney(-r);
+		SrvModel.self.getSrvPlayer(owner).addMoney(r);
 		return r;
 	}
 }

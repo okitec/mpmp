@@ -186,7 +186,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		pLeft.add(bBuyPlot);
 		pLeft.add(bSurrender);
 		pLeft.add(bPayPrison);
-		pChat.add(bUsePrisonLeave);
+		pLeft.add(bUsePrisonLeave);
 		pBottom.add(pCurrentPlayer);
 
 		this.addComponentListener(new ComponentAdapter() {
