@@ -36,7 +36,10 @@ public class Interpreter {
 					sp.collect(Integer.parseInt(args[1]));
 					break;
 				case "set-money":
-					sp.p.setMoney(Integer.parseInt(args[1]));
+					int sum = Integer.parseInt(args[1]);
+					sp.p.setMoney(sum);
+					/* Send update here as we don't pass SrvPlayer.addMoney */
+					Update.transact(sp, sum, "set-money command");
 					break;
 				case "tp":
 					sp.teleport(Integer.parseInt(args[1]), true);
