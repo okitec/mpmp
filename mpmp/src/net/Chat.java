@@ -9,7 +9,6 @@ import model.Player;
 public class Chat implements CmdFunc {
 	@Override
 	public void exec(String line, Conn conn) {
-		int argpos;
 		String chat;
 		Client c = (Client) conn;
 
@@ -18,15 +17,8 @@ public class Chat implements CmdFunc {
 			return;
 		}
 		
-		argpos = line.indexOf(' ');
-		if(argpos < 0) {
-			argpos = line.length();
-		} else {
-			while(argpos < line.length() && Character.isWhitespace(line.codePointAt(argpos)))
-				argpos++;
-		}
-
-		chat = line.substring(argpos);
+		chat = line.substring("chat".length());
+		chat = chat.trim();
 		
 		String receiver = Player.matches(chat, true);
 
