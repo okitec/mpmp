@@ -28,13 +28,13 @@ public class Card {
 			try {
 				switch(args[0]) {
 				/* one argument */
-				case "move": // XXX misleading; should be 'teleport'
+				case "tp":
 					sp.teleport(Integer.parseInt(args[1]), true);
 					break;
 				case "collect":
 					sp.collect(Integer.parseInt(args[1]));
 					break;
-				case "addMoney":
+				case "add-money":
 					sp.addMoney(Integer.parseInt(args[1]));
 					break;
 	
@@ -42,7 +42,7 @@ public class Card {
 				case "prison":
 					sp.prison(true);
 					break;
-				case "addUnjailCard":
+				case "add-unjail":
 					sp.addUnjailCard();
 					break;
 				default:
