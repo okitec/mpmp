@@ -1,7 +1,10 @@
 package net;
 
 import srv.Client;
+import srv.Interpreter;
 import model.Player;
+import model.SrvPlayer;
+import model.SrvModel;
 
 /**
  * chat C->S packet
@@ -19,7 +22,18 @@ public class Chat implements CmdFunc {
 		
 		chat = line.substring("chat".length());
 		chat = chat.trim();
-		
+
+		/* Cheat lines start with a slash. */
+		if(chat.charAt(0) == '/') {
+			SrvPlayer sp;
+
+			sp = SrvModel.self.getSrvPlayer(c.getName());
+			if(sp == null)
+				return;
+
+			Interpreter.run(sp, chat.substring(1));
+		}
+
 		String receiver = Player.matches(chat, true);
 
 		if (receiver == null)
