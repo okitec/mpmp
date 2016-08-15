@@ -28,23 +28,27 @@ public class Card {
 			try {
 				switch(args[0]) {
 				/* one argument */
-				case "tp":
-					sp.teleport(Integer.parseInt(args[1]), true);
+				case "add-money":
+					sp.addMoney(Integer.parseInt(args[1]));
 					break;
 				case "collect":
 					sp.collect(Integer.parseInt(args[1]));
 					break;
-				case "add-money":
-					sp.addMoney(Integer.parseInt(args[1]));
+				case "set-money":
+					sp.p.setMoney(Integer.parseInt(args[1]));
+					break;
+				case "tp":
+					sp.teleport(Integer.parseInt(args[1]), true);
 					break;
 	
 				/* no argument */
-				case "prison":
-					sp.prison(true);
-					break;
 				case "add-unjail":
 					sp.addUnjailCard();
 					break;
+				case "prison":
+					sp.prison(true);
+					break;
+
 				default:
 					System.err.println("card: bad command '" + args[0] + "'");
 				}
