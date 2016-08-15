@@ -18,7 +18,7 @@ public class TrainStation extends Plot {
 		/* Double the rent for every owned station. */
 		r = baseRent;
 		n = group.plotsOwned(owner);
-		for(int i = 0; i < n; i++)
+		for(int i = 0; i < n-1; i++) /* -1: don't double on first trainstation */
 			r *= 2;
 
 		visitor.addMoney(-r);
