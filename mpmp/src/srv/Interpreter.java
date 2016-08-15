@@ -14,7 +14,7 @@ public class Interpreter {
 	 * For cheat system: pass a full command line.
 	 */
 	public static void run(SrvPlayer sp, String line) {
-		run(sp, line.split(";"));
+		run(sp, line.split("( |\t)*;( |\t)*"));
 	}
 
 	/**
