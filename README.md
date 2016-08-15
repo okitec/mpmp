@@ -1,18 +1,17 @@
 mpmp - Multiplayer Monopoly
 ===========================
 
-*A version of Monopoly, situated in the Weimar republic. This is a German school project.*
+*A version of Monopoly, situated in the Weimar republic. This originated as a German school project.*
 
-Many gameplay features of mpmp only exist in the server; the client doesn't provide an interface
-to all the functionality. The protocol will be redesigned slightly to cope with some plot-buying
-issues. There are lots of SVG graphics and a PNG of the game board in the subdirectories of `graphics/`.
+Many gameplay features are now in the game, but there are graphical glitches making it
+annoying to play.
 
 Installation
 ------------
 
 Get hold of mpmp by cloning this repo or by downloading the .zip via GitHub.
 
-	git clone https://github.com/leletec/mpmp.git
+	git clone https://github.com/okitec/mpmp.git
 
 There are two projects: `mpmp-launcher` and `mpmp`. We use NetBeans, but there is a script
 for Plan 9's `rc` shell that can generate `mpmp.jar` and `mpmp-launcher.jar` automagically.
@@ -37,6 +36,10 @@ or server depending on the first argument.
 What can it do?
 ---------------
 
-`mpmp` implements chatting, a scalable gameboard with player pieces being drawn scaled
-as well, and internally implements large parts of the protocol. A *proper* game flow is
-impossible at this point.
+ - chat
+ - rolling dice and moving
+ - buying and selling plots
+ - buying houses
+ - event cards
+ - special fields
+ - cheats
