@@ -1,7 +1,10 @@
 package net;
 
 import srv.Client;
+import srv.Interpreter;
 import model.Player;
+import model.SrvPlayer;
+import model.SrvModel;
 
 /**
  * chat C->S packet
@@ -9,7 +12,6 @@ import model.Player;
 public class Chat implements CmdFunc {
 	@Override
 	public void exec(String line, Conn conn) {
-		int argpos;
 		String chat;
 		Client c = (Client) conn;
 
@@ -18,16 +20,20 @@ public class Chat implements CmdFunc {
 			return;
 		}
 		
-		argpos = line.indexOf(' ');
-		if(argpos < 0) {
-			argpos = line.length();
-		} else {
-			while(argpos < line.length() && Character.isWhitespace(line.codePointAt(argpos)))
-				argpos++;
+		chat = line.substring("chat".length());
+		chat = chat.trim();
+
+		/* Cheat lines start with a slash. */
+		if(chat.charAt(0) == '/') {
+			SrvPlayer sp;
+
+			sp = SrvModel.self.getSrvPlayer(c.getName());
+			if(sp == null)
+				return;
+
+			Interpreter.run(sp, chat.substring(1));
 		}
 
-		chat = line.substring(argpos);
-		
 		String receiver = Player.matches(chat, true);
 
 		if (receiver == null)

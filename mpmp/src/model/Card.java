@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+import srv.Interpreter;
+
 /**
  * Event cards.
  */
@@ -20,39 +22,7 @@ public class Card {
 	}
 
 	public void run(SrvPlayer sp) {
-		String[] args;
-
-		for (String a : actions) {
-			args = a.split(" ");
-
-			try {
-				switch(args[0]) {
-				/* one argument */
-				case "move": // XXX misleading; should be 'teleport'
-					sp.teleport(Integer.parseInt(args[1]), true);
-					break;
-				case "collect":
-					sp.collect(Integer.parseInt(args[1]));
-					break;
-				case "addMoney":
-					sp.addMoney(Integer.parseInt(args[1]));
-					break;
-	
-				/* no argument */
-				case "prison":
-					sp.prison(true);
-					break;
-				case "addUnjailCard":
-					sp.addUnjailCard();
-					break;
-				default:
-					System.err.println("card: bad command '" + args[0] + "'");
-				}
-			} catch(ArrayIndexOutOfBoundsException oobe) {
-				System.err.println("card: missing argument for command '" + args[0] + "'");
-			}
-
-		}
+		Interpreter.run(sp, actions);
 	}
 
 	public String toString() {
@@ -76,7 +46,7 @@ public class Card {
 	 * Load the cards from the file. The format is:
 	 *     The text of the card.|command arg; command arg; command arg; ...
 	 * Available commands:
-	 *     prison, collect, addMoney, addUnjailCard, move
+	 *     prison, collect, add-money, add-unjail, tp, set-money
 	 */
 	public static ArrayList<Card> loadCards(String filename) throws FileNotFoundException, IOException {
 		String line;
