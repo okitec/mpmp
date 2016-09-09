@@ -102,7 +102,7 @@ public class Client extends net.Conn {
 		// XXX stupid name
 		for (Client receiver : clients) {
 			synchronized(receiver) {
-				receiver.send("clientlist-update " + Player.numPlayers());
+				receiver.send("playerlist-update " + Player.numPlayers());
 				for (Client c : clients)
 					if(c.isSubscribed())
 						receiver.sendCont("" + c.player);
