@@ -23,7 +23,7 @@ Server→Client packets
 
 Server-to-Client packets update the client's model or update visuals (e.g. chat).
 Update packets need a single-function public interface in the packet handler. This function's
-arguments are the strictly typed atguments used in the packet. `exec` just needs to parse
+arguments are the strictly typed arguments used in the packet. `exec` just needs to parse
 the passed arguments and call the update function.
 
 	public class PosUpdate extends CmdFunc {
