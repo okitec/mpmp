@@ -2,18 +2,18 @@ DEVELOPER HOWTO – Adding protocol packets
 =========================================
 
 Should the need for a new protocol packet arise, think about it. *Is it really necessary?*
-*Is it implementable?*. If so, change the protocol spec accordingly and push the changes to
+*Is it implementable?* If so, change the protocol spec accordingly and push the changes to
 a topic branch. Add the packet to the packet overview and the detailed definition and add
 new error codes to the error code table as well.
 
 If the packet is deemed good, make a new class in the `net` package and extend `CmdFunc`.
 The class name is the packet's name where the hyphens are replaced by CamelCase. Add a
-JavaDoc comment describing the direction of the packet (`S->C` or `C->S`). Broadcasted
+JavaDoc comment describing the direction of the packet (`S->C` or `C->S`). Broadcast
 packets have names ending in `-update`, e.g. `pos-update`, `turn-update` and `chat-update`.
 They often update the clients' cached model.
 
 Now, implement the `exec` and `error` functions. Be aware that the `error` method is executed
-on the sender of the packet whereas `exec` is executed on the receiver. Often, the `error`
+in the sender of the packet whereas `exec` is executed on the receiver. The `error`
 method can be a dummy if reacting to the error is futile anyway.
 
 Add your packet to the `Cmd` table.
@@ -21,9 +21,9 @@ Add your packet to the `Cmd` table.
 Server→Client packets
 ----------------------
 
-Server-to-Client packets often update the client's model or update some visuals (e.g. chat).
-Update packets need to make a single-function public interface in the packet handler. The
-function has all the arguments of the packet, correctly typed. `exec` just needs to parse
+Server-to-Client packets update the client's model or update visuals (e.g. chat).
+Update packets need a single-function public interface in the packet handler. This function's
+arguments are the strictly typed atguments used in the packet. `exec` just needs to parse
 the passed arguments and call the update function.
 
 	public class PosUpdate extends CmdFunc {
@@ -61,5 +61,5 @@ out what parts of the server-model are affected and calling game logic routines.
 Conclusion
 ----------
 
-Adding packets is not that hard if you get the scheme: it's quite regular. Some parts
+Adding packets is not hard if you get the scheme: it's quite regular. Some parts
 might even be automated away in the future.
