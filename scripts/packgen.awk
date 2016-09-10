@@ -103,11 +103,12 @@ function execfn(attr, name, args,           i, a, atype, aname, adoc, boolvals, 
 			# hold off until later, consolidate all parseInts in a single try-catch
 			parseints = parseints sprintf("\t\t\t%s = Integer.parseInt(args[%d]);\n", aname[i], i)
 		} else if(atype[i] ~ /bool/) {
-			printf("\t\tif(args[%d].equals(\"%s\")) {\n\t\t\t%s = true;\n",
-				i, boolvals[atype[i], "true"], aname[i])
-			printf("\t\t} else if(args[%d].equals(\"%s\")) {\n\t\t\t%s = false;\n",
-				i, boolvals[atype[i], "false"], aname[i])
-			printf("\t\t} else {\n%s\t\t}\n\n", Susage(usage))
+			printf("\t\tswitch(args[%d]) {\n", i)
+			printf("\t\tcase \"%s\":\n\t\t\t%s = true;\n\t\t\tbreak;\n",
+				boolvals[atype[i], "true"], aname[i])
+			printf("\t\tcase \"%s\":\n\t\t\t%s = false;\n\t\t\tbreak;\n",
+				boolvals[atype[i], "false"], aname[i])
+			printf("\t\tdefault:\n%s\t\t}\n\n", Susage(usage))
 		}
 	}
 
