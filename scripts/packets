@@ -3,17 +3,39 @@
 # Comments must not be directly adjacent to entries!
 
 # attributes (one of S->C, C->S; optional game), name, arguments
-# arguments: name, type (int, String,. username), arg name in usage doc string
+# arguments: name, type (int, String, username), arg name in usage doc string
 # usage doc string: "money-update <money> <player>"
 
-# attributes: game indicates game-update packets which have an *Updater interface
+# username type: used for unquoted whitespace-holding string that goes until
+# the end of line; most often player names, but chat as well
+
+# bool type: takes extra args that specify true and false
+
+# attributes: game indicates game-update packets which have an Updater interface
 
 S->C game
 money-update
 	int      amount <money>
-	username name <player>
+	username name   <player>
+
+S->C game
+plot-update
+	int pos         <pos>
+	int nhouses     <houses>
+	bool hyp        <hypothec|nohypothec> hypothec nohypothec
+	username owner  <owner>
 
 S->C game
 pos-update
-	int pos       <pos>
-	username name <player>
+	int pos         <pos>
+	username name   <player>
+
+S->C game
+start-update
+
+S->C game
+turn-update
+	int roll        <sum>
+	int paschs      <paschs>
+	username cpname <player>
+
