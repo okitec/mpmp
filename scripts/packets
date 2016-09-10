@@ -1,0 +1,19 @@
+# Packet list
+
+# Comments must not be directly adjacent to entries!
+
+# attributes (one of S->C, C->S; optional game), name, arguments
+# arguments: name, type (int, String,. username), arg name in usage doc string
+# usage doc string: "money-update <money> <player>"
+
+# attributes: game indicates game-update packets which have an *Updater interface
+
+S->C game
+money-update
+	int      amount <money>
+	username name <player>
+
+S->C game
+pos-update
+	int pos       <pos>
+	username name <player>
