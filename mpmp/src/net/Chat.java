@@ -46,7 +46,7 @@ public class Chat implements CmdFunc {
 			Client.search(receiver).send("chat-update [" + c.getName() + "] " + message);
 			c.send("chat-update [->" + receiver + "] " + message);
 		}
-}
+	}
 
 	@Override
 	public void error(ErrCode err, String line, Conn conn) {
