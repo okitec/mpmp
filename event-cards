@@ -1,4 +1,4 @@
-Du besuchst mehrere Vorlesungen, Zahle Hörergeld 2000 RM.|add-money 2000
+Du besuchst mehrere Vorlesungen, Zahle Hörergeld 2000 RM.|add-money -2000
 Das Eisenbahnnetz Deutschlands wird immer besser. Nun kannst du dir eine Geschäftsreise nach Berlin zur Rosenstraße leisten.|tp 31
 Rücke vor bis zum Central-Bahnhof. Wenn du über Los kommst, ziehe 4000 RM ein.|tp 5
 Du hast bei einer Lotterie der AWO gewonnen und erhältst 5000 RM.|add-money 5000
