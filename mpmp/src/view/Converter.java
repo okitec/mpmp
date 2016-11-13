@@ -14,7 +14,7 @@ public class Converter {
 	private int hfld;
 	private int wfld;
 
-	/* generated at Mon 11 Jul 17:05:12 CEST 2016 */
+	/* generated at Sun 13 Nov 19:42:34 CET 2016 */
 	public Converter(int wfld, int hfld) {
 		pos2xypx = new Point[Field.Nfields];
 		this.wfld = wfld;
@@ -69,18 +69,35 @@ public class Converter {
 	 */
 	public Point cornerRelPx(int pos) {
 		pos %= Field.Nfields;
-		return pos2xypx[pos];
+		Point pt = pos2xypx[pos];
+		return new Point(pt.x, pt.y);
 	}
 
 	public Point middleRelPx(int pos) {
 		Point p = cornerRelPx(pos);
 
-		if(pos > 0 && pos < 10 || pos > 20 && pos < 30)         /* top and bottom */
+		if(isPortrait(pos))
 			return new Point(p.x + wfld/2, p.y + hfld/2);
-		else if(pos > 10 && pos < 20 || pos > 30 && pos <= 39)  /* left and right */
+		else if(isLandscape(pos))
 			return new Point(p.x + hfld/2, p.y + wfld/2);
 		else                                                    /* corners */
 			return new Point(p.x + hfld/2, p.y + hfld/2);
+	}
+
+	/**
+	 * isPortrait: returns true if the field in question is in 'portrait' orientation,
+	 * that is, has more height than width, as is the case at the top and at the bottom.
+	 */
+	public boolean isPortrait(int pos) {
+		return pos > 0 && pos < 10 || pos > 20 && pos < 30;
+	}
+
+	/**
+	 * isLandscape: returns true if the field in question is in 'landscale' orientation,
+	 * that is, has more width than height, as is the case on the left and the right.
+	 */
+	public boolean isLandscape(int pos) {
+		return pos > 10 && pos < 20 || pos > 30 && pos <= 39;
 	}
 
 	/**
