@@ -77,7 +77,6 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 		((MoneyUpdate) Cmd.MoneyUpdate.getFn()).addMoneyUpdater(this);
 		((PlayerlistUpdate) Cmd.PlayerlistUpdate.getFn()).addPlayerlistUpdater(this);
 		((PlotUpdate) Cmd.PlotUpdate.getFn()).addPlotUpdater(this);
-		((PosUpdate) Cmd.PosUpdate.getFn()).addDisplayer(frame.pieceDisp);
 		((PosUpdate) Cmd.PosUpdate.getFn()).addPosUpdater(this);
 		((Prison) Cmd.Prison.getFn()).addDisplayer(frame.chatDisp);
 		((Prison) Cmd.Prison.getFn()).addPrisonUpdater(this);	
@@ -216,6 +215,7 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 			return;
 
 		p.setPos(pos);
+		frame.pieceDisp.reset();
 		frame.myPlayerDisp.show(m.getPlayer(myName));
 	}
 
