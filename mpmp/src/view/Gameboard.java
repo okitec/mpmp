@@ -21,7 +21,6 @@ import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
  * The gameboard holds the gameboard SVG and draws the players upon it.
  */
 public class Gameboard extends JSVGCanvas {
-
 	private Frame f;
 	private Model m;
 	private Converter converter;
@@ -30,7 +29,9 @@ public class Gameboard extends JSVGCanvas {
 		this.f = f;
 		this.m = m;
 		converter = new Converter(304, 506);	  // XXX magic: original unresized wfld, hfld
+	}
 
+	public void init() {
 		try {
 			setFont(Font.createFont(Font.TRUETYPE_FONT, new File("graphics/font/SourceSansPro-Light.ttf")));
 			String parser = XMLResourceDescriptor.getXMLParserClassName();
@@ -53,10 +54,7 @@ public class Gameboard extends JSVGCanvas {
 
 			public void gvtRenderingCompleted(GVTTreeRendererEvent e) {
 				f.setTitle("MPMP");
-				System.out.println("Resized");
 				paintComponent(getGraphics());
-				repaint();
-				
 			}
 		});
 	}
@@ -64,6 +62,7 @@ public class Gameboard extends JSVGCanvas {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+
 		for (Player p : m.getPlayers()) {
 			drawPlayer(p);
 		}

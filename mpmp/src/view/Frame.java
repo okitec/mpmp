@@ -79,11 +79,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		myPlayerDisp = new MyPlayerDisp();
 		pieceDisp = new PieceDisp();
 		startDisp = new StartDisp();
-		gameboard = new Gameboard(this, m);
-		setMinimumSize(new Dimension(800, 800));
-		setPreferredSize(new Dimension(1920, 1080));
-		createFrame();
-		setBackground(new Color(247, 247, 124));
+		gameboard = new Gameboard(this, m);		
 	}
 
 	/**
@@ -93,6 +89,12 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		setTitle("MPMP");
 		setResizable(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		setMinimumSize(new Dimension(800, 800));
+		setPreferredSize(new Dimension(1920, 1080));
+		setBackground(new Color(247, 247, 124));
+
+		gameboard.init();
 
 		//Set background
 		try {
@@ -385,7 +387,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		@Override
 		public void reset() {
 			SwingUtilities.invokeLater(() -> {
-				gameboard.repaint();
+				gameboard.paintComponent(gameboard.getGraphics());
 			});
 		}
 	}

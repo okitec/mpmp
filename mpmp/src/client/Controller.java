@@ -12,6 +12,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.SwingUtilities;
 
 import model.Model;
 import model.Player;
@@ -61,6 +62,15 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 		m = new Model();
 		frame = new Frame(m);
 
+		try {
+			SwingUtilities.invokeAndWait(() -> {
+					frame.createFrame();
+				});
+		} catch (InterruptedException | java.lang.reflect.InvocationTargetException e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
+
 		/* Please insert alphabetically. -oki */
 		((ChatUpdate) Cmd.ChatUpdate.getFn()).addDisplayer(frame.chatDisp);
 		((Eventcard) Cmd.Eventcard.getFn()).addDisplayer(frame.chatDisp);
@@ -77,16 +87,6 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 		((Subscribe) Cmd.Subscribe.getFn()).addSubscribeErrer(frame);
 		((TurnUpdate) Cmd.TurnUpdate.getFn()).addDisplayer(frame.chatDisp);
 		((TurnUpdate) Cmd.TurnUpdate.getFn()).addTurnUpdater(this);
-
-		new Thread(() -> {
-			try {
-				conn.handle();
-			} catch (IOException ioe) {
-				// XXX "do what"?
-			}
-		}).start();
-
-		conn.send("subscribe " + mode + " " + color + " " + name);
 
 		frame.addChatListener(new KeyAdapter() {
 			@Override
@@ -167,6 +167,16 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 		frame.addClearChatListener((ActionEvent e) -> {
 				frame.chatDisp.reset();
 			});
+
+		new Thread(() -> {
+			try {
+				conn.handle();
+			} catch (IOException ioe) {
+				// XXX "do what"?
+			}
+		}).start();
+
+		conn.send("subscribe " + mode + " " + color + " " + name);
 	}
 
 	/* S->C UPDATES */
