@@ -69,23 +69,23 @@ public class Gameboard extends JSVGCanvas {
 	}
 
 	/**
-	 * Draw a player piece.
+	 * Draw a scaled player piece in the middle of a field.
 	 */
 	private void drawPlayer(Player p) {
 		double scale;
 		int rOuter = 15;
 		int rInner = 12;
 
-		AffineTransform aT = getViewBoxTransform();
-		scale = getSVGDocument().getRootElement().getCurrentScale();
+		AffineTransform at = getViewBoxTransform();
+		scale = getScale();
 		Graphics g = getGraphics();
 
 		Point pt = converter.middleRelPx(p.getPos());
 		// 0.258: scale transform set in the gameboard SVG internally
 		pt.x *= 0.258 * scale;
 		pt.y *= 0.258 * scale;
-		pt.x += aT.getTranslateX();
-		pt.y += aT.getTranslateY();
+		pt.x += at.getTranslateX();
+		pt.y += at.getTranslateY();
 		rOuter *= scale;
 		rInner *= scale;
 
@@ -95,11 +95,11 @@ public class Gameboard extends JSVGCanvas {
 		g.fillOval(pt.x - rInner, pt.y - rInner, 2 * rInner, 2 * rInner);
 	}
 
-	public double getCurrentZoom() {
+	public double getScale() {
 		return getSVGDocument().getRootElement().getCurrentScale();
 	}
 
-	public double getCurrentRotation() {
+	public double getRotation() {
 		return getSVGDocument().getRootElement().getZoomAndPan();
 	}
 }
