@@ -46,7 +46,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	private JPanel pBottom;
 	private JPanel pCurrentPlayer;
 	private JPanel pBelowChat;
-	private JButton bUpdatePlayer;
 	private JButton bTrade;
 	private JButton bBuyHouse;
 	private JButton bBuyPlot;
@@ -125,7 +124,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		bClearChat = new JButton("Chat leeren");
 		bPayPrison = new JButton("Freikaufen");
 		bUsePrisonLeave = new JButton("Freikarte nutzen");
-		bUpdatePlayer = new JButton("Update Spieler");
 
 		/* Left-side buttons should neatly fill the space. */
 		bTrade.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -141,7 +139,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		bPayPrison.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 		bUsePrisonLeave.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 
-		bUpdatePlayer.setVisible(false);
 		bPayPrison.setVisible(false);
 		bUsePrisonLeave.setVisible(false);
 
@@ -159,7 +156,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
 		tChatField = new JTextField();
 		tChatField.requestFocus(true);
-		tChatField.setSelectionColor(Color.pink);
 		tChatField.setMinimumSize(new Dimension(300, 40));
 		tChatField.setMaximumSize(new Dimension(300, 60));
 
@@ -170,13 +166,10 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
 		pBelowChat.add(bClearChat);
 		pBelowChat.add(bEndTurn);
-		tChatField.setMinimumSize(new Dimension(300, 40));
-		tChatField.setMaximumSize(new Dimension(300, 60));
 
 		pChat.add(spChatBox);
 		pChat.add(tChatField);
 		pChat.add(pBelowChat);
-		pChat.add(bUpdatePlayer);
 
 		pCurrentPlayer.add(new JLabel("Spieler"));
 		pCurrentPlayer.add(lmyPlayer);
@@ -237,10 +230,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		bSurrender.addActionListener(al);
 	}
 
-	public void addUpdatePlayerListener(ActionListener al) {
-		bUpdatePlayer.addActionListener(al);
-	}
-
 	public void addPayPrisonListener(ActionListener al) {
 		bPayPrison.addActionListener(al);
 	}
@@ -255,7 +244,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
 	public void startGame() {
 		bEndTurn.setText("Runde beenden");
-		bUpdatePlayer.setVisible(true);
 	}
 
 	@Override

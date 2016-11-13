@@ -111,10 +111,6 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 					conn.send("start-game");
 			});
 
-		frame.addUpdatePlayerListener((ActionEvent e) -> {
-				frame.myPlayerDisp.show(Player.search(name));
-			});
-
 		frame.addTradeListener((ActionEvent e) -> {
 				String buyer;
 				int pos;
