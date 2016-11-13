@@ -1,23 +1,20 @@
+/* Generated at Sun Nov 13 14:40:16 CET 2016 */
+
 package net;
 
-import view.Displayer;
-
+/**
+ * S->C game start-update
+ */
 public class StartUpdate implements CmdFunc {
 	private StartUpdater su;
-	private Displayer d;
 
 	@Override
 	public void exec(String line, Conn conn) {
 		su.startUpdate();
-		d.reset();
 	}
 
 	@Override
-	public void error(ErrCode err, String line, Conn conn) {/*TODO*/}
-	
-	public void addDisplayer(Displayer d) {
-		this.d = d;
-	}
+	public void error(ErrCode err, String line, Conn conn) {/* herp derp */}
 
 	public interface StartUpdater {
 		public void startUpdate();

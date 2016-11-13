@@ -1,53 +1,58 @@
+/* Generated at Sun Nov 13 14:40:16 CET 2016 */
+
 package net;
 
 import java.util.Arrays;
 
 /**
- * plot-update S->C
+ * S->C game plot-update
  */
 public class PlotUpdate implements CmdFunc {
 	private PlotUpdater pu;
 
 	@Override
 	public void exec(String line, Conn conn) {
-		int houses, pos;
+		String args[] = line.split(" ");
+		int pos;
+		int nhouses;
 		boolean hyp;
-		String ownername;
-		String[] args = line.split(" ");
-		
-		if (args.length < 5) {
-			conn.sendErr(ErrCode.Usage, "plot-update <Position> <Häuserzahl> <hypothec|nohypothec> <Eigentümer>");
+		String owner;
+
+		if(args.length < 5) {
+			conn.sendErr(ErrCode.Usage, "plot-update <pos> <houses> <hypothec|nohypothec> <owner>");
 			return;
 		}
 
-		try {
-			pos = Integer.parseInt(args[1]); 
-			houses = Integer.parseInt(args[2]);
-		} catch (NumberFormatException nfe) {
-			conn.sendErr(ErrCode.Internal, "not a number");
-			return;
-		}
-		
-		if (args[3].equals("hypothec")) {
+		switch(args[3]) {
+		case "hypothec":
 			hyp = true;
-		} else if (args[3].equals("nohypothec")) {
+			break;
+		case "nohypothec":
 			hyp = false;
-		} else {
-			conn.sendErr(ErrCode.Usage, "plot-update <Position> <Häuserzahl> <hypothec|nohypothec> <Eigentümer>");
+			break;
+		default:
+			conn.sendErr(ErrCode.Usage, "plot-update <pos> <houses> <hypothec|nohypothec> <owner>");
 			return;
 		}
-	
-		ownername = String.join(" ", Arrays.copyOfRange(args, 4, args.length));
-		pu.plotUpdate(pos, houses, hyp, ownername);
+
+		owner = String.join(" ", Arrays.copyOfRange(args, 4, args.length));
+
+		try {
+			pos = Integer.parseInt(args[1]);
+			nhouses = Integer.parseInt(args[2]);
+		} catch(NumberFormatException nfe) {
+			conn.sendErr(ErrCode.Usage, "plot-update <pos> <houses> <hypothec|nohypothec> <owner>");
+			return;
+		}
+
+		pu.plotUpdate(pos, nhouses, hyp, owner);
 	}
 
 	@Override
-	public void error(ErrCode err, String line, Conn conn) {
-		//TODO
-	}
+	public void error(ErrCode err, String line, Conn conn) {/* herp derp */}
 
 	public interface PlotUpdater {
-		public void plotUpdate(int pos, int houses, boolean hyp, String ownername);
+		public void plotUpdate(int pos, int nhouses, boolean hyp, String owner);
 	}
 
 	public void addPlotUpdater(PlotUpdater pu) {

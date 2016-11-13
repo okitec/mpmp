@@ -81,10 +81,8 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 		((Prison) Cmd.Prison.getFn()).addDisplayer(frame.chatDisp);
 		((Prison) Cmd.Prison.getFn()).addPrisonUpdater(this);	
 		((ShowTransaction) Cmd.ShowTransaction.getFn()).addDisplayer(frame.chatDisp);
-		((StartUpdate) Cmd.StartUpdate.getFn()).addDisplayer(frame.startDisp);
 		((StartUpdate) Cmd.StartUpdate.getFn()).addStartUpdater(this);
 		((Subscribe) Cmd.Subscribe.getFn()).addSubscribeErrer(frame);
-		((TurnUpdate) Cmd.TurnUpdate.getFn()).addDisplayer(frame.chatDisp);
 		((TurnUpdate) Cmd.TurnUpdate.getFn()).addTurnUpdater(this);
 
 		frame.addChatListener(new KeyAdapter() {
@@ -222,10 +220,12 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 	public void turnUpdate(int roll, int paschs, String cpname) {
 		m.setCurrentPlayer(m.getPlayer(cpname));
 		frame.myPlayerDisp.show(m.getPlayer(myName));
+		frame.chatDisp.show("Gesamtwürfelsumme: " + roll + "; Anzahl Paschs: " + paschs);
 	}
 
 	public void startUpdate() {
 		m.startGame();
+		frame.startDisp.reset();
 	}
 
 	public void prisonUpdate(boolean enter, String name) {

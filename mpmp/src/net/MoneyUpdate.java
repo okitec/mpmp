@@ -1,42 +1,40 @@
+/* Generated at Sun Nov 13 14:40:16 CET 2016 */
+
 package net;
 
 import java.util.Arrays;
 
-import model.Player;
-
 /**
- * money-update S->C
+ * S->C game money-update
  */
 public class MoneyUpdate implements CmdFunc {
 	private MoneyUpdater mu;
 
 	@Override
 	public void exec(String line, Conn conn) {
-		String[] args = line.split(" ");
-		int money;
+		String args[] = line.split(" ");
+		int amount;
 		String name;
-		
-		if (args.length < 3) {
-			conn.sendErr(ErrCode.Usage, "money-update <Geld> <Spieler>");
+
+		if(args.length < 3) {
+			conn.sendErr(ErrCode.Usage, "money-update <money> <player>");
 			return;
 		}
-		
-		try {
-			money = Integer.parseInt(args[1]);
-		} catch (NumberFormatException nfe) {
-			conn.sendErr(ErrCode.Usage, "money-update <Geld> <Spieler>");
-			return;
-		}
-		
+
 		name = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
 
-		mu.moneyUpdate(money, name);
+		try {
+			amount = Integer.parseInt(args[1]);
+		} catch(NumberFormatException nfe) {
+			conn.sendErr(ErrCode.Usage, "money-update <money> <player>");
+			return;
+		}
+
+		mu.moneyUpdate(amount, name);
 	}
 
 	@Override
-	public void error(ErrCode err, String line, Conn conn) {
-		//TODO
-	}
+	public void error(ErrCode err, String line, Conn conn) {/* herp derp */}
 
 	public interface MoneyUpdater {
 		public void moneyUpdate(int amount, String name);
