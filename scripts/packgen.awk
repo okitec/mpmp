@@ -40,18 +40,18 @@ function header(attr, name, args,         i) {
 	printf("/* Generated at %s */\n\n", d)
 	print "package net;"
 	print ""
-	# XXX includes
+	# XXX imports
 
 	# username type takes the rest of line; Java needs Arrays.copyOfRange
 	# to coalesce the split string again.
 	for(i = 1; i <= length(args); i++)
 		if(args[i] ~ /username/) {
-			print "include java.util.Arrays;"
+			print "import java.util.Arrays;"
 			print ""
 		}
 
 	printf("/**\n * %s %s\n */\n", attr, name)
-	print "public class", camel(name), "extends CmdFunc {"
+	print "public class", camel(name), "implements CmdFunc {"
 }
 
 # attributes: print attributes of class
