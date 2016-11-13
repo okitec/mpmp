@@ -57,7 +57,7 @@ public class SrvPlayer {
 	 * Leave the prison by using a unjail card.
 	 */
 	public boolean useUnjailCard() {
-		if (!p.isInJail())
+		if (!p.isInJail() || p.getUnjails() <= 0)
 			return false;
 
 		prison(false);
