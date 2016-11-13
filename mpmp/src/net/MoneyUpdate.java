@@ -31,6 +31,7 @@ public class MoneyUpdate implements CmdFunc {
 		}
 
 		mu.moneyUpdate(amount, name);
+		conn.sendOK();
 	}
 
 	@Override

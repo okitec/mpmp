@@ -121,6 +121,7 @@ function execfn(attr, name, args,           i, a, atype, aname, adoc, boolvals, 
 		printf("\t\t%s.%s(%s);\n", updatername(name), smallcamel(name), Sarg(atype, aname, 0))
 	}
 
+	print "conn.sendOK();"
 	print "\t}\n"
 }
 

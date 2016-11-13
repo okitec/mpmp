@@ -28,10 +28,12 @@ public class Prison implements CmdFunc {
 		case "enter":
 			pu.prisonUpdate(true, name);
 			d.show("Sie gehen in das Gefängnis...");
+			conn.sendOK();
 			break;
 		case "leave":
 			pu.prisonUpdate(false, name);
 			d.show("Sie dürfen das Gefängnis verlassen...");
+			conn.sendOK();
 			break;
 		default:
 			conn.sendErr(ErrCode.Usage, "prison <enter|leave> <Spieler>");

@@ -39,6 +39,7 @@ public class ShowTransaction implements CmdFunc {
 			col = new Color(144, 238, 144); /* X11 Light green (#90EE90) */
 
 		d.show("show-transaction: " + amount + " " + reason, col);
+		conn.sendOK();
 	}
 
 	@Override

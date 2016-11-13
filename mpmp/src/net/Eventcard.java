@@ -13,6 +13,7 @@ public class Eventcard implements CmdFunc {
 		descr = line.substring("eventcard".length());
 		descr = descr.trim();
 		d.show(descr);
+		conn.sendOK();
 	}
 
 	@Override

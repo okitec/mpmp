@@ -49,6 +49,7 @@ public class EndTurn implements CmdFunc {
 
 		players = sm.getSrvPlayers();
 		sm.m.setCurrentPlayer(players.get((players.indexOf(sp)+1) % players.size()).p);
+		conn.sendOK();
 	}
 
 	@Override

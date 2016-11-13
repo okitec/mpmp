@@ -31,6 +31,7 @@ public class PosUpdate implements CmdFunc {
 		}
 
 		pu.posUpdate(pos, name);
+		conn.sendOK();
 	}
 
 	@Override

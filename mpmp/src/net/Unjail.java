@@ -30,6 +30,9 @@ public class Unjail implements CmdFunc {
 		case "card":
 			if (!sp.useUnjailCard())
 				System.err.println("Player not in prison");
+				// XXX send error
+			else
+				conn.sendOK();
 			break;
 		case "money":
 			if (sp.addMoney(-SrvPlayer.UnjailFee) < 0) {
@@ -37,6 +40,8 @@ public class Unjail implements CmdFunc {
 				conn.sendErr(ErrCode.MissingMoney);
 			} else
 				sp.prison(false);
+
+			conn.sendOK();
 			break;
 		default:
 			conn.sendErr(ErrCode.Usage, "unjail [card|money]");

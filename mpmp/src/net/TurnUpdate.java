@@ -33,6 +33,7 @@ public class TurnUpdate implements CmdFunc {
 		}
 
 		tu.turnUpdate(roll, paschs, cpname);
+		conn.sendOK();
 	}
 
 	@Override

@@ -46,6 +46,7 @@ public class PlotUpdate implements CmdFunc {
 		}
 
 		pu.plotUpdate(pos, nhouses, hyp, owner);
+		conn.sendOK();
 	}
 
 	@Override

@@ -11,6 +11,7 @@ public class StartUpdate implements CmdFunc {
 	@Override
 	public void exec(String line, Conn conn) {
 		su.startUpdate();
+		conn.sendOK();
 	}
 
 	@Override
