@@ -76,7 +76,7 @@ public class SellPlot implements CmdFunc {
 		plot.resell(buyer);
 
 		conn.sendOK();
-		Client.broadcast("plot-update " + plot); // XXX add to Update
+		Client.broadcast("plot-update " + sm.m.getPos(plot) + " " + plot); // XXX add to Update
 	}
 
 	@Override
