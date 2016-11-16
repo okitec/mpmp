@@ -57,7 +57,7 @@ public class SrvPlayer {
 	 * Leave the prison by using a unjail card.
 	 */
 	public boolean useUnjailCard() {
-		if (!p.isInJail() || p.getUnjails() <= 0)
+		if (!p.inPrison() || p.getUnjails() <= 0)
 			return false;
 
 		prison(false);
@@ -139,7 +139,7 @@ public class SrvPlayer {
 	public boolean teleport(int pos, boolean passStart) {
 		int oldpos;
 
-		if (p.isInJail())
+		if (p.inPrison())
 			return false;
 
 		oldpos = p.getPos();

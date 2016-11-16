@@ -343,7 +343,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		public void show(Object... args) {
 			Player p = (Player) args[0];
 
-			if (p.isInJail()) {
+			if (p.inPrison()) {
 				lmyPlayer.setText(p.getName() + " (Im Gefängnis)");
 			} else {
 				lmyPlayer.setText(p.getName());
@@ -351,9 +351,9 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
 			lmyPlayer.setForeground(p.getColor());
 			lmyPlayerMoney.setText("RM " + p.getMoney());
-			lmyPlayerPlots.setText("Gekaufte Grundstücke: " + p.getPlots());
+			lmyPlayerPlots.setText("Gekaufte Grundstücke: " + p.printPlots());
 
-			if(p.isInJail()) {
+			if(p.inPrison()) {
 				bUsePrisonLeave.setVisible(true);
 				bPayPrison.setVisible(true);
 			} else {

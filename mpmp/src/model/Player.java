@@ -84,8 +84,7 @@ public class Player {
 			unjails = n;
 	}
 
-	// XXX why not inPrison?
-	public boolean isInJail() {
+	public boolean inPrison() {
 		return inPrison;
 	}
 
@@ -95,6 +94,26 @@ public class Player {
 
 	public boolean addPlot(Plot plot) {
 		return plots.add(plot);
+	}
+
+	/**
+	 * Print the owned plots as such: [Name 1, Name 2 (Hypothek), Name 3].
+	 */
+	public String printPlots() {
+		String s = "";
+		int i = 0; 
+
+		for(Plot plot : plots) {
+			s += plot.getName() + (plot.isHypothec()? "(Hypothek)" : "");
+
+			// Add comma after all entries except the last.
+			if(i < plots.size() - 1)
+				s += ", ";
+
+			i++;
+		}
+
+		return "[" + s + "]";
 	}
 
 	public Set<Plot> getPlots() {
