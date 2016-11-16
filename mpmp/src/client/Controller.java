@@ -207,6 +207,7 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 		plot.setOwner(owner);
 
 		frame.chatDisp.show(plot.getName() + " " + plot, Color.RED);
+		frame.boardDisp.reset();
 		frame.myPlayerDisp.show(m.getPlayer(myName));
 	}
 
@@ -216,7 +217,7 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 			return;
 
 		p.setPos(pos);
-		frame.pieceDisp.reset();
+		frame.boardDisp.reset();
 		frame.myPlayerDisp.show(m.getPlayer(myName));
 	}
 

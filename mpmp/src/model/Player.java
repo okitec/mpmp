@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Player represents spectators and the actual, active players. The info stored here exists in both
@@ -83,13 +84,6 @@ public class Player {
 			unjails = n;
 	}
 
-	// XXX misleading name
-	public String getPlots() {
-		if(mode == Mode.Player)
-			return plots.toString();
-		return "";
-	}
-
 	// XXX why not inPrison?
 	public boolean isInJail() {
 		return inPrison;
@@ -101,6 +95,10 @@ public class Player {
 
 	public boolean addPlot(Plot plot) {
 		return plots.add(plot);
+	}
+
+	public Set<Plot> getPlots() {
+		return plots;
 	}
 
 	public boolean rmPlot(Plot plot) {

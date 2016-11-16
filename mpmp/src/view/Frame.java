@@ -38,7 +38,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	public final ChatDisp chatDisp;
 	public final PlayerDisp playerDisp;
 	public final MyPlayerDisp myPlayerDisp;
-	public final PieceDisp pieceDisp;
+	public final BoardDisp boardDisp;
 	public final StartDisp startDisp;
 	private Model m;
 	private JPanel pLeft;
@@ -76,7 +76,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		chatDisp = new ChatDisp();
 		playerDisp = new PlayerDisp();
 		myPlayerDisp = new MyPlayerDisp();
-		pieceDisp = new PieceDisp();
+		boardDisp = new BoardDisp();
 		startDisp = new StartDisp();
 		gameboard = new Gameboard(this, m);		
 	}
@@ -366,7 +366,7 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		public void reset() {}
 	}
 
-	public class PieceDisp implements Displayer {
+	public class BoardDisp implements Displayer {
 
 		@Override
 		public void show(Object... args) {

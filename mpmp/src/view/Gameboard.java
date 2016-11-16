@@ -14,6 +14,7 @@ import org.apache.batik.util.XMLResourceDescriptor;
 
 import model.Model;
 import model.Player;
+import model.Plot;
 import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
 
@@ -74,13 +75,10 @@ public class Gameboard extends JSVGCanvas {
 
 		for (Player p : m.getPlayers()) {
 			drawPlayer(p);
-		}
 
-		// debug draws
-		markPlot(9, Color.RED);
-		markPlot(11, Color.GREEN);
-		markPlot(24, Color.BLUE);
-		markPlot(39, Color.YELLOW);
+			for(Plot plot : p.getPlots())
+				markPlot(m.getPos(plot), p.getColor());
+		}
 	}
 
 	/**

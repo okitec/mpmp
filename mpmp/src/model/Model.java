@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * A thing.
@@ -66,6 +67,16 @@ public class Model {
 	public Plot getPlot(int pos) {
 		pos %= Field.Nfields;
 		return plots.get(new Integer(pos));
+	}
+
+	public int getPos(Plot plot) {
+		Set<Map.Entry<Integer, Plot>> entries = plots.entrySet();
+
+		for(Map.Entry<Integer, Plot> e : entries)
+			if(e.getValue() == plot)
+				return e.getKey().intValue();
+
+		return -1;
 	}
 
 	public boolean running() {
