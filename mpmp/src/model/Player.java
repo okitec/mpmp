@@ -7,8 +7,11 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * Player represents spectators and the actual, active players. The info stored here exists in both
- * client and server and is kept up-to-date by the clientlist-update packet and others.
+ * Player represents spectators and the actual, active players. The info stored here
+ * exists both in client and server and is kept up-to-date by the clientlist-update
+ * packet and others.
+ *
+ * The server wraps this class in SrvPlayer, where the player game logic resides.
  */
 public class Player {
 	// XXX move to a new file of constants?
@@ -124,6 +127,9 @@ public class Player {
 		return plots.remove(plot);
 	}
 
+	/**
+	 * Print player info in playerlist-update's format: "#AABBCC: player: derp".
+	 */
 	public String toString() {
 		// Convert to hex triplet without alpha value and in uppercase.
 		String col = "#" + Integer.toHexString(color.getRGB()).substring(2).toUpperCase();
