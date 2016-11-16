@@ -185,11 +185,17 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 
 	public void plotUpdate(int pos, int houses, boolean hyp, String ownername) {
 		Plot plot; 
-		Player owner;
+		Player oldowner, owner;
 
 		plot = m.getPlot(pos);
 		if(plot == null)
 			return;
+
+		oldowner = plot.getOwner();
+		if(oldowner != null) {
+			oldowner.rmPlot(plot);
+			plot.setOwner(null);
+		}
 
 		owner = m.getPlayer(ownername);
 		if(owner == null)
@@ -197,6 +203,7 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 
 		plot.setHouses(houses);
 		plot.hypothec(hyp);     // XXX inconsistent
+		owner.addPlot(plot);
 		plot.setOwner(owner);
 
 		frame.chatDisp.show(plot.getName() + " " + plot, Color.RED);

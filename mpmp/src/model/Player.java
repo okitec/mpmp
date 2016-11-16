@@ -99,6 +99,14 @@ public class Player {
 		this.inPrison = inPrison;		
 	}
 
+	public boolean addPlot(Plot plot) {
+		return plots.add(plot);
+	}
+
+	public boolean rmPlot(Plot plot) {
+		return plots.remove(plot);
+	}
+
 	public String toString() {
 		// Convert to hex triplet without alpha value and in uppercase.
 		String col = "#" + Integer.toHexString(color.getRGB()).substring(2).toUpperCase();
@@ -110,8 +118,6 @@ public class Player {
 			subscribed.remove(this);
 		}
 	}
-
-	/* GAME LOGIC */
 
 	/* STATIC */
 
