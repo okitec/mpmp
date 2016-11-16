@@ -34,13 +34,15 @@ import model.Model;
 import model.Player;
 
 public class Frame extends JFrame implements Subscribe.SubscribeErrer {
-
 	public final ChatDisp chatDisp;
 	public final PlayerDisp playerDisp;
 	public final MyPlayerDisp myPlayerDisp;
 	public final BoardDisp boardDisp;
 	public final StartDisp startDisp;
+
 	private Model m;
+	private Gameboard gameboard;
+
 	private JPanel pLeft;
 	private JPanel pChat;
 	private JPanel pBottom;
@@ -61,7 +63,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	private JLabel lmyPlayerPlots;
 	private JButton bEndTurn;
 	private ScrollPane spChatBox;
-	private Gameboard gameboard;
 
 	public static void main(String args[]) {
 		java.awt.EventQueue.invokeLater(new Runnable() {
@@ -73,12 +74,13 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
 	public Frame(Model m) {
 		this.m = m;
+		gameboard = new Gameboard(this, m);
+
 		chatDisp = new ChatDisp();
 		playerDisp = new PlayerDisp();
 		myPlayerDisp = new MyPlayerDisp();
 		boardDisp = new BoardDisp();
-		startDisp = new StartDisp();
-		gameboard = new Gameboard(this, m);		
+		startDisp = new StartDisp();		
 	}
 
 	/**
@@ -95,14 +97,12 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 
 		gameboard.init();
 
-		//Set background
 		try {
 			setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("graphics/background.png")))));
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 
-		//Set all layouts
+		// Set all layouts
 		setLayout(new BorderLayout());
 		pLeft = new JPanel();
 		pChat = new JPanel();
@@ -242,10 +242,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 		bClearChat.addActionListener(al);
 	}
 
-	public void startGame() {
-		bEndTurn.setText("Runde beenden");
-	}
-
 	@Override
 	public void subscribeErr() {
 		JOptionPane.showMessageDialog(this, "Name taken or running game!");
@@ -287,7 +283,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	}
 
 	public class ChatDisp implements Displayer {
-
 		/**
 		 * Take a string and an optional color and display it in the chat box.
 		 */
@@ -315,7 +310,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	}
 
 	public class PlayerDisp implements Displayer {
-
 		/**
 		 * Take a Player and display it in the player list.
 		 */
@@ -338,28 +332,29 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	}
 
 	public class MyPlayerDisp implements Displayer {
-
 		@Override
 		public void show(Object... args) {
-			Player p = (Player) args[0];
+			SwingUtilities.invokeLater(() -> {
+				Player p = (Player) args[0];
 
-			if (p.inPrison()) {
-				lmyPlayer.setText(p.getName() + " (Im Gefängnis)");
-			} else {
-				lmyPlayer.setText(p.getName());
-			}
-
-			lmyPlayer.setForeground(p.getColor());
-			lmyPlayerMoney.setText("RM " + p.getMoney());
-			lmyPlayerPlots.setText("Gekaufte Grundstücke: " + p.printPlots());
-
-			if(p.inPrison()) {
-				bUsePrisonLeave.setVisible(true);
-				bPayPrison.setVisible(true);
-			} else {
-				bUsePrisonLeave.setVisible(false);
-				bPayPrison.setVisible(false);
-			}
+				if(p.inPrison()) {
+					lmyPlayer.setText(p.getName() + " (Im Gefängnis)");
+				} else {
+					lmyPlayer.setText(p.getName());
+				}
+	
+				lmyPlayer.setForeground(p.getColor());
+				lmyPlayerMoney.setText("RM " + p.getMoney());
+				lmyPlayerPlots.setText("Gekaufte Grundstücke: " + p.printPlots());
+	
+				if(p.inPrison()) {
+					bUsePrisonLeave.setVisible(true);
+					bPayPrison.setVisible(true);
+				} else {
+					bUsePrisonLeave.setVisible(false);
+					bPayPrison.setVisible(false);
+				}
+			});
 		}
 
 		@Override
@@ -367,7 +362,6 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	}
 
 	public class BoardDisp implements Displayer {
-
 		@Override
 		public void show(Object... args) {
 		}
@@ -381,17 +375,13 @@ public class Frame extends JFrame implements Subscribe.SubscribeErrer {
 	}
 
 	public class StartDisp implements Displayer {
-
 		@Override
 		public void show(Object... args) {
 		}
 
-		/**
-		 * 'Changes' the StartGame button to a EndTurn button
-		 */
 		@Override
 		public void reset() {
-			startGame();
+			bEndTurn.setText("Runde beenden");
 		}
 	}
 }

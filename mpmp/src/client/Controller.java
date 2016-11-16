@@ -230,6 +230,7 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 	public void startUpdate() {
 		m.startGame();
 		frame.startDisp.reset();
+		frame.myPlayerDisp.show(m.getPlayer(myName));
 	}
 
 	public void prisonUpdate(boolean enter, String name) {
@@ -259,7 +260,9 @@ implements MoneyUpdater, PosUpdater, TurnUpdater, PrisonUpdater, StartUpdater, P
 		m.addPlayer(p);
 		frame.playerDisp.show(p);
 
-		/* If it's yourself, display in the bottom. */
+		/* If it's yourself, display in the bottom. We won't display anything
+		 * if there's no guarantee that it is you, or we'd crash.
+		 */
 		if(name == myName)
 			frame.myPlayerDisp.show(m.getPlayer(myName));
 	}
